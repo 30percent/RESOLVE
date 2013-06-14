@@ -25,9 +25,8 @@ public class AlternativeProver implements VCProver {
     }
 
     @Override
-    public void prove(VerificationCondition originalVC,
-            ProverListener progressListener, ActionCanceller actionCanceller,
-            long timeoutAt)
+    public void prove(VerificationCondition originalVC, ProverListener progressListener,
+            ActionCanceller actionCanceller, long timeoutAt)
             throws VCInconsistentException,
                 VCProvedException,
                 UnableToProveException {
@@ -56,8 +55,8 @@ public class AlternativeProver implements VCProver {
         throw new UnableToProveException(metrics);
     }
 
-    private void continueProofFrom(final VC vc, final int curLength,
-            final Metrics metrics, final ProofData proofData)
+    private void continueProofFrom(final VC vc, final int curLength, final Metrics metrics,
+            final ProofData proofData)
             throws UnableToProveException,
                 VCProvedException,
                 VCInconsistentException {
@@ -82,15 +81,13 @@ public class AlternativeProver implements VCProver {
         attemptStep(vc, curLength, metrics, proofData);
     }
 
-    public void attemptStep(VC vc, int curLength, Metrics metrics,
-            ProofData proofData)
+    public void attemptStep(VC vc, int curLength, Metrics metrics, ProofData proofData)
             throws UnableToProveException,
                 VCProvedException,
                 VCInconsistentException {
 
         Iterator<ProofPathSuggestion> suggestions =
-                myChooser.suggestTransformations(vc, curLength, metrics,
-                        proofData);
+                myChooser.suggestTransformations(vc, curLength, metrics, proofData);
 
         Iterator<VC> substitutions;
         ProofPathSuggestion suggestion;
@@ -114,13 +111,11 @@ public class AlternativeProver implements VCProver {
                         vcToPrint = newVC;
                     }
 
-                    System.out.println(suggestion.debugNote + "\n\n"
-                            + vcToPrint);
+                    System.out.println(suggestion.debugNote + "\n\n" + vcToPrint);
                 }
 
                 try {
-                    continueProofFrom(newVC, curLength + 1, metrics,
-                            suggestion.data.addStep(vc));
+                    continueProofFrom(newVC, curLength + 1, metrics, suggestion.data.addStep(vc));
                 }
                 catch (VCProvedException e) {
                     e.addStep(new AlternativeProofStep(suggestion, newVC));
@@ -146,9 +141,7 @@ public class AlternativeProver implements VCProver {
             newConsequents.add(PExp.buildPExp(c));
         }
 
-        VC retval =
-                new VC(vc.getName(), new Antecedent(newAntecedents),
-                        new Consequent(newConsequents));
+        VC retval = new VC(vc.getName(), new Antecedent(newAntecedents), new Consequent(newConsequents));
 
         return retval;
     }

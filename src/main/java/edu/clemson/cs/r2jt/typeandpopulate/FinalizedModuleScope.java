@@ -23,10 +23,8 @@ public class FinalizedModuleScope extends FinalizedScope implements ModuleScope 
     private final List<ModuleIdentifier> myImportedModules;
     private final MathSymbolTable mySymbolTable;
 
-    FinalizedModuleScope(ModuleIdentifier module,
-            ResolveConceptualElement definingElement, Scope parent,
-            BaseSymbolTable bindings, List<ModuleIdentifier> importedModules,
-            MathSymbolTable symbolTable) {
+    FinalizedModuleScope(ModuleIdentifier module, ResolveConceptualElement definingElement, Scope parent,
+            BaseSymbolTable bindings, List<ModuleIdentifier> importedModules, MathSymbolTable symbolTable) {
 
         super(symbolTable, definingElement, module, parent, bindings);
 

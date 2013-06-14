@@ -27,8 +27,7 @@ public class ProgramParameterEntry extends SymbolTableEntry {
 
             @Override
             public ParameterMode[] getValidImplementationModes() {
-                return new ParameterMode[] { UPDATES, CLEARS, RESTORES,
-                        PRESERVES };
+                return new ParameterMode[] { UPDATES, CLEARS, RESTORES, PRESERVES };
             }
         },
         REPLACES {
@@ -117,8 +116,7 @@ public class ProgramParameterEntry extends SymbolTableEntry {
     private final MathSymbolEntry myMathSymbolAlterEgo;
     private final ProgramVariableEntry myProgramVariableAlterEgo;
 
-    public ProgramParameterEntry(TypeGraph g, String name,
-            ResolveConceptualElement definingElement,
+    public ProgramParameterEntry(TypeGraph g, String name, ResolveConceptualElement definingElement,
             ModuleIdentifier sourceModule, PTType type, ParameterMode mode) {
         super(name, definingElement, sourceModule);
 
@@ -134,13 +132,12 @@ public class ProgramParameterEntry extends SymbolTableEntry {
         //TODO: Probably need to recajigger this to correctly account for any
         //      generics in the defining context
         myMathSymbolAlterEgo =
-                new MathSymbolEntry(type.getTypeGraph(), name,
-                        Quantification.NONE, definingElement, type.toMath(),
-                        typeValue, null, null, sourceModule);
+                new MathSymbolEntry(type.getTypeGraph(), name, Quantification.NONE, definingElement, type
+                        .toMath(), typeValue, null, null, sourceModule);
 
         myProgramVariableAlterEgo =
-                new ProgramVariableEntry(getName(), getDefiningElement(),
-                        getSourceModuleIdentifier(), myDeclaredType);
+                new ProgramVariableEntry(getName(), getDefiningElement(), getSourceModuleIdentifier(),
+                        myDeclaredType);
     }
 
     @Override
@@ -169,9 +166,8 @@ public class ProgramParameterEntry extends SymbolTableEntry {
         }
         else {
             result =
-                    new ProgramTypeEntry(myTypeGraph, getName(),
-                            getDefiningElement(), getSourceModuleIdentifier(),
-                            new MTNamed(myTypeGraph, getName()), new PTGeneric(
+                    new ProgramTypeEntry(myTypeGraph, getName(), getDefiningElement(),
+                            getSourceModuleIdentifier(), new MTNamed(myTypeGraph, getName()), new PTGeneric(
                                     myTypeGraph, getName()));
         }
 
@@ -192,13 +188,11 @@ public class ProgramParameterEntry extends SymbolTableEntry {
     }
 
     @Override
-    public SymbolTableEntry instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public SymbolTableEntry instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
-        return new ProgramParameterEntry(myTypeGraph, getName(),
-                getDefiningElement(), getSourceModuleIdentifier(),
-                myDeclaredType.instantiateGenerics(genericInstantiations,
+        return new ProgramParameterEntry(myTypeGraph, getName(), getDefiningElement(),
+                getSourceModuleIdentifier(), myDeclaredType.instantiateGenerics(genericInstantiations,
                         instantiatingFacility), myPassingMode);
     }
 

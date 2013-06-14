@@ -85,18 +85,13 @@ public class ModuleKind {
     public final static ModuleKind CONCEPT = new ModuleKind("Concept");
     public final static ModuleKind ENHANCEMENT = new ModuleKind("Enhancement");
     public final static ModuleKind REALIZATION = new ModuleKind("Realization");
-    public final static ModuleKind CONCEPT_BODY =
-            new ModuleKind("Concept Body");
-    public final static ModuleKind ENHANCEMENT_BODY =
-            new ModuleKind("Enhancement Body");
+    public final static ModuleKind CONCEPT_BODY = new ModuleKind("Concept Body");
+    public final static ModuleKind ENHANCEMENT_BODY = new ModuleKind("Enhancement Body");
     public final static ModuleKind FACILITY = new ModuleKind("Facility");
-    public final static ModuleKind LONG_FACILITY =
-            new ModuleKind("Long Facility");
-    public final static ModuleKind SHORT_FACILITY =
-            new ModuleKind("Short Facility");
+    public final static ModuleKind LONG_FACILITY = new ModuleKind("Long Facility");
+    public final static ModuleKind SHORT_FACILITY = new ModuleKind("Short Facility");
     public final static ModuleKind USES_ITEM = new ModuleKind("Uses Item");
-    public final static ModuleKind PERFORMANCE =
-            new ModuleKind("Performance Module");
+    public final static ModuleKind PERFORMANCE = new ModuleKind("Performance Module");
     public final static ModuleKind UNDEFINED = new ModuleKind("Undefined");
 
     // ===========================================================
@@ -117,13 +112,11 @@ public class ModuleKind {
         else if (this == ModuleKind.ENHANCEMENT) {
             str = ".en";
         }
-        else if (this == ModuleKind.REALIZATION
-                || this == ModuleKind.CONCEPT_BODY
+        else if (this == ModuleKind.REALIZATION || this == ModuleKind.CONCEPT_BODY
                 || this == ModuleKind.ENHANCEMENT_BODY) {
             str = ".rb";
         }
-        else if (this == ModuleKind.FACILITY
-                || this == ModuleKind.SHORT_FACILITY
+        else if (this == ModuleKind.FACILITY || this == ModuleKind.SHORT_FACILITY
                 || this == ModuleKind.LONG_FACILITY) {
             str = ".fa";
         }

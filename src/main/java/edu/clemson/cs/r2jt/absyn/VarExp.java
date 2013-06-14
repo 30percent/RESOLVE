@@ -102,8 +102,7 @@ public class VarExp extends Exp {
         local = false;
     }
 
-    public VarExp(Location location, PosSymbol qualifier, PosSymbol name,
-            int quantifier) {
+    public VarExp(Location location, PosSymbol qualifier, PosSymbol name, int quantifier) {
         this.location = location;
         this.qualifier = qualifier;
         this.name = name;
@@ -113,8 +112,7 @@ public class VarExp extends Exp {
 
     // special constructor to use when we can determine the statement return 
     // type while building the symbol table in RBuilder.g
-    public VarExp(Location location, PosSymbol qualifier, PosSymbol name,
-            Type bType) {
+    public VarExp(Location location, PosSymbol qualifier, PosSymbol name, Type bType) {
         this.location = location;
         this.qualifier = qualifier;
         this.name = name;
@@ -128,8 +126,8 @@ public class VarExp extends Exp {
         if (e instanceof VarExp) {
             VarExp eAsVarExp = (VarExp) e;
             retval =
-                    (posSymbolEquivalent(qualifier, eAsVarExp.qualifier) && (posSymbolEquivalent(
-                            name, eAsVarExp.name)));
+                    (posSymbolEquivalent(qualifier, eAsVarExp.qualifier) && (posSymbolEquivalent(name,
+                            eAsVarExp.name)));
         }
         else {
             retval = false;

@@ -9,11 +9,9 @@ import edu.clemson.cs.r2jt.absyn.Exp;
 
 public class TypeNode {
 
-    private static final ExpValuePathStrategy EXP_VALUE_PATH =
-            new ExpValuePathStrategy();
+    private static final ExpValuePathStrategy EXP_VALUE_PATH = new ExpValuePathStrategy();
 
-    private static final MTTypeValuePathStrategy MTTYPE_VALUE_PATH =
-            new MTTypeValuePathStrategy();
+    private static final MTTypeValuePathStrategy MTTYPE_VALUE_PATH = new MTTypeValuePathStrategy();
 
     private MTType myType;
     private Map<MTType, Set<TypeRelationship>> myRelationships;
@@ -29,22 +27,20 @@ public class TypeNode {
         return myRelationships.size();
     }
 
-    public Exp getValidTypeConditionsTo(Exp value, MTType dst,
-            Map<String, MTType> bindings) throws TypeMismatchException {
+    public Exp getValidTypeConditionsTo(Exp value, MTType dst, Map<String, MTType> bindings)
+            throws TypeMismatchException {
 
         return getValidTypeConditionsTo(value, dst, bindings, EXP_VALUE_PATH);
     }
 
-    public Exp getValidTypeConditionsTo(MTType value, MTType dst,
-            Map<String, MTType> bindings) throws TypeMismatchException {
+    public Exp getValidTypeConditionsTo(MTType value, MTType dst, Map<String, MTType> bindings)
+            throws TypeMismatchException {
 
         return getValidTypeConditionsTo(value, dst, bindings, MTTYPE_VALUE_PATH);
     }
 
-    private <V> Exp getValidTypeConditionsTo(V value, MTType dst,
-            Map<String, MTType> bindings,
-            RelationshipPathStrategy<V> pathStrategy)
-            throws TypeMismatchException {
+    private <V> Exp getValidTypeConditionsTo(V value, MTType dst, Map<String, MTType> bindings,
+            RelationshipPathStrategy<V> pathStrategy) throws TypeMismatchException {
 
         if (!myRelationships.containsKey(dst)) {
             throw TypeMismatchException.INSTANCE;
@@ -61,14 +57,11 @@ public class TypeNode {
 
             try {
                 relationshipConditions =
-                        pathStrategy.getValidTypeConditionsAlong(relationship,
-                                value, bindings);
+                        pathStrategy.getValidTypeConditionsAlong(relationship, value, bindings);
 
                 foundTrivialPath = (relationshipConditions.isLiteralTrue());
 
-                finalConditions =
-                        myTypeGraph.formDisjunct(relationshipConditions,
-                                finalConditions);
+                finalConditions = myTypeGraph.formDisjunct(relationshipConditions, finalConditions);
             }
             catch (NoSolutionException nse) {}
         }
@@ -82,32 +75,25 @@ public class TypeNode {
 
     public static interface RelationshipPathStrategy<V> {
 
-        public Exp getValidTypeConditionsAlong(TypeRelationship relationship,
-                V value, Map<String, MTType> bindings)
-                throws NoSolutionException;
+        public Exp getValidTypeConditionsAlong(TypeRelationship relationship, V value,
+                Map<String, MTType> bindings) throws NoSolutionException;
     }
 
-    public static class ExpValuePathStrategy
-            implements
-                RelationshipPathStrategy<Exp> {
+    public static class ExpValuePathStrategy implements RelationshipPathStrategy<Exp> {
 
         @Override
-        public Exp getValidTypeConditionsAlong(TypeRelationship relationship,
-                Exp value, Map<String, MTType> bindings)
-                throws NoSolutionException {
+        public Exp getValidTypeConditionsAlong(TypeRelationship relationship, Exp value,
+                Map<String, MTType> bindings) throws NoSolutionException {
 
             return relationship.getValidTypeConditionsTo(value, bindings);
         }
     }
 
-    public static class MTTypeValuePathStrategy
-            implements
-                RelationshipPathStrategy<MTType> {
+    public static class MTTypeValuePathStrategy implements RelationshipPathStrategy<MTType> {
 
         @Override
-        public Exp getValidTypeConditionsAlong(TypeRelationship relationship,
-                MTType value, Map<String, MTType> bindings)
-                throws NoSolutionException {
+        public Exp getValidTypeConditionsAlong(TypeRelationship relationship, MTType value,
+                Map<String, MTType> bindings) throws NoSolutionException {
 
             return relationship.getValidTypeConditionsTo(value, bindings);
         }
@@ -133,8 +119,7 @@ public class TypeNode {
 
     //XXX : Can we do this so that analyzer isn't setting up TypeRelationship objects?
     void addRelationship(TypeRelationship relationship) {
-        Set<TypeRelationship> bucket =
-                myRelationships.get(relationship.getDestinationType());
+        Set<TypeRelationship> bucket = myRelationships.get(relationship.getDestinationType());
         if (bucket == null) {
             bucket = new HashSet<TypeRelationship>();
             myRelationships.put(relationship.getDestinationType(), bucket);

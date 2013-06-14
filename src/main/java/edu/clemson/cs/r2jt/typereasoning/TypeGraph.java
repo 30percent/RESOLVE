@@ -40,13 +40,10 @@ public class TypeGraph {
      * only one type graph is created per thread, so this is a convenient place
      * to put it.</p>
      */
-    public final PerThreadReasoningResources threadResources =
-            new PerThreadReasoningResources();
+    public final PerThreadReasoningResources threadResources = new PerThreadReasoningResources();
 
-    private final ExpValuePathStrategy EXP_VALUE_PATH =
-            new ExpValuePathStrategy();
-    private final MTTypeValuePathStrategy MTTYPE_VALUE_PATH =
-            new MTTypeValuePathStrategy();
+    private final ExpValuePathStrategy EXP_VALUE_PATH = new ExpValuePathStrategy();
+    private final MTTypeValuePathStrategy MTTYPE_VALUE_PATH = new MTTypeValuePathStrategy();
 
     public final MTType ELEMENT = new MTProper(this, "Element");
     public final MTType ENTITY = new MTProper(this, "Entity");
@@ -57,54 +54,39 @@ public class TypeGraph {
     public final MTProper Z = new MTProper(this, MTYPE, false, "Z");
     public final MTProper ATOM = new MTProper(this, MTYPE, false, "Atom");
     public final MTProper VOID = new MTProper(this, MTYPE, false, "Void");
-    public final MTProper EMPTY_SET =
-            new MTProper(this, MTYPE, false, "Empty_Set");
+    public final MTProper EMPTY_SET = new MTProper(this, MTYPE, false, "Empty_Set");
 
-    private final static FunctionApplicationFactory POWERTYPE_APPLICATION =
-            new PowertypeApplicationFactory();
-    private final static FunctionApplicationFactory UNION_APPLICATION =
-            new UnionApplicationFactory();
-    private final static FunctionApplicationFactory INTERSECT_APPLICATION =
-            new IntersectApplicationFactory();
+    private final static FunctionApplicationFactory POWERTYPE_APPLICATION = new PowertypeApplicationFactory();
+    private final static FunctionApplicationFactory UNION_APPLICATION = new UnionApplicationFactory();
+    private final static FunctionApplicationFactory INTERSECT_APPLICATION = new IntersectApplicationFactory();
     private final static FunctionApplicationFactory FUNCTION_CONSTRUCTOR_APPLICATION =
             new FunctionConstructorApplicationFactory();
     private final static FunctionApplicationFactory CARTESIAN_PRODUCT_APPLICATION =
             new CartesianProductApplicationFactory();
 
-    public final MTFunction POWERTYPE =
-            new MTFunction(this, true, POWERTYPE_APPLICATION, MTYPE, MTYPE);
-    public final MTFunction UNION =
-            new MTFunction(this, UNION_APPLICATION, MTYPE, MTYPE, MTYPE);
-    public final MTFunction INTERSECT =
-            new MTFunction(this, INTERSECT_APPLICATION, MTYPE, MTYPE, MTYPE);
+    public final MTFunction POWERTYPE = new MTFunction(this, true, POWERTYPE_APPLICATION, MTYPE, MTYPE);
+    public final MTFunction UNION = new MTFunction(this, UNION_APPLICATION, MTYPE, MTYPE, MTYPE);
+    public final MTFunction INTERSECT = new MTFunction(this, INTERSECT_APPLICATION, MTYPE, MTYPE, MTYPE);
     public final MTFunction FUNCTION =
-            new MTFunction(this, FUNCTION_CONSTRUCTOR_APPLICATION, MTYPE,
-                    MTYPE, MTYPE);
-    public final MTFunction CROSS =
-            new MTFunction(this, CARTESIAN_PRODUCT_APPLICATION, MTYPE, MTYPE,
-                    MTYPE);
+            new MTFunction(this, FUNCTION_CONSTRUCTOR_APPLICATION, MTYPE, MTYPE, MTYPE);
+    public final MTFunction CROSS = new MTFunction(this, CARTESIAN_PRODUCT_APPLICATION, MTYPE, MTYPE, MTYPE);
 
-    public final MTFunction AND =
-            new MTFunction(this, BOOLEAN, BOOLEAN, BOOLEAN);
+    public final MTFunction AND = new MTFunction(this, BOOLEAN, BOOLEAN, BOOLEAN);
     public final MTFunction NOT = new MTFunction(this, BOOLEAN, BOOLEAN);
 
     private final HashMap<MTType, TypeNode> myTypeNodes;
 
-    private final Set<EstablishedRelationship> myEstablishedSubtypes =
-            new HashSet<EstablishedRelationship>();
+    private final Set<EstablishedRelationship> myEstablishedSubtypes = new HashSet<EstablishedRelationship>();
 
-    private final Set<EstablishedRelationship> myEstablishedElements =
-            new HashSet<EstablishedRelationship>();
+    private final Set<EstablishedRelationship> myEstablishedElements = new HashSet<EstablishedRelationship>();
 
     public TypeGraph() {
         this.myTypeNodes = new HashMap<MTType, TypeNode>();
     }
 
-    private Map<MTType, Map<String, MTType>> getSyntacticSubtypesWithRelationships(
-            MTType query) {
+    private Map<MTType, Map<String, MTType>> getSyntacticSubtypesWithRelationships(MTType query) {
 
-        Map<MTType, Map<String, MTType>> result =
-                new HashMap<MTType, Map<String, MTType>>();
+        Map<MTType, Map<String, MTType>> result = new HashMap<MTType, Map<String, MTType>>();
 
         Map<String, MTType> bindings;
 
@@ -133,15 +115,12 @@ public class TypeGraph {
     public boolean isSubtype(MTType subtype, MTType supertype) {
         boolean result;
 
-        EstablishedRelationship r =
-                new EstablishedRelationship(subtype, supertype);
+        EstablishedRelationship r = new EstablishedRelationship(subtype, supertype);
 
         try {
             result =
-                    supertype == ENTITY || supertype == MTYPE
-                            || myEstablishedSubtypes.contains(r)
-                            || subtype.equals(supertype)
-                            || subtype.isSyntacticSubtypeOf(supertype);
+                    supertype == ENTITY || supertype == MTYPE || myEstablishedSubtypes.contains(r)
+                            || subtype.equals(supertype) || subtype.isSyntacticSubtypeOf(supertype);
         }
         catch (NoSuchElementException nsee) {
             //Syntactic subtype checker freaks out (rightly) if there are
@@ -152,9 +131,7 @@ public class TypeGraph {
 
         if (!result) {
             try {
-                Exp conditions =
-                        getValidTypeConditions(subtype,
-                                new MTPowertypeApplication(this, supertype));
+                Exp conditions = getValidTypeConditions(subtype, new MTPowertypeApplication(this, supertype));
                 result = conditions.isLiteralTrue();
             }
             catch (TypeMismatchException e) {
@@ -220,15 +197,13 @@ public class TypeGraph {
     public boolean isKnownToBeIn(MTType value, MTType expected) {
         boolean result;
 
-        EstablishedRelationship r =
-                new EstablishedRelationship(value, expected);
+        EstablishedRelationship r = new EstablishedRelationship(value, expected);
 
         //If the type of the given value is a subtype of the expected type, then
         //its value must necessarily be in the expected type.  Note we can't
         //reason about the type of MTYPE, so we exclude it
         result =
-                myEstablishedElements.contains(r) || (value != MTYPE)
-                        && (value != ENTITY)
+                myEstablishedElements.contains(r) || (value != MTYPE) && (value != ENTITY)
                         && isSubtype(value.getType(), expected);
 
         if (!result) {
@@ -276,8 +251,7 @@ public class TypeGraph {
      *         which <code>value</code> could be demonstrated to be in 
      *         <code>expected</code>.
      */
-    private Exp getValidTypeConditions(MTType value, MTType expected)
-            throws TypeMismatchException {
+    private Exp getValidTypeConditions(MTType value, MTType expected) throws TypeMismatchException {
         //See note in the getValidTypeConditionsTo() in TypeRelationship,
         //re: Lovecraftian nightmare-scape
 
@@ -296,13 +270,11 @@ public class TypeGraph {
                 //If "expected" happens to be Power(t) for some t, we can 
                 //"demote" value to an INSTANCE of itself (provided it is not
                 //the empty set), and expected to just t
-                MTPowertypeApplication expectedAsPowertypeApplication =
-                        (MTPowertypeApplication) expected;
+                MTPowertypeApplication expectedAsPowertypeApplication = (MTPowertypeApplication) expected;
 
                 DummyExp memberOfValue = new DummyExp(value);
 
-                if (isKnownToBeIn(memberOfValue, expectedAsPowertypeApplication
-                        .getArgument(0))) {
+                if (isKnownToBeIn(memberOfValue, expectedAsPowertypeApplication.getArgument(0))) {
 
                     result = getTrueVarExp();
                 }
@@ -321,8 +293,7 @@ public class TypeGraph {
 
             try {
                 Exp intermediateResult =
-                        getValidTypeConditions(value, value.getType(),
-                                expected, MTTYPE_VALUE_PATH);
+                        getValidTypeConditions(value, value.getType(), expected, MTTYPE_VALUE_PATH);
 
                 if (intermediateResult.isLiteralTrue()) {
                     result = intermediateResult;
@@ -368,14 +339,12 @@ public class TypeGraph {
      *         which <code>value</code> could be demonstrated to be in 
      *         <code>expected</code>.
      */
-    public Exp getValidTypeConditions(Exp value, MTType expected)
-            throws TypeMismatchException {
+    public Exp getValidTypeConditions(Exp value, MTType expected) throws TypeMismatchException {
 
         Exp result;
 
         MTType valueTypeValue = value.getMathTypeValue();
-        if (expected == ENTITY && valueTypeValue != MTYPE
-                && valueTypeValue != ENTITY) {
+        if (expected == ENTITY && valueTypeValue != MTYPE && valueTypeValue != ENTITY) {
             //Every RESOLVE value is in Entity.  The only things we could get
             //passed that are "special" and not "RESOLVE values" are MType and
             //Entity itself
@@ -386,9 +355,7 @@ public class TypeGraph {
             throw TypeMismatchException.INSTANCE;
         }
         else if (valueTypeValue == null) {
-            result =
-                    getValidTypeConditions(value, value.getMathType(),
-                            expected, EXP_VALUE_PATH);
+            result = getValidTypeConditions(value, value.getMathType(), expected, EXP_VALUE_PATH);
         }
         else {
             //We're looking at an expression that defines a type
@@ -431,9 +398,8 @@ public class TypeGraph {
      *         which <code>value</code> could be demonstrated to be in 
      *         <code>expected</code>.
      */
-    private <V> Exp getValidTypeConditions(V foundValue, MTType foundType,
-            MTType expected, NodePairPathStrategy<V> pathStrategy)
-            throws TypeMismatchException {
+    private <V> Exp getValidTypeConditions(V foundValue, MTType foundType, MTType expected,
+            NodePairPathStrategy<V> pathStrategy) throws TypeMismatchException {
 
         if (foundType == null) {
             throw new IllegalArgumentException(foundValue + " has no type.");
@@ -468,9 +434,7 @@ public class TypeGraph {
                 expectedEntry = expectedEntries.next();
 
                 try {
-                    newCondition =
-                            getPathConditions(foundValue, foundEntry,
-                                    expectedEntry, pathStrategy);
+                    newCondition = getPathConditions(foundValue, foundEntry, expectedEntry, pathStrategy);
 
                     foundPath = foundPath | !newCondition.isLiteralFalse();
 
@@ -515,22 +479,19 @@ public class TypeGraph {
      * @throws TypeMismatchException If the conditions under which the path can
      *     be followed would be <code>false</code>.
      */
-    private <V> Exp getPathConditions(V foundValue,
-            Map.Entry<MTType, Map<String, MTType>> foundEntry,
-            Map.Entry<MTType, Map<String, MTType>> expectedEntry,
-            NodePairPathStrategy<V> pathStrategy) throws TypeMismatchException {
+    private <V> Exp getPathConditions(V foundValue, Map.Entry<MTType, Map<String, MTType>> foundEntry,
+            Map.Entry<MTType, Map<String, MTType>> expectedEntry, NodePairPathStrategy<V> pathStrategy)
+            throws TypeMismatchException {
 
         Map<String, MTType> combinedBindings = new HashMap<String, MTType>();
 
         combinedBindings.clear();
         combinedBindings.putAll(updateMapLabels(foundEntry.getValue(), "_s"));
-        combinedBindings
-                .putAll(updateMapLabels(expectedEntry.getValue(), "_d"));
+        combinedBindings.putAll(updateMapLabels(expectedEntry.getValue(), "_d"));
 
         Exp newCondition =
-                pathStrategy.getValidTypeConditionsBetween(foundValue,
-                        foundEntry.getKey(), expectedEntry.getKey(),
-                        combinedBindings);
+                pathStrategy.getValidTypeConditionsBetween(foundValue, foundEntry.getKey(), expectedEntry
+                        .getKey(), combinedBindings);
 
         return newCondition;
     }
@@ -566,19 +527,17 @@ public class TypeGraph {
      *     <code>bindingExpression</code>, <code>destination</code>, and
      *     <code>bindingCondition</code> should be evaluated.
      */
-    public void addRelationship(Exp bindingExpression, MTType destination,
-            Exp bindingCondition, Scope environment) {
+    public void addRelationship(Exp bindingExpression, MTType destination, Exp bindingCondition,
+            Scope environment) {
 
         //Sanitize and sanity check our inputs somewhat
         if (destination == null) {
-            throw new IllegalArgumentException("Destination type may not be "
-                    + "null.");
+            throw new IllegalArgumentException("Destination type may not be " + "null.");
         }
 
         MTType source = bindingExpression.getMathType();
         if (source == null) {
-            throw new IllegalArgumentException("bindingExpression has no "
-                    + "type.");
+            throw new IllegalArgumentException("bindingExpression has no " + "type.");
         }
 
         if (bindingCondition == null) {
@@ -586,14 +545,11 @@ public class TypeGraph {
         }
 
         //Canonicalize the input types
-        CanonicalizationResult sourceCanonicalResult =
-                canonicalize(source, environment, "s");
-        CanonicalizationResult destinationCanonicalResult =
-                canonicalize(destination, environment, "d");
+        CanonicalizationResult sourceCanonicalResult = canonicalize(source, environment, "s");
+        CanonicalizationResult destinationCanonicalResult = canonicalize(destination, environment, "d");
 
         Set<String> universalVariableNames =
-                getUniversallyQuantifiedVariables(source, destination,
-                        environment, sourceCanonicalResult,
+                getUniversallyQuantifiedVariables(source, destination, environment, sourceCanonicalResult,
                         destinationCanonicalResult);
 
         Map<String, List<String>> sourceEnvironmentalToCanonical =
@@ -606,52 +562,42 @@ public class TypeGraph {
         //will bind for us.  There may be many choices, but they're all 
         //equivalent for our purposes
         Map<String, String> environmentalToExemplar =
-                getEnvironmentalToExemplar(universalVariableNames,
-                        sourceEnvironmentalToCanonical,
+                getEnvironmentalToExemplar(universalVariableNames, sourceEnvironmentalToCanonical,
                         destinationEnvironmentalToCanonical);
 
         List<TypeRelationshipPredicate> finalPredicates =
-                getFinalPredicates(sourceCanonicalResult,
-                        destinationCanonicalResult, environmentalToExemplar,
-                        universalVariableNames, sourceEnvironmentalToCanonical,
+                getFinalPredicates(sourceCanonicalResult, destinationCanonicalResult,
+                        environmentalToExemplar, universalVariableNames, sourceEnvironmentalToCanonical,
                         destinationEnvironmentalToCanonical);
 
         //We can't use the binding expression as-is.  It must be updated to
         //reflect canonical variable names
         Map<Exp, Exp> replacements = new HashMap<Exp, Exp>();
-        for (Map.Entry<String, String> entry : environmentalToExemplar
-                .entrySet()) {
+        for (Map.Entry<String, String> entry : environmentalToExemplar.entrySet()) {
 
-            replacements.put(new VarExp(null, null, new PosSymbol(null, Symbol
-                    .symbol(entry.getKey()))), new VarExp(null, null,
-                    new PosSymbol(null, Symbol.symbol(entry.getValue()))));
+            replacements.put(new VarExp(null, null, new PosSymbol(null, Symbol.symbol(entry.getKey()))),
+                    new VarExp(null, null, new PosSymbol(null, Symbol.symbol(entry.getValue()))));
         }
-        bindingExpression =
-                safeVariableNameUpdate(bindingExpression, replacements,
-                        environmentalToExemplar);
+        bindingExpression = safeVariableNameUpdate(bindingExpression, replacements, environmentalToExemplar);
 
         //Ditto for the binding condition
-        bindingCondition =
-                safeVariableNameUpdate(bindingCondition, replacements,
-                        environmentalToExemplar);
+        bindingCondition = safeVariableNameUpdate(bindingCondition, replacements, environmentalToExemplar);
 
         //At last!  We can add the relationship into the graph
         TypeRelationship relationship =
-                new TypeRelationship(this,
-                        destinationCanonicalResult.canonicalType,
-                        bindingCondition, bindingExpression, finalPredicates);
+                new TypeRelationship(this, destinationCanonicalResult.canonicalType, bindingCondition,
+                        bindingExpression, finalPredicates);
         TypeNode sourceNode = getTypeNode(sourceCanonicalResult.canonicalType);
         sourceNode.addRelationship(relationship);
 
         //We'd like to force the presence of the destination node
         getTypeNode(destinationCanonicalResult.canonicalType);
 
-        Populator.emitDebug("Added relationship to type node ["
-                + sourceCanonicalResult.canonicalType + "]: " + relationship);
+        Populator.emitDebug("Added relationship to type node [" + sourceCanonicalResult.canonicalType + "]: "
+                + relationship);
     }
 
-    private Exp safeVariableNameUpdate(Exp original,
-            Map<Exp, Exp> replacements,
+    private Exp safeVariableNameUpdate(Exp original, Map<Exp, Exp> replacements,
             Map<String, String> environmentalToExemplar) {
 
         MTType originalTypeValue = original.getMathTypeValue();
@@ -659,52 +605,41 @@ public class TypeGraph {
         original = original.substitute(replacements);
 
         if (original.getMathType() == null) {
-            throw new RuntimeException("substitute() method for class "
-                    + original.getClass() + " did not properly copy the math "
-                    + "type of the object.");
+            throw new RuntimeException("substitute() method for class " + original.getClass()
+                    + " did not properly copy the math " + "type of the object.");
         }
 
         if (originalTypeValue != null && original.getMathTypeValue() == null) {
-            throw new RuntimeException("substitute() method for class "
-                    + original.getClass() + " did not properly copy the math "
-                    + "type value of the object.");
+            throw new RuntimeException("substitute() method for class " + original.getClass()
+                    + " did not properly copy the math " + "type value of the object.");
         }
 
-        original =
-                getCopyWithVariableNamesChanged(original,
-                        environmentalToExemplar);
+        original = getCopyWithVariableNamesChanged(original, environmentalToExemplar);
 
         //Straight math type is taken care of inside the above call, since the 
         //math type is needed there, so no need to check it again here
 
         if (originalTypeValue != null && original.getMathTypeValue() == null) {
-            throw new RuntimeException("copy() method for class "
-                    + original.getClass() + " did not properly copy the math "
-                    + "type value of the object.");
+            throw new RuntimeException("copy() method for class " + original.getClass()
+                    + " did not properly copy the math " + "type value of the object.");
         }
 
         return original;
     }
 
-    private List<TypeRelationshipPredicate> getFinalPredicates(
-            CanonicalizationResult sourceCanonicalResult,
-            CanonicalizationResult destinationCanonicalResult,
-            Map<String, String> environmentalToExemplar,
-            Set<String> universalVariableNames,
-            Map<String, List<String>> sourceEnvironmentalToCanonical,
+    private List<TypeRelationshipPredicate> getFinalPredicates(CanonicalizationResult sourceCanonicalResult,
+            CanonicalizationResult destinationCanonicalResult, Map<String, String> environmentalToExemplar,
+            Set<String> universalVariableNames, Map<String, List<String>> sourceEnvironmentalToCanonical,
             Map<String, List<String>> destinationEnvironmentalToCanonical) {
 
         //To begin with, the final predicates should include the predicates
         //from each canonicalization, with top-level environmental variables
         //finalized to their exemplar variable
-        List<TypeRelationshipPredicate> finalPredicates =
-                new LinkedList<TypeRelationshipPredicate>();
-        finalPredicates.addAll(replaceInPredicates(
-                sourceCanonicalResult.predicates, environmentalToExemplar));
+        List<TypeRelationshipPredicate> finalPredicates = new LinkedList<TypeRelationshipPredicate>();
         finalPredicates
-                .addAll(replaceInPredicates(
-                        destinationCanonicalResult.predicates,
-                        environmentalToExemplar));
+                .addAll(replaceInPredicates(sourceCanonicalResult.predicates, environmentalToExemplar));
+        finalPredicates.addAll(replaceInPredicates(destinationCanonicalResult.predicates,
+                environmentalToExemplar));
 
         //Finally, it's possible that the same original variable existed in each
         //of the source and destination.  We lost this info during 
@@ -713,41 +648,35 @@ public class TypeGraph {
             if (sourceEnvironmentalToCanonical.containsKey(envVar)
                     && destinationEnvironmentalToCanonical.containsKey(envVar)) {
                 finalPredicates.add(new EqualsPredicate(this, new MTNamed(this,
-                        sourceEnvironmentalToCanonical.get(envVar).get(0)),
-                        new MTNamed(this, destinationEnvironmentalToCanonical
-                                .get(envVar).get(0))));
+                        sourceEnvironmentalToCanonical.get(envVar).get(0)), new MTNamed(this,
+                        destinationEnvironmentalToCanonical.get(envVar).get(0))));
             }
         }
 
         return finalPredicates;
     }
 
-    private static Map<String, String> getEnvironmentalToExemplar(
-            Set<String> universalVariableNames,
+    private static Map<String, String> getEnvironmentalToExemplar(Set<String> universalVariableNames,
             Map<String, List<String>> sourceEnvironmentalToCanonical,
             Map<String, List<String>> destinationEnvironmentalToCanonical) {
 
-        Map<String, String> environmentalToExemplar =
-                new HashMap<String, String>();
+        Map<String, String> environmentalToExemplar = new HashMap<String, String>();
         for (String envVar : universalVariableNames) {
             if (sourceEnvironmentalToCanonical.containsKey(envVar)) {
-                environmentalToExemplar.put(envVar,
-                        sourceEnvironmentalToCanonical.get(envVar).get(0));
+                environmentalToExemplar.put(envVar, sourceEnvironmentalToCanonical.get(envVar).get(0));
             }
             else {
                 //It must be in destination because we checked above that one
                 //or the other makes use of this thing
-                environmentalToExemplar.put(envVar,
-                        destinationEnvironmentalToCanonical.get(envVar).get(0));
+                environmentalToExemplar.put(envVar, destinationEnvironmentalToCanonical.get(envVar).get(0));
             }
         }
 
         return environmentalToExemplar;
     }
 
-    private static Set<String> getUniversallyQuantifiedVariables(MTType source,
-            MTType destination, Scope environment,
-            CanonicalizationResult sourceCanonicalResult,
+    private static Set<String> getUniversallyQuantifiedVariables(MTType source, MTType destination,
+            Scope environment, CanonicalizationResult sourceCanonicalResult,
             CanonicalizationResult destinationCanonicalResult) {
 
         Set<String> unboundTypeClosure = new HashSet<String>();
@@ -770,8 +699,7 @@ public class TypeGraph {
                     //already have bombed
                     MathSymbolEntry entry =
                             (MathSymbolEntry) environment
-                                    .queryForOne(new UnqualifiedNameQuery(
-                                            newUnboundType));
+                                    .queryForOne(new UnqualifiedNameQuery(newUnboundType));
 
                     MTType type = entry.getType();
                     uta = new UnboundTypeAccumulator(environment);
@@ -796,10 +724,8 @@ public class TypeGraph {
 
         //Make sure all those variables get bound
         Set<String> remaining = new HashSet<String>(unboundTypeClosure);
-        remaining.removeAll(sourceCanonicalResult.canonicalToEnvironmental
-                .values());
-        remaining.removeAll(destinationCanonicalResult.canonicalToEnvironmental
-                .values());
+        remaining.removeAll(sourceCanonicalResult.canonicalToEnvironmental.values());
+        remaining.removeAll(destinationCanonicalResult.canonicalToEnvironmental.values());
         if (!remaining.isEmpty()) {
             throw new IllegalArgumentException("The following universal "
                     + "type variables will not be bound: " + remaining);
@@ -819,43 +745,35 @@ public class TypeGraph {
         return result;
     }
 
-    public Exp getCopyWithVariableNamesChanged(Exp original,
-            Map<String, String> substitutions) {
+    public Exp getCopyWithVariableNamesChanged(Exp original, Map<String, String> substitutions) {
 
         Exp result = Exp.copy(original);
 
         if (result.getMathType() == null) {
-            throw new RuntimeException("copy() method for class "
-                    + original.getClass() + " did not properly copy the math "
-                    + "type of the object.");
+            throw new RuntimeException("copy() method for class " + original.getClass()
+                    + " did not properly copy the math " + "type of the object.");
         }
 
-        result.setMathType(getCopyWithVariableNamesChanged(
-                result.getMathType(), substitutions));
+        result.setMathType(getCopyWithVariableNamesChanged(result.getMathType(), substitutions));
 
         List<Exp> children = result.getSubExpressions();
         int childCount = children.size();
         for (int childIndex = 0; childIndex < childCount; childIndex++) {
-            result.setSubExpression(childIndex,
-                    getCopyWithVariableNamesChanged(children.get(childIndex),
-                            substitutions));
+            result.setSubExpression(childIndex, getCopyWithVariableNamesChanged(children.get(childIndex),
+                    substitutions));
         }
 
         return result;
     }
 
-    public MTType getCopyWithVariableNamesChanged(MTType original,
-            Map<String, String> substitutions) {
-        VariableReplacingVisitor renamer =
-                new VariableReplacingVisitor(substitutions, this);
+    public MTType getCopyWithVariableNamesChanged(MTType original, Map<String, String> substitutions) {
+        VariableReplacingVisitor renamer = new VariableReplacingVisitor(substitutions, this);
         original.accept(renamer);
         return renamer.getFinalExpression();
     }
 
-    public static MTType getCopyWithVariablesSubstituted(MTType original,
-            Map<String, MTType> substitutions) {
-        VariableReplacingVisitor renamer =
-                new VariableReplacingVisitor(substitutions);
+    public static MTType getCopyWithVariablesSubstituted(MTType original, Map<String, MTType> substitutions) {
+        VariableReplacingVisitor renamer = new VariableReplacingVisitor(substitutions);
         original.accept(renamer);
         return renamer.getFinalExpression();
     }
@@ -865,26 +783,22 @@ public class TypeGraph {
 
         @SuppressWarnings("unchecked")
         T result = (T) Exp.copy(original);
-        result.setMathType(result.getMathType()
-                .getCopyWithVariablesSubstituted(substitutions));
+        result.setMathType(result.getMathType().getCopyWithVariablesSubstituted(substitutions));
 
         List<Exp> children = result.getSubExpressions();
         int childCount = children.size();
         for (int childIndex = 0; childIndex < childCount; childIndex++) {
-            result.setSubExpression(childIndex, TypeGraph
-                    .getCopyWithVariablesSubstituted(children.get(childIndex),
-                            substitutions));
+            result.setSubExpression(childIndex, TypeGraph.getCopyWithVariablesSubstituted(children
+                    .get(childIndex), substitutions));
         }
 
         return result;
     }
 
     private static List<TypeRelationshipPredicate> replaceInPredicates(
-            List<TypeRelationshipPredicate> original,
-            Map<String, String> substitutions) {
+            List<TypeRelationshipPredicate> original, Map<String, String> substitutions) {
 
-        List<TypeRelationshipPredicate> result =
-                new LinkedList<TypeRelationshipPredicate>();
+        List<TypeRelationshipPredicate> result = new LinkedList<TypeRelationshipPredicate>();
 
         for (TypeRelationshipPredicate p : original) {
             result.add(p.replaceUnboundVariablesInTypes(substitutions));
@@ -913,8 +827,7 @@ public class TypeGraph {
         return result;
     }
 
-    private <T> Map<String, T> updateMapLabels(Map<String, T> original,
-            String suffix) {
+    private <T> Map<String, T> updateMapLabels(Map<String, T> original, String suffix) {
 
         Map<String, T> result = new HashMap<String, T>();
         for (Map.Entry<String, T> entry : original.entrySet()) {
@@ -938,17 +851,14 @@ public class TypeGraph {
         return str.toString();
     }
 
-    private CanonicalizationResult canonicalize(MTType t, Scope environment,
-            String suffix) {
+    private CanonicalizationResult canonicalize(MTType t, Scope environment, String suffix) {
 
-        CanonicalizingVisitor canonicalizer =
-                new CanonicalizingVisitor(this, environment, suffix);
+        CanonicalizingVisitor canonicalizer = new CanonicalizingVisitor(this, environment, suffix);
 
         t.accept(canonicalizer);
 
-        return new CanonicalizationResult(canonicalizer.getFinalExpression(),
-                canonicalizer.getTypePredicates(), canonicalizer
-                        .getCanonicalToEnvironmentOriginalMapping());
+        return new CanonicalizationResult(canonicalizer.getFinalExpression(), canonicalizer
+                .getTypePredicates(), canonicalizer.getCanonicalToEnvironmentOriginalMapping());
     }
 
     public VarExp getNothingExp() {
@@ -1017,8 +927,7 @@ public class TypeGraph {
         public final List<TypeRelationshipPredicate> predicates;
         public final Map<String, String> canonicalToEnvironmental;
 
-        public CanonicalizationResult(MTType canonicalType,
-                List<TypeRelationshipPredicate> predicates,
+        public CanonicalizationResult(MTType canonicalType, List<TypeRelationshipPredicate> predicates,
                 Map<String, String> canonicalToOriginal) {
             this.canonicalType = canonicalType;
             this.predicates = predicates;
@@ -1028,91 +937,73 @@ public class TypeGraph {
 
     private interface NodePairPathStrategy<V> {
 
-        public Exp getValidTypeConditionsBetween(V sourceValue,
-                MTType sourceType, MTType expectedType,
+        public Exp getValidTypeConditionsBetween(V sourceValue, MTType sourceType, MTType expectedType,
                 Map<String, MTType> bindings) throws TypeMismatchException;
     }
 
     private class ExpValuePathStrategy implements NodePairPathStrategy<Exp> {
 
         @Override
-        public Exp getValidTypeConditionsBetween(Exp sourceValue,
-                MTType sourceType, MTType expectedType,
+        public Exp getValidTypeConditionsBetween(Exp sourceValue, MTType sourceType, MTType expectedType,
                 Map<String, MTType> bindings) throws TypeMismatchException {
 
-            return myTypeNodes.get(sourceType).getValidTypeConditionsTo(
-                    sourceValue, expectedType, bindings);
+            return myTypeNodes.get(sourceType).getValidTypeConditionsTo(sourceValue, expectedType, bindings);
         }
     }
 
-    private class MTTypeValuePathStrategy
-            implements
-                NodePairPathStrategy<MTType> {
+    private class MTTypeValuePathStrategy implements NodePairPathStrategy<MTType> {
 
         @Override
-        public Exp getValidTypeConditionsBetween(MTType sourceValue,
-                MTType sourceType, MTType expectedType,
+        public Exp getValidTypeConditionsBetween(MTType sourceValue, MTType sourceType, MTType expectedType,
                 Map<String, MTType> bindings) throws TypeMismatchException {
 
-            return myTypeNodes.get(sourceType).getValidTypeConditionsTo(
-                    sourceValue, expectedType, bindings);
+            return myTypeNodes.get(sourceType).getValidTypeConditionsTo(sourceValue, expectedType, bindings);
         }
     }
 
-    private static class PowertypeApplicationFactory
-            implements
-                FunctionApplicationFactory {
+    private static class PowertypeApplicationFactory implements FunctionApplicationFactory {
 
         @Override
-        public MTType buildFunctionApplication(TypeGraph g, MTFunction f,
-                String calledAsName, List<MTType> arguments) {
+        public MTType buildFunctionApplication(TypeGraph g, MTFunction f, String calledAsName,
+                List<MTType> arguments) {
             return new MTPowertypeApplication(g, arguments.get(0));
         }
     }
 
-    private static class UnionApplicationFactory
-            implements
-                FunctionApplicationFactory {
+    private static class UnionApplicationFactory implements FunctionApplicationFactory {
 
         @Override
-        public MTType buildFunctionApplication(TypeGraph g, MTFunction f,
-                String calledAsName, List<MTType> arguments) {
+        public MTType buildFunctionApplication(TypeGraph g, MTFunction f, String calledAsName,
+                List<MTType> arguments) {
             return new MTUnion(g, arguments);
         }
     }
 
-    private static class IntersectApplicationFactory
-            implements
-                FunctionApplicationFactory {
+    private static class IntersectApplicationFactory implements FunctionApplicationFactory {
 
         @Override
-        public MTType buildFunctionApplication(TypeGraph g, MTFunction f,
-                String calledAsName, List<MTType> arguments) {
+        public MTType buildFunctionApplication(TypeGraph g, MTFunction f, String calledAsName,
+                List<MTType> arguments) {
             return new MTUnion(g, arguments);
         }
     }
 
-    private static class FunctionConstructorApplicationFactory
-            implements
-                FunctionApplicationFactory {
+    private static class FunctionConstructorApplicationFactory implements FunctionApplicationFactory {
 
         @Override
-        public MTType buildFunctionApplication(TypeGraph g, MTFunction f,
-                String calledAsName, List<MTType> arguments) {
+        public MTType buildFunctionApplication(TypeGraph g, MTFunction f, String calledAsName,
+                List<MTType> arguments) {
             return new MTFunction(g, arguments.get(1), arguments.get(0));
         }
     }
 
-    private static class CartesianProductApplicationFactory
-            implements
-                FunctionApplicationFactory {
+    private static class CartesianProductApplicationFactory implements FunctionApplicationFactory {
 
         @Override
-        public MTType buildFunctionApplication(TypeGraph g, MTFunction f,
-                String calledAsName, List<MTType> arguments) {
-            return new MTCartesian(g,
-                    new MTCartesian.Element(arguments.get(0)),
-                    new MTCartesian.Element(arguments.get(1)));
+        public MTType buildFunctionApplication(TypeGraph g, MTFunction f, String calledAsName,
+                List<MTType> arguments) {
+            return new MTCartesian(g, new MTCartesian.Element(arguments.get(0)), new MTCartesian.Element(
+                    arguments.get(1)));
         }
     }
 
@@ -1136,9 +1027,7 @@ public class TypeGraph {
 
             if (result) {
                 EstablishedRelationship oAsER = (EstablishedRelationship) o;
-                result =
-                        myType1.equals(oAsER.myType1)
-                                && myType2.equals(oAsER.myType2);
+                result = myType1.equals(oAsER.myType1) && myType2.equals(oAsER.myType2);
             }
 
             return result;

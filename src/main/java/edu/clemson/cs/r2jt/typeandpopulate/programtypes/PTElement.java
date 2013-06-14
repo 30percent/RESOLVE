@@ -22,8 +22,7 @@ public class PTElement extends PTType {
     }
 
     @Override
-    public PTType instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public PTType instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
         return this;

@@ -30,8 +30,7 @@ public class ProofStep {
         else {
             retval += myVC;
         }
-        return "\nApplied: " + myDescription + "\n\n"
-                + debugPrintConjuncts(myAlteredConfirms);
+        return "\nApplied: " + myDescription + "\n\n" + debugPrintConjuncts(myAlteredConfirms);
     }
 
     private static String debugPrintConjuncts(List<Exp> conjuncts) {

@@ -29,6 +29,5 @@ public interface SymbolQuery<E extends SymbolTableEntry> {
      * 
      * @return A list of matches.
      */
-    public List<E> searchFromContext(Scope source, ScopeRepository repo)
-            throws DuplicateSymbolException;
+    public List<E> searchFromContext(Scope source, ScopeRepository repo) throws DuplicateSymbolException;
 }

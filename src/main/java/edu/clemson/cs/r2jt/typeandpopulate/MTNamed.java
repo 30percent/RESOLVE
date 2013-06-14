@@ -66,8 +66,7 @@ public class MTNamed extends MTType {
         return "'" + name + "'";
     }
 
-    public static Map<MTNamed, MTType> toMTNamedMap(TypeGraph source,
-            Map<String, MTType> original) {
+    public static Map<MTNamed, MTType> toMTNamedMap(TypeGraph source, Map<String, MTType> original) {
 
         Map<MTNamed, MTType> result = new HashMap<MTNamed, MTType>();
 

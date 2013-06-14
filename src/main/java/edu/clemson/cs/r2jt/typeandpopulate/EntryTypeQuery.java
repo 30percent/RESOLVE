@@ -16,13 +16,12 @@ import edu.clemson.cs.r2jt.typeandpopulate.query.MultimatchSymbolQuery;
  *
  * @author hamptos
  */
-public class EntryTypeQuery<T extends SymbolTableEntry>
-        extends
-            BaseMultimatchSymbolQuery<T> implements MultimatchSymbolQuery<T> {
+public class EntryTypeQuery<T extends SymbolTableEntry> extends BaseMultimatchSymbolQuery<T>
+        implements
+            MultimatchSymbolQuery<T> {
 
-    public EntryTypeQuery(Class<? extends SymbolTableEntry> entryType,
-            ImportStrategy importStrategy, FacilityStrategy facilityStrategy) {
-        super(new UnqualifiedPath(importStrategy, facilityStrategy, false),
-                new EntryTypeSearcher(entryType));
+    public EntryTypeQuery(Class<? extends SymbolTableEntry> entryType, ImportStrategy importStrategy,
+            FacilityStrategy facilityStrategy) {
+        super(new UnqualifiedPath(importStrategy, facilityStrategy, false), new EntryTypeSearcher(entryType));
     }
 }

@@ -87,12 +87,10 @@ public class TreeWalker {
                 // invoke the "pre" visitor method(s)
                 invokeVisitorMethods("pre", e);
 
-                java.util.List<ResolveConceptualElement> children =
-                        e.getChildren();
+                java.util.List<ResolveConceptualElement> children = e.getChildren();
 
                 if (children.size() > 0) {
-                    Iterator<ResolveConceptualElement> iter =
-                            children.iterator();
+                    Iterator<ResolveConceptualElement> iter = children.iterator();
 
                     ResolveConceptualElement prevChild = null, nextChild = null;
                     while (iter.hasNext()) {
@@ -109,10 +107,9 @@ public class TreeWalker {
         }
     }
 
-    private void invokeVisitorMethods(String prefix,
-            ResolveConceptualElement... e) {
-        boolean pre = prefix.equals("pre"), post = prefix.equals("post"), mid =
-                prefix.equals("mid"), list = (e[0] instanceof VirtualListNode);
+    private void invokeVisitorMethods(String prefix, ResolveConceptualElement... e) {
+        boolean pre = prefix.equals("pre"), post = prefix.equals("post"), mid = prefix.equals("mid"), list =
+                (e[0] instanceof VirtualListNode);
 
         // Invoke generic visitor methods (preAny, postAny)
         if (pre) {
@@ -169,14 +166,12 @@ public class TreeWalker {
             try {
                 Method visitorMethod;
                 if (pre || post) { // pre and post methods
-                    visitorMethod =
-                            this.myVisitor.getClass().getMethod(methodName,
-                                    currentClass);
+                    visitorMethod = this.myVisitor.getClass().getMethod(methodName, currentClass);
                 }
                 else { // mid methods
                     visitorMethod =
-                            this.myVisitor.getClass().getMethod(methodName,
-                                    currentClass, paramType, paramType);
+                            this.myVisitor.getClass().getMethod(methodName, currentClass, paramType,
+                                    paramType);
                 }
 
                 // Invoking the visitor method now!!!
@@ -224,11 +219,8 @@ public class TreeWalker {
             if (!c.equals(VirtualListNode.class)) {
                 String walkMethodName = "walk" + c.getSimpleName();
                 try {
-                    Method walkMethod =
-                            this.myVisitor.getClass().getMethod(walkMethodName,
-                                    c);
-                    foundOverride =
-                            ((Boolean) walkMethod.invoke(this.myVisitor, e));
+                    Method walkMethod = this.myVisitor.getClass().getMethod(walkMethodName, c);
+                    foundOverride = ((Boolean) walkMethod.invoke(this.myVisitor, e));
                 }
                 catch (NoSuchMethodException nsme) {
                     //Shouldn't be possible

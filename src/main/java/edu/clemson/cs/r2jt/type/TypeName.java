@@ -127,8 +127,8 @@ public class TypeName {
     }
 
     public boolean equals(TypeName tname) {
-        return (id.equals(tname.id) && facility == tname.facility
-                && facLine == tname.facLine && facColumn == tname.facColumn && name == tname.name);
+        return (id.equals(tname.id) && facility == tname.facility && facLine == tname.facLine
+                && facColumn == tname.facColumn && name == tname.name);
     }
 
     public String toString() {

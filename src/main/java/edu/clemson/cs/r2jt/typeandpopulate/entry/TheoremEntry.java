@@ -25,16 +25,15 @@ public class TheoremEntry extends SymbolTableEntry {
     private PExp myAssertionAsPExp;
     private MathSymbolEntry myMathSymbolAlterEgo;
 
-    public TheoremEntry(TypeGraph g, String name,
-            MathAssertionDec definingElement, ModuleIdentifier sourceModule) {
+    public TheoremEntry(TypeGraph g, String name, MathAssertionDec definingElement,
+            ModuleIdentifier sourceModule) {
         super(name, definingElement, sourceModule);
 
         myAssertionAsPExp = PExp.buildPExp(definingElement.getAssertion());
 
         myMathSymbolAlterEgo =
-                new MathSymbolEntry(g, name, Quantification.NONE,
-                        definingElement, g.BOOLEAN, null, null, null,
-                        sourceModule);
+                new MathSymbolEntry(g, name, Quantification.NONE, definingElement, g.BOOLEAN, null, null,
+                        null, sourceModule);
     }
 
     public PExp getAssertion() {
@@ -57,8 +56,7 @@ public class TheoremEntry extends SymbolTableEntry {
     }
 
     @Override
-    public SymbolTableEntry instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public SymbolTableEntry instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

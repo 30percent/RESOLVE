@@ -151,9 +151,8 @@ public class IfExp extends Exp {
     // ===========================================================
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new IfExp(location, substitute(test, substitutions), substitute(
-                thenclause, substitutions), substitute(elseclause,
-                substitutions));
+        return new IfExp(location, substitute(test, substitutions), substitute(thenclause, substitutions),
+                substitute(elseclause, substitutions));
     }
 
     /** Accepts a ResolveConceptualVisitor. */

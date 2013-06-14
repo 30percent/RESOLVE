@@ -28,18 +28,15 @@ public class InductiveSiteIterator implements Iterator<Site> {
 
     public InductiveSiteIterator(Site s) {
         myRootSite = s;
-        myRootSubExpressions =
-                new SiteConstructor(s, s.exp.getSubExpressions().iterator());
+        myRootSubExpressions = new SiteConstructor(s, s.exp.getSubExpressions().iterator());
 
         if (myRootSubExpressions.hasNext()) {
             myCurrentSubExpression = myRootSubExpressions.next();
-            myCurrentInductiveSubExpressionIterator =
-                    new InductiveSiteIterator(myCurrentSubExpression);
+            myCurrentInductiveSubExpressionIterator = new InductiveSiteIterator(myCurrentSubExpression);
         }
         else {
             myCurrentInductiveSubExpressionIterator =
-                    DummyIterator
-                            .getInstance(myCurrentInductiveSubExpressionIterator);
+                    DummyIterator.getInstance(myCurrentInductiveSubExpressionIterator);
         }
 
         setUpNext();
@@ -55,8 +52,7 @@ public class InductiveSiteIterator implements Iterator<Site> {
         else {
             if (myRootSubExpressions.hasNext()) {
                 myCurrentSubExpression = myRootSubExpressions.next();
-                myCurrentInductiveSubExpressionIterator =
-                        new InductiveSiteIterator(myCurrentSubExpression);
+                myCurrentInductiveSubExpressionIterator = new InductiveSiteIterator(myCurrentSubExpression);
                 myNextReturn = myCurrentInductiveSubExpressionIterator.next();
             }
             else {
@@ -109,8 +105,8 @@ public class InductiveSiteIterator implements Iterator<Site> {
         @Override
         public Site next() {
             Site result =
-                    new Site(myBasis.getModel(), myBasis.conjunct, myBasis.path
-                            .appended(mySiblingIndex), myPExps.next());
+                    new Site(myBasis.getModel(), myBasis.conjunct, myBasis.path.appended(mySiblingIndex),
+                            myPExps.next());
 
             mySiblingIndex++;
 

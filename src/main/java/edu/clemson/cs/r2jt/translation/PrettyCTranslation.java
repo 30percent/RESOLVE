@@ -37,8 +37,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     private static final String FLAG_SECTION_NAME = "Pretty C Translation";
 
     private static final String FLAG_DESC_TRANSLATE =
-            "Translates into "
-                    + "a \"Pretty\" C version following the line numbers of the "
+            "Translates into " + "a \"Pretty\" C version following the line numbers of the "
                     + "RESOLVE Facility.";
     public static final Flag FLAG_PRETTY_C_TRANSLATE =
             new Flag(FLAG_SECTION_NAME, "prettyCTranslate", FLAG_DESC_TRANSLATE);
@@ -50,8 +49,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
      * End of Variable Declaration
      */
 
-    public PrettyCTranslation(CompileEnvironment env, OldSymbolTable table,
-            ModuleDec dec, ErrorHandler err) {
+    public PrettyCTranslation(CompileEnvironment env, OldSymbolTable table, ModuleDec dec, ErrorHandler err) {
         this.err = err;
         this.env = env;
         this.table = table;
@@ -100,36 +98,30 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
 
     // TODO : Fix this. Requires pre-post procedures for 'resolve verify' tests. 
     @Override
-    public void midFacilityOperationDec(FacilityOperationDec node,
-            ResolveConceptualElement prevChild,
+    public void midFacilityOperationDec(FacilityOperationDec node, ResolveConceptualElement prevChild,
             ResolveConceptualElement nextChild) {
         if (prevChild != null && nextChild != null) {
-            if (!(prevChild.equals(node.getEnsures()) || prevChild.equals(node
-                    .getRequires()))) {
+            if (!(prevChild.equals(node.getEnsures()) || prevChild.equals(node.getRequires()))) {
                 if (nextChild.equals(node.getRequires())) {
                     Exp req = (Exp) nextChild;
-                    cInfo.increaseLineStatementBuffer(req.getLocation()
-                            .getPos().getLine());
+                    cInfo.increaseLineStatementBuffer(req.getLocation().getPos().getLine());
                     cInfo.appendToStmt("/*requires");
                 }
                 else if (nextChild.equals(node.getEnsures())) {
                     Exp en = (Exp) nextChild;
-                    cInfo.increaseLineStatementBuffer(en.getLocation().getPos()
-                            .getLine());
+                    cInfo.increaseLineStatementBuffer(en.getLocation().getPos().getLine());
                     cInfo.appendToStmt("/*ensures");
                 }
             }
             else {
                 if (nextChild.equals(node.getRequires())) {
                     Exp req = (Exp) nextChild;
-                    cInfo.increaseLineStatementBuffer(req.getLocation()
-                            .getPos().getLine());
+                    cInfo.increaseLineStatementBuffer(req.getLocation().getPos().getLine());
                     cInfo.appendToStmt("requires");
                 }
                 else if (nextChild.equals(node.getEnsures())) {
                     Exp en = (Exp) nextChild;
-                    cInfo.increaseLineStatementBuffer(en.getLocation().getPos()
-                            .getLine());
+                    cInfo.increaseLineStatementBuffer(en.getLocation().getPos().getLine());
                     cInfo.appendToStmt("ensures");
                 }
                 else {
@@ -144,8 +136,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     public void preParameterVarDec(ParameterVarDec dec) {
         StringBuilder parmSet = new StringBuilder();
         if (dec.getTy() instanceof NameTy) {
-            parmSet.append(cInfo.getCVarsWithLines(((NameTy) dec.getTy())
-                    .getName(), null));
+            parmSet.append(cInfo.getCVarsWithLines(((NameTy) dec.getTy()).getName(), null));
         }
         else {
             System.out.println("How did you reach here?");
@@ -160,8 +151,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     public void preCallStmt(CallStmt stmt) {
         if (stmt.getName().getName().contains("Write")) {
             String out = "printf(";
-            cInfo.increaseLineStatementBuffer(stmt.getName().getLocation()
-                    .getPos().getLine());
+            cInfo.increaseLineStatementBuffer(stmt.getName().getLocation().getPos().getLine());
             cInfo.appendToStmt(out);
         }
         else {
@@ -172,8 +162,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midCallStmtArguments(CallStmt node, ProgramExp previous,
-            ProgramExp next) {
+    public void midCallStmtArguments(CallStmt node, ProgramExp previous, ProgramExp next) {
         if (next != null && previous != null) {
             cInfo.appendToStmt(", ");
         }
@@ -212,9 +201,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
                 init = " = NULL";
             }
             String[] retTy = cInfo.getCVarType(stTy);
-            cInfo.appendToFuncVarInit(cInfo.stringFromSym(dec.getName(),
-                    retTy[0])
-                    + retTy[1]);
+            cInfo.appendToFuncVarInit(cInfo.stringFromSym(dec.getName(), retTy[0]) + retTy[1]);
         }
     }
 
@@ -224,8 +211,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midFuncAssignStmt(FuncAssignStmt stmt,
-            ResolveConceptualElement prevChild,
+    public void midFuncAssignStmt(FuncAssignStmt stmt, ResolveConceptualElement prevChild,
             ResolveConceptualElement nextChild) {
         if (prevChild != null && nextChild != null) {
             cInfo.appendToStmt(" = ");
@@ -264,8 +250,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midProgramParamExpArguments(ProgramParamExp node,
-            ProgramExp previous, ProgramExp next) {
+    public void midProgramParamExpArguments(ProgramParamExp node, ProgramExp previous, ProgramExp next) {
         if (next != null && previous != null)
             cInfo.appendToStmt(", ");
     }
@@ -276,8 +261,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midProgramParamExp(ProgramParamExp exp,
-            ResolveConceptualElement prevChild,
+    public void midProgramParamExp(ProgramParamExp exp, ResolveConceptualElement prevChild,
             ResolveConceptualElement nextChild) {
         System.out.println();
     }
@@ -311,8 +295,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midIfStmt(IfStmt stmt, ResolveConceptualElement prevChild,
-            ResolveConceptualElement nextChild) {
+    public void midIfStmt(IfStmt stmt, ResolveConceptualElement prevChild, ResolveConceptualElement nextChild) {
 
     }
 
@@ -364,8 +347,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
 
     public void postWhileStmtChanging(WhileStmt stmt) {}
 
-    public void midWhileStmt(WhileStmt node,
-            ResolveConceptualElement prevChild,
+    public void midWhileStmt(WhileStmt node, ResolveConceptualElement prevChild,
             ResolveConceptualElement nextChild) {
         if (node.getMaintaining().equals(nextChild)) {
             Exp main = (Exp) nextChild;
@@ -403,8 +385,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
 
     public void outputCode(File outputFile) {
         //Assume files have already been translated
-        if (!env.flags.isFlagSet(ResolveCompiler.FLAG_WEB)
-                || env.flags.isFlagSet(Archiver.FLAG_ARCHIVE)) {
+        if (!env.flags.isFlagSet(ResolveCompiler.FLAG_WEB) || env.flags.isFlagSet(Archiver.FLAG_ARCHIVE)) {
             //outputAsFile(targetFileName, getMainBuffer());
             //outputAsFile(outputFile.getAbsolutePath(), getMainBuffer());
             System.out.println(output());
@@ -422,8 +403,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midProgramOpExp(ProgramOpExp exp,
-            ResolveConceptualElement prevChild,
+    public void midProgramOpExp(ProgramOpExp exp, ResolveConceptualElement prevChild,
             ResolveConceptualElement nextChild) {
         if (prevChild != null && nextChild != null) {
             switch (exp.getOperator()) {

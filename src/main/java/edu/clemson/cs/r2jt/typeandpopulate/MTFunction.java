@@ -18,8 +18,7 @@ import java.util.Map;
 public class MTFunction extends MTAbstract<MTFunction> {
 
     private static final int BASE_HASH = "MTFunction".hashCode();
-    private static final FunctionApplicationFactory DEFAULT_FACTORY =
-            new VanillaFunctionApplicationFactory();
+    private static final FunctionApplicationFactory DEFAULT_FACTORY = new VanillaFunctionApplicationFactory();
 
     /**
      * <p>In cases where myDomain is an instance of MTCartesian, the names of
@@ -39,10 +38,8 @@ public class MTFunction extends MTAbstract<MTFunction> {
 
     private List<MTType> myComponents;
 
-    public MTFunction(TypeGraph g, MTType range, List<MTType> paramTypes,
-            String singleParameterName) {
-        this(g, false, DEFAULT_FACTORY, range, Collections
-                .singletonList(singleParameterName), paramTypes);
+    public MTFunction(TypeGraph g, MTType range, List<MTType> paramTypes, String singleParameterName) {
+        this(g, false, DEFAULT_FACTORY, range, Collections.singletonList(singleParameterName), paramTypes);
     }
 
     public MTFunction(TypeGraph g, MTType range, MTType... paramTypes) {
@@ -57,57 +54,48 @@ public class MTFunction extends MTAbstract<MTFunction> {
      * This assumes that d has some parameters in its .getParams().
      */
     public MTFunction(TypeGraph g, DefinitionDec d) {
-        this(g, false, DEFAULT_FACTORY, d.getReturnTy().getMathTypeValue(),
-                getParamNames(d.getParameters()), getParamTypes(d
-                        .getParameters()));
+        this(g, false, DEFAULT_FACTORY, d.getReturnTy().getMathTypeValue(), getParamNames(d.getParameters()),
+                getParamTypes(d.getParameters()));
     }
 
     public MTFunction(TypeGraph g, LambdaExp l) {
-        this(g, false, DEFAULT_FACTORY, l.getMathType(), getParamNames(l
-                .getParameters()), getParamTypes(l.getParameters()));
+        this(g, false, DEFAULT_FACTORY, l.getMathType(), getParamNames(l.getParameters()), getParamTypes(l
+                .getParameters()));
     }
 
-    public MTFunction(TypeGraph g, boolean elementsRestrict, MTType range,
-            MTType... paramTypes) {
+    public MTFunction(TypeGraph g, boolean elementsRestrict, MTType range, MTType... paramTypes) {
 
         this(g, false, DEFAULT_FACTORY, range, paramTypes);
     }
 
-    public MTFunction(TypeGraph g, boolean elementsRestrict, MTType range,
-            List<MTType> paramTypes) {
+    public MTFunction(TypeGraph g, boolean elementsRestrict, MTType range, List<MTType> paramTypes) {
 
         this(g, false, DEFAULT_FACTORY, range, paramTypes);
     }
 
-    public MTFunction(TypeGraph g, FunctionApplicationFactory apply,
-            MTType range, MTType... paramTypes) {
+    public MTFunction(TypeGraph g, FunctionApplicationFactory apply, MTType range, MTType... paramTypes) {
 
         this(g, false, apply, range, paramTypes);
     }
 
-    public MTFunction(TypeGraph g, FunctionApplicationFactory apply,
-            MTType range, List<MTType> paramTypes) {
+    public MTFunction(TypeGraph g, FunctionApplicationFactory apply, MTType range, List<MTType> paramTypes) {
 
         this(g, false, apply, range, paramTypes);
     }
 
-    public MTFunction(TypeGraph g, boolean elementsRestrict,
-            FunctionApplicationFactory apply, MTType range,
+    public MTFunction(TypeGraph g, boolean elementsRestrict, FunctionApplicationFactory apply, MTType range,
             MTType... paramTypes) {
 
         this(g, elementsRestrict, apply, range, Arrays.asList(paramTypes));
     }
 
-    public MTFunction(TypeGraph g, boolean elementsRestrict,
-            FunctionApplicationFactory apply, MTType range,
+    public MTFunction(TypeGraph g, boolean elementsRestrict, FunctionApplicationFactory apply, MTType range,
             List<MTType> paramTypes) {
 
-        this(g, elementsRestrict, apply, range,
-                buildNullNameListOfEqualLength(paramTypes), paramTypes);
+        this(g, elementsRestrict, apply, range, buildNullNameListOfEqualLength(paramTypes), paramTypes);
     }
 
-    private MTFunction(TypeGraph g, boolean elementsRestrict,
-            FunctionApplicationFactory apply, MTType range,
+    private MTFunction(TypeGraph g, boolean elementsRestrict, FunctionApplicationFactory apply, MTType range,
             List<String> paramNames, List<MTType> paramTypes) {
 
         super(g);
@@ -165,8 +153,7 @@ public class MTFunction extends MTAbstract<MTFunction> {
      * @return A version of this function type with any top-level type 
      *         parameters filled in.
      */
-    public MTFunction deschematize(List<Exp> parameters)
-            throws NoSolutionException {
+    public MTFunction deschematize(List<Exp> parameters) throws NoSolutionException {
 
         Map<String, MTType> concreteValues = null;
 
@@ -186,8 +173,8 @@ public class MTFunction extends MTAbstract<MTFunction> {
 
                 if (domainSize != parametersSize) {
                     if (parametersSize == 1 && mySingleParameterName != null) {
-                        deschematizeParameter(mySingleParameterName, myDomain,
-                                parameters.get(0), concreteValues);
+                        deschematizeParameter(mySingleParameterName, myDomain, parameters.get(0),
+                                concreteValues);
                     }
                     else {
                         throw NoSolutionException.INSTANCE;
@@ -196,8 +183,7 @@ public class MTFunction extends MTAbstract<MTFunction> {
                 else {
                     for (int i = 0; i < domainSize; i++) {
                         deschematizeParameter(domainAsMTCartesian.getTag(i),
-                                domainAsMTCartesian.getFactor(i), parameters
-                                        .get(i), concreteValues);
+                                domainAsMTCartesian.getFactor(i), parameters.get(i), concreteValues);
                     }
                 }
             }
@@ -207,35 +193,27 @@ public class MTFunction extends MTAbstract<MTFunction> {
                     throw NoSolutionException.INSTANCE;
                 }
 
-                deschematizeParameter(mySingleParameterName, myDomain,
-                        parameters.get(0), concreteValues);
+                deschematizeParameter(mySingleParameterName, myDomain, parameters.get(0), concreteValues);
             }
         }
 
         return (MTFunction) getCopyWithVariablesSubstituted(concreteValues);
     }
 
-    private void deschematizeParameter(String formalParameterName,
-            MTType formalParameterType, Exp actualParameter,
-            Map<String, MTType> accumulatedConcreteValues)
-            throws NoSolutionException {
+    private void deschematizeParameter(String formalParameterName, MTType formalParameterType,
+            Exp actualParameter, Map<String, MTType> accumulatedConcreteValues) throws NoSolutionException {
 
-        formalParameterType =
-                formalParameterType
-                        .getCopyWithVariablesSubstituted(accumulatedConcreteValues);
+        formalParameterType = formalParameterType.getCopyWithVariablesSubstituted(accumulatedConcreteValues);
 
         if (formalParameterType.isKnownToContainOnlyMTypes()) {
-            MTType actualParameterMathTypeValue =
-                    actualParameter.getMathTypeValue();
+            MTType actualParameterMathTypeValue = actualParameter.getMathTypeValue();
 
             if (actualParameterMathTypeValue == null
-                    || !myTypeGraph.isKnownToBeIn(actualParameterMathTypeValue,
-                            formalParameterType)) {
+                    || !myTypeGraph.isKnownToBeIn(actualParameterMathTypeValue, formalParameterType)) {
                 throw NoSolutionException.INSTANCE;
             }
 
-            accumulatedConcreteValues.put(formalParameterName, actualParameter
-                    .getMathTypeValue());
+            accumulatedConcreteValues.put(formalParameterName, actualParameter.getMathTypeValue());
         }
     }
 
@@ -257,8 +235,7 @@ public class MTFunction extends MTAbstract<MTFunction> {
      * @param comparison
      * @return 
      */
-    public boolean parametersMatch(List<Exp> parameters,
-            TypeComparison<Exp, MTType> comparison) {
+    public boolean parametersMatch(List<Exp> parameters, TypeComparison<Exp, MTType> comparison) {
 
         boolean result = false;
 
@@ -281,8 +258,7 @@ public class MTFunction extends MTAbstract<MTFunction> {
 
                         parameter = parameters.get(i);
                         result =
-                                comparison.compare(parameter, parameter
-                                        .getMathType(), domainAsMTCartesian
+                                comparison.compare(parameter, parameter.getMathType(), domainAsMTCartesian
                                         .getFactor(i));
 
                         i++;
@@ -292,17 +268,14 @@ public class MTFunction extends MTAbstract<MTFunction> {
 
             if (!result && (parameters.size() == 1)) {
                 Exp parameter = parameters.get(0);
-                result =
-                        comparison.compare(parameter, parameter.getMathType(),
-                                myDomain);
+                result = comparison.compare(parameter, parameter.getMathType(), myDomain);
             }
         }
 
         return result;
     }
 
-    public boolean parameterTypesMatch(MTFunction other,
-            Comparator<MTType> comparison) {
+    public boolean parameterTypesMatch(MTFunction other, Comparator<MTType> comparison) {
 
         MTType otherDomain = other.getDomain();
 
@@ -313,8 +286,7 @@ public class MTFunction extends MTAbstract<MTFunction> {
 
             if (result) {
                 MTCartesian domainAsMTCartesian = (MTCartesian) myDomain;
-                MTCartesian otherDomainAsMTCartesian =
-                        (MTCartesian) otherDomain;
+                MTCartesian otherDomainAsMTCartesian = (MTCartesian) otherDomain;
 
                 int domainSize = domainAsMTCartesian.size();
                 int otherDomainSize = otherDomainAsMTCartesian.size();
@@ -325,9 +297,8 @@ public class MTFunction extends MTAbstract<MTFunction> {
                     int i = 0;
                     while (result && i < domainSize) {
                         result =
-                                (comparison.compare(domainAsMTCartesian
-                                        .getFactor(i), otherDomainAsMTCartesian
-                                        .getFactor(i)) == 0);
+                                (comparison.compare(domainAsMTCartesian.getFactor(i),
+                                        otherDomainAsMTCartesian.getFactor(i)) == 0);
 
                         i++;
                     }
@@ -341,8 +312,7 @@ public class MTFunction extends MTAbstract<MTFunction> {
         return result;
     }
 
-    private static List<String> getParamNames(
-            edu.clemson.cs.r2jt.collections.List<MathVarDec> params) {
+    private static List<String> getParamNames(edu.clemson.cs.r2jt.collections.List<MathVarDec> params) {
 
         List<String> names = new LinkedList<String>();
 
@@ -353,8 +323,7 @@ public class MTFunction extends MTAbstract<MTFunction> {
         return names;
     }
 
-    private static List<MTType> getParamTypes(
-            edu.clemson.cs.r2jt.collections.List<MathVarDec> params) {
+    private static List<MTType> getParamTypes(edu.clemson.cs.r2jt.collections.List<MathVarDec> params) {
 
         List<MTType> names = new LinkedList<MTType>();
 
@@ -365,8 +334,7 @@ public class MTFunction extends MTAbstract<MTFunction> {
         return names;
     }
 
-    private static List<String> buildNullNameListOfEqualLength(
-            List<MTType> original) {
+    private static List<String> buildNullNameListOfEqualLength(List<MTType> original) {
 
         List<String> names = new LinkedList<String>();
         for (@SuppressWarnings("unused")
@@ -391,8 +359,8 @@ public class MTFunction extends MTAbstract<MTFunction> {
 
     public MTType getApplicationType(String calledAsName, List<MTType> arguments) {
 
-        return myFunctionApplicationFactory.buildFunctionApplication(
-                myTypeGraph, this, calledAsName, arguments);
+        return myFunctionApplicationFactory.buildFunctionApplication(myTypeGraph, this, calledAsName,
+                arguments);
     }
 
     @Override
@@ -463,18 +431,15 @@ public class MTFunction extends MTAbstract<MTFunction> {
             throw new IndexOutOfBoundsException();
         }
 
-        return new MTFunction(getTypeGraph(), myRestrictionFlag, newRange,
-                newDomain);
+        return new MTFunction(getTypeGraph(), myRestrictionFlag, newRange, newDomain);
     }
 
     public static MTType buildParameterType(TypeGraph g, List<MTType> paramTypes) {
 
-        return buildParameterType(g,
-                buildNullNameListOfEqualLength(paramTypes), paramTypes);
+        return buildParameterType(g, buildNullNameListOfEqualLength(paramTypes), paramTypes);
     }
 
-    public static MTType buildParameterType(TypeGraph g,
-            List<String> paramNames, List<MTType> paramTypes) {
+    public static MTType buildParameterType(TypeGraph g, List<String> paramNames, List<MTType> paramTypes) {
 
         MTType result;
 
@@ -486,14 +451,12 @@ public class MTFunction extends MTAbstract<MTFunction> {
             result = paramTypes.get(0);
             break;
         default:
-            List<MTCartesian.Element> elements =
-                    new LinkedList<MTCartesian.Element>();
+            List<MTCartesian.Element> elements = new LinkedList<MTCartesian.Element>();
 
             Iterator<String> namesIter = paramNames.iterator();
             Iterator<MTType> typesIter = paramTypes.iterator();
             while (namesIter.hasNext()) {
-                elements.add(new MTCartesian.Element(namesIter.next(),
-                        typesIter.next()));
+                elements.add(new MTCartesian.Element(namesIter.next(), typesIter.next()));
             }
 
             result = new MTCartesian(g, elements);
@@ -502,13 +465,11 @@ public class MTFunction extends MTAbstract<MTFunction> {
         return result;
     }
 
-    private static class VanillaFunctionApplicationFactory
-            implements
-                FunctionApplicationFactory {
+    private static class VanillaFunctionApplicationFactory implements FunctionApplicationFactory {
 
         @Override
-        public MTType buildFunctionApplication(TypeGraph g, MTFunction f,
-                String calledAsName, List<MTType> arguments) {
+        public MTType buildFunctionApplication(TypeGraph g, MTFunction f, String calledAsName,
+                List<MTType> arguments) {
             return new MTFunctionApplication(g, f, calledAsName, arguments);
         }
     }

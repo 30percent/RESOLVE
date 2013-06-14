@@ -14,8 +14,7 @@ import edu.clemson.cs.r2jt.utilities.Mapping;
  */
 public class LocalTheorem extends Theorem {
 
-    public static final Mapping<LocalTheorem, PExp> UNWRAPPER =
-            new LocalTheoremUnwrapper();
+    public static final Mapping<LocalTheorem, PExp> UNWRAPPER = new LocalTheoremUnwrapper();
 
     /**
      * <p>Mathematically speaking, once we successfully move all the consequents
@@ -30,17 +29,14 @@ public class LocalTheorem extends Theorem {
      */
     private boolean myThingWeWereTryingToProveFlag;
 
-    LocalTheorem(PExp assertion, Justification justification,
-            boolean tryingToProveThis) {
+    LocalTheorem(PExp assertion, Justification justification, boolean tryingToProveThis) {
 
         super(assertion, justification);
 
         myThingWeWereTryingToProveFlag = tryingToProveThis;
     }
 
-    private static class LocalTheoremUnwrapper
-            implements
-                Mapping<LocalTheorem, PExp> {
+    private static class LocalTheoremUnwrapper implements Mapping<LocalTheorem, PExp> {
 
         @Override
         public PExp map(LocalTheorem input) {

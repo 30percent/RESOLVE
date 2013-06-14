@@ -61,10 +61,7 @@ package edu.clemson.cs.r2jt.collections;
 import edu.clemson.cs.r2jt.data.Copyable;
 import edu.clemson.cs.r2jt.data.AsStringCapability;
 
-public class List<A> extends java.util.ArrayList<A>
-        implements
-            AsStringCapability,
-            Copyable {
+public class List<A> extends java.util.ArrayList<A> implements AsStringCapability, Copyable {
 
     // ===========================================================
     // Variables
@@ -167,8 +164,7 @@ public class List<A> extends java.util.ArrayList<A>
                 sb.append("Null Element\n");
             }
             else if (x instanceof AsStringCapability) {
-                sb.append(((AsStringCapability) x).asString(indent + increment,
-                        increment));
+                sb.append(((AsStringCapability) x).asString(indent + increment, increment));
             }
             else {
                 sb.append(printSpace(indent + increment));

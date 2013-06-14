@@ -68,8 +68,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
     private Map<String, NameTy> myArrayFacilityMap;
 
     // List of Concepts that gets added to the Uses List automatically
-    private String[] myUsesItems =
-            { "Location_Linking_Template_1", "Static_Array_Template" };
+    private String[] myUsesItems = { "Location_Linking_Template_1", "Static_Array_Template" };
 
     // ===========================================================
     // Constructors
@@ -117,8 +116,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
             // Create newTy
             NameTy newTy =
-                    new NameTy(new PosSymbol(location, Symbol
-                            .symbol(newArrayName)), new PosSymbol(location,
+                    new NameTy(new PosSymbol(location, Symbol.symbol(newArrayName)), new PosSymbol(location,
                             Symbol.symbol("Static_Array")));
 
             //Check if we have a FacilityTypeDec, RepresentationDec or VarDec
@@ -140,18 +138,16 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             String typeName = ((NameTy) ty.getEntryType()).getName().getName();
 
             // Add the type, Low and High for Arrays
-            listItem.add(new ModuleArgumentItem(null, new PosSymbol(location,
-                    Symbol.symbol(typeName)), null));
+            listItem
+                    .add(new ModuleArgumentItem(null, new PosSymbol(location, Symbol.symbol(typeName)), null));
             listItem.add(new ModuleArgumentItem(null, null, ty.getLo()));
             listItem.add(new ModuleArgumentItem(null, null, ty.getHi()));
 
             // Call method to createFacilityDec
             FacilityDec arrayFacilityDec =
-                    myUtilities.createFacilityDec(location, newArrayName,
-                            "Static_Array_Template", "Std_Array_Realiz",
-                            listItem, new List<ModuleArgumentItem>(),
-                            new List<EnhancementItem>(),
-                            new List<EnhancementBodyItem>());
+                    myUtilities.createFacilityDec(location, newArrayName, "Static_Array_Template",
+                            "Std_Array_Realiz", listItem, new List<ModuleArgumentItem>(),
+                            new List<EnhancementItem>(), new List<EnhancementBodyItem>());
 
             //Iterate through AST
             Iterator<ResolveConceptualElement> it = this.getAncestorInterator();
@@ -182,8 +178,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         if (argList != null) {
             for (int i = 0; i < argList.size(); i++) {
                 if (argList.get(i) instanceof ProgramOpExp) {
-                    ProgramParamExp newExp =
-                            replaceProgramOpExp((ProgramOpExp) argList.get(i));
+                    ProgramParamExp newExp = replaceProgramOpExp((ProgramOpExp) argList.get(i));
 
                     if (newExp != null) {
                         argList.set(i, newExp);
@@ -195,8 +190,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         // Check if the called operation is a local operation
         if (localOper) {
             // Iterators
-            List<ParameterVarDec> parameterList =
-                    myUtilities.retrieveParameterList(name.getName());
+            List<ParameterVarDec> parameterList = myUtilities.retrieveParameterList(name.getName());
 
             // Make sure that we have the right operation
             if (parameterList.size() == argList.size()) {
@@ -270,8 +264,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         }
         // Check if the test condition is a ProgramOpExp
         else if (stmt.getTest() instanceof ProgramOpExp) {
-            ProgramParamExp newExp =
-                    replaceProgramOpExp((ProgramOpExp) stmt.getTest());
+            ProgramParamExp newExp = replaceProgramOpExp((ProgramOpExp) stmt.getTest());
 
             if (newExp != null) {
                 stmt.setTest(newExp);
@@ -335,18 +328,14 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         // Should be fixed at a later date - Chuck and Sami
         Location newLoc = dec.getName().getLocation();
         List<VarDec> localVarList = myUtilities.getLocalVarList();
-        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol
-                .symbol("_Integer")), new NameTy(null, new PosSymbol(newLoc,
-                Symbol.symbol("Integer")))));
-        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol
-                .symbol("_Boolean")), new NameTy(null, new PosSymbol(newLoc,
-                Symbol.symbol("Boolean")))));
-        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol
-                .symbol("_Character")), new NameTy(null, new PosSymbol(newLoc,
-                Symbol.symbol("Character")))));
-        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol
-                .symbol("_Char_Str")), new NameTy(null, new PosSymbol(newLoc,
-                Symbol.symbol("Char_Str")))));
+        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol.symbol("_Integer")), new NameTy(null,
+                new PosSymbol(newLoc, Symbol.symbol("Integer")))));
+        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol.symbol("_Boolean")), new NameTy(null,
+                new PosSymbol(newLoc, Symbol.symbol("Boolean")))));
+        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol.symbol("_Character")), new NameTy(null,
+                new PosSymbol(newLoc, Symbol.symbol("Character")))));
+        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol.symbol("_Char_Str")), new NameTy(null,
+                new PosSymbol(newLoc, Symbol.symbol("Char_Str")))));
 
         // Put the modified variable list into dec
         dec.setVariables(localVarList);
@@ -401,9 +390,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         // operation for arrays
         if (rightExp instanceof VariableArrayExp) {
             // Create the new ProgramExp
-            ProgramExp newExp =
-                    createEntryReplicaExp((VariableArrayExp) rightExp, rightExp
-                            .getLocation());
+            ProgramExp newExp = createEntryReplicaExp((VariableArrayExp) rightExp, rightExp.getLocation());
 
             // Set new right hand side to stmt
             stmt.setAssign(newExp);
@@ -415,20 +402,17 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             // Check if the last element is an array or not
             if (segs.get(segs.size() - 1) instanceof VariableArrayExp) {
                 // Last Element
-                VariableArrayExp lastElement =
-                        (VariableArrayExp) segs.get(segs.size() - 1);
+                VariableArrayExp lastElement = (VariableArrayExp) segs.get(segs.size() - 1);
 
                 // Replace the name
-                segs.set(segs.size() - 1, new VariableNameExp(lastElement
-                        .getLocation(), lastElement.getQualifier(), lastElement
-                        .getName()));
+                segs.set(segs.size() - 1, new VariableNameExp(lastElement.getLocation(), lastElement
+                        .getQualifier(), lastElement.getName()));
                 ((VariableDotExp) rightExp).setSegments(segs);
 
                 // Create the new ProgramExp
                 ProgramExp newExp =
-                        createEntryReplicaExp((VariableDotExp) rightExp,
-                                lastElement.getArgument(), rightExp
-                                        .getLocation());
+                        createEntryReplicaExp((VariableDotExp) rightExp, lastElement.getArgument(), rightExp
+                                .getLocation());
 
                 // Set new right hand side to stmt
                 stmt.setAssign(newExp);
@@ -440,15 +424,14 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             // Parameter List
             List<ProgramExp> params = new List<ProgramExp>();
             params.add(new VariableNameExp(leftExp.getLocation(),
-                    ((VariableArrayExp) leftExp).getQualifier(),
-                    ((VariableArrayExp) leftExp).getName()));
+                    ((VariableArrayExp) leftExp).getQualifier(), ((VariableArrayExp) leftExp).getName()));
             params.add(stmt.getAssign());
             params.add(((VariableArrayExp) leftExp).getArgument());
 
             // Create the Assign_Entry operation
             CallStmt newStmt =
-                    new CallStmt(null, new PosSymbol(stmt.getLocation(), Symbol
-                            .symbol("Assign_Entry")), params);
+                    new CallStmt(null, new PosSymbol(stmt.getLocation(), Symbol.symbol("Assign_Entry")),
+                            params);
 
             // Ancestor Iterator
             Iterator<ResolveConceptualElement> it = this.getAncestorInterator();
@@ -483,8 +466,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         }
         // Check if the test condition is a ProgramOpExp
         else if (stmt.getTest() instanceof ProgramOpExp) {
-            ProgramParamExp newExp =
-                    replaceProgramOpExp((ProgramOpExp) stmt.getTest());
+            ProgramParamExp newExp = replaceProgramOpExp((ProgramOpExp) stmt.getTest());
 
             if (newExp != null) {
                 stmt.setTest(newExp);
@@ -508,18 +490,14 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         // Should be fixed at a later date - Chuck and Sami
         Location newLoc = dec.getName().getLocation();
         List<VarDec> localVarList = myUtilities.getLocalVarList();
-        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol
-                .symbol("_Integer")), new NameTy(null, new PosSymbol(newLoc,
-                Symbol.symbol("Integer")))));
-        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol
-                .symbol("_Boolean")), new NameTy(null, new PosSymbol(newLoc,
-                Symbol.symbol("Boolean")))));
-        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol
-                .symbol("_Character")), new NameTy(null, new PosSymbol(newLoc,
-                Symbol.symbol("Character")))));
-        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol
-                .symbol("_Char_Str")), new NameTy(null, new PosSymbol(newLoc,
-                Symbol.symbol("Char_Str")))));
+        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol.symbol("_Integer")), new NameTy(null,
+                new PosSymbol(newLoc, Symbol.symbol("Integer")))));
+        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol.symbol("_Boolean")), new NameTy(null,
+                new PosSymbol(newLoc, Symbol.symbol("Boolean")))));
+        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol.symbol("_Character")), new NameTy(null,
+                new PosSymbol(newLoc, Symbol.symbol("Character")))));
+        localVarList.add(new VarDec(new PosSymbol(newLoc, Symbol.symbol("_Char_Str")), new NameTy(null,
+                new PosSymbol(newLoc, Symbol.symbol("Char_Str")))));
 
         // Put the modified variable list into dec
         dec.setVariables(localVarList);
@@ -541,8 +519,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
         // Check if the firstExp is a ProgramOpExp
         if (firstExp instanceof ProgramOpExp) {
-            ProgramParamExp newExp =
-                    replaceProgramOpExp((ProgramOpExp) firstExp);
+            ProgramParamExp newExp = replaceProgramOpExp((ProgramOpExp) firstExp);
 
             if (newExp != null) {
                 exp.setFirst(newExp);
@@ -551,8 +528,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
         // Check if the second is a ProgramOpExp
         if (secondExp instanceof ProgramOpExp) {
-            ProgramParamExp newExp =
-                    replaceProgramOpExp((ProgramOpExp) secondExp);
+            ProgramParamExp newExp = replaceProgramOpExp((ProgramOpExp) secondExp);
 
             if (newExp != null) {
                 exp.setSecond(newExp);
@@ -569,9 +545,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         // Check first to see if it is an array
         if (firstExp instanceof VariableArrayExp) {
             // Create the new ProgramExp
-            ProgramExp newExp =
-                    createEntryReplicaExp((VariableArrayExp) firstExp, firstExp
-                            .getLocation());
+            ProgramExp newExp = createEntryReplicaExp((VariableArrayExp) firstExp, firstExp.getLocation());
 
             // Set the newExp to first of exp
             exp.setFirst(newExp);
@@ -583,20 +557,17 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             // Check if the last element is an array or not
             if (segs.get(segs.size() - 1) instanceof VariableArrayExp) {
                 // Last Element
-                VariableArrayExp lastElement =
-                        (VariableArrayExp) segs.get(segs.size() - 1);
+                VariableArrayExp lastElement = (VariableArrayExp) segs.get(segs.size() - 1);
 
                 // Replace the name
-                segs.set(segs.size() - 1, new VariableNameExp(lastElement
-                        .getLocation(), lastElement.getQualifier(), lastElement
-                        .getName()));
+                segs.set(segs.size() - 1, new VariableNameExp(lastElement.getLocation(), lastElement
+                        .getQualifier(), lastElement.getName()));
                 ((VariableDotExp) firstExp).setSegments(segs);
 
                 // Create the new ProgramExp
                 ProgramExp newExp =
-                        createEntryReplicaExp((VariableDotExp) firstExp,
-                                lastElement.getArgument(), firstExp
-                                        .getLocation());
+                        createEntryReplicaExp((VariableDotExp) firstExp, lastElement.getArgument(), firstExp
+                                .getLocation());
 
                 // Set the newExp to first of exp
                 exp.setFirst(newExp);
@@ -606,9 +577,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         // Check second to see if it is an array
         if (secondExp instanceof VariableArrayExp) {
             // Create the new ProgramExp
-            ProgramExp newExp =
-                    createEntryReplicaExp((VariableArrayExp) secondExp,
-                            secondExp.getLocation());
+            ProgramExp newExp = createEntryReplicaExp((VariableArrayExp) secondExp, secondExp.getLocation());
 
             // Set the newExp to first of exp
             exp.setSecond(newExp);
@@ -620,20 +589,17 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             // Check if the last element is an array or not
             if (segs.get(segs.size() - 1) instanceof VariableArrayExp) {
                 // Last Element
-                VariableArrayExp lastElement =
-                        (VariableArrayExp) segs.get(segs.size() - 1);
+                VariableArrayExp lastElement = (VariableArrayExp) segs.get(segs.size() - 1);
 
                 // Replace the name
-                segs.set(segs.size() - 1, new VariableNameExp(lastElement
-                        .getLocation(), lastElement.getQualifier(), lastElement
-                        .getName()));
+                segs.set(segs.size() - 1, new VariableNameExp(lastElement.getLocation(), lastElement
+                        .getQualifier(), lastElement.getName()));
                 ((VariableDotExp) secondExp).setSegments(segs);
 
                 // Create the new ProgramExp
                 ProgramExp newExp =
-                        createEntryReplicaExp((VariableDotExp) secondExp,
-                                lastElement.getArgument(), secondExp
-                                        .getLocation());
+                        createEntryReplicaExp((VariableDotExp) secondExp, lastElement.getArgument(),
+                                secondExp.getLocation());
 
                 // Set the newExp to first of exp
                 exp.setSecond(newExp);
@@ -656,8 +622,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         if (argList != null) {
             for (int i = 0; i < argList.size(); i++) {
                 if (argList.get(i) instanceof ProgramOpExp) {
-                    ProgramParamExp newExp =
-                            replaceProgramOpExp((ProgramOpExp) argList.get(i));
+                    ProgramParamExp newExp = replaceProgramOpExp((ProgramOpExp) argList.get(i));
 
                     if (newExp != null) {
                         argList.set(i, newExp);
@@ -669,8 +634,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         // Check if the called operation is a local operation
         if (localOper) {
             // Iterators
-            List<ParameterVarDec> parameterList =
-                    myUtilities.retrieveParameterList(name.getName());
+            List<ParameterVarDec> parameterList = myUtilities.retrieveParameterList(name.getName());
 
             // Make sure that we have the right operation
             if (parameterList.size() == argList.size()) {
@@ -759,22 +723,20 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         List<ProgramExp> expList = new List<ProgramExp>();
 
         // Check if both left hand side and right hand side is a VariableArrayExp
-        if (stmt.getLeft() instanceof VariableArrayExp
-                && stmt.getRight() instanceof VariableArrayExp) {
+        if (stmt.getLeft() instanceof VariableArrayExp && stmt.getRight() instanceof VariableArrayExp) {
             // Check if the names of the array is the same
             VariableArrayExp left = (VariableArrayExp) stmt.getLeft();
             VariableArrayExp right = (VariableArrayExp) stmt.getRight();
             if (left.getName().getName().equals(right.getName().getName())) {
                 // Create the arguments
-                expList.add(new VariableNameExp(stmt.getLocation(), null, left
-                        .getName()));
+                expList.add(new VariableNameExp(stmt.getLocation(), null, left.getName()));
                 expList.add(left.getArgument());
                 expList.add(right.getArgument());
 
                 // Create a CallStmt
                 CallStmt swapEntryStmt =
-                        new CallStmt(null, new PosSymbol(currentLocation,
-                                Symbol.symbol("Swap_Two_Entries")), expList);
+                        new CallStmt(null, new PosSymbol(currentLocation, Symbol.symbol("Swap_Two_Entries")),
+                                expList);
 
                 // Add the created swap stmt to the right place
                 myUtilities.replaceStmt(it, stmt, swapEntryStmt);
@@ -786,10 +748,8 @@ public class PreProcessor extends TreeWalkerStackVisitor {
                 // Check right hand side for VariableDotExp with Array
                 boolean containArray = false;
                 if (stmt.getRight() instanceof VariableDotExp) {
-                    List<VariableExp> rightVarExpList =
-                            ((VariableDotExp) stmt.getRight()).getSegments();
-                    VariableExp rightLastExp =
-                            rightVarExpList.get(rightVarExpList.size() - 1);
+                    List<VariableExp> rightVarExpList = ((VariableDotExp) stmt.getRight()).getSegments();
+                    VariableExp rightLastExp = rightVarExpList.get(rightVarExpList.size() - 1);
                     if (rightLastExp instanceof VariableArrayExp) {
                         containArray = true;
                     }
@@ -798,17 +758,16 @@ public class PreProcessor extends TreeWalkerStackVisitor {
                 // If it doesn't contain array or is simply a VariableNameExp
                 if (containArray == false) {
                     // Add the arguments necessary for Swap_Entry in Static_Array_Template
-                    expList.add(new VariableNameExp(stmt.getLocation(), null,
-                            ((VariableArrayExp) stmt.getLeft()).getName()));
+                    expList.add(new VariableNameExp(stmt.getLocation(), null, ((VariableArrayExp) stmt
+                            .getLeft()).getName()));
                     expList.add(stmt.getRight());
-                    expList.add(((VariableArrayExp) stmt.getLeft())
-                            .getArgument());
+                    expList.add(((VariableArrayExp) stmt.getLeft()).getArgument());
                 }
 
                 // Create a CallStmt
                 CallStmt swapEntryStmt =
-                        new CallStmt(null, new PosSymbol(currentLocation,
-                                Symbol.symbol("Swap_Entry")), expList);
+                        new CallStmt(null, new PosSymbol(currentLocation, Symbol.symbol("Swap_Entry")),
+                                expList);
 
                 // Add the created swap stmt to the right place
                 myUtilities.replaceStmt(it, stmt, swapEntryStmt);
@@ -818,10 +777,8 @@ public class PreProcessor extends TreeWalkerStackVisitor {
                 // Check right hand side for VariableDotExp with Array
                 boolean containArray = false;
                 if (stmt.getLeft() instanceof VariableDotExp) {
-                    List<VariableExp> leftVarExpList =
-                            ((VariableDotExp) stmt.getLeft()).getSegments();
-                    VariableExp leftLastExp =
-                            leftVarExpList.get(leftVarExpList.size() - 1);
+                    List<VariableExp> leftVarExpList = ((VariableDotExp) stmt.getLeft()).getSegments();
+                    VariableExp leftLastExp = leftVarExpList.get(leftVarExpList.size() - 1);
                     if (leftLastExp instanceof VariableArrayExp) {
                         containArray = true;
                     }
@@ -830,17 +787,16 @@ public class PreProcessor extends TreeWalkerStackVisitor {
                 // If it doesn't contain array or is simply a VariableNameExp
                 if (containArray == false) {
                     // Add the arguments necessary for Swap_Entry in Static_Array_Template
-                    expList.add(new VariableNameExp(stmt.getLocation(), null,
-                            ((VariableArrayExp) stmt.getRight()).getName()));
+                    expList.add(new VariableNameExp(stmt.getLocation(), null, ((VariableArrayExp) stmt
+                            .getRight()).getName()));
                     expList.add(stmt.getLeft());
-                    expList.add(((VariableArrayExp) stmt.getRight())
-                            .getArgument());
+                    expList.add(((VariableArrayExp) stmt.getRight()).getArgument());
                 }
 
                 // Create a CallStmt
                 CallStmt swapEntryStmt =
-                        new CallStmt(null, new PosSymbol(currentLocation,
-                                Symbol.symbol("Swap_Entry")), expList);
+                        new CallStmt(null, new PosSymbol(currentLocation, Symbol.symbol("Swap_Entry")),
+                                expList);
 
                 // Add the created swap stmt to the right place
                 myUtilities.replaceStmt(it, stmt, swapEntryStmt);
@@ -848,43 +804,32 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         }
 
         // Check if left hand side and right hand side is a VariableDotExp
-        if (stmt.getLeft() instanceof VariableDotExp
-                && stmt.getRight() instanceof VariableDotExp) {
+        if (stmt.getLeft() instanceof VariableDotExp && stmt.getRight() instanceof VariableDotExp) {
             // Variables
-            List<VariableExp> leftVarExpList =
-                    ((VariableDotExp) stmt.getLeft()).getSegments();
-            List<VariableExp> rightVarExpList =
-                    ((VariableDotExp) stmt.getRight()).getSegments();
+            List<VariableExp> leftVarExpList = ((VariableDotExp) stmt.getLeft()).getSegments();
+            List<VariableExp> rightVarExpList = ((VariableDotExp) stmt.getRight()).getSegments();
 
             // If this VariableDotExp is really a VariableArrayExp
-            VariableExp leftLastExp =
-                    leftVarExpList.get(leftVarExpList.size() - 1);
-            VariableExp rightLastExp =
-                    rightVarExpList.get(rightVarExpList.size() - 1);
+            VariableExp leftLastExp = leftVarExpList.get(leftVarExpList.size() - 1);
+            VariableExp rightLastExp = rightVarExpList.get(rightVarExpList.size() - 1);
 
-            if (leftLastExp instanceof VariableArrayExp
-                    && rightLastExp instanceof VariableArrayExp
+            if (leftLastExp instanceof VariableArrayExp && rightLastExp instanceof VariableArrayExp
                     && leftVarExpList.size() == rightVarExpList.size()) {
                 boolean isSame = true;
                 for (int i = 0; i < leftVarExpList.size() - 1 && isSame; ++i) {
                     VariableExp temp1 = rightVarExpList.get(i);
                     VariableExp temp2 = leftVarExpList.get(i);
                     // Check if it is a VariableArrayExp
-                    if (temp1 instanceof VariableArrayExp
-                            && temp2 instanceof VariableArrayExp) {
+                    if (temp1 instanceof VariableArrayExp && temp2 instanceof VariableArrayExp) {
                         if (!(((VariableArrayExp) temp1).getName().getName()
-                                .equals(((VariableArrayExp) temp2).getName()
-                                        .getName()))) {
+                                .equals(((VariableArrayExp) temp2).getName().getName()))) {
                             isSame = false;
                         }
                     }
                     // Check if it is a VariableNameExpelse 
-                    if (temp1 instanceof VariableNameExp
-                            && temp2 instanceof VariableNameExp) {
-                        if (!((VariableNameExp) temp1).getName().getName()
-                                .equals(
-                                        ((VariableNameExp) temp2).getName()
-                                                .getName())) {
+                    if (temp1 instanceof VariableNameExp && temp2 instanceof VariableNameExp) {
+                        if (!((VariableNameExp) temp1).getName().getName().equals(
+                                ((VariableNameExp) temp2).getName().getName())) {
                             isSame = false;
                         }
                     }
@@ -897,26 +842,20 @@ public class PreProcessor extends TreeWalkerStackVisitor {
                 // Can only handle arrays with the same name
                 if (isSame) {
                     // Create a new VariableNameExp
-                    leftVarExpList
-                            .set(leftVarExpList.size() - 1,
-                                    new VariableNameExp(currentLocation, null,
-                                            ((VariableArrayExp) leftLastExp)
-                                                    .getName()));
-                    VariableDotExp newDotExp =
-                            ((VariableDotExp) stmt.getLeft());
+                    leftVarExpList.set(leftVarExpList.size() - 1, new VariableNameExp(currentLocation, null,
+                            ((VariableArrayExp) leftLastExp).getName()));
+                    VariableDotExp newDotExp = ((VariableDotExp) stmt.getLeft());
                     newDotExp.setSegments(leftVarExpList);
 
                     // Create the arguments
                     expList.add(newDotExp);
                     expList.add(((VariableArrayExp) leftLastExp).getArgument());
-                    expList
-                            .add(((VariableArrayExp) rightLastExp)
-                                    .getArgument());
+                    expList.add(((VariableArrayExp) rightLastExp).getArgument());
 
                     // Create a CallStmt
                     CallStmt swapEntryStmt =
-                            new CallStmt(null, new PosSymbol(currentLocation,
-                                    Symbol.symbol("Swap_Two_Entries")), expList);
+                            new CallStmt(null, new PosSymbol(currentLocation, Symbol
+                                    .symbol("Swap_Two_Entries")), expList);
 
                     // Add the created swap stmt to the right place
                     myUtilities.replaceStmt(it, stmt, swapEntryStmt);
@@ -929,9 +868,8 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             // If the leftLastExp is a Variable Array Expression
             else if (leftLastExp instanceof VariableArrayExp) {
                 // Create a new VariableNameExp
-                leftVarExpList.set(leftVarExpList.size() - 1,
-                        new VariableNameExp(currentLocation, null,
-                                ((VariableArrayExp) leftLastExp).getName()));
+                leftVarExpList.set(leftVarExpList.size() - 1, new VariableNameExp(currentLocation, null,
+                        ((VariableArrayExp) leftLastExp).getName()));
                 VariableDotExp newDotExp = ((VariableDotExp) stmt.getLeft());
                 newDotExp.setSegments(leftVarExpList);
 
@@ -942,8 +880,8 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
                 // Create a CallStmt
                 CallStmt swapEntryStmt =
-                        new CallStmt(null, new PosSymbol(currentLocation,
-                                Symbol.symbol("Swap_Entry")), expList);
+                        new CallStmt(null, new PosSymbol(currentLocation, Symbol.symbol("Swap_Entry")),
+                                expList);
 
                 // Add the created swap stmt to the right place
                 myUtilities.replaceStmt(it, stmt, swapEntryStmt);
@@ -951,9 +889,8 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             // If the rightLastExp is a Variable Array Expression
             else if (rightLastExp instanceof VariableArrayExp) {
                 // Create a new VariableNameExp
-                rightVarExpList.set(rightVarExpList.size() - 1,
-                        new VariableNameExp(currentLocation, null,
-                                ((VariableArrayExp) rightLastExp).getName()));
+                rightVarExpList.set(rightVarExpList.size() - 1, new VariableNameExp(currentLocation, null,
+                        ((VariableArrayExp) rightLastExp).getName()));
                 VariableDotExp newDotExp = ((VariableDotExp) stmt.getRight());
                 newDotExp.setSegments(rightVarExpList);
 
@@ -964,8 +901,8 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
                 // Create a CallStmt
                 CallStmt swapEntryStmt =
-                        new CallStmt(null, new PosSymbol(currentLocation,
-                                Symbol.symbol("Swap_Entry")), expList);
+                        new CallStmt(null, new PosSymbol(currentLocation, Symbol.symbol("Swap_Entry")),
+                                expList);
 
                 // Add the created swap stmt to the right place
                 myUtilities.replaceStmt(it, stmt, swapEntryStmt);
@@ -973,24 +910,17 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         }
         else {
             // Check if left hand side is a VariableDotExp and right hand side is not an array
-            if (stmt.getLeft() instanceof VariableDotExp
-                    && stmt.getRight() instanceof VariableNameExp) {
+            if (stmt.getLeft() instanceof VariableDotExp && stmt.getRight() instanceof VariableNameExp) {
                 // Variables
-                List<VariableExp> leftVarExpList =
-                        ((VariableDotExp) stmt.getLeft()).getSegments();
-                VariableExp leftLastExp =
-                        leftVarExpList.get(leftVarExpList.size() - 1);
+                List<VariableExp> leftVarExpList = ((VariableDotExp) stmt.getLeft()).getSegments();
+                VariableExp leftLastExp = leftVarExpList.get(leftVarExpList.size() - 1);
 
                 // Do replacement if leftLastExp is an array
                 if (leftLastExp instanceof VariableArrayExp) {
                     // Create a new VariableNameExp
-                    leftVarExpList
-                            .set(leftVarExpList.size() - 1,
-                                    new VariableNameExp(currentLocation, null,
-                                            ((VariableArrayExp) leftLastExp)
-                                                    .getName()));
-                    VariableDotExp newDotExp =
-                            ((VariableDotExp) stmt.getLeft());
+                    leftVarExpList.set(leftVarExpList.size() - 1, new VariableNameExp(currentLocation, null,
+                            ((VariableArrayExp) leftLastExp).getName()));
+                    VariableDotExp newDotExp = ((VariableDotExp) stmt.getLeft());
                     newDotExp.setSegments(leftVarExpList);
 
                     // Create the arguments
@@ -1000,45 +930,36 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
                     // Create a CallStmt
                     CallStmt swapEntryStmt =
-                            new CallStmt(null, new PosSymbol(currentLocation,
-                                    Symbol.symbol("Swap_Entry")), expList);
+                            new CallStmt(null, new PosSymbol(currentLocation, Symbol.symbol("Swap_Entry")),
+                                    expList);
 
                     // Add the created swap stmt to the right place
                     myUtilities.replaceStmt(it, stmt, swapEntryStmt);
                 }
             }
             // Check if right hand side is a VariableDotExp and left hand side is not an array
-            else if (stmt.getRight() instanceof VariableDotExp
-                    && stmt.getLeft() instanceof VariableNameExp) {
+            else if (stmt.getRight() instanceof VariableDotExp && stmt.getLeft() instanceof VariableNameExp) {
                 // Variables
-                List<VariableExp> rightVarExpList =
-                        ((VariableDotExp) stmt.getRight()).getSegments();
-                VariableExp rightLastExp =
-                        rightVarExpList.get(rightVarExpList.size() - 1);
+                List<VariableExp> rightVarExpList = ((VariableDotExp) stmt.getRight()).getSegments();
+                VariableExp rightLastExp = rightVarExpList.get(rightVarExpList.size() - 1);
 
                 // Do replacement if leftLastExp is an array
                 if (rightLastExp instanceof VariableArrayExp) {
                     // Create a new VariableNameExp
-                    rightVarExpList
-                            .set(rightVarExpList.size() - 1,
-                                    new VariableNameExp(currentLocation, null,
-                                            ((VariableArrayExp) rightLastExp)
-                                                    .getName()));
-                    VariableDotExp newDotExp =
-                            ((VariableDotExp) stmt.getRight());
+                    rightVarExpList.set(rightVarExpList.size() - 1, new VariableNameExp(currentLocation,
+                            null, ((VariableArrayExp) rightLastExp).getName()));
+                    VariableDotExp newDotExp = ((VariableDotExp) stmt.getRight());
                     newDotExp.setSegments(rightVarExpList);
 
                     // Create the arguments
                     expList.add(newDotExp);
                     expList.add(stmt.getLeft());
-                    expList
-                            .add(((VariableArrayExp) rightLastExp)
-                                    .getArgument());
+                    expList.add(((VariableArrayExp) rightLastExp).getArgument());
 
                     // Create a CallStmt
                     CallStmt swapEntryStmt =
-                            new CallStmt(null, new PosSymbol(currentLocation,
-                                    Symbol.symbol("Swap_Entry")), expList);
+                            new CallStmt(null, new PosSymbol(currentLocation, Symbol.symbol("Swap_Entry")),
+                                    expList);
 
                     // Add the created swap stmt to the right place
                     myUtilities.replaceStmt(it, stmt, swapEntryStmt);
@@ -1060,8 +981,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         }
         // Check if the test condition is a ProgramOpExp
         else if (stmt.getTest() instanceof ProgramOpExp) {
-            ProgramParamExp newExp =
-                    replaceProgramOpExp((ProgramOpExp) stmt.getTest());
+            ProgramParamExp newExp = replaceProgramOpExp((ProgramOpExp) stmt.getTest());
 
             if (newExp != null) {
                 stmt.setTest(newExp);
@@ -1082,11 +1002,9 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
             // Add all local variables and parameters
             changingVarList =
-                    formNewVariableExpList(whileLoc, myUtilities
-                            .getLocalVarList(), changingVarList);
+                    formNewVariableExpList(whileLoc, myUtilities.getLocalVarList(), changingVarList);
             changingVarList =
-                    formNewVariableExpList(whileLoc, myUtilities
-                            .getParameterVarList(), changingVarList);
+                    formNewVariableExpList(whileLoc, myUtilities.getParameterVarList(), changingVarList);
 
             // Add the list back into the while statement
             stmt.setChanging(changingVarList);
@@ -1098,9 +1016,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             BooleanType b = BooleanType.INSTANCE;
 
             // Create the new Exp
-            Exp newExp =
-                    new VarExp(whileLoc, null, new PosSymbol(whileLoc, Symbol
-                            .symbol("true")));
+            Exp newExp = new VarExp(whileLoc, null, new PosSymbol(whileLoc, Symbol.symbol("true")));
 
             // Set the type to boolean
             newExp.setType(b);
@@ -1126,8 +1042,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
      * 
      * @return The modified uses list
      */
-    private List<UsesItem> addToUsesList(List<UsesItem> usesList,
-            Location location) {
+    private List<UsesItem> addToUsesList(List<UsesItem> usesList, Location location) {
         for (String s : myUsesItems) {
             // Check if the file is already in the uses list or not
             boolean isThere = false;
@@ -1140,8 +1055,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
             // Add file to uses list if it is not already there
             if (!isThere) {
-                usesList.add(new UsesItem(new PosSymbol(location, Symbol
-                        .symbol(s))));
+                usesList.add(new UsesItem(new PosSymbol(location, Symbol.symbol(s))));
             }
         }
 
@@ -1162,8 +1076,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
      * 
      * @return The modified argument list
      */
-    private List<ProgramExp> applyReplica(List<ParameterVarDec> parameterList,
-            List<ProgramExp> argList) {
+    private List<ProgramExp> applyReplica(List<ParameterVarDec> parameterList, List<ProgramExp> argList) {
         List<ProgramExp> modifiedArgList = new List<ProgramExp>();
 
         // Loop
@@ -1176,8 +1089,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
             if (tempParam.getMode() == Mode.EVALUATES) {
                 // Check if it is a VariableNameExp or VariableDotExp
-                if (tempExp instanceof VariableNameExp
-                        || tempExp instanceof VariableDotExp) {
+                if (tempExp instanceof VariableNameExp || tempExp instanceof VariableDotExp) {
                     // Creates a call to replica and modifies the original Exp
                     tempExp = myUtilities.createReplicaExp(tempExp);
                 }
@@ -1213,23 +1125,20 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             if (temp instanceof VariableArrayExp) {
                 // Variable
                 VariableNameExp retval =
-                        createNewVariableArrayExp(temp.getLocation(),
-                                (VariableArrayExp) temp);
+                        createNewVariableArrayExp(temp.getLocation(), (VariableArrayExp) temp);
                 argList.set(i, retval);
             }
             // Check if it is a VariableDotExp containing an array
             else if (temp instanceof VariableDotExp) {
                 // Get list of segments
-                List<VariableExp> segList =
-                        ((VariableDotExp) temp).getSegments();
+                List<VariableExp> segList = ((VariableDotExp) temp).getSegments();
                 VariableExp firstElement = segList.get(0);
                 VariableExp lastElement = segList.get(segList.size() - 1);
 
                 // Check if the last entry is an instance of array. EX: S.A[i]
                 if (lastElement instanceof VariableArrayExp) {
                     VariableNameExp retval =
-                            createNewVariableArrayExp(temp.getLocation(),
-                                    (VariableNameExp) firstElement,
+                            createNewVariableArrayExp(temp.getLocation(), (VariableNameExp) firstElement,
                                     (VariableArrayExp) lastElement);
 
                     argList.set(i, retval);
@@ -1254,13 +1163,11 @@ public class PreProcessor extends TreeWalkerStackVisitor {
     private ProgramExp createTrueExp(ProgramExp exp) {
         // Create a new True() function call
         ProgramExp trueExp =
-                new ProgramParamExp(exp.getLocation(), new PosSymbol(exp
-                        .getLocation(), Symbol.symbol("True")),
-                        new List<ProgramExp>(), null);
+                new ProgramParamExp(exp.getLocation(),
+                        new PosSymbol(exp.getLocation(), Symbol.symbol("True")), new List<ProgramExp>(), null);
 
         // Create a new Exp of the form "exp = True()"
-        ProgramExp retExp =
-                new ProgramOpExp(exp.getLocation(), 3, exp, trueExp);
+        ProgramExp retExp = new ProgramOpExp(exp.getLocation(), 3, exp, trueExp);
 
         return retExp;
     }
@@ -1276,18 +1183,16 @@ public class PreProcessor extends TreeWalkerStackVisitor {
      * @return A new call to <code>Entry_Replica</code> from the <code>
      * Static_Array_Template</code>.
      */
-    private ProgramExp createEntryReplicaExp(VariableArrayExp exp,
-            Location location) {
+    private ProgramExp createEntryReplicaExp(VariableArrayExp exp, Location location) {
         // Parameter List
         List<ProgramExp> params = new List<ProgramExp>();
-        params.add(new VariableNameExp(exp.getLocation(), exp.getQualifier(),
-                exp.getName()));
+        params.add(new VariableNameExp(exp.getLocation(), exp.getQualifier(), exp.getName()));
         params.add(exp.getArgument());
 
         // Create new right hand side with the Replica function
         ProgramExp newExp =
-                new ProgramParamExp(location, new PosSymbol(location, Symbol
-                        .symbol("Entry_Replica")), params, null);
+                new ProgramParamExp(location, new PosSymbol(location, Symbol.symbol("Entry_Replica")),
+                        params, null);
 
         return newExp;
     }
@@ -1304,8 +1209,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
      * @return A new call to <code>Entry_Replica</code> from the <code>
      * Static_Array_Template</code>.
      */
-    private ProgramExp createEntryReplicaExp(VariableDotExp exp,
-            ProgramExp argument, Location location) {
+    private ProgramExp createEntryReplicaExp(VariableDotExp exp, ProgramExp argument, Location location) {
         // Parameter List
         List<ProgramExp> params = new List<ProgramExp>();
         params.add(exp);
@@ -1313,8 +1217,8 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
         // Create new right hand side with the Replica function
         ProgramExp newExp =
-                new ProgramParamExp(location, new PosSymbol(location, Symbol
-                        .symbol("Entry_Replica")), params, null);
+                new ProgramParamExp(location, new PosSymbol(location, Symbol.symbol("Entry_Replica")),
+                        params, null);
 
         return newExp;
     }
@@ -1330,23 +1234,19 @@ public class PreProcessor extends TreeWalkerStackVisitor {
      * 
      * @return The new array variable.
      */
-    private VariableNameExp createNewVariableArrayExp(Location location,
-            VariableArrayExp oldExp) {
+    private VariableNameExp createNewVariableArrayExp(Location location, VariableArrayExp oldExp) {
         // Create new VariableNameExp
         PosSymbol newName =
-                new PosSymbol(location, Symbol.symbol("_ArrayExp_"
-                        + oldExp.getName().getName() + "_" + myCounter++));
+                new PosSymbol(location, Symbol.symbol("_ArrayExp_" + oldExp.getName().getName() + "_"
+                        + myCounter++));
         VariableNameExp newExp = new VariableNameExp(location, null, newName);
 
         // Create new VariableNameExp for the index
         PosSymbol newIndexName =
-                new PosSymbol(location, Symbol.symbol("_ArrayIndex_"
-                        + oldExp.getName().getName() + "_" + myCounter++));
-        VariableNameExp newIndexExp =
-                new VariableNameExp(location, null, newIndexName);
-        NameTy integerTy =
-                new NameTy(null, new PosSymbol(location, Symbol
-                        .symbol("Integer")));
+                new PosSymbol(location, Symbol.symbol("_ArrayIndex_" + oldExp.getName().getName() + "_"
+                        + myCounter++));
+        VariableNameExp newIndexExp = new VariableNameExp(location, null, newIndexName);
+        NameTy integerTy = new NameTy(null, new PosSymbol(location, Symbol.symbol("Integer")));
 
         // Locate the array declaration so can get the Ty of the the variables
         // inside the array
@@ -1360,8 +1260,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
         newStmt.setVar(newIndexExp);
 
         if (oldExp.getArgument() instanceof VariableExp) {
-            newStmt.setAssign(myUtilities
-                    .createReplicaExp(oldExp.getArgument()));
+            newStmt.setAssign(myUtilities.createReplicaExp(oldExp.getArgument()));
         }
         else {
             newStmt.setAssign(oldExp.getArgument());
@@ -1388,8 +1287,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
         // Create a CallStmt
         CallStmt swapEntryStmt =
-                new CallStmt(null, new PosSymbol(location, Symbol
-                        .symbol("Swap_Entry")), expList);
+                new CallStmt(null, new PosSymbol(location, Symbol.symbol("Swap_Entry")), expList);
         myUtilities.addToSwapList(swapEntryStmt);
 
         // Return created variable
@@ -1405,23 +1303,20 @@ public class PreProcessor extends TreeWalkerStackVisitor {
      * @param arrayExp The name of the array
      *
      */
-    private VariableNameExp createNewVariableArrayExp(Location location,
-            VariableNameExp recordExp, VariableArrayExp arrayExp) {
+    private VariableNameExp createNewVariableArrayExp(Location location, VariableNameExp recordExp,
+            VariableArrayExp arrayExp) {
         // Create new VariableNameExp
         PosSymbol newName =
-                new PosSymbol(location, Symbol.symbol("_Array_"
-                        + arrayExp.getName().getName() + "_" + myCounter++));
+                new PosSymbol(location, Symbol.symbol("_Array_" + arrayExp.getName().getName() + "_"
+                        + myCounter++));
         VariableNameExp newExp = new VariableNameExp(location, null, newName);
 
         // Create new VariableNameExp for the index
         PosSymbol newIndexName =
-                new PosSymbol(location, Symbol.symbol("_ArrayIndex_"
-                        + arrayExp.getName().getName() + "_" + myCounter++));
-        VariableNameExp newIndexExp =
-                new VariableNameExp(location, null, newIndexName);
-        NameTy integerTy =
-                new NameTy(null, new PosSymbol(location, Symbol
-                        .symbol("Integer")));
+                new PosSymbol(location, Symbol.symbol("_ArrayIndex_" + arrayExp.getName().getName() + "_"
+                        + myCounter++));
+        VariableNameExp newIndexExp = new VariableNameExp(location, null, newIndexName);
+        NameTy integerTy = new NameTy(null, new PosSymbol(location, Symbol.symbol("Integer")));
 
         // Locate the array declaration so can get the ty of the the variables
         // inside the array
@@ -1435,8 +1330,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             newStmt.setVar(newIndexExp);
 
             if (arrayExp.getArgument() instanceof VariableExp) {
-                newStmt.setAssign(myUtilities.createReplicaExp(arrayExp
-                        .getArgument()));
+                newStmt.setAssign(myUtilities.createReplicaExp(arrayExp.getArgument()));
             }
             else {
                 newStmt.setAssign(arrayExp.getArgument());
@@ -1445,13 +1339,10 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             myUtilities.addToStatementList(newStmt);
 
             // Retrieve name of the ArrayTy
-            String tyName =
-                    myUtilities.retrieveTyNameFromRecords(arrayExp,
-                            (NameTy) arrayVarDec.getTy());
+            String tyName = myUtilities.retrieveTyNameFromRecords(arrayExp, (NameTy) arrayVarDec.getTy());
 
             // Create a new VarDec
-            VarDec newVarDec =
-                    new VarDec(newName, myArrayFacilityMap.get(tyName));
+            VarDec newVarDec = new VarDec(newName, myArrayFacilityMap.get(tyName));
             VarDec indexVarDec = new VarDec(newIndexName, integerTy);
 
             // Add it to our local variable list
@@ -1463,15 +1354,13 @@ public class PreProcessor extends TreeWalkerStackVisitor {
 
             // Create the argument list and add the arguments necessary for
             // Swap_Entry in Static_Array_Template
-            expList.add(new VariableNameExp(location, null,
-                    ((VariableArrayExp) arrayExp).getName()));
+            expList.add(new VariableNameExp(location, null, ((VariableArrayExp) arrayExp).getName()));
             expList.add(newExp);
             expList.add(((VariableArrayExp) arrayExp).getArgument());
 
             // Create a CallStmt
             CallStmt swapEntryStmt =
-                    new CallStmt(null, new PosSymbol(location, Symbol
-                            .symbol("Swap_Entry")), expList);
+                    new CallStmt(null, new PosSymbol(location, Symbol.symbol("Swap_Entry")), expList);
             myUtilities.addToSwapList(swapEntryStmt);
         }
 
@@ -1518,8 +1407,8 @@ public class PreProcessor extends TreeWalkerStackVisitor {
      *
      * @return New list containing all the <code>VariableExp</code>.
      */
-    private List<VariableExp> formNewVariableExpList(Location location,
-            List<VarDec> decList, List<VariableExp> list) {
+    private List<VariableExp> formNewVariableExpList(Location location, List<VarDec> decList,
+            List<VariableExp> list) {
         // Iterate and add non duplicates
         Iterator<VarDec> it = decList.iterator();
         while (it.hasNext()) {
@@ -1527,8 +1416,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             VarDec temp = it.next();
 
             // New VariableNameExp
-            VariableNameExp changingExp =
-                    new VariableNameExp(location, null, temp.getName());
+            VariableNameExp changingExp = new VariableNameExp(location, null, temp.getName());
 
             // Check for duplicates
             if (!list.contains(changingExp)) {
@@ -1563,8 +1451,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
      * @param vList The list containing all local <code>VarDec</code>.
      * @param pList The list containing the parameter <code>VarDec</code>.
      */
-    private void initLocalVarLists(List<VarDec> vList,
-            List<ParameterVarDec> pList) {
+    private void initLocalVarLists(List<VarDec> vList, List<ParameterVarDec> pList) {
         // Set the list of local variables
         myUtilities.setLocalVarList(vList);
 
@@ -1638,8 +1525,7 @@ public class PreProcessor extends TreeWalkerStackVisitor {
             operationName = new PosSymbol(loc, Symbol.symbol("Greater"));
             break;
         case ProgramOpExp.GT_EQL:
-            operationName =
-                    new PosSymbol(loc, Symbol.symbol("Greater_Or_Equal"));
+            operationName = new PosSymbol(loc, Symbol.symbol("Greater_Or_Equal"));
             break;
         case ProgramOpExp.PLUS:
             operationName = new PosSymbol(loc, Symbol.symbol("Sum"));

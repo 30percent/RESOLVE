@@ -133,19 +133,15 @@ public class ModuleID {
     }
 
     public static ModuleID createEnhancementID(PosSymbol name, PosSymbol cName) {
-        return new ModuleID(name.getSymbol(), cName.getSymbol(),
-                ModuleKind.ENHANCEMENT);
+        return new ModuleID(name.getSymbol(), cName.getSymbol(), ModuleKind.ENHANCEMENT);
     }
 
     public static ModuleID createConceptBodyID(PosSymbol name, PosSymbol cName) {
-        return new ModuleID(name.getSymbol(), cName.getSymbol(),
-                ModuleKind.CONCEPT_BODY);
+        return new ModuleID(name.getSymbol(), cName.getSymbol(), ModuleKind.CONCEPT_BODY);
     }
 
-    public static ModuleID createEnhancementBodyID(PosSymbol name,
-            PosSymbol eName, PosSymbol cName) {
-        return new ModuleID(name.getSymbol(), eName.getSymbol(), cName
-                .getSymbol());
+    public static ModuleID createEnhancementBodyID(PosSymbol name, PosSymbol eName, PosSymbol cName) {
+        return new ModuleID(name.getSymbol(), eName.getSymbol(), cName.getSymbol());
     }
 
     // -----------------------------------------------------------
@@ -162,8 +158,7 @@ public class ModuleID {
             PosSymbol name = dec.getName();
             id = createConceptID(name);
         }
-        else if (dec instanceof FacilityModuleDec
-                || dec instanceof ShortFacilityModuleDec) {
+        else if (dec instanceof FacilityModuleDec || dec instanceof ShortFacilityModuleDec) {
             PosSymbol name = dec.getName();
             id = createFacilityID(name);
         }
@@ -213,8 +208,7 @@ public class ModuleID {
             if (!eName.equals(mid.getEnhancementName().getName()))
                 return false;
         }
-        return kind.toString().equals(mid.getModuleKind().toString())
-                && name.equals(mid.getName().getName());
+        return kind.toString().equals(mid.getModuleKind().toString()) && name.equals(mid.getName().getName());
     }
 
     public boolean hasConcept() {
@@ -307,8 +301,7 @@ public class ModuleID {
     public boolean equals(Object obj) {
         if (obj instanceof ModuleID) {
             ModuleID id = (ModuleID) obj;
-            return (this.kind == id.kind && this.name == id.name
-                    && this.eName == id.eName && this.cName == id.cName);
+            return (this.kind == id.kind && this.name == id.name && this.eName == id.eName && this.cName == id.cName);
         }
         else {
             return false;

@@ -218,8 +218,8 @@ public class ErrorHandler {
             doError(myFile.getName(), pos.getLine(), newMsg);
         }
         else {
-            doError("Error: " + myFile.getName() + "(" + pos.getLine() + "): "
-                    + msg + "\n" + printErrorLine(myFile, pos));
+            doError("Error: " + myFile.getName() + "(" + pos.getLine() + "): " + msg + "\n"
+                    + printErrorLine(myFile, pos));
         }
     }
 
@@ -230,13 +230,8 @@ public class ErrorHandler {
         }
         else {
             if (webOutput) {
-                String newMsg =
-                        msg
-                                + "\n"
-                                + printErrorLine(location.getFile(), location
-                                        .getPos());
-                doError(location.getFilename(), location.getPos().getLine(),
-                        newMsg);
+                String newMsg = msg + "\n" + printErrorLine(location.getFile(), location.getPos());
+                doError(location.getFilename(), location.getPos().getLine(), newMsg);
             }
             else {
                 doError("Error: " + location.toString() + ":\n" + msg + "\n"
@@ -253,27 +248,14 @@ public class ErrorHandler {
         else {
             if (webOutput) {
                 String newMsg =
-                        msg
-                                + "\n"
-                                + printErrorLine(location1.getFile(), location1
-                                        .getPos())
-                                + "\n"
-                                + printErrorLine(location2.getFile(), location2
-                                        .getPos());
-                doError(location1.getFilename(), location1.getPos().getLine(),
-                        newMsg);
+                        msg + "\n" + printErrorLine(location1.getFile(), location1.getPos()) + "\n"
+                                + printErrorLine(location2.getFile(), location2.getPos());
+                doError(location1.getFilename(), location1.getPos().getLine(), newMsg);
             }
             else {
-                doError("Error: "
-                        + location1.toString()
-                        + ":\n"
-                        + msg
-                        + "\n"
-                        + printErrorLine(location1.getFile(), location1
-                                .getPos())
-                        + "\n"
-                        + printErrorLine(location2.getFile(), location2
-                                .getPos()));
+                doError("Error: " + location1.toString() + ":\n" + msg + "\n"
+                        + printErrorLine(location1.getFile(), location1.getPos()) + "\n"
+                        + printErrorLine(location2.getFile(), location2.getPos()));
             }
         }
     }
@@ -287,8 +269,7 @@ public class ErrorHandler {
     /** Outputs a positioned warning message. */
     public void warning(Pos pos, String msg) {
         warningCount++;
-        err.println("Warning:" + filename + ":" + pos.getLine() + ","
-                + pos.getColumn() + ": " + msg);
+        err.println("Warning:" + filename + ":" + pos.getLine() + "," + pos.getColumn() + ": " + msg);
     }
 
     /** Outputs a positioned warning message. */
@@ -307,8 +288,7 @@ public class ErrorHandler {
     /** Outputs a positioned panic message as a bug report. */
     public void panic(Pos pos, String msg) {
         BugReport bug = new BugReport(msg);
-        err.println("PANIC: " + pos.getLine() + "," + pos.getColumn() + ": "
-                + bug.getReport());
+        err.println("PANIC: " + pos.getLine() + "," + pos.getColumn() + ": " + bug.getReport());
         throw new RuntimeException();
     }
 
@@ -353,8 +333,7 @@ public class ErrorHandler {
             }
             else if (node instanceof BaseAST) {
                 ColsAST colsNode = (ColsAST) node;
-                this.error(new Pos(colsNode.getLine(), colsNode
-                        .getCharPositionInLine()), str);
+                this.error(new Pos(colsNode.getLine(), colsNode.getCharPositionInLine()), str);
                 //colsNode.getColumn()), str);
             }
             else { //antlr has some kind of antlr.ASTNULLType
@@ -394,8 +373,7 @@ public class ErrorHandler {
             }
             else if (node instanceof BaseAST) {
                 ColsAST colsNode = (ColsAST) node;
-                this.error(new Pos(colsNode.getLine(), colsNode
-                        .getCharPositionInLine()), str);
+                this.error(new Pos(colsNode.getLine(), colsNode.getCharPositionInLine()), str);
                 //colsNode.getColumn()), str);
             }
             else { //antlr has some kind of antlr.ASTNULLType

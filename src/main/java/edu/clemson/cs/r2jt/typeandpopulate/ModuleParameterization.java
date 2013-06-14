@@ -18,22 +18,17 @@ public class ModuleParameterization {
 
     private final ScopeRepository mySourceRepository;
     private final ModuleIdentifier myModule;
-    private final List<ModuleArgumentItem> myParameters =
-            new LinkedList<ModuleArgumentItem>();
+    private final List<ModuleArgumentItem> myParameters = new LinkedList<ModuleArgumentItem>();
 
     private final FacilityEntry myInstantiatingFacility;
 
-    public ModuleParameterization(ModuleIdentifier module,
-            FacilityEntry instantiatingFacility,
+    public ModuleParameterization(ModuleIdentifier module, FacilityEntry instantiatingFacility,
             ScopeRepository sourceRepository) {
-        this(module, new LinkedList<ModuleArgumentItem>(),
-                instantiatingFacility, sourceRepository);
+        this(module, new LinkedList<ModuleArgumentItem>(), instantiatingFacility, sourceRepository);
     }
 
-    public ModuleParameterization(ModuleIdentifier module,
-            List<ModuleArgumentItem> parameters,
-            FacilityEntry instantiatingFacility,
-            ScopeRepository sourceRepository) {
+    public ModuleParameterization(ModuleIdentifier module, List<ModuleArgumentItem> parameters,
+            FacilityEntry instantiatingFacility, ScopeRepository sourceRepository) {
 
         myInstantiatingFacility = instantiatingFacility;
         mySourceRepository = sourceRepository;
@@ -58,17 +53,13 @@ public class ModuleParameterization {
         Scope result;
 
         try {
-            ModuleScope originalScope =
-                    mySourceRepository.getModuleScope(myModule);
+            ModuleScope originalScope = mySourceRepository.getModuleScope(myModule);
             result = originalScope;
 
             if (instantiated) {
-                Map<String, PTType> genericInstantiations =
-                        getGenericInstantiations(originalScope);
+                Map<String, PTType> genericInstantiations = getGenericInstantiations(originalScope);
 
-                result =
-                        new InstantiatedScope(originalScope,
-                                genericInstantiations, myInstantiatingFacility);
+                result = new InstantiatedScope(originalScope, genericInstantiations, myInstantiatingFacility);
             }
         }
         catch (NoSuchSymbolException nsse) {
@@ -83,12 +74,9 @@ public class ModuleParameterization {
 
         Map<String, PTType> result = new HashMap<String, PTType>();
 
-        List<ProgramParameterEntry> formalParams =
-                moduleScope.getFormalParameterEntries();
+        List<ProgramParameterEntry> formalParams = moduleScope.getFormalParameterEntries();
 
-        result =
-                RCollections.foldr2(formalParams, myParameters,
-                        BuildGenericInstantiations.INSTANCE, result);
+        result = RCollections.foldr2(formalParams, myParameters, BuildGenericInstantiations.INSTANCE, result);
 
         return result;
     }
@@ -97,12 +85,10 @@ public class ModuleParameterization {
             implements
                 Mapping3<ProgramParameterEntry, ModuleArgumentItem, Map<String, PTType>, Map<String, PTType>> {
 
-        public static final BuildGenericInstantiations INSTANCE =
-                new BuildGenericInstantiations();
+        public static final BuildGenericInstantiations INSTANCE = new BuildGenericInstantiations();
 
         @Override
-        public Map<String, PTType> map(ProgramParameterEntry p1,
-                ModuleArgumentItem p2, Map<String, PTType> p3) {
+        public Map<String, PTType> map(ProgramParameterEntry p1, ModuleArgumentItem p2, Map<String, PTType> p3) {
 
             if (p1.getParameterMode().equals(ParameterMode.TYPE)) {
                 if (p2.getProgramTypeValue() == null) {

@@ -82,8 +82,7 @@ public class SelectionStmt extends Statement {
 
     public SelectionStmt() {};
 
-    public SelectionStmt(ProgramExp var, List<ChoiceItem> whenpairs,
-            List<Statement> defaultclause) {
+    public SelectionStmt(ProgramExp var, List<ChoiceItem> whenpairs, List<Statement> defaultclause) {
         this.var = var;
         this.whenpairs = whenpairs;
         this.defaultclause = defaultclause;

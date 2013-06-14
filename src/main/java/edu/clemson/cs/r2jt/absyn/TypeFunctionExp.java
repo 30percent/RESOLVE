@@ -104,9 +104,8 @@ public class TypeFunctionExp extends Exp {
 
     public TypeFunctionExp() {};
 
-    public TypeFunctionExp(Location location, PosSymbol qualifier,
-            PosSymbol typeName, Location funcLocation, int function,
-            List<Exp> params) {
+    public TypeFunctionExp(Location location, PosSymbol qualifier, PosSymbol typeName, Location funcLocation,
+            int function, List<Exp> params) {
         this.location = location;
         this.qualifier = qualifier;
         this.typeName = typeName;
@@ -121,8 +120,7 @@ public class TypeFunctionExp extends Exp {
             newParams.add(substitute(p, substitutions));
         }
 
-        return new TypeFunctionExp(location, qualifier, typeName, funcLocation,
-                function, newParams);
+        return new TypeFunctionExp(location, qualifier, typeName, funcLocation, function, newParams);
     }
 
     // ===========================================================
@@ -285,10 +283,8 @@ public class TypeFunctionExp extends Exp {
         if (!(e2 instanceof TypeFunctionExp)) {
             return false;
         }
-        if (qualifier != null
-                && (((TypeFunctionExp) e2).getQualifier() != null)) {
-            if (!(qualifier.equals(((TypeFunctionExp) e2).getQualifier()
-                    .getName()))) {
+        if (qualifier != null && (((TypeFunctionExp) e2).getQualifier() != null)) {
+            if (!(qualifier.equals(((TypeFunctionExp) e2).getQualifier().getName()))) {
                 return false;
             }
         }

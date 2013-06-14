@@ -44,8 +44,7 @@ public class BindReplace implements MatchReplace {
     }
 
     public String toString() {
-        return "Replace " + myFindPattern.toString(0) + " with "
-                + myReplacePattern.toString(0);
+        return "Replace " + myFindPattern.toString(0) + " with " + myReplacePattern.toString(0);
     }
 
     @Override

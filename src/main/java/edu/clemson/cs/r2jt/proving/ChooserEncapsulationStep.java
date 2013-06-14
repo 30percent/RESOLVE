@@ -25,8 +25,7 @@ public class ChooserEncapsulationStep implements VCTransformer {
 
         myChooser.preoptimizeForVC(original);
 
-        Iterator<ProofPathSuggestion> transformations =
-                myChooser.suggestTransformations(original, 0, m, d);
+        Iterator<ProofPathSuggestion> transformations = myChooser.suggestTransformations(original, 0, m, d);
 
         int length = 0;
         VC curVC = original;
@@ -50,9 +49,7 @@ public class ChooserEncapsulationStep implements VCTransformer {
                 curVC = newVC;
                 length++;
 
-                transformations =
-                        myChooser.suggestTransformations(curVC, length, m,
-                                next.data);
+                transformations = myChooser.suggestTransformations(curVC, length, m, next.data);
             }
         }
 

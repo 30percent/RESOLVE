@@ -85,8 +85,7 @@ public class VariableDotExp extends VariableExp {
 
     public VariableDotExp() {};
 
-    public VariableDotExp(Location location, List<VariableExp> segments,
-            VariableExp semanticExp) {
+    public VariableDotExp(Location location, List<VariableExp> segments, VariableExp semanticExp) {
         this.location = location;
         this.segments = segments;
         this.semanticExp = semanticExp;
@@ -98,8 +97,7 @@ public class VariableDotExp extends VariableExp {
             newSegments.add((VariableExp) substitute(v, substitutions));
         }
 
-        return new VariableDotExp(location, newSegments,
-                (VariableExp) substitute(semanticExp, substitutions));
+        return new VariableDotExp(location, newSegments, (VariableExp) substitute(semanticExp, substitutions));
     }
 
     // ===========================================================
@@ -248,9 +246,7 @@ public class VariableDotExp extends VariableExp {
     }
 
     public Exp copy() {
-        Exp copy =
-                new VariableDotExp(location, new List<VariableExp>(segments),
-                        semanticExp);
+        Exp copy = new VariableDotExp(location, new List<VariableExp>(segments), semanticExp);
 
         copy.setType(type);
 
@@ -274,8 +270,7 @@ public class VariableDotExp extends VariableExp {
             if (it.hasNext()) {
                 Exp name = it.next();
                 if (old instanceof VarExp && name instanceof VarExp) {
-                    if (((VarExp) old).getName().toString().equals(
-                            ((VarExp) name).getName().toString())) {
+                    if (((VarExp) old).getName().toString().equals(((VarExp) name).getName().toString())) {
                         segments.remove(0);
                         segments.add(0, (VariableExp) (Exp.clone(replacement)));
 

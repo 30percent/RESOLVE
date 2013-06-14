@@ -15,8 +15,7 @@ public class GuidedRuleChooser extends RuleProvider {
 
     private boolean myLockedFlag;
 
-    private DirectReplaceWrapper myAntecedentWrapper =
-            new DirectReplaceWrapper();
+    private DirectReplaceWrapper myAntecedentWrapper = new DirectReplaceWrapper();
 
     public GuidedRuleChooser() {
         myLockedFlag = false;
@@ -41,23 +40,18 @@ public class GuidedRuleChooser extends RuleProvider {
 
             if (equivalency.getOperator() == EqualsExp.EQUAL) {
                 //Substitute right expression for left
-                MatchReplace matcher =
-                        new BindReplace(equivalency.getLeft(), equivalency
-                                .getRight());
+                MatchReplace matcher = new BindReplace(equivalency.getLeft(), equivalency.getRight());
                 myGlobalRules.add(matcher);
                 myExpCorrespondance.add(rule);
 
                 //Substitute left expression for left
-                matcher =
-                        new BindReplace(equivalency.getRight(), equivalency
-                                .getLeft());
+                matcher = new BindReplace(equivalency.getRight(), equivalency.getLeft());
                 myGlobalRules.add(matcher);
                 myExpCorrespondance.add(rule);
             }
         }
         else {
-            System.out.println("BlindIterativeRule.addRule --- "
-                    + "Non equals Theorem.");
+            System.out.println("BlindIterativeRule.addRule --- " + "Non equals Theorem.");
             System.out.println(rule.toString(0));
         }
     }
@@ -66,33 +60,28 @@ public class GuidedRuleChooser extends RuleProvider {
         return myGlobalRules.size();
     }
 
-    public KnownSizeIterator<MatchReplace> consider(VerificationCondition vC,
-            int curLength, Metrics metrics,
+    public KnownSizeIterator<MatchReplace> consider(VerificationCondition vC, int curLength, Metrics metrics,
             Deque<VerificationCondition> pastStates) {
 
         //We only want those antecedents that are in the form of an equality,
         //and for each of those we need it going both left-to-right and 
         //right-to-left
-        List<Exp> antecedentTransforms =
-                buildFinalAntecedentList(vC.getAntecedents());
+        List<Exp> antecedentTransforms = buildFinalAntecedentList(vC.getAntecedents());
 
         Iterator<MatchReplace> antecedentIterator =
-                new LazyActionIterator<Exp, MatchReplace>(antecedentTransforms
-                        .iterator(), myAntecedentWrapper);
+                new LazyActionIterator<Exp, MatchReplace>(antecedentTransforms.iterator(),
+                        myAntecedentWrapper);
 
         ChainingIterator<MatchReplace> totalIterator =
-                new ChainingIterator<MatchReplace>(antecedentIterator,
-                        myGlobalRules.iterator());
+                new ChainingIterator<MatchReplace>(antecedentIterator, myGlobalRules.iterator());
 
         GuidedListSelectIterator<MatchReplace> finalIterator =
-                new GuidedListSelectIterator<MatchReplace>("VC " + vC.getName()
-                        + " - Select a proof rule...", vC.getAntecedents()
-                        .toString()
-                        + " =====> " + vC.getConsequents().toString(),
-                        totalIterator);
+                new GuidedListSelectIterator<MatchReplace>(
+                        "VC " + vC.getName() + " - Select a proof rule...", vC.getAntecedents().toString()
+                                + " =====> " + vC.getConsequents().toString(), totalIterator);
 
-        return new SizedIterator<MatchReplace>(finalIterator,
-                antecedentTransforms.size() + myGlobalRules.size());
+        return new SizedIterator<MatchReplace>(finalIterator, antecedentTransforms.size()
+                + myGlobalRules.size());
     }
 
     private List<Exp> buildFinalAntecedentList(List<Exp> originalAntecedents) {
@@ -106,10 +95,9 @@ public class GuidedRuleChooser extends RuleProvider {
                     antecedentTransforms.add(antecedent);
 
                     EqualsExp flippedAntecedent =
-                            new EqualsExp(antecedentAsEqualsExp.getLocation(),
-                                    antecedentAsEqualsExp.getRight(),
-                                    antecedentAsEqualsExp.getOperator(),
-                                    antecedentAsEqualsExp.getLeft());
+                            new EqualsExp(antecedentAsEqualsExp.getLocation(), antecedentAsEqualsExp
+                                    .getRight(), antecedentAsEqualsExp.getOperator(), antecedentAsEqualsExp
+                                    .getLeft());
                     antecedentTransforms.add(flippedAntecedent);
                 }
             }
@@ -142,9 +130,7 @@ public class GuidedRuleChooser extends RuleProvider {
         myLockedFlag = locked;
     }
 
-    private class DirectReplaceWrapper
-            implements
-                Transformer<Exp, MatchReplace> {
+    private class DirectReplaceWrapper implements Transformer<Exp, MatchReplace> {
 
         public DirectReplace transform(Exp source) {
             if (!(source instanceof EqualsExp)) {
@@ -152,15 +138,13 @@ public class GuidedRuleChooser extends RuleProvider {
             }
 
             EqualsExp sourceAsEqualsExp = (EqualsExp) source;
-            return new DirectReplace(sourceAsEqualsExp.getLeft(),
-                    sourceAsEqualsExp.getRight());
+            return new DirectReplace(sourceAsEqualsExp.getLeft(), sourceAsEqualsExp.getRight());
         }
     }
 
     private void equalsOnlyException(Exp e) {
         throw new RuntimeException("The prover does not yet work for "
-                + "theorems not in the form of an equality, such as:\n"
-                + e.toString(0));
+                + "theorems not in the form of an equality, such as:\n" + e.toString(0));
     }
 
     public int getApproximateRuleSetSize() {

@@ -86,8 +86,7 @@ public class IterateStmt extends Statement {
 
     public IterateStmt() {};
 
-    public IterateStmt(List<VariableExp> changing, Exp maintaining,
-            Exp decreasing, List<Statement> statements) {
+    public IterateStmt(List<VariableExp> changing, Exp maintaining, Exp decreasing, List<Statement> statements) {
         this.changing = changing;
         this.maintaining = maintaining;
         this.decreasing = decreasing;

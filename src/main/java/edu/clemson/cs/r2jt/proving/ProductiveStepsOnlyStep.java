@@ -24,8 +24,7 @@ public class ProductiveStepsOnlyStep implements VCTransformer {
 
         GoodVCPredicate p = new GoodVCPredicate(original);
 
-        return new PredicateIterator<VC>(myBaseTransformer.transform(original),
-                p);
+        return new PredicateIterator<VC>(myBaseTransformer.transform(original), p);
 
         //return new ProductiveIterator(myBaseTransformer.transform(original),
         //		original);

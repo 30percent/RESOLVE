@@ -94,8 +94,7 @@ public class PrefixExp extends AbstractFunctionExp {
 
     // special constructor to use when we can determine the statement return 
     // type while building the symbol table in RBuilder.g
-    public PrefixExp(Location location, PosSymbol symbol, Exp argument,
-            Type bType) {
+    public PrefixExp(Location location, PosSymbol symbol, Exp argument, Type bType) {
         this.location = location;
         this.symbol = symbol;
         this.argument = argument;
@@ -115,9 +114,7 @@ public class PrefixExp extends AbstractFunctionExp {
     }
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        PrefixExp retval =
-                new PrefixExp(location, symbol, substitute(argument,
-                        substitutions));
+        PrefixExp retval = new PrefixExp(location, symbol, substitute(argument, substitutions));
 
         retval.setType(type);
 
@@ -293,8 +290,7 @@ public class PrefixExp extends AbstractFunctionExp {
                 }
             }
             if (this.symbol != null && old instanceof VarExp)
-                if (symbol.toString().equals(
-                        ((VarExp) old).getName().toString())) {
+                if (symbol.toString().equals(((VarExp) old).getName().toString())) {
                     if (replacement instanceof VarExp)
                         symbol = ((VarExp) replacement).getName();
                 }

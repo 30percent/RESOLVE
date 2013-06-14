@@ -1028,9 +1028,7 @@ public class UnsafeIteratorLinkedList<E> extends AbstractSequentialList<E>
     @SuppressWarnings("unchecked")
     public <T> T[] toArray(T[] a) {
         if (a.length < size)
-            a =
-                    (T[]) java.lang.reflect.Array.newInstance(a.getClass()
-                            .getComponentType(), size);
+            a = (T[]) java.lang.reflect.Array.newInstance(a.getClass().getComponentType(), size);
         int i = 0;
         Object[] result = a;
         for (Node<E> x = first; x != null; x = x.next)
@@ -1052,8 +1050,7 @@ public class UnsafeIteratorLinkedList<E> extends AbstractSequentialList<E>
      *             contains) is emitted (int), followed by all of its
      *             elements (each an Object) in the proper order.
      */
-    private void writeObject(java.io.ObjectOutputStream s)
-            throws java.io.IOException {
+    private void writeObject(java.io.ObjectOutputStream s) throws java.io.IOException {
         // Write out any hidden serialization magic
         s.defaultWriteObject();
 
@@ -1070,9 +1067,7 @@ public class UnsafeIteratorLinkedList<E> extends AbstractSequentialList<E>
      * (that is, deserializes it).
      */
     @SuppressWarnings("unchecked")
-    private void readObject(java.io.ObjectInputStream s)
-            throws java.io.IOException,
-                ClassNotFoundException {
+    private void readObject(java.io.ObjectInputStream s) throws java.io.IOException, ClassNotFoundException {
         // Read in any hidden serialization magic
         s.defaultReadObject();
 

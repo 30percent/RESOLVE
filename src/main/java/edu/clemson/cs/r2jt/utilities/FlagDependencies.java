@@ -16,17 +16,13 @@ import java.util.StringTokenizer;
  */
 public class FlagDependencies {
 
-    private static final Map<String, Flag> myFlagNames =
-            new HashMap<String, Flag>();
+    private static final Map<String, Flag> myFlagNames = new HashMap<String, Flag>();
 
-    private static final Map<String, List<Flag>> myFlagSections =
-            new HashMap<String, List<Flag>>();
+    private static final Map<String, List<Flag>> myFlagSections = new HashMap<String, List<Flag>>();
 
-    private static final Map<Flag, FlagInfo> myFlags =
-            new HashMap<Flag, FlagInfo>();
+    private static final Map<Flag, FlagInfo> myFlags = new HashMap<Flag, FlagInfo>();
 
-    private static final Set<Flag> myFlagsWithDefaultArguments =
-            new HashSet<Flag>();
+    private static final Set<Flag> myFlagsWithDefaultArguments = new HashSet<Flag>();
 
     /**
      * <p>Set to true once this class has been sealed.  Once sealed, no new 
@@ -64,11 +60,10 @@ public class FlagDependencies {
     static void introduceFlag(Flag f) {
 
         if (mySealedFlag) {
-            throw new IllegalStateException(
-                    "Cannot create a new flag after "
-                            + "dependency set-up time.  Are you sure you declared your "
-                            + "flag static and included a call to your setUpFlags() "
-                            + "method in edu.clemson.cs.r2jt.setUpFlagDependencies()?");
+            throw new IllegalStateException("Cannot create a new flag after "
+                    + "dependency set-up time.  Are you sure you declared your "
+                    + "flag static and included a call to your setUpFlags() "
+                    + "method in edu.clemson.cs.r2jt.setUpFlagDependencies()?");
         }
 
         if (myFlags.containsKey(f)) {
@@ -106,12 +101,10 @@ public class FlagDependencies {
      * @throws IllegalArgumentException If <code>name</code> doesn't look like
      *              an invocation (i.e., doesn't start with a hyphen).
      */
-    public static Flag getFlagByInvocation(String name)
-            throws NoSuchEntryException {
+    public static Flag getFlagByInvocation(String name) throws NoSuchEntryException {
 
         if (name.charAt(0) != '-') {
-            throw new IllegalArgumentException(
-                    "All flags must begin with a hyphen.");
+            throw new IllegalArgumentException("All flags must begin with a hyphen.");
         }
 
         name = name.substring(1).toLowerCase();
@@ -133,13 +126,11 @@ public class FlagDependencies {
         FlagInfo info = getFlagInfo(f);
 
         for (Flag implication : info.implies) {
-            m.turnOnFlag(implication, m.getFlagReason(f),
-                    new HashMap<String, String>());
+            m.turnOnFlag(implication, m.getFlagReason(f), new HashMap<String, String>());
         }
     }
 
-    static void checkFlagDependencies(Flag f, FlagManager m)
-            throws FlagDependencyException {
+    static void checkFlagDependencies(Flag f, FlagManager m) throws FlagDependencyException {
 
         FlagInfo info = getFlagInfo(f);
 
@@ -149,15 +140,14 @@ public class FlagDependencies {
 
         for (Flag excluded : info.excludes) {
             if (m.isFlagSet(excluded)) {
-                throw new FlagDependencyException("The -" + m.getFlagReason(f)
-                        + " flag and -" + m.getFlagReason(excluded)
-                        + " flag may not be on simultaneously.");
+                throw new FlagDependencyException("The -" + m.getFlagReason(f) + " flag and -"
+                        + m.getFlagReason(excluded) + " flag may not be on simultaneously.");
             }
         }
     }
 
-    private static void checkThatAtLeastOneIsOn(Set<Flag> s, Flag f,
-            FlagManager m) throws FlagDependencyException {
+    private static void checkThatAtLeastOneIsOn(Set<Flag> s, Flag f, FlagManager m)
+            throws FlagDependencyException {
 
         boolean found = false;
 
@@ -177,14 +167,12 @@ public class FlagDependencies {
             }
 
             if (s.size() == 1) {
-                throw new FlagDependencyException("The -" + m.getFlagReason(f)
-                        + " flag requires that the " + flagList + " flag be "
-                        + "set.");
+                throw new FlagDependencyException("The -" + m.getFlagReason(f) + " flag requires that the "
+                        + flagList + " flag be " + "set.");
             }
             else {
                 throw new FlagDependencyException("The -" + m.getFlagReason(f)
-                        + " flag requires that at least one of the following "
-                        + " flags be set: " + flagList);
+                        + " flag requires that at least one of the following " + " flags be set: " + flagList);
             }
         }
     }
@@ -275,9 +263,8 @@ public class FlagDependencies {
 
         //We can't imply something that takes parameters!
         if (impliesOn.getParameterCount() != 0) {
-            throw new IllegalArgumentException("A flag that takes parameters "
-                    + "cannot be implied.  " + impliesOn + " takes "
-                    + impliesOn.getParameterCount() + " parameters.");
+            throw new IllegalArgumentException("A flag that takes parameters " + "cannot be implied.  "
+                    + impliesOn + " takes " + impliesOn.getParameterCount() + " parameters.");
         }
 
         //Make sure the implied flag has been introduced
@@ -348,8 +335,9 @@ public class FlagDependencies {
             for (Flag f : flags) {
                 if (f.shouldDisplay(extended)) {
                     retval +=
-                            wordWrap("    -" + formatInto(f.getName(), 13)
-                                    + "  " + f.getDescription() + "\n", 80, 20);
+                            wordWrap(
+                                    "    -" + formatInto(f.getName(), 13) + "  " + f.getDescription() + "\n",
+                                    80, 20);
                 }
             }
         }

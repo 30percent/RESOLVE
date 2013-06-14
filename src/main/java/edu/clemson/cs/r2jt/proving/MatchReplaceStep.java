@@ -21,14 +21,13 @@ public class MatchReplaceStep implements VCTransformer {
         myTheoremConsequent = new Consequent(r.getExpansionTemplate());
 
         myIntroducesQuantifiedVariablesFlag =
-                myTheoremConsequent
-                        .containsQuantifiedVariableNotIn(myTheoremAntecedent);
+                myTheoremConsequent.containsQuantifiedVariableNotIn(myTheoremAntecedent);
     }
 
     @Override
     public Iterator<VC> transform(VC original) {
-        return new ChainingIterator<VC>(myConsequentSubstitutor
-                .transform(original), myAntecedentExtender.transform(original));
+        return new ChainingIterator<VC>(myConsequentSubstitutor.transform(original), myAntecedentExtender
+                .transform(original));
     }
 
     @Override

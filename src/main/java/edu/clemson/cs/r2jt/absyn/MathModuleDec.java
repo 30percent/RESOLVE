@@ -79,8 +79,8 @@ public class MathModuleDec extends AbstractParameterizedModuleDec {
 
     public MathModuleDec() {};
 
-    public MathModuleDec(PosSymbol name, List<ModuleParameterDec> parameters,
-            List<UsesItem> usesItems, List<Dec> decs) {
+    public MathModuleDec(PosSymbol name, List<ModuleParameterDec> parameters, List<UsesItem> usesItems,
+            List<Dec> decs) {
         this.name = name;
         this.parameters = parameters;
         this.usesItems = usesItems;

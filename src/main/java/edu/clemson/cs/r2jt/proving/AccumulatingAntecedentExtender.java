@@ -21,8 +21,7 @@ public class AccumulatingAntecedentExtender implements AntecedentDeveloper {
 
     @Override
     public Iterator<Antecedent> transform(Antecedent original) {
-        Iterator<Antecedent> singleBindingExtensions =
-                mySubTransformer.transform(original);
+        Iterator<Antecedent> singleBindingExtensions = mySubTransformer.transform(original);
 
         Antecedent singleBindingExtension;
         Antecedent workingAntecedent = Antecedent.EMPTY;
@@ -30,8 +29,7 @@ public class AccumulatingAntecedentExtender implements AntecedentDeveloper {
 
             singleBindingExtension = singleBindingExtensions.next();
 
-            workingAntecedent =
-                    workingAntecedent.appended(singleBindingExtension);
+            workingAntecedent = workingAntecedent.appended(singleBindingExtension);
         }
 
         Iterator<Antecedent> retval;

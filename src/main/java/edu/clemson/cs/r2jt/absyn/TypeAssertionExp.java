@@ -110,8 +110,7 @@ public class TypeAssertionExp extends Exp {
 
     @Override
     protected Exp substituteChildren(Map<Exp, Exp> substitutions) {
-        return new TypeAssertionExp(myLocation, myExp
-                .substituteChildren(substitutions), new ArbitraryExpTy(
+        return new TypeAssertionExp(myLocation, myExp.substituteChildren(substitutions), new ArbitraryExpTy(
                 myAssertedTy.getArbitraryExp().substitute(substitutions)));
     }
 }

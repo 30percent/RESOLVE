@@ -21,8 +21,7 @@ public class GenericQuery extends BaseMultimatchSymbolQuery<ProgramTypeEntry>
     public static final GenericQuery INSTANCE = new GenericQuery();
 
     private GenericQuery() {
-        super(new UnqualifiedPath(ImportStrategy.IMPORT_NAMED,
-                FacilityStrategy.FACILITY_IGNORE, true),
+        super(new UnqualifiedPath(ImportStrategy.IMPORT_NAMED, FacilityStrategy.FACILITY_IGNORE, true),
                 GenericSearcher.INSTANCE);
     }
 }

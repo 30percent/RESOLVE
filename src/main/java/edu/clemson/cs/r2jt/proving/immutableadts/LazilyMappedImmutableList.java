@@ -34,14 +34,12 @@ public class LazilyMappedImmutableList<T, R> extends AbstractImmutableList<R> {
 
     @Override
     public ImmutableList<R> tail(int startIndex) {
-        return new LazilyMappedImmutableList<T, R>(myOriginalList
-                .tail(startIndex), myMapping);
+        return new LazilyMappedImmutableList<T, R>(myOriginalList.tail(startIndex), myMapping);
     }
 
     @Override
     public ImmutableList<R> head(int length) {
-        return new LazilyMappedImmutableList<T, R>(myOriginalList.head(length),
-                myMapping);
+        return new LazilyMappedImmutableList<T, R>(myOriginalList.head(length), myMapping);
     }
 
     @Override

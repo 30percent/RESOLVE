@@ -36,6 +36,6 @@ public interface TransformationChooser {
      * 
      * @return A non-null iterable set of <code>VCTransformer</code>s.
      */
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d);
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d);
 }

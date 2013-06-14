@@ -22,30 +22,25 @@ public class PAlternatives extends PExp {
 
     private final PExp myOtherwiseClauseResult;
 
-    public PAlternatives(List<PExp> conditions, List<PExp> results,
-            PExp otherwiseClauseResult, MTType type, MTType typeValue) {
+    public PAlternatives(List<PExp> conditions, List<PExp> results, PExp otherwiseClauseResult, MTType type,
+            MTType typeValue) {
 
-        super(
-                calculateStructureHash(conditions, results,
-                        otherwiseClauseResult), calculateStructureHash(
-                        conditions, results, otherwiseClauseResult), type,
-                typeValue);
+        super(calculateStructureHash(conditions, results, otherwiseClauseResult), calculateStructureHash(
+                conditions, results, otherwiseClauseResult), type, typeValue);
 
         myAlternatives = new LinkedList<Alternative>();
 
         sanityCheckConditions(conditions);
 
         if (conditions.size() != results.size()) {
-            throw new IllegalArgumentException("conditions.size() must equal "
-                    + "results.size().");
+            throw new IllegalArgumentException("conditions.size() must equal " + "results.size().");
         }
 
         Iterator<PExp> conditionIter = conditions.iterator();
         Iterator<PExp> resultIter = results.iterator();
 
         while (conditionIter.hasNext()) {
-            myAlternatives.add(new Alternative(conditionIter.next(), resultIter
-                    .next()));
+            myAlternatives.add(new Alternative(conditionIter.next(), resultIter.next()));
         }
 
         myOtherwiseClauseResult = otherwiseClauseResult;
@@ -54,8 +49,8 @@ public class PAlternatives extends PExp {
     public PAlternatives(AlternativeExp alternativeExp) {
 
         this(getConditions(alternativeExp), getResults(alternativeExp),
-                getOtherwiseClauseResult(alternativeExp), alternativeExp
-                        .getMathType(), alternativeExp.getMathTypeValue());
+                getOtherwiseClauseResult(alternativeExp), alternativeExp.getMathType(), alternativeExp
+                        .getMathTypeValue());
     }
 
     public void accept(PExpVisitor v) {
@@ -115,13 +110,12 @@ public class PAlternatives extends PExp {
             if (workingOtherwiseClauseResult != null) {
                 throw new IllegalArgumentException("AlternativeExps with "
                         + "additional alternatives after the 'otherwise' "
-                        + "clause are not accepted by the prover. \n\t"
-                        + aie.getAssignment() + " appears in such a position.");
+                        + "clause are not accepted by the prover. \n\t" + aie.getAssignment()
+                        + " appears in such a position.");
             }
 
             if (aie.getTest() == null) {
-                workingOtherwiseClauseResult =
-                        PExp.buildPExp(aie.getAssignment());
+                workingOtherwiseClauseResult = PExp.buildPExp(aie.getAssignment());
             }
         }
 
@@ -130,18 +124,16 @@ public class PAlternatives extends PExp {
 
     private void sanityCheckConditions(List<PExp> conditions) {
         for (PExp condition : conditions) {
-            if (!condition
-                    .typeMatches(condition.getType().getTypeGraph().BOOLEAN)) {
+            if (!condition.typeMatches(condition.getType().getTypeGraph().BOOLEAN)) {
                 throw new IllegalArgumentException("AlternativeExps with "
-                        + "non-boolean-typed conditions are not accepted "
-                        + "by the prover. \n\t" + condition + " has type "
-                        + condition.getType());
+                        + "non-boolean-typed conditions are not accepted " + "by the prover. \n\t"
+                        + condition + " has type " + condition.getType());
             }
         }
     }
 
-    private static int calculateStructureHash(List<PExp> conditions,
-            List<PExp> results, PExp otherwiseClauseResult) {
+    private static int calculateStructureHash(List<PExp> conditions, List<PExp> results,
+            PExp otherwiseClauseResult) {
 
         int hash = 0;
 
@@ -158,8 +150,7 @@ public class PAlternatives extends PExp {
         return hash;
     }
 
-    private static MTType getResultType(List<PExp> results,
-            PExp otherwiseClauseResult) {
+    private static MTType getResultType(List<PExp> results, PExp otherwiseClauseResult) {
 
         //TODO : This could be made more flexible--if the first alternative
         //       is an N and the second a Z, that shouldn't be an error--the
@@ -173,22 +164,18 @@ public class PAlternatives extends PExp {
             else {
                 if (!curResult.typeMatches(prototypeResult)) {
                     throw new IllegalArgumentException("AlternativeExps with "
-                            + "results of different types are not accepted by "
-                            + "the prover. \n\t" + prototypeResult + " has "
-                            + "type " + prototypeResult.getType() + ".\n\t"
-                            + curResult + " has type " + curResult.getType()
-                            + ".");
+                            + "results of different types are not accepted by " + "the prover. \n\t"
+                            + prototypeResult + " has " + "type " + prototypeResult.getType() + ".\n\t"
+                            + curResult + " has type " + curResult.getType() + ".");
                 }
             }
         }
 
         if (!otherwiseClauseResult.typeMatches(prototypeResult)) {
             throw new IllegalArgumentException("AlternativeExps with "
-                    + "results of different types are not accepted by "
-                    + "the prover. \n\t" + prototypeResult + " has " + "type "
-                    + prototypeResult.getType() + ".\n\t"
-                    + otherwiseClauseResult + " has type "
-                    + otherwiseClauseResult.getType() + ".");
+                    + "results of different types are not accepted by " + "the prover. \n\t"
+                    + prototypeResult + " has " + "type " + prototypeResult.getType() + ".\n\t"
+                    + otherwiseClauseResult + " has type " + otherwiseClauseResult.getType() + ".");
         }
 
         return prototypeResult.getType();
@@ -197,25 +184,21 @@ public class PAlternatives extends PExp {
     @Override
     public PAlternatives withTypeReplaced(MTType t) {
 
-        return new PAlternatives(RCollections.map(myAlternatives,
-                UnboxCondition.INSTANCE), RCollections.map(myAlternatives,
-                UnboxResult.INSTANCE), myOtherwiseClauseResult, t, myTypeValue);
+        return new PAlternatives(RCollections.map(myAlternatives, UnboxCondition.INSTANCE), RCollections.map(
+                myAlternatives, UnboxResult.INSTANCE), myOtherwiseClauseResult, t, myTypeValue);
     }
 
     @Override
     public PAlternatives withTypeValueReplaced(MTType t) {
 
-        return new PAlternatives(RCollections.map(myAlternatives,
-                UnboxCondition.INSTANCE), RCollections.map(myAlternatives,
-                UnboxResult.INSTANCE), myOtherwiseClauseResult, myType, t);
+        return new PAlternatives(RCollections.map(myAlternatives, UnboxCondition.INSTANCE), RCollections.map(
+                myAlternatives, UnboxResult.INSTANCE), myOtherwiseClauseResult, myType, t);
     }
 
     @Override
     public PAlternatives withSubExpressionReplaced(int index, PExp e) {
-        List<PExp> newResults =
-                RCollections.map(myAlternatives, UnboxResult.INSTANCE);
-        List<PExp> newConditions =
-                RCollections.map(myAlternatives, UnboxCondition.INSTANCE);
+        List<PExp> newResults = RCollections.map(myAlternatives, UnboxResult.INSTANCE);
+        List<PExp> newConditions = RCollections.map(myAlternatives, UnboxCondition.INSTANCE);
         PExp newOtherwise = myOtherwiseClauseResult;
 
         if (index < 0 || index > (myAlternatives.size() * 2) + 1) {
@@ -236,8 +219,7 @@ public class PAlternatives extends PExp {
             }
         }
 
-        return new PAlternatives(newConditions, newResults, newOtherwise,
-                myType, myTypeValue);
+        return new PAlternatives(newConditions, newResults, newOtherwise, myType, myTypeValue);
     }
 
     @Override
@@ -277,13 +259,11 @@ public class PAlternatives extends PExp {
 
     @Override
     public PExp flipQuantifiers() {
-        throw new UnsupportedOperationException("This method has not yet "
-                + "been implemented.");
+        throw new UnsupportedOperationException("This method has not yet " + "been implemented.");
     }
 
     @Override
-    public void bindTo(PExp target, Map<PExp, PExp> accumulator)
-            throws BindingException {
+    public void bindTo(PExp target, Map<PExp, PExp> accumulator) throws BindingException {
 
         if (!(target instanceof PAlternatives)) {
             throw BINDING_EXCEPTION;
@@ -291,14 +271,12 @@ public class PAlternatives extends PExp {
 
         PAlternatives targetAsPAlternatives = (PAlternatives) target;
 
-        if (myAlternatives.size() != targetAsPAlternatives.myAlternatives
-                .size()) {
+        if (myAlternatives.size() != targetAsPAlternatives.myAlternatives.size()) {
             throw BINDING_EXCEPTION;
         }
 
         Iterator<Alternative> thisAlternatives = myAlternatives.iterator();
-        Iterator<Alternative> targetAlternatives =
-                targetAsPAlternatives.myAlternatives.iterator();
+        Iterator<Alternative> targetAlternatives = targetAsPAlternatives.myAlternatives.iterator();
 
         Alternative curThisAlt, curTargetAlt;
         while (thisAlternatives.hasNext()) {
@@ -309,8 +287,7 @@ public class PAlternatives extends PExp {
             curThisAlt.condition.bindTo(curTargetAlt.condition, accumulator);
         }
 
-        myOtherwiseClauseResult.bindTo(
-                targetAsPAlternatives.myOtherwiseClauseResult, accumulator);
+        myOtherwiseClauseResult.bindTo(targetAsPAlternatives.myOtherwiseClauseResult, accumulator);
     }
 
     @Override
@@ -332,9 +309,7 @@ public class PAlternatives extends PExp {
         boolean result = false;
 
         for (Alternative a : myAlternatives) {
-            result |=
-                    a.condition.containsName(name)
-                            || a.result.containsName(name);
+            result |= a.condition.containsName(name) || a.result.containsName(name);
         }
 
         return result || myOtherwiseClauseResult.containsName(name);
@@ -466,8 +441,7 @@ public class PAlternatives extends PExp {
 
         @Override
         public boolean hasNext() {
-            return (myCurAlternative != null) || (myAlternativesIter.hasNext())
-                    || !myReturnedOtherwiseFlag;
+            return (myCurAlternative != null) || (myAlternativesIter.hasNext()) || !myReturnedOtherwiseFlag;
         }
 
         @Override
@@ -499,10 +473,8 @@ public class PAlternatives extends PExp {
 
         @Override
         public PAlternatives replaceLast(PExp newExpression) {
-            List<PExp> newConditions =
-                    RCollections.map(myAlternatives, UnboxCondition.INSTANCE);
-            List<PExp> newResults =
-                    RCollections.map(myAlternatives, UnboxResult.INSTANCE);
+            List<PExp> newConditions = RCollections.map(myAlternatives, UnboxCondition.INSTANCE);
+            List<PExp> newResults = RCollections.map(myAlternatives, UnboxResult.INSTANCE);
             PExp newOtherwise = myOtherwiseClauseResult;
 
             if (myReturnedOtherwiseFlag) {
@@ -517,8 +489,7 @@ public class PAlternatives extends PExp {
                 }
             }
 
-            return new PAlternatives(newConditions, newResults, newOtherwise,
-                    myType, myTypeValue);
+            return new PAlternatives(newConditions, newResults, newOtherwise, myType, myTypeValue);
         }
     }
 }

@@ -89,9 +89,8 @@ public class EnhancementBodyItem extends ResolveConceptualElement {
 
     public EnhancementBodyItem() {};
 
-    public EnhancementBodyItem(PosSymbol name, List<ModuleArgumentItem> params,
-            PosSymbol bodyName, PosSymbol profileName,
-            List<ModuleArgumentItem> bodyParams) {
+    public EnhancementBodyItem(PosSymbol name, List<ModuleArgumentItem> params, PosSymbol bodyName,
+            PosSymbol profileName, List<ModuleArgumentItem> bodyParams) {
         this.name = name;
         this.params = params;
         this.bodyName = bodyName;

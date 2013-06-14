@@ -10,8 +10,7 @@ public class VariableReplacingVisitor extends MutatingVisitor {
 
     private final Map<String, MTType> mySubstitutions;
 
-    public VariableReplacingVisitor(Map<String, String> substitutions,
-            TypeGraph g) {
+    public VariableReplacingVisitor(Map<String, String> substitutions, TypeGraph g) {
 
         mySubstitutions = convertToMTNamedMap(substitutions, g);
     }
@@ -20,8 +19,7 @@ public class VariableReplacingVisitor extends MutatingVisitor {
         mySubstitutions = new HashMap<String, MTType>(substitutions);
     }
 
-    private static Map<String, MTType> convertToMTNamedMap(
-            Map<String, String> original, TypeGraph g) {
+    private static Map<String, MTType> convertToMTNamedMap(Map<String, String> original, TypeGraph g) {
 
         Map<String, MTType> result = new HashMap<String, MTType>();
 

@@ -85,8 +85,7 @@ public class EnhancementModuleDec extends AbstractParameterizedModuleDec {
 
     public EnhancementModuleDec() {};
 
-    public EnhancementModuleDec(PosSymbol name,
-            List<ModuleParameterDec> parameters, PosSymbol conceptName,
+    public EnhancementModuleDec(PosSymbol name, List<ModuleParameterDec> parameters, PosSymbol conceptName,
             List<UsesItem> usesItems, Exp requirement, List<Dec> decs) {
         this.name = name;
         this.parameters = parameters;

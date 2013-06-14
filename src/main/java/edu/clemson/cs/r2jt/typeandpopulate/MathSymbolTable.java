@@ -154,8 +154,8 @@ public class MathSymbolTable extends ScopeRepository {
     private final TypeGraph myTypeGraph;
 
     /*package private*/MathSymbolTable(TypeGraph typeGraph,
-            Map<ResolveConceptualElement, ScopeBuilder> scopes,
-            ScopeBuilder root) throws NoSuchModuleException {
+            Map<ResolveConceptualElement, ScopeBuilder> scopes, ScopeBuilder root)
+            throws NoSuchModuleException {
 
         myTypeGraph = typeGraph;
 
@@ -165,8 +165,7 @@ public class MathSymbolTable extends ScopeRepository {
 
         for (ImportRequest request : importedModules) {
             if (!myModuleScopes.containsKey(request.importedModule)) {
-                throw new NoSuchModuleException(request.sourceModule,
-                        request.importedModule);
+                throw new NoSuchModuleException(request.sourceModule, request.importedModule);
             }
         }
     }
@@ -183,13 +182,12 @@ public class MathSymbolTable extends ScopeRepository {
 
             if (result instanceof FinalizedModuleScope) {
                 resultAsModuleScope = (FinalizedModuleScope) result;
-                resultIdentifier =
-                        new ModuleIdentifier((ModuleDec) b.getDefiningElement());
+                resultIdentifier = new ModuleIdentifier((ModuleDec) b.getDefiningElement());
 
                 myModuleScopes.put(resultIdentifier, resultAsModuleScope);
 
-                importedModules.addAll(buildImportRequests(resultIdentifier,
-                        resultAsModuleScope.getImports()));
+                importedModules
+                        .addAll(buildImportRequests(resultIdentifier, resultAsModuleScope.getImports()));
             }
         }
 
@@ -199,8 +197,8 @@ public class MathSymbolTable extends ScopeRepository {
         }
     }
 
-    private static List<ImportRequest> buildImportRequests(
-            ModuleIdentifier source, List<ModuleIdentifier> imports) {
+    private static List<ImportRequest> buildImportRequests(ModuleIdentifier source,
+            List<ModuleIdentifier> imports) {
 
         List<ImportRequest> result = new LinkedList<ImportRequest>();
 
@@ -256,8 +254,7 @@ public class MathSymbolTable extends ScopeRepository {
      * @throws NoSuchScopeException If there is no <code>Scope</code> associated
      *                              with the given AST node.
      */
-    public FinalizedModuleScope getModuleScope(ModuleIdentifier module)
-            throws NoSuchSymbolException {
+    public FinalizedModuleScope getModuleScope(ModuleIdentifier module) throws NoSuchSymbolException {
 
         if (!myModuleScopes.containsKey(module)) {
             throw new NoSuchSymbolException("" + module);

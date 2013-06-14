@@ -24,11 +24,9 @@ public class IsInPredicate implements TypeRelationshipPredicate {
     }
 
     @Override
-    public TypeRelationshipPredicate replaceUnboundVariablesInTypes(
-            Map<String, String> substitions) {
+    public TypeRelationshipPredicate replaceUnboundVariablesInTypes(Map<String, String> substitions) {
 
-        VariableReplacingVisitor renamer =
-                new VariableReplacingVisitor(substitions, myTypeGraph);
+        VariableReplacingVisitor renamer = new VariableReplacingVisitor(substitions, myTypeGraph);
 
         myElement.accept(renamer);
         MTType newType1 = renamer.getFinalExpression();
@@ -42,16 +40,12 @@ public class IsInPredicate implements TypeRelationshipPredicate {
     }
 
     @Override
-    public boolean canBeDemonstratedStatically(MTType canonical1,
-            MTType canonical2, Map<String, MTType> typeBindings,
-            Map<String, Exp> expressionBindings) {
+    public boolean canBeDemonstratedStatically(MTType canonical1, MTType canonical2,
+            Map<String, MTType> typeBindings, Map<String, Exp> expressionBindings) {
 
-        MTType substitutedElement =
-                myElement.getCopyWithVariablesSubstituted(typeBindings);
-        MTType substitutedDeclaredType =
-                myDeclaredType.getCopyWithVariablesSubstituted(typeBindings);
+        MTType substitutedElement = myElement.getCopyWithVariablesSubstituted(typeBindings);
+        MTType substitutedDeclaredType = myDeclaredType.getCopyWithVariablesSubstituted(typeBindings);
 
-        return myTypeGraph.isKnownToBeIn(substitutedElement,
-                substitutedDeclaredType);
+        return myTypeGraph.isKnownToBeIn(substitutedElement, substitutedDeclaredType);
     }
 }

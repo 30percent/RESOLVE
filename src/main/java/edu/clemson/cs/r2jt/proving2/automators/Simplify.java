@@ -37,8 +37,7 @@ public class Simplify implements Automator {
         if (!replacedTheorem) {
             //Turn symmetric equalities into true
             Iterator<Application> symmetricEqualities =
-                    ReplaceSymmetricEqualityWithTrueInConsequent.INSTANCE
-                            .getApplications(model);
+                    ReplaceSymmetricEqualityWithTrueInConsequent.INSTANCE.getApplications(model);
 
             if (symmetricEqualities.hasNext()) {
                 symmetricEqualities.next().apply(model);
@@ -46,8 +45,7 @@ public class Simplify implements Automator {
             else {
                 //Eliminate true conjuncts
                 Iterator<Application> trueConjuncts =
-                        EliminateTrueConjunctInConsequent.INSTANCE
-                                .getApplications(model);
+                        EliminateTrueConjunctInConsequent.INSTANCE.getApplications(model);
 
                 if (trueConjuncts.hasNext()) {
                     trueConjuncts.next().apply(model);
@@ -74,8 +72,7 @@ public class Simplify implements Automator {
         if (foundMatch) {
             //Now we actually go find it
             LocalTheorem t = null;
-            Iterator<LocalTheorem> theorems =
-                    model.getLocalTheoremList().iterator();
+            Iterator<LocalTheorem> theorems = model.getLocalTheoremList().iterator();
 
             LocalTheorem curTheorem;
             while (t == null && theorems.hasNext()) {
@@ -90,8 +87,7 @@ public class Simplify implements Automator {
                 throw new RuntimeException("uhhh...?");
             }
 
-            new ReplaceTheoremInConsequentWithTrue(t).getApplications(model)
-                    .next().apply(model);
+            new ReplaceTheoremInConsequentWithTrue(t).getApplications(model).next().apply(model);
         }
 
         return foundMatch;

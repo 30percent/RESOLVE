@@ -106,9 +106,8 @@ public class PerformanceInitItem extends ResolveConceptualElement {
 
     public PerformanceInitItem() {};
 
-    public PerformanceInitItem(Location location, List<AffectsItem> stateVars,
-            Exp requires, Exp ensures, Exp duration, Exp mainp_disp,
-            List<FacilityDec> facilities, List<VarDec> variables,
+    public PerformanceInitItem(Location location, List<AffectsItem> stateVars, Exp requires, Exp ensures,
+            Exp duration, Exp mainp_disp, List<FacilityDec> facilities, List<VarDec> variables,
             List<AuxVarDec> aux_variables, List<Statement> statements) {
         this.location = location;
         this.stateVars = stateVars;

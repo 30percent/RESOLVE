@@ -29,8 +29,7 @@ public class JVCDisplay extends JTextPane {
 
     private static final Object PEXP_ID_KEY = new Object();
 
-    private final DisplayConstructingVisitor myDisplayer =
-            new DisplayConstructingVisitor();
+    private final DisplayConstructingVisitor myDisplayer = new DisplayConstructingVisitor();
 
     private final Highlighter myHighlighter = new Highlighter();
 
@@ -38,11 +37,9 @@ public class JVCDisplay extends JTextPane {
 
     private VC myVC;
 
-    private Map<NodeIdentifier, Integer> myNodeToStart =
-            new HashMap<NodeIdentifier, Integer>();
+    private Map<NodeIdentifier, Integer> myNodeToStart = new HashMap<NodeIdentifier, Integer>();
 
-    private Map<NodeIdentifier, Integer> myNodeToEnd =
-            new HashMap<NodeIdentifier, Integer>();
+    private Map<NodeIdentifier, Integer> myNodeToEnd = new HashMap<NodeIdentifier, Integer>();
 
     private int myHighlightStart, myHighlightEnd;
 
@@ -61,8 +58,7 @@ public class JVCDisplay extends JTextPane {
                 if (caretPosition != -1) {
                     Element c = myDocument.getCharacterElement(caretPosition);
                     AttributeSet attrs = c.getAttributes();
-                    NodeIdentifier id =
-                            (NodeIdentifier) attrs.getAttribute(PEXP_ID_KEY);
+                    NodeIdentifier id = (NodeIdentifier) attrs.getAttribute(PEXP_ID_KEY);
 
                     if (id == null) {
                         moveCaretPosition(getCaretPosition());
@@ -73,14 +69,11 @@ public class JVCDisplay extends JTextPane {
                         myHighlightStart = myNodeToStart.get(id);
                         myHighlightEnd = myNodeToEnd.get(id);
 
-                        MutableAttributeSet highlight =
-                                new SimpleAttributeSet();
-                        highlight.addAttribute(StyleConstants.Background,
-                                new Color(150, 200, 200));
+                        MutableAttributeSet highlight = new SimpleAttributeSet();
+                        highlight.addAttribute(StyleConstants.Background, new Color(150, 200, 200));
 
                         myDocument.setCharacterAttributes(myHighlightStart,
-                                (myHighlightEnd - myHighlightStart), highlight,
-                                false);
+                                (myHighlightEnd - myHighlightStart), highlight, false);
                     }
                 }
             }
@@ -91,8 +84,7 @@ public class JVCDisplay extends JTextPane {
         PExp p = id.getRoot();
 
         if (!myHighlightedNodes.containsKey(p)) {
-            myHighlightedNodes.put(id.getRoot(), new IdentifiedNodes<Color>(id
-                    .getRoot()));
+            myHighlightedNodes.put(id.getRoot(), new IdentifiedNodes<Color>(id.getRoot()));
         }
 
         myHighlightedNodes.get(p).put(id, c);
@@ -102,8 +94,7 @@ public class JVCDisplay extends JTextPane {
     private void resetHighlights() {
         MutableAttributeSet blank = new SimpleAttributeSet();
         blank.addAttribute(StyleConstants.Background, getBackground());
-        myDocument.setCharacterAttributes(0, myDocument.getLength(), blank,
-                false);
+        myDocument.setCharacterAttributes(0, myDocument.getLength(), blank, false);
 
         for (IdentifiedNodes<Color> nodes : myHighlightedNodes.values()) {
             nodes.traverse(myHighlighter);
@@ -122,9 +113,7 @@ public class JVCDisplay extends JTextPane {
         return myVC;
     }
 
-    private class DisplayConstructingVisitor extends NodeIdentifyingVisitor
-            implements
-                Appendable {
+    private class DisplayConstructingVisitor extends NodeIdentifyingVisitor implements Appendable {
 
         public void doBeginPExp(PExp p) {
             myNodeToStart.put(getID(), myDocument.getLength());
@@ -146,8 +135,7 @@ public class JVCDisplay extends JTextPane {
             }
 
             try {
-                myDocument.insertString(myDocument.getLength(), chars,
-                        pexpIDAttr);
+                myDocument.insertString(myDocument.getLength(), chars, pexpIDAttr);
             }
             catch (BadLocationException e) {
                 //Shouldn't be possible
@@ -163,8 +151,7 @@ public class JVCDisplay extends JTextPane {
         }
 
         @Override
-        public Appendable append(CharSequence csq, int start, int end)
-                throws IOException {
+        public Appendable append(CharSequence csq, int start, int end) throws IOException {
             return append(csq.subSequence(start, end));
         }
     }
@@ -178,8 +165,7 @@ public class JVCDisplay extends JTextPane {
 
             int start = myNodeToStart.get(id);
             int end = myNodeToEnd.get(id);
-            myDocument.setCharacterAttributes(start, end - start, bgColor,
-                    false);
+            myDocument.setCharacterAttributes(start, end - start, bgColor, false);
         }
     }
 }

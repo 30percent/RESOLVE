@@ -87,8 +87,8 @@ public class FacilityTypeDec extends Dec {
 
     public FacilityTypeDec() {};
 
-    public FacilityTypeDec(PosSymbol name, Ty representation, Exp convention,
-            InitItem initialization, FinalItem finalization) {
+    public FacilityTypeDec(PosSymbol name, Ty representation, Exp convention, InitItem initialization,
+            FinalItem finalization) {
         this.name = name;
         this.representation = representation;
         this.convention = convention;

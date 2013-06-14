@@ -14,16 +14,13 @@ import java.util.Set;
 public abstract class AbstractScope implements Scope {
 
     @Override
-    public final <E extends SymbolTableEntry> List<E> getMatches(
-            TableSearcher<E> searcher, SearchContext l)
+    public final <E extends SymbolTableEntry> List<E> getMatches(TableSearcher<E> searcher, SearchContext l)
             throws DuplicateSymbolException {
         List<E> result = new LinkedList<E>();
         Set<Scope> searchedScopes = new HashSet<Scope>();
-        Map<String, PTType> genericInstantiations =
-                new HashMap<String, PTType>();
+        Map<String, PTType> genericInstantiations = new HashMap<String, PTType>();
 
-        addMatches(searcher, result, searchedScopes, genericInstantiations,
-                null, l);
+        addMatches(searcher, result, searchedScopes, genericInstantiations, null, l);
 
         return result;
     }

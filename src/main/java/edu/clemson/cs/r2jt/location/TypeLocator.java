@@ -99,8 +99,7 @@ public class TypeLocator {
     // Constructors
     // ===========================================================
 
-    public TypeLocator(OldSymbolTable table,
-            CompileEnvironment instanceEnvironment) {
+    public TypeLocator(OldSymbolTable table, CompileEnvironment instanceEnvironment) {
         myInstanceEnvironment = instanceEnvironment;
         Scope curScope = table.getCurrentScope();
         if (curScope instanceof ProcedureScope) {
@@ -133,8 +132,7 @@ public class TypeLocator {
         this.err = instanceEnvironment.getErrorHandler();
     }
 
-    public TypeLocator(OldSymbolTable table, boolean err,
-            CompileEnvironment instanceEnvironment) {
+    public TypeLocator(OldSymbolTable table, boolean err, CompileEnvironment instanceEnvironment) {
         myInstanceEnvironment = instanceEnvironment;
         Scope curScope = table.getCurrentScope();
         if (curScope instanceof ProcedureScope) {
@@ -161,8 +159,7 @@ public class TypeLocator {
 
         Symbol tidName = tid.getName();
         if (tidName.getName().equals("SSet")) {
-            retval =
-                    new TypeEntry(new PosSymbol(null, tidName), new VoidType());
+            retval = new TypeEntry(new PosSymbol(null, tidName), new VoidType());
         }
         else {
             mathTypesOnly = false;
@@ -180,8 +177,7 @@ public class TypeLocator {
         return retval;
     }
 
-    public TypeEntry strictLocateMathType(TypeID tid)
-            throws SymbolSearchException {
+    public TypeEntry strictLocateMathType(TypeID tid) throws SymbolSearchException {
         mathTypesOnly = true;
         if (procscope != null) {
             return locatePSMathType(tid);
@@ -225,16 +221,13 @@ public class TypeLocator {
             return locateMSMathType(tid);
         }
         else {
-            List<TypeEntry> entries =
-                    getTypeEntries(tid.getName(), procscope.getVisibleModules());
+            List<TypeEntry> entries = getTypeEntries(tid.getName(), procscope.getVisibleModules());
             if (entries.size() == 0) {
                 return locateMSMathType(tid);
             }
             else if (entries.size() > 1) {
                 List<Location> locs = getLocationList(entries);
-                String msg =
-                        ambigRefMessage(tid.getName().toString(), locs
-                                .toString());
+                String msg = ambigRefMessage(tid.getName().toString(), locs.toString());
                 throw new SymbolSearchException(msg);
             }
             else { // exactly one entry!
@@ -245,8 +238,7 @@ public class TypeLocator {
                         return entry;
                     }
                     else {
-                        String msg =
-                                cantFindMathTypeMessage(tid.getName().getName());
+                        String msg = cantFindMathTypeMessage(tid.getName().getName());
                         throw new SymbolSearchException(msg);
                     }
                 }
@@ -259,8 +251,7 @@ public class TypeLocator {
         //        return null;
     }
 
-    private TypeEntry locatePrSMathType(TypeID tid)
-            throws SymbolSearchException {
+    private TypeEntry locatePrSMathType(TypeID tid) throws SymbolSearchException {
         if (tid.getQualifier() != null) {
             Symbol qsym = tid.getQualifier();
             Symbol nsym = tid.getName();
@@ -286,17 +277,14 @@ public class TypeLocator {
                 entries.add(proofscope.getType(tid.getName()));
             }
             if (entries.size() == 0) {
-                entries.addAll(getTypeEntries(tid.getName(), proofscope
-                        .getVisibleModules()));
+                entries.addAll(getTypeEntries(tid.getName(), proofscope.getVisibleModules()));
             }
             if (entries.size() == 0) {
                 return locateMSMathType(tid);
             }
             else if (entries.size() > 1) {
                 List<Location> locs = getLocationList(entries);
-                String msg =
-                        ambigRefMessage(tid.getName().toString(), locs
-                                .toString());
+                String msg = ambigRefMessage(tid.getName().toString(), locs.toString());
                 throw new SymbolSearchException(msg);
             }
             else { // exactly one entry!
@@ -307,8 +295,7 @@ public class TypeLocator {
                         return entry;
                     }
                     else {
-                        String msg =
-                                cantFindMathTypeMessage(tid.getName().getName());
+                        String msg = cantFindMathTypeMessage(tid.getName().getName());
                         throw new SymbolSearchException(msg);
                     }
                 }
@@ -319,8 +306,7 @@ public class TypeLocator {
         }
     }
 
-    private TypeEntry locatePSProgramType(TypeID tid)
-            throws SymbolSearchException {
+    private TypeEntry locatePSProgramType(TypeID tid) throws SymbolSearchException {
         if (tid.getQualifier() != null) {
             Symbol qsym = tid.getQualifier();
             Symbol nsym = tid.getName();
@@ -337,8 +323,7 @@ public class TypeLocator {
             }
         }
         else {
-            List<TypeEntry> entries =
-                    getTypeEntries(tid.getName(), procscope.getVisibleModules());
+            List<TypeEntry> entries = getTypeEntries(tid.getName(), procscope.getVisibleModules());
             if (entries.size() == 0) {
                 if (modscope.containsLocalType(tid.getName())) {
                     TypeEntry entry = modscope.getLocalType(tid.getName());
@@ -351,9 +336,7 @@ public class TypeLocator {
             }
             else if (entries.size() > 1) {
                 List<Location> locs = getLocationList(entries);
-                String msg =
-                        ambigRefMessage(tid.getName().toString(), locs
-                                .toString());
+                String msg = ambigRefMessage(tid.getName().toString(), locs.toString());
                 throw new SymbolSearchException(msg);
             }
             else { // exactly one entry!
@@ -375,8 +358,7 @@ public class TypeLocator {
         }
     }
 
-    public TypeEntry locateMSProgramType(TypeID tid)
-            throws SymbolSearchException {
+    public TypeEntry locateMSProgramType(TypeID tid) throws SymbolSearchException {
         if (tid.getParamCount() > 0) {
             String msg = cantUsePrimInProgMessage(tid.getName().toString());
             throw new SymbolSearchException(msg);
@@ -393,8 +375,7 @@ public class TypeLocator {
         return pentry;
     }
 
-    private TypeEntry locateMSQualProgramType(TypeID tid)
-            throws SymbolSearchException {
+    private TypeEntry locateMSQualProgramType(TypeID tid) throws SymbolSearchException {
         Symbol qual = tid.getQualifier();
         Symbol name = tid.getName();
         if (modscope.isProgramVisible(qual)) {
@@ -403,9 +384,7 @@ public class TypeLocator {
                 return mod.getLocalType(name);
             }
             else {
-                String msg =
-                        cantFindProgTypeInModMessage(name.toString(), mod
-                                .toString());
+                String msg = cantFindProgTypeInModMessage(name.toString(), mod.toString());
                 throw new SymbolSearchException(msg);
             }
         }
@@ -415,8 +394,7 @@ public class TypeLocator {
         }
     }
 
-    private TypeEntry locateMSQualMathType(TypeID tid)
-            throws SymbolSearchException {
+    private TypeEntry locateMSQualMathType(TypeID tid) throws SymbolSearchException {
         Symbol qual = tid.getQualifier();
         Symbol name = tid.getName();
         if (modscope.isMathVisible(qual)) {
@@ -438,9 +416,7 @@ public class TypeLocator {
                 }
             }
             else {
-                String msg =
-                        cantFindTypeInModMessage(name.toString(), mod
-                                .toString());
+                String msg = cantFindTypeInModMessage(name.toString(), mod.toString());
                 throw new SymbolSearchException(msg);
             }
         }
@@ -450,22 +426,20 @@ public class TypeLocator {
         }
     }
 
-    private void checkParamSizeEqual(TypeID tid, Type type, Location eloc)
-            throws SymbolSearchException {
+    private void checkParamSizeEqual(TypeID tid, Type type, Location eloc) throws SymbolSearchException {
         int paramCount = 0;
         if (type instanceof PrimitiveType) {
             paramCount = ((PrimitiveType) type).paramCount();
         }
         if (tid.getParamCount() != paramCount) {
             String msg =
-                    paramMismatchMessage(tid.getName().toString(), tid
-                            .getParamCount(), eloc.toString(), paramCount);
+                    paramMismatchMessage(tid.getName().toString(), tid.getParamCount(), eloc.toString(),
+                            paramCount);
             throw new SymbolSearchException(msg);
         }
     }
 
-    private TypeEntry locateMSUnqualProgramType(TypeID tid)
-            throws SymbolSearchException {
+    private TypeEntry locateMSUnqualProgramType(TypeID tid) throws SymbolSearchException {
         TypeEntry typeEntry = locateTypeEntryInAssociates(modscope, tid);
         if (typeEntry != null) {
             return typeEntry;
@@ -475,9 +449,7 @@ public class TypeLocator {
             checkParamSizeEqual(tid, entry.getType(), entry.getLocation());
             return entry;
         }
-        List<TypeEntry> entries =
-                getTypeEntries(tid.getName(), modscope
-                        .getProgramVisibleModules());
+        List<TypeEntry> entries = getTypeEntries(tid.getName(), modscope.getProgramVisibleModules());
 
         if (entries.size() == 0) {
             String msg = cantFindProgTypeMessage(tid.getName().toString());
@@ -485,8 +457,7 @@ public class TypeLocator {
         }
         else if (entries.size() > 1) {
             List<Location> locs = getLocationList(entries);
-            String msg =
-                    ambigRefMessage(tid.getName().toString(), locs.toString());
+            String msg = ambigRefMessage(tid.getName().toString(), locs.toString());
             throw new SymbolSearchException(msg);
         }
         else { // exactly one entry!
@@ -535,8 +506,7 @@ public class TypeLocator {
         return null;
     }
 
-    private TypeEntry locateMSUnqualMathType(TypeID tid)
-            throws SymbolSearchException {
+    private TypeEntry locateMSUnqualMathType(TypeID tid) throws SymbolSearchException {
         if (tid.getName().getName().equals("D")) {
             System.out.println("HELLO!");
         }
@@ -571,16 +541,14 @@ public class TypeLocator {
                 return entry;
             }
         }
-        List<TypeEntry> entries =
-                getTypeEntries(tid.getName(), modscope.getMathVisibleModules());
+        List<TypeEntry> entries = getTypeEntries(tid.getName(), modscope.getMathVisibleModules());
         if (entries.size() == 0) {
             String msg = cantFindTypeMessage(tid.getName().toString());
             throw new SymbolSearchException(msg);
         }
         else if (entries.size() > 1) {
             List<Location> locs = getLocationList(entries);
-            String msg =
-                    ambigRefMessage(tid.getName().toString(), locs.toString());
+            String msg = ambigRefMessage(tid.getName().toString(), locs.toString());
             throw new SymbolSearchException(msg);
         }
         else { // exactly one entry!
@@ -591,8 +559,7 @@ public class TypeLocator {
                     return entry;
                 }
                 else {
-                    String msg =
-                            cantFindMathTypeMessage(tid.getName().getName());
+                    String msg = cantFindMathTypeMessage(tid.getName().getName());
                     throw new SymbolSearchException(msg);
                 }
             }
@@ -638,14 +605,12 @@ public class TypeLocator {
         return null;
     }
 
-    private void checkProgramType(TypeID tid, Type type)
-            throws SymbolSearchException {
+    private void checkProgramType(TypeID tid, Type type) throws SymbolSearchException {
         Type tmptype = type;
         if (type instanceof IndirectType) {
             tmptype = ((IndirectType) type).getType();
         }
-        if (!(tmptype instanceof ConcType || tmptype instanceof NameType
-                || tmptype instanceof FormalType
+        if (!(tmptype instanceof ConcType || tmptype instanceof NameType || tmptype instanceof FormalType
                 || tmptype instanceof ArrayType || tmptype instanceof RecordType)) {
             String msg = cantFindProgTypeMessage(tid.getName().toString());
             throw new SymbolSearchException(msg);
@@ -668,19 +633,16 @@ public class TypeLocator {
     }
 
     private String paramMismatchMessage(String name, int n, String loc, int m) {
-        return "Type " + name + " with " + n
-                + " arguments has the same name as a type declared at " + loc
+        return "Type " + name + " with " + n + " arguments has the same name as a type declared at " + loc
                 + " that takes " + m + " parameters.";
     }
 
     private String cantFindProgTypeInModMessage(String name, String module) {
-        return "Cannot find a program type named " + name + " in module "
-                + module + ".";
+        return "Cannot find a program type named " + name + " in module " + module + ".";
     }
 
     private String cantFindTypeInModMessage(String name, String module) {
-        return "Cannot find a type named " + name + " in module " + module
-                + ".";
+        return "Cannot find a type named " + name + " in module " + module + ".";
     }
 
     private String modNotProgVisibleMessage(String qual) {
@@ -689,13 +651,12 @@ public class TypeLocator {
     }
 
     private String modNotVisibleMessage(String qual) {
-        return "The qualifier " + qual + " does not correspond to any "
-                + "modules visible from this scope.";
+        return "The qualifier " + qual + " does not correspond to any " + "modules visible from this scope.";
     }
 
     private String ambigRefMessage(String name, String mods) {
-        return "The type named " + name + " is found in more than one "
-                + "module visible from this scope: " + mods + ".";
+        return "The type named " + name + " is found in more than one " + "module visible from this scope: "
+                + mods + ".";
     }
 
     private String cantFindProgTypeMessage(String name) {

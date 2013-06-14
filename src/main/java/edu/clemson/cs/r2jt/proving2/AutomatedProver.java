@@ -74,16 +74,14 @@ public class AutomatedProver {
     //transformations are applied first
     public static final boolean H_BEST_FIRST_CONSEQUENT_EXPLORATION = true;
 
-    public static final String SEARCH_START_LABEL =
-            "--- Done Minimizing Consequent ---";
+    public static final String SEARCH_START_LABEL = "--- Done Minimizing Consequent ---";
 
     private final PerVCProverModel myModel;
     private final ImmutableList<Theorem> myTheoremLibrary;
 
     private boolean myRunningFlag = true;
 
-    private final Deque<Automator> myAutomatorStack =
-            new ArrayDeque<Automator>(20);
+    private final Deque<Automator> myAutomatorStack = new ArrayDeque<Automator>(20);
 
     private boolean myPrepForUIUpdateFlag = false;
     private boolean myTakingStepFlag = false;
@@ -102,13 +100,11 @@ public class AutomatedProver {
     private long myStartTime;
     private long myEndTime;
 
-    public AutomatedProver(PerVCProverModel m,
-            ImmutableList<Theorem> theoremLibrary, ModuleScope moduleScope,
-            int timeout) {
+    public AutomatedProver(PerVCProverModel m, ImmutableList<Theorem> theoremLibrary,
+            ModuleScope moduleScope, int timeout) {
         myModel = m;
         myMainProofFitnessFunction = new MainProofFitnessFunction(m);
-        myAntecedentDeveloperFitnessFunction =
-                new AntecedentDeveloperFitnessFunction(m);
+        myAntecedentDeveloperFitnessFunction = new AntecedentDeveloperFitnessFunction(m);
         myTimeout = timeout;
 
         //This looks weird but suppresses a "leaked this" warning
@@ -126,13 +122,11 @@ public class AutomatedProver {
 
         System.out.println("###################### consequent transformations");
         List<Transformation> consequentTransformations =
-                orderByFitnessFunction(myTheoremLibrary,
-                        myMainProofFitnessFunction);
+                orderByFitnessFunction(myTheoremLibrary, myMainProofFitnessFunction);
 
         System.out.println("###################### antecedent transformations");
         List<Transformation> antecedentTransformations =
-                orderByFitnessFunction(myTheoremLibrary,
-                        myAntecedentDeveloperFitnessFunction);
+                orderByFitnessFunction(myTheoremLibrary, myAntecedentDeveloperFitnessFunction);
 
         List<Automator> steps = new LinkedList<Automator>();
         steps.add(new VariablePropagator());
@@ -143,12 +137,10 @@ public class AutomatedProver {
 
         steps.add(new VariablePropagator());
         steps.add(new EliminateObviousAntecedents());
-        steps.add(new ApplyN(new NoOpLabel(this,
-                "--- Done Minimizing Antecedent ---"), 1));
+        steps.add(new ApplyN(new NoOpLabel(this, "--- Done Minimizing Antecedent ---"), 1));
 
         for (int i = 0; i < 3; i++) {
-            steps.add(new AntecedentDeveloper(myModel, myVariableSymbols,
-                    antecedentTransformations, 1));
+            steps.add(new AntecedentDeveloper(myModel, myVariableSymbols, antecedentTransformations, 1));
             steps.add(new VariablePropagator());
 
             if (H_PERFORM_MINIMIZATION) {
@@ -158,8 +150,7 @@ public class AutomatedProver {
             steps.add(EliminateRedundantAntecedents.INSTANCE);
             steps.add(new EliminateObviousAntecedents());
         }
-        steps.add(new ApplyN(new NoOpLabel(this,
-                "--- Done Developing Antecedent ---"), 1));
+        steps.add(new ApplyN(new NoOpLabel(this, "--- Done Developing Antecedent ---"), 1));
 
         if (H_PERFORM_MINIMIZATION) {
             steps.add(new Minimizer(myTheoremLibrary));
@@ -173,12 +164,11 @@ public class AutomatedProver {
         myAutomatorStack.push(new PushSequence(steps));
     }
 
-    private List<Transformation> orderByFitnessFunction(
-            Iterable<Theorem> theorems, FitnessFunction<Transformation> f) {
+    private List<Transformation> orderByFitnessFunction(Iterable<Theorem> theorems,
+            FitnessFunction<Transformation> f) {
 
         PriorityQueue<Transformation> transformationHeap =
-                new PriorityQueue<Transformation>(11,
-                        new TransformationComparator(f));
+                new PriorityQueue<Transformation>(11, new TransformationComparator(f));
         List<Transformation> theoremTransformations;
         for (Theorem t : theorems) {
             theoremTransformations = t.getTransformations();
@@ -190,29 +180,25 @@ public class AutomatedProver {
 
         List<Transformation> transformations = new LinkedList<Transformation>();
         Transformation top;
-        while (!transformationHeap.isEmpty()
-                && f.calculateFitness(transformationHeap.peek()) >= 0) {
+        while (!transformationHeap.isEmpty() && f.calculateFitness(transformationHeap.peek()) >= 0) {
 
             top = transformationHeap.poll();
             transformations.add(top);
-            System.out.println(top + " (" + top.getClass() + ") -- "
-                    + f.calculateFitness(top));
+            System.out.println(top + " (" + top.getClass() + ") -- " + f.calculateFitness(top));
         }
 
         if (transformationHeap.size() > 0) {
             System.out.println("<<<<<<<<<<<<<<< recommend against");
             while (!transformationHeap.isEmpty()) {
                 top = transformationHeap.poll();
-                System.out.println(top + " (" + top.getClass() + ") -- "
-                        + f.calculateFitness(top));
+                System.out.println(top + " (" + top.getClass() + ") -- " + f.calculateFitness(top));
             }
         }
 
         return transformations;
     }
 
-    private Set<String> determineVariableSymbols(PerVCProverModel model,
-            ModuleScope moduleScope) {
+    private Set<String> determineVariableSymbols(PerVCProverModel model, ModuleScope moduleScope) {
 
         //With apologies to whoever has to deal with this mess, this is not a
         //very good way of dealing with this.  Ideally the populator would 
@@ -237,8 +223,7 @@ public class AutomatedProver {
             if (t.getAssertion().isEquality()) {
                 for (Transformation trans : t.getTransformations()) {
                     if (trans instanceof SubstituteInPlaceInConsequent) {
-                        Iterator<Application> applications =
-                                trans.getApplications(model);
+                        Iterator<Application> applications = trans.getApplications(model);
 
                         if (applications.hasNext()) {
                             symbols.addAll(trans.getReplacementSymbolNames());
@@ -252,8 +237,7 @@ public class AutomatedProver {
         Set<String> mathSymbols = new HashSet<String>();
         for (String s : symbols) {
             List<SymbolTableEntry> entries =
-                    moduleScope.query(new NameQuery(null, s,
-                            ImportStrategy.IMPORT_RECURSIVE,
+                    moduleScope.query(new NameQuery(null, s, ImportStrategy.IMPORT_RECURSIVE,
                             FacilityStrategy.FACILITY_INSTANTIATE, false));
 
             if (entries.isEmpty()) {
@@ -340,13 +324,11 @@ public class AutomatedProver {
 
             myWorkerThread = Thread.currentThread();
 
-            System.out
-                    .println("============= AutomatedProver - start() ==============");
+            System.out.println("============= AutomatedProver - start() ==============");
 
             long stopTime = System.currentTimeMillis() + myTimeout;
             myRunningFlag = true;
-            while (myRunningFlag
-                    && (myTimeout == -1 || System.currentTimeMillis() < stopTime)) {
+            while (myRunningFlag && (myTimeout == -1 || System.currentTimeMillis() < stopTime)) {
                 workerStep();
             }
 
@@ -440,8 +422,7 @@ public class AutomatedProver {
         List<ProofStep> proofSteps = myModel.getProofSteps();
 
         int originalProofLength = proofSteps.size();
-        while (!myAutomatorStack.isEmpty()
-                && originalProofLength == proofSteps.size()
+        while (!myAutomatorStack.isEmpty() && originalProofLength == proofSteps.size()
                 && !myModel.noConsequents()) {
 
             myAutomatorStack.peek().step(myAutomatorStack, myModel);
@@ -460,9 +441,7 @@ public class AutomatedProver {
         myTakingStepFlag = false;
     }
 
-    private class TransformationComparator
-            implements
-                Comparator<Transformation> {
+    private class TransformationComparator implements Comparator<Transformation> {
 
         private final FitnessFunction<Transformation> myFitnessFunction;
 

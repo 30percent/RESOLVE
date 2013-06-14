@@ -14,8 +14,7 @@ import java.util.NoSuchElementException;
  */
 public class PExpNavigator {
 
-    private Deque<PExpSubexpressionIterator> myNavigationStack =
-            new LinkedList<PExpSubexpressionIterator>();
+    private Deque<PExpSubexpressionIterator> myNavigationStack = new LinkedList<PExpSubexpressionIterator>();
 
     private final PExp myOriginalExpression;
 
@@ -31,8 +30,7 @@ public class PExpNavigator {
         //TODO : This actually violates the contract for this component--a call
         //       to hasNext() breaks the functionality of replaceLast() until
         //       next() is called
-        while (!(myNavigationStack.isEmpty() || myNavigationStack.peek()
-                .hasNext())) {
+        while (!(myNavigationStack.isEmpty() || myNavigationStack.peek().hasNext())) {
 
             myNavigationStack.pop();
         }
@@ -44,8 +42,7 @@ public class PExpNavigator {
         PExp retval;
 
         if (myReturnedTopLevelFlag) {
-            while (!(myNavigationStack.isEmpty() || myNavigationStack.peek()
-                    .hasNext())) {
+            while (!(myNavigationStack.isEmpty() || myNavigationStack.peek().hasNext())) {
 
                 myNavigationStack.pop();
             }

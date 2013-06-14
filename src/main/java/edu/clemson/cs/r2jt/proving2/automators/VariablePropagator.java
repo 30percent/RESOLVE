@@ -24,8 +24,7 @@ public class VariablePropagator implements Automator {
 
     @Override
     public void step(Deque<Automator> stack, PerVCProverModel model) {
-        Iterator<LocalTheorem> localTheorems =
-                model.getLocalTheoremList().iterator();
+        Iterator<LocalTheorem> localTheorems = model.getLocalTheoremList().iterator();
 
         PExp variable = null;
         PExp expansion = null;
@@ -66,10 +65,8 @@ public class VariablePropagator implements Automator {
             List<Automator> steps = new LinkedList<Automator>();
 
             if (!variable.equals(expansion)) {
-                steps.add(new ApplyAll(new SubstituteInPlaceInAntecedent(
-                        curTheorem, variable, expansion)));
-                steps.add(new ApplyAll(new SubstituteInPlaceInConsequent(
-                        curTheorem, variable, expansion)));
+                steps.add(new ApplyAll(new SubstituteInPlaceInAntecedent(curTheorem, variable, expansion)));
+                steps.add(new ApplyAll(new SubstituteInPlaceInConsequent(curTheorem, variable, expansion)));
             }
             steps.add(new ApplyN(new RemoveAntecedent(model, curTheorem), 1));
             stack.push(new PushSequence(steps));
@@ -89,8 +86,7 @@ public class VariablePropagator implements Automator {
             PSymbol eAsPSymbol = (PSymbol) e;
 
             if (eAsPSymbol.arguments.size() == 0
-                    && eAsPSymbol.quantification
-                            .equals(PSymbol.Quantification.NONE)
+                    && eAsPSymbol.quantification.equals(PSymbol.Quantification.NONE)
                     && !eAsPSymbol.isLiteral()) {
                 result = eAsPSymbol;
             }

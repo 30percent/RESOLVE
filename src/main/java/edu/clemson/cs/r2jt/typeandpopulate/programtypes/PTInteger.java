@@ -16,8 +16,7 @@ import java.util.WeakHashMap;
  */
 public class PTInteger extends PTType {
 
-    private static WeakHashMap<TypeGraph, PTInteger> instances =
-            new WeakHashMap<TypeGraph, PTInteger>();
+    private static WeakHashMap<TypeGraph, PTInteger> instances = new WeakHashMap<TypeGraph, PTInteger>();
 
     public static PTInteger getInstance(TypeGraph g) {
         PTInteger result = instances.get(g);
@@ -40,8 +39,7 @@ public class PTInteger extends PTType {
     }
 
     @Override
-    public PTType instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public PTType instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
         return this;
     }

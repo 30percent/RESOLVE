@@ -37,8 +37,7 @@ public class VisitorCodeGeneration {
         }
         String packageName = myPackagePath + outputPackage;
         StringBuilder buffer = generateVisitorClass(walkerName);
-        ClassLoader classLoader =
-                Thread.currentThread().getContextClassLoader();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
         String path = packageName.replace('.', '/');
         Enumeration<URL> resources;
@@ -51,12 +50,9 @@ public class VisitorCodeGeneration {
                 dirs.add(new File(resourceURI.getPath()));
             }
             for (File directory : dirs) {
-                String targetDir =
-                        directory.getAbsolutePath().replace("bin", "src");
-                targetDir =
-                        targetDir.replace("target/classes", "src/main/java");
-                String outputFile =
-                        targetDir + File.separator + walkerName + ".java";
+                String targetDir = directory.getAbsolutePath().replace("bin", "src");
+                targetDir = targetDir.replace("target/classes", "src/main/java");
+                String outputFile = targetDir + File.separator + walkerName + ".java";
                 FileWriter fstream = new FileWriter(outputFile);
                 BufferedWriter out = new BufferedWriter(fstream);
                 out.append("package " + packageName + ";\n\n");
@@ -85,10 +81,8 @@ public class VisitorCodeGeneration {
         buffer.append("public abstract class ");
         buffer.append(walkerName);
         buffer.append(" {\n");
-        buffer
-                .append("\tpublic void preAny(ResolveConceptualElement data) { }\n");
-        buffer
-                .append("\tpublic void postAny(ResolveConceptualElement data) { }\n\n");
+        buffer.append("\tpublic void preAny(ResolveConceptualElement data) { }\n");
+        buffer.append("\tpublic void postAny(ResolveConceptualElement data) { }\n\n");
         try {
             Class<?>[] absynClasses = getClasses(myPackagePath + "absyn");
             for (Class<?> absynClass : absynClasses) {
@@ -99,21 +93,17 @@ public class VisitorCodeGeneration {
 
                     String className = absynClass.getSimpleName();
 
-                    addMethods(buffer, className, className,
-                            "ResolveConceptualElement");
+                    addMethods(buffer, className, className, "ResolveConceptualElement");
 
                     Field[] curFields = absynClass.getDeclaredFields();
                     for (Field curField : curFields) {
                         if (List.class.isAssignableFrom(curField.getType())) {
                             String typeParam =
-                                    ((Class<?>) ((ParameterizedType) curField
-                                            .getGenericType())
-                                            .getActualTypeArguments()[0])
-                                            .getSimpleName();
+                                    ((Class<?>) ((ParameterizedType) curField.getGenericType())
+                                            .getActualTypeArguments()[0]).getSimpleName();
                             String listName = toCamelCase(curField.getName());
                             buffer.append("\n");
-                            addMethods(buffer, className + listName, className,
-                                    typeParam);
+                            addMethods(buffer, className + listName, className, typeParam);
                         }
                     }
                     buffer.append("\n");
@@ -137,8 +127,8 @@ public class VisitorCodeGeneration {
         return token;
     }
 
-    public static void addMethods(StringBuilder buffer, String methodName,
-            String className, String midTypeParameter) {
+    public static void addMethods(StringBuilder buffer, String methodName, String className,
+            String midTypeParameter) {
         // Class name comment
         buffer.append("// ");
         buffer.append(methodName);
@@ -190,8 +180,7 @@ public class VisitorCodeGeneration {
             throws ClassNotFoundException,
                 IOException,
                 URISyntaxException {
-        ClassLoader classLoader =
-                Thread.currentThread().getContextClassLoader();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
         String path = packageName.replace('.', '/');
         Enumeration<URL> resources = classLoader.getResources(path);
@@ -216,8 +205,8 @@ public class VisitorCodeGeneration {
      * @return The classes
      * @throws ClassNotFoundException
      */
-    private static ArrayList<Class<?>> findClasses(File directory,
-            String packageName) throws ClassNotFoundException {
+    private static ArrayList<Class<?>> findClasses(File directory, String packageName)
+            throws ClassNotFoundException {
         ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
         if (!directory.exists()) {
             return classes;
@@ -226,14 +215,11 @@ public class VisitorCodeGeneration {
         for (File file : files) {
             if (file.isDirectory()) {
                 assert !file.getName().contains(".");
-                classes.addAll(findClasses(file, packageName + "."
-                        + file.getName()));
+                classes.addAll(findClasses(file, packageName + "." + file.getName()));
             }
             else if (file.getName().endsWith(".class")) {
-                classes.add(Class.forName(packageName
-                        + '.'
-                        + file.getName().substring(0,
-                                file.getName().length() - 6)));
+                classes.add(Class.forName(packageName + '.'
+                        + file.getName().substring(0, file.getName().length() - 6)));
             }
         }
         return classes;

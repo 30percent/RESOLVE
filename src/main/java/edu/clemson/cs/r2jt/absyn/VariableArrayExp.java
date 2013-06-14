@@ -88,8 +88,7 @@ public class VariableArrayExp extends VariableExp {
 
     public VariableArrayExp() {};
 
-    public VariableArrayExp(Location location, PosSymbol qualifier,
-            PosSymbol name, ProgramExp argument) {
+    public VariableArrayExp(Location location, PosSymbol qualifier, PosSymbol name, ProgramExp argument) {
         this.location = location;
         this.qualifier = qualifier;
         this.name = name;
@@ -97,8 +96,8 @@ public class VariableArrayExp extends VariableExp {
     }
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new VariableArrayExp(location, qualifier, name,
-                (ProgramExp) substitute(argument, substitutions));
+        return new VariableArrayExp(location, qualifier, name, (ProgramExp) substitute(argument,
+                substitutions));
     }
 
     // ===========================================================

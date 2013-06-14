@@ -27,20 +27,17 @@ public class Archiver {
 
     private static final String FLAG_SECTION_NAME = "Archiving";
 
-    private static final String FLAG_DESC_ARCHIVE =
-            "Create an executable jar from a RESOLVE Facility.";
+    private static final String FLAG_DESC_ARCHIVE = "Create an executable jar from a RESOLVE Facility.";
 
     private static final String FLAG_DESC_VERBOSE_ARCHIVE =
             "Create an executable jar from a RESOLVE Facility, "
-                    + "while printing the output from the Java compiler "
-                    + "and jar utilities.";
+                    + "while printing the output from the Java compiler " + "and jar utilities.";
 
     /**
      * <p>The main archiver flag.  Tells the compiler to attempt to
      * create an executable jar from a RESOLVE facility.</p>
      */
-    public static final Flag FLAG_ARCHIVE =
-            new Flag(FLAG_SECTION_NAME, "createJar", FLAG_DESC_ARCHIVE);
+    public static final Flag FLAG_ARCHIVE = new Flag(FLAG_SECTION_NAME, "createJar", FLAG_DESC_ARCHIVE);
 
     /**
      * <p>The alternate archiver flag.  Can be used to print the
@@ -86,8 +83,7 @@ public class Archiver {
     private MetaFile inputFile;
 
     private String[] stdResolve =
-            { "RESOLVE_BASE.java", "RESOLVE_BASE_EXT.java",
-                    "RESOLVE_INTERFACE.java", "RType.java",
+            { "RESOLVE_BASE.java", "RESOLVE_BASE_EXT.java", "RESOLVE_INTERFACE.java", "RType.java",
                     "RTypeWrapper.java", "TextIO.java" };
 
     private String[] stdImports;
@@ -95,8 +91,7 @@ public class Archiver {
 
     public Archiver(CompileEnvironment e, File file, MetaFile inputFile) {
         myInstanceEnvironment = e;
-        webOutput =
-                myInstanceEnvironment.flags.isFlagSet(ResolveCompiler.FLAG_WEB);
+        webOutput = myInstanceEnvironment.flags.isFlagSet(ResolveCompiler.FLAG_WEB);
         this.inputFile = inputFile;
         String fileName = file.getAbsolutePath();
         int dot = fileName.lastIndexOf(".");
@@ -141,16 +136,15 @@ public class Archiver {
         String[] temp = inFile.split("\\.");
         String ext = temp[temp.length - 1];
         String javaFile;
-        if (ext.equals("co") || ext.equals("rb") || ext.equals("en")
-                || ext.equals("fa") || ext.equals("java")) {
+        if (ext.equals("co") || ext.equals("rb") || ext.equals("en") || ext.equals("fa")
+                || ext.equals("java")) {
             /*if(onNoCompileList(inFile)){
             	return;
             }*/
             javaFile = modifyString(inFile, "\\." + ext, ".java");
             if (!sourceFiles.contains(javaFile)) {
                 sourceFiles.add(javaFile);
-                if (myInstanceEnvironment.flags
-                        .isFlagSet(ResolveCompiler.FLAG_WEB)) {
+                if (myInstanceEnvironment.flags.isFlagSet(ResolveCompiler.FLAG_WEB)) {
                     String fileName = inputFile.getName();
                     //System.out.println(javaFile);
                     for (int i = 0; i < stdImports.length; i++) {
@@ -175,18 +169,16 @@ public class Archiver {
             JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
             if (compiler != null) {
                 String[] compileOptions = new String[] {};
-                Iterable<String> compilationOptions =
-                        Arrays.asList(compileOptions);
+                Iterable<String> compilationOptions = Arrays.asList(compileOptions);
                 StandardJavaFileManager fileManager =
-                        compiler.getStandardFileManager(null, Locale
-                                .getDefault(), null);
+                        compiler.getStandardFileManager(null, Locale.getDefault(), null);
                 Iterable<? extends JavaFileObject> compilationUnits =
                         fileManager.getJavaFileObjectsFromStrings(sourceFiles);
                 DiagnosticCollector<JavaFileObject> diagnosticListener =
                         new DiagnosticCollector<JavaFileObject>();
                 CompilationTask compilerTask =
-                        compiler.getTask(null, fileManager, diagnosticListener,
-                                compilationOptions, null, compilationUnits);
+                        compiler.getTask(null, fileManager, diagnosticListener, compilationOptions, null,
+                                compilationUnits);
                 boolean status = compilerTask.call();
                 if (status) {
                     ret = 0;
@@ -219,8 +211,7 @@ public class Archiver {
                 System.out.println("Compiler Error: " + ex);
             }
             else {
-                myInstanceEnvironment.getCompileReport().addBugReport(
-                        ex.toString());
+                myInstanceEnvironment.getCompileReport().addBugReport(ex.toString());
             }
         }
         if (ret == 0) {
@@ -253,10 +244,8 @@ public class Archiver {
             byte buffer[] = new byte[BUFFER_SIZE];
             if (compileSuccess) {
                 Manifest manifest = new Manifest();
-                manifest.getMainAttributes().put(
-                        Attributes.Name.MANIFEST_VERSION, "1.0");
-                manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS,
-                        entryClass);
+                manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+                manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, entryClass);
                 if (outputJarFile != null) {
                     stream = new FileOutputStream(outputJarFile);
                 }
@@ -286,26 +275,17 @@ public class Archiver {
                             if (compileSuccess) {
                                 fileName = files[i].getAbsolutePath();
                                 fileName =
-                                        fileName
-                                                .replaceAll(
-                                                        "\\"
-                                                                + System
-                                                                        .getProperty("file.separator"),
-                                                        "/");
+                                        fileName.replaceAll("\\" + System.getProperty("file.separator"), "/");
                                 // now we strip off the first few directories so we have an archive starting at RESOLVE
-                                fileName =
-                                        fileName.substring(fileName
-                                                .indexOf("RESOLVE"));
+                                fileName = fileName.substring(fileName.indexOf("RESOLVE"));
                                 //System.out.println(fileName);
                                 //fileName = fileName.substring(workspaceDir.length());
                                 JarEntry jarAdd = new JarEntry(fileName);
                                 jarAdd.setTime(files[i].lastModified());
                                 out.putNextEntry(jarAdd);
-                                FileInputStream in =
-                                        new FileInputStream(files[i]);
+                                FileInputStream in = new FileInputStream(files[i]);
                                 while (true) {
-                                    int nRead =
-                                            in.read(buffer, 0, buffer.length);
+                                    int nRead = in.read(buffer, 0, buffer.length);
                                     if (nRead <= 0)
                                         break;
                                     out.write(buffer, 0, nRead);
@@ -313,8 +293,7 @@ public class Archiver {
                                 in.close();
                             }
                             // add to the list of created files
-                            createdFiles.add(new File(files[i]
-                                    .getAbsolutePath()));
+                            createdFiles.add(new File(files[i].getAbsolutePath()));
                         }
                     }
                 }
@@ -340,8 +319,7 @@ public class Archiver {
                 System.out.println("Archiver Error: " + ex);
             }
             else {
-                myInstanceEnvironment.getCompileReport().addBugReport(
-                        ex.toString());
+                myInstanceEnvironment.getCompileReport().addBugReport(ex.toString());
             }
         }
         return ret;
@@ -401,37 +379,22 @@ public class Archiver {
      */
     private void createStandardImports() {
         stdImports = new String[14];
-        stdImports[0] =
-                "Boolean_Template" + File.separator + "Boolean_Template.java";
-        stdImports[1] =
-                "Boolean_Template" + File.separator + "Std_Boolean_Realiz.java";
-        stdImports[2] =
-                "Char_Str_Template" + File.separator + "Char_Str_Template.java";
-        stdImports[3] =
-                "Char_Str_Template" + File.separator
-                        + "Std_Char_Str_Realiz.java";
-        stdImports[4] =
-                "Character_Template" + File.separator
-                        + "Character_Template.java";
-        stdImports[5] =
-                "Character_Template" + File.separator
-                        + "Std_Character_Realiz.java";
-        stdImports[6] =
-                "Integer_Template" + File.separator + "Integer_Template.java";
-        stdImports[7] =
-                "Integer_Template" + File.separator + "Std_Integer_Realiz.java";
+        stdImports[0] = "Boolean_Template" + File.separator + "Boolean_Template.java";
+        stdImports[1] = "Boolean_Template" + File.separator + "Std_Boolean_Realiz.java";
+        stdImports[2] = "Char_Str_Template" + File.separator + "Char_Str_Template.java";
+        stdImports[3] = "Char_Str_Template" + File.separator + "Std_Char_Str_Realiz.java";
+        stdImports[4] = "Character_Template" + File.separator + "Character_Template.java";
+        stdImports[5] = "Character_Template" + File.separator + "Std_Character_Realiz.java";
+        stdImports[6] = "Integer_Template" + File.separator + "Integer_Template.java";
+        stdImports[7] = "Integer_Template" + File.separator + "Std_Integer_Realiz.java";
         stdImports[8] = "io" + File.separator + "Seq_Input_Template.java";
         stdImports[9] = "io" + File.separator + "Std_Seq_Input_Realiz.java";
         stdImports[10] = "io" + File.separator + "Seq_Output_Template.java";
         stdImports[11] = "io" + File.separator + "Std_Seq_Output_Realiz.java";
         //stdImports[12] = "Print" + File.separator + "Print.java";
         //stdImports[13] = "Print" + File.separator + "Std_Print_Realiz.java";
-        stdImports[12] =
-                "Static_Array_Template" + File.separator
-                        + "Std_Array_Realiz.java";
-        stdImports[13] =
-                "Location_Linking_Template_1" + File.separator
-                        + "Std_Location_Linking_Realiz.java";
+        stdImports[12] = "Static_Array_Template" + File.separator + "Std_Array_Realiz.java";
+        stdImports[13] = "Location_Linking_Template_1" + File.separator + "Std_Location_Linking_Realiz.java";
     }
 
     private void addStandardImports() {
@@ -444,8 +407,8 @@ public class Archiver {
         // Add standard Imports
         for (String s : stdImports) {
             //System.out.println(s);
-            sourceFiles.add(mainDir + File.separator + "Concepts"
-                    + File.separator + "Standard" + File.separator + s);
+            sourceFiles.add(mainDir + File.separator + "Concepts" + File.separator + "Standard"
+                    + File.separator + s);
         }
 
     }
@@ -469,13 +432,10 @@ public class Archiver {
     }
 
     private void createGuiWrapper(File file) {
-        GuiWrapper gui =
-                new GuiWrapper("gui", file.getPath(), workspaceDir,
-                        myInstanceEnvironment);
+        GuiWrapper gui = new GuiWrapper("gui", file.getPath(), workspaceDir, myInstanceEnvironment);
         if (inputFile != null) {
-            gui.setJavaLocation(inputFile.getMyCustomFile().getAbsolutePath(),
-                    inputFile.getMyFileName()
-                            + inputFile.getMyKind().getExtension());
+            gui.setJavaLocation(inputFile.getMyCustomFile().getAbsolutePath(), inputFile.getMyFileName()
+                    + inputFile.getMyKind().getExtension());
         }
         if (gui.generateCode() && gui.createJavaFile()) {
             sourceFiles.add(gui.getJavaPath());
@@ -489,19 +449,15 @@ public class Archiver {
         return stdImports;
     }
 
-    private void printDiagnostics(
-            DiagnosticCollector<JavaFileObject> diagnosticListener) {
+    private void printDiagnostics(DiagnosticCollector<JavaFileObject> diagnosticListener) {
         for (Diagnostic<?> diagnostic : diagnosticListener.getDiagnostics()) {
             if (diagnostic.getKind().equals(Diagnostic.Kind.ERROR)) {
-                String errMsg =
-                        diagnostic.getMessage(null).replaceAll(
-                                Pattern.quote(workspaceDir), "");
+                String errMsg = diagnostic.getMessage(null).replaceAll(Pattern.quote(workspaceDir), "");
                 if (!webOutput) {
                     System.out.println("Javac Error: " + errMsg);
                 }
                 else {
-                    myInstanceEnvironment.getCompileReport().addBugReport(
-                            "Javac Error: " + errMsg);
+                    myInstanceEnvironment.getCompileReport().addBugReport("Javac Error: " + errMsg);
                 }
             }
         }
@@ -519,7 +475,6 @@ public class Archiver {
     public static final void setUpFlags() {
         FlagDependencies.addRequires(FLAG_VERBOSE_ARCHIVE, FLAG_ARCHIVE);
         FlagDependencies.addImplies(FLAG_ARCHIVE, Translator.FLAG_TRANSLATE);
-        FlagDependencies.addImplies(FLAG_ARCHIVE,
-                Translator.FLAG_TRANSLATE_CLEAN);
+        FlagDependencies.addImplies(FLAG_ARCHIVE, Translator.FLAG_TRANSLATE_CLEAN);
     }
 }

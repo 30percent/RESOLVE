@@ -144,8 +144,7 @@ public class ProgramOpExp extends ProgramExp {
 
     public ProgramOpExp() {};
 
-    public ProgramOpExp(Location location, int operator, ProgramExp first,
-            ProgramExp second) {
+    public ProgramOpExp(Location location, int operator, ProgramExp first, ProgramExp second) {
         this.location = location;
         this.operator = operator;
         this.first = first;
@@ -153,9 +152,8 @@ public class ProgramOpExp extends ProgramExp {
     }
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new ProgramOpExp(location, operator, (ProgramExp) substitute(
-                first, substitutions), (ProgramExp) substitute(second,
-                substitutions));
+        return new ProgramOpExp(location, operator, (ProgramExp) substitute(first, substitutions),
+                (ProgramExp) substitute(second, substitutions));
     }
 
     // ===========================================================

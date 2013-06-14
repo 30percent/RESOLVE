@@ -100,8 +100,7 @@ public class IterativeExp extends Exp {
 
     public IterativeExp() {};
 
-    public IterativeExp(Location location, int operator, MathVarDec var,
-            Exp where, Exp body) {
+    public IterativeExp(Location location, int operator, MathVarDec var, Exp where, Exp body) {
         this.location = location;
         this.operator = operator;
         this.var = var;
@@ -176,8 +175,8 @@ public class IterativeExp extends Exp {
     // ===========================================================
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new IterativeExp(location, operator, var, substitute(where,
-                substitutions), substitute(body, substitutions));
+        return new IterativeExp(location, operator, var, substitute(where, substitutions), substitute(body,
+                substitutions));
     }
 
     /** Accepts a ResolveConceptualVisitor. */

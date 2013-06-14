@@ -9,8 +9,7 @@ import edu.clemson.cs.r2jt.typereasoning.TypeGraph;
 
 public class PTVoid extends PTType {
 
-    private static WeakHashMap<TypeGraph, PTVoid> instances =
-            new WeakHashMap<TypeGraph, PTVoid>();
+    private static WeakHashMap<TypeGraph, PTVoid> instances = new WeakHashMap<TypeGraph, PTVoid>();
 
     public static PTVoid getInstance(TypeGraph g) {
         PTVoid result = instances.get(g);
@@ -33,8 +32,7 @@ public class PTVoid extends PTType {
     }
 
     @Override
-    public PTType instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public PTType instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
         return this;
     }

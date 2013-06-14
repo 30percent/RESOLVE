@@ -89,8 +89,8 @@ public class ProgramParamExp extends ProgramExp {
 
     public ProgramParamExp() {};
 
-    public ProgramParamExp(Location location, PosSymbol name,
-            List<ProgramExp> arguments, ProgramExp semanticExp) {
+    public ProgramParamExp(Location location, PosSymbol name, List<ProgramExp> arguments,
+            ProgramExp semanticExp) {
         this.location = location;
         this.name = name;
         this.arguments = arguments;
@@ -106,8 +106,8 @@ public class ProgramParamExp extends ProgramExp {
         }
 
         retval =
-                new ProgramParamExp(location, name, newArguments,
-                        (ProgramExp) substitute(semanticExp, substitutions));
+                new ProgramParamExp(location, name, newArguments, (ProgramExp) substitute(semanticExp,
+                        substitutions));
 
         retval.setType(type);
         return retval;
@@ -276,8 +276,7 @@ public class ProgramParamExp extends ProgramExp {
     }
 
     public ProgramParamExp copy() {
-        ProgramParamExp result =
-                new ProgramParamExp(location, name, arguments, semanticExp);
+        ProgramParamExp result = new ProgramParamExp(location, name, arguments, semanticExp);
 
         result.setType(getType());
 

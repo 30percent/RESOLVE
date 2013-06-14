@@ -5,8 +5,7 @@ import java.util.NoSuchElementException;
 
 public class DummyIterator<T> implements Iterator<T> {
 
-    private final static DummyIterator<Object> INSTANCE =
-            new DummyIterator<Object>();
+    private final static DummyIterator<Object> INSTANCE = new DummyIterator<Object>();
 
     private DummyIterator() {
 

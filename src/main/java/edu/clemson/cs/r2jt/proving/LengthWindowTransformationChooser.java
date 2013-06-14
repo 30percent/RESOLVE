@@ -26,12 +26,10 @@ public class LengthWindowTransformationChooser implements TransformationChooser 
      * @param maxDepth The depth, from the perspective of <code>source</code>
      *                 at which the proof should begin to backtrack.
      */
-    public LengthWindowTransformationChooser(TransformationChooser source,
-            int minDepth, int maxDepth) {
+    public LengthWindowTransformationChooser(TransformationChooser source, int minDepth, int maxDepth) {
 
         mySourceChooser =
-                new SimplifyingTransformationChooser(
-                        new TetheredTransformationChooser(source, maxDepth),
+                new SimplifyingTransformationChooser(new TetheredTransformationChooser(source, maxDepth),
                         minDepth);
         /*
         mySourceChooser = new TetheredTransformationChooser(
@@ -46,11 +44,10 @@ public class LengthWindowTransformationChooser implements TransformationChooser 
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d) {
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d) {
 
-        return mySourceChooser
-                .suggestTransformations(vc, curLength, metrics, d);
+        return mySourceChooser.suggestTransformations(vc, curLength, metrics, d);
     }
 
     @Override

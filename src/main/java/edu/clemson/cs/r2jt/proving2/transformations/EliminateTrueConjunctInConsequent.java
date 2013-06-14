@@ -25,11 +25,9 @@ import java.util.Set;
  */
 public class EliminateTrueConjunctInConsequent implements Transformation {
 
-    public static final EliminateTrueConjunctInConsequent INSTANCE =
-            new EliminateTrueConjunctInConsequent();
+    public static final EliminateTrueConjunctInConsequent INSTANCE = new EliminateTrueConjunctInConsequent();
 
-    private final BindResultToApplication BIND_RESULT_TO_APPLICATION =
-            new BindResultToApplication();
+    private final BindResultToApplication BIND_RESULT_TO_APPLICATION = new BindResultToApplication();
 
     private EliminateTrueConjunctInConsequent() {
 
@@ -38,12 +36,9 @@ public class EliminateTrueConjunctInConsequent implements Transformation {
     @Override
     public Iterator<Application> getApplications(PerVCProverModel m) {
         Iterator<BindResult> results =
-                m.bind(Collections
-                        .singleton((Binder) new TopLevelConsequentBinder(m
-                                .getTrue())));
+                m.bind(Collections.singleton((Binder) new TopLevelConsequentBinder(m.getTrue())));
 
-        return new LazyMappingIterator<BindResult, Application>(results,
-                BIND_RESULT_TO_APPLICATION);
+        return new LazyMappingIterator<BindResult, Application>(results, BIND_RESULT_TO_APPLICATION);
     }
 
     @Override
@@ -81,20 +76,16 @@ public class EliminateTrueConjunctInConsequent implements Transformation {
         return Equivalence.EQUIVALENT;
     }
 
-    private class BindResultToApplication
-            implements
-                Mapping<BindResult, Application> {
+    private class BindResultToApplication implements Mapping<BindResult, Application> {
 
         @Override
         public Application map(BindResult input) {
-            return new EliminateTrueConjunctInConsequentApplication(
-                    input.bindSites.values().iterator().next());
+            return new EliminateTrueConjunctInConsequentApplication(input.bindSites.values().iterator()
+                    .next());
         }
     }
 
-    private class EliminateTrueConjunctInConsequentApplication
-            implements
-                Application {
+    private class EliminateTrueConjunctInConsequentApplication implements Application {
 
         private final Site mySite;
 
@@ -109,11 +100,9 @@ public class EliminateTrueConjunctInConsequent implements Transformation {
 
         @Override
         public void apply(PerVCProverModel m) {
-            m.addProofStep(new RemoveConsequentStep(
-                    (Consequent) mySite.conjunct, m
-                            .getConjunctIndex(mySite.conjunct),
-                    EliminateTrueConjunctInConsequent.this, this, Collections
-                            .singleton(mySite)));
+            m.addProofStep(new RemoveConsequentStep((Consequent) mySite.conjunct, m
+                    .getConjunctIndex(mySite.conjunct), EliminateTrueConjunctInConsequent.this, this,
+                    Collections.singleton(mySite)));
 
             m.removeConjunct(mySite.conjunct);
         }

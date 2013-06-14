@@ -97,9 +97,8 @@ public class InitItem extends ResolveConceptualElement {
 
     public InitItem() {};
 
-    public InitItem(Location location, List<AffectsItem> stateVars,
-            Exp requires, Exp ensures, List<FacilityDec> facilities,
-            List<VarDec> variables, List<AuxVarDec> aux_variables,
+    public InitItem(Location location, List<AffectsItem> stateVars, Exp requires, Exp ensures,
+            List<FacilityDec> facilities, List<VarDec> variables, List<AuxVarDec> aux_variables,
             List<Statement> statements) {
         this.location = location;
         this.stateVars = stateVars;

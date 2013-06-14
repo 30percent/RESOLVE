@@ -19,12 +19,9 @@ public class FinalizedScope extends SyntacticScope {
      * inherit from it and be mutable.
      */
 
-    FinalizedScope(MathSymbolTable source,
-            ResolveConceptualElement definingElement,
-            ModuleIdentifier enclosingModule, Scope parent,
-            BaseSymbolTable bindings) {
+    FinalizedScope(MathSymbolTable source, ResolveConceptualElement definingElement,
+            ModuleIdentifier enclosingModule, Scope parent, BaseSymbolTable bindings) {
 
-        super(source, definingElement, parent, enclosingModule,
-                new BaseSymbolTable(bindings));
+        super(source, definingElement, parent, enclosingModule, new BaseSymbolTable(bindings));
     }
 }

@@ -17,20 +17,17 @@ public class ConsequentSubstitutor implements VCTransformer {
         myTheoremConsequent = new Consequent(m.getExpansionTemplate());
 
         myIntroducesQuantifiedVariablesFlag =
-                myTheoremConsequent
-                        .containsQuantifiedVariableNotIn(myTheoremAntecedent);
+                myTheoremConsequent.containsQuantifiedVariableNotIn(myTheoremAntecedent);
 
         myTransformer =
-                new ConsequentTransformerAdapter(
-                        new ApplicatorConjunctsTransformer(
-                                new InPlaceApplicatorFactory(m)));
+                new ConsequentTransformerAdapter(new ApplicatorConjunctsTransformer(
+                        new InPlaceApplicatorFactory(m)));
     }
 
     @Override
     public Iterator<VC> transform(VC original) {
-        return new StaticAntecedentIterator(original.getSourceName(), original
-                .getAntecedent(), myTransformer.transform(original
-                .getConsequent()));
+        return new StaticAntecedentIterator(original.getSourceName(), original.getAntecedent(), myTransformer
+                .transform(original.getConsequent()));
     }
 
     @Override

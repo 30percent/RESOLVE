@@ -29,8 +29,7 @@ public class ApplyAll implements Automator {
 
     @Override
     public void step(Deque<Automator> stack, PerVCProverModel model) {
-        Iterator<Application> applications =
-                myTransformation.getApplications(model);
+        Iterator<Application> applications = myTransformation.getApplications(model);
 
         if (applications.hasNext()) {
             applications.next().apply(model);

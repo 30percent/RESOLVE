@@ -137,8 +137,7 @@ public class FieldExp extends Exp {
     // ===========================================================
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new FieldExp(location, substitute(structure, substitutions),
-                substitute(field, substitutions));
+        return new FieldExp(location, substitute(structure, substitutions), substitute(field, substitutions));
     }
 
     /** Accepts a ResolveConceptualVisitor. */

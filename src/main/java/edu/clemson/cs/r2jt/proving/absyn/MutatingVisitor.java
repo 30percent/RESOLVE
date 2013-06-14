@@ -13,8 +13,7 @@ public class MutatingVisitor extends BoundVariableVisitor {
 
     private LinkedList<Integer> myIndices = new LinkedList<Integer>();
     private PExp myRoot;
-    private LinkedList<Map<Integer, PExp>> myChangesAtLevel =
-            new LinkedList<Map<Integer, PExp>>();
+    private LinkedList<Map<Integer, PExp>> myChangesAtLevel = new LinkedList<Map<Integer, PExp>>();
 
     private PExp myClosingType;
 

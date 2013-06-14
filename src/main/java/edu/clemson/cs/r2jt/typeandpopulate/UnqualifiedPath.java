@@ -47,8 +47,7 @@ public class UnqualifiedPath implements ScopeSearchPath {
     private final FacilityStrategy myFacilityStrategy;
     private final boolean myLocalPriorityFlag;
 
-    public UnqualifiedPath(ImportStrategy imports, FacilityStrategy facilities,
-            boolean localPriority) {
+    public UnqualifiedPath(ImportStrategy imports, FacilityStrategy facilities, boolean localPriority) {
 
         myImportStrategy = imports;
         myFacilityStrategy = facilities;
@@ -56,53 +55,44 @@ public class UnqualifiedPath implements ScopeSearchPath {
     }
 
     @Override
-    public <E extends SymbolTableEntry> List<E> searchFromContext(
-            TableSearcher<E> searcher, Scope source, ScopeRepository repo)
-            throws DuplicateSymbolException {
+    public <E extends SymbolTableEntry> List<E> searchFromContext(TableSearcher<E> searcher, Scope source,
+            ScopeRepository repo) throws DuplicateSymbolException {
 
         List<E> result = new LinkedList<E>();
         Set<Scope> searchedScopes = new HashSet<Scope>();
-        Map<String, PTType> genericInstantiations =
-                new HashMap<String, PTType>();
+        Map<String, PTType> genericInstantiations = new HashMap<String, PTType>();
 
-        searchModule(searcher, source, repo, result, searchedScopes,
-                genericInstantiations, null, myImportStrategy, 0);
+        searchModule(searcher, source, repo, result, searchedScopes, genericInstantiations, null,
+                myImportStrategy, 0);
 
         return result;
     }
 
-    private <E extends SymbolTableEntry> boolean searchModule(
-            TableSearcher<E> searcher, Scope source, ScopeRepository repo,
-            List<E> results, Set<Scope> searchedScopes,
-            Map<String, PTType> genericInstantiations,
-            FacilityEntry instantiatingFacility, ImportStrategy importStrategy,
-            int depth) throws DuplicateSymbolException {
+    private <E extends SymbolTableEntry> boolean searchModule(TableSearcher<E> searcher, Scope source,
+            ScopeRepository repo, List<E> results, Set<Scope> searchedScopes,
+            Map<String, PTType> genericInstantiations, FacilityEntry instantiatingFacility,
+            ImportStrategy importStrategy, int depth) throws DuplicateSymbolException {
 
         //First we search locally
         boolean finished =
-                source.addMatches(searcher, results, searchedScopes,
-                        genericInstantiations, instantiatingFacility,
-                        SearchContext.SOURCE_MODULE);
+                source.addMatches(searcher, results, searchedScopes, genericInstantiations,
+                        instantiatingFacility, SearchContext.SOURCE_MODULE);
 
         //Next, if requested, we search any local facilities.
         if (!finished && myFacilityStrategy != FacilityStrategy.FACILITY_IGNORE) {
 
             finished =
-                    searchFacilities(searcher, results, source,
-                            genericInstantiations, searchedScopes, repo);
+                    searchFacilities(searcher, results, source, genericInstantiations, searchedScopes, repo);
         }
 
         //Finally, if requested, we search imports
-        if ((results.isEmpty() || !myLocalPriorityFlag)
-                && source instanceof SyntacticScope
+        if ((results.isEmpty() || !myLocalPriorityFlag) && source instanceof SyntacticScope
                 && myImportStrategy != ImportStrategy.IMPORT_NONE) {
 
             SyntacticScope sourceAsSyntacticScope = (SyntacticScope) source;
 
             try {
-                ModuleScope module =
-                        repo.getModuleScope(sourceAsSyntacticScope
-                                .getRootModule());
+                ModuleScope module = repo.getModuleScope(sourceAsSyntacticScope.getRootModule());
                 List<ModuleIdentifier> imports = module.getImports();
 
                 Iterator<ModuleIdentifier> importsIter = imports.iterator();
@@ -111,9 +101,8 @@ public class UnqualifiedPath implements ScopeSearchPath {
                     importScope = repo.getModuleScope(importsIter.next());
 
                     finished =
-                            searchModule(searcher, importScope, repo, results,
-                                    searchedScopes, genericInstantiations,
-                                    instantiatingFacility, importStrategy
+                            searchModule(searcher, importScope, repo, results, searchedScopes,
+                                    genericInstantiations, instantiatingFacility, importStrategy
                                             .cascadingStrategy(), depth + 1);
                 }
             }
@@ -126,15 +115,12 @@ public class UnqualifiedPath implements ScopeSearchPath {
         return finished;
     }
 
-    public <E extends SymbolTableEntry> boolean searchFacilities(
-            TableSearcher<E> searcher, List<E> result, Scope source,
-            Map<String, PTType> genericInstantiations,
-            Set<Scope> searchedScopes, ScopeRepository repo)
-            throws DuplicateSymbolException {
+    public <E extends SymbolTableEntry> boolean searchFacilities(TableSearcher<E> searcher, List<E> result,
+            Scope source, Map<String, PTType> genericInstantiations, Set<Scope> searchedScopes,
+            ScopeRepository repo) throws DuplicateSymbolException {
 
         List<FacilityEntry> facilities =
-                source.getMatches(EntryTypeSearcher.FACILITY_SEARCHER,
-                        SearchContext.SOURCE_MODULE);
+                source.getMatches(EntryTypeSearcher.FACILITY_SEARCHER, SearchContext.SOURCE_MODULE);
 
         FacilityEntry facility;
 
@@ -147,13 +133,12 @@ public class UnqualifiedPath implements ScopeSearchPath {
             facilityConcept = facility.getFacility().getSpecification();
 
             facilityScope =
-                    facilityConcept.getScope(myFacilityStrategy
-                            .equals(FacilityStrategy.FACILITY_INSTANTIATE));
+                    facilityConcept
+                            .getScope(myFacilityStrategy.equals(FacilityStrategy.FACILITY_INSTANTIATE));
 
             finished =
-                    facilityScope.addMatches(searcher, result, searchedScopes,
-                            new HashMap<String, PTType>(), null,
-                            SearchContext.FACILITY);
+                    facilityScope.addMatches(searcher, result, searchedScopes, new HashMap<String, PTType>(),
+                            null, SearchContext.FACILITY);
         }
 
         return finished;

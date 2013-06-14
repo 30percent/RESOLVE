@@ -6,8 +6,7 @@ import edu.clemson.cs.r2jt.absyn.*;
 
 public abstract class TreeWalkerStackVisitor extends TreeWalkerVisitor {
 
-    private LinkedList<ResolveConceptualElement> myVisitStack =
-            new LinkedList<ResolveConceptualElement>();
+    private LinkedList<ResolveConceptualElement> myVisitStack = new LinkedList<ResolveConceptualElement>();
     private ResolveConceptualElement myParent;
 
     private void pushParent() {

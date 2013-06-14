@@ -68,8 +68,7 @@ public abstract class ProgramExp extends Exp {
 
     public abstract void accept(ResolveConceptualVisitor v);
 
-    public abstract Type accept(TypeResolutionVisitor v)
-            throws TypeResolutionException;
+    public abstract Type accept(TypeResolutionVisitor v) throws TypeResolutionException;
 
     public abstract String asString(int indent, int increment);
 
@@ -82,8 +81,7 @@ public abstract class ProgramExp extends Exp {
 
     public void setProgramType(PTType type) {
         if (type == null) {
-            throw new IllegalArgumentException(
-                    "Attempt to set program type to null.");
+            throw new IllegalArgumentException("Attempt to set program type to null.");
         }
 
         myProgramType = type;

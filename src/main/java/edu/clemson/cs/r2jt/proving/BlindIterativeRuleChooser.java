@@ -17,15 +17,13 @@ public class BlindIterativeRuleChooser extends RuleProvider {
 
     protected List<MatchReplace> myFinalGlobalRules;
 
-    protected List<EqualsExp> myOriginalGlobalRules =
-            new LinkedList<EqualsExp>();
+    protected List<EqualsExp> myOriginalGlobalRules = new LinkedList<EqualsExp>();
 
     protected List<EqualsExp> myExpCorrespondance = new LinkedList<EqualsExp>();
 
     protected boolean myLockedFlag;
 
-    protected DirectReplaceWrapper myAntecedentWrapper =
-            new DirectReplaceWrapper();
+    protected DirectReplaceWrapper myAntecedentWrapper = new DirectReplaceWrapper();
 
     public BlindIterativeRuleChooser() {
         myLockedFlag = false;
@@ -92,8 +90,7 @@ public class BlindIterativeRuleChooser extends RuleProvider {
             }
         }
         else {
-            System.out.println("Prover.BlindIterativeRuleChooser.addRule --- "
-                    + "Non equals Theorem.");
+            System.out.println("Prover.BlindIterativeRuleChooser.addRule --- " + "Non equals Theorem.");
             System.out.println(rule.toString(0));
         }
     }
@@ -107,30 +104,26 @@ public class BlindIterativeRuleChooser extends RuleProvider {
         return myOriginalGlobalRules.size();
     }
 
-    public KnownSizeIterator<MatchReplace> consider(VerificationCondition vC,
-            int curLength, Metrics metrics,
+    public KnownSizeIterator<MatchReplace> consider(VerificationCondition vC, int curLength, Metrics metrics,
             Deque<VerificationCondition> pastStates) {
 
         //We only want those antecedents that are in the form of an 
         //equality, and for each of those we need it going both 
         //left-to-right and right-to-left
-        List<EqualsExp> antecedentTransforms =
-                buildFinalAntecedentList(vC.getAntecedents());
+        List<EqualsExp> antecedentTransforms = buildFinalAntecedentList(vC.getAntecedents());
 
         Iterator<MatchReplace> antecedentIterator =
-                new LazyActionIterator<EqualsExp, MatchReplace>(
-                        antecedentTransforms.iterator(), myAntecedentWrapper);
+                new LazyActionIterator<EqualsExp, MatchReplace>(antecedentTransforms.iterator(),
+                        myAntecedentWrapper);
 
         ChainingIterator<MatchReplace> finalIterator =
-                new ChainingIterator<MatchReplace>(antecedentIterator,
-                        myFinalGlobalRules.iterator());
+                new ChainingIterator<MatchReplace>(antecedentIterator, myFinalGlobalRules.iterator());
 
-        return new SizedIterator<MatchReplace>(finalIterator,
-                antecedentTransforms.size() + myFinalGlobalRules.size());
+        return new SizedIterator<MatchReplace>(finalIterator, antecedentTransforms.size()
+                + myFinalGlobalRules.size());
     }
 
-    protected List<EqualsExp> buildFinalAntecedentList(
-            List<Exp> originalAntecedents) {
+    protected List<EqualsExp> buildFinalAntecedentList(List<Exp> originalAntecedents) {
         List<EqualsExp> antecedentTransforms = new LinkedList<EqualsExp>();
         for (Exp antecedent : originalAntecedents) {
             if (antecedent instanceof EqualsExp) {
@@ -140,10 +133,9 @@ public class BlindIterativeRuleChooser extends RuleProvider {
                     antecedentTransforms.add(antecedentAsEqualsExp);
 
                     EqualsExp flippedAntecedent =
-                            new EqualsExp(antecedentAsEqualsExp.getLocation(),
-                                    antecedentAsEqualsExp.getRight(),
-                                    antecedentAsEqualsExp.getOperator(),
-                                    antecedentAsEqualsExp.getLeft());
+                            new EqualsExp(antecedentAsEqualsExp.getLocation(), antecedentAsEqualsExp
+                                    .getRight(), antecedentAsEqualsExp.getOperator(), antecedentAsEqualsExp
+                                    .getLeft());
                     antecedentTransforms.add(flippedAntecedent);
                 }
             }
@@ -205,9 +197,7 @@ public class BlindIterativeRuleChooser extends RuleProvider {
         myLockedFlag = false;
     }
 
-    private class DirectReplaceWrapper
-            implements
-                Transformer<EqualsExp, MatchReplace> {
+    private class DirectReplaceWrapper implements Transformer<EqualsExp, MatchReplace> {
 
         public DirectReplace transform(EqualsExp source) {
             return new DirectReplace(source.getLeft(), source.getRight());
@@ -216,8 +206,7 @@ public class BlindIterativeRuleChooser extends RuleProvider {
 
     private void equalsOnlyException(Exp e) {
         throw new RuntimeException("The prover does not yet work for "
-                + "theorems not in the form of an equality, such as:\n"
-                + e.toString(0));
+                + "theorems not in the form of an equality, such as:\n" + e.toString(0));
     }
 
     public int getApproximateRuleSetSize() {

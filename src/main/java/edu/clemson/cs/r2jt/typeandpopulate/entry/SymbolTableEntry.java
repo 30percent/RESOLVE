@@ -70,8 +70,7 @@ public abstract class SymbolTableEntry {
     private final ResolveConceptualElement myDefiningElement;
     private final ModuleIdentifier mySourceModuleIdentifier;
 
-    public SymbolTableEntry(String name,
-            ResolveConceptualElement definingElement,
+    public SymbolTableEntry(String name, ResolveConceptualElement definingElement,
             ModuleIdentifier sourceModule) {
 
         myName = name;
@@ -92,78 +91,68 @@ public abstract class SymbolTableEntry {
     }
 
     public RepresentationTypeEntry toRepresentationTypeEntry(Location l) {
-        throw new SourceErrorException("Expecting a program type "
-                + "representation.  Found " + getEntryTypeDescription() + ".",
-                l);
+        throw new SourceErrorException("Expecting a program type " + "representation.  Found "
+                + getEntryTypeDescription() + ".", l);
     }
 
     public MathSymbolEntry toMathSymbolEntry(Location l) {
-        throw new SourceErrorException("Expecting a math symbol.  Found "
-                + getEntryTypeDescription() + ".", l);
+        throw new SourceErrorException("Expecting a math symbol.  Found " + getEntryTypeDescription() + ".",
+                l);
     }
 
     public ProgramTypeEntry toProgramTypeEntry(Location l) {
-        throw new SourceErrorException("Expecting a program type.  Found "
-                + getEntryTypeDescription() + ".", l);
+        throw new SourceErrorException("Expecting a program type.  Found " + getEntryTypeDescription() + ".",
+                l);
     }
 
     public FacilityEntry toFacilityEntry(Location l) {
-        throw new SourceErrorException("Expecting a facility.  Found "
-                + getEntryTypeDescription(), l);
+        throw new SourceErrorException("Expecting a facility.  Found " + getEntryTypeDescription(), l);
     }
 
     public ProgramParameterEntry toProgramParameterEntry(Location l) {
-        throw new SourceErrorException("Expecting a program parameter.  "
-                + "Found " + getEntryTypeDescription(), l);
+        throw new SourceErrorException("Expecting a program parameter.  " + "Found "
+                + getEntryTypeDescription(), l);
     }
 
     public ProgramVariableEntry toProgramVariableEntry(Location l) {
-        throw new SourceErrorException("Expecting a program variable.  "
-                + "Found " + getEntryTypeDescription(), l);
+        throw new SourceErrorException("Expecting a program variable.  " + "Found "
+                + getEntryTypeDescription(), l);
     }
 
     public OperationEntry toOperationEntry(Location l) {
-        throw new SourceErrorException("Expecting an operation.  Found "
-                + getEntryTypeDescription(), l);
+        throw new SourceErrorException("Expecting an operation.  Found " + getEntryTypeDescription(), l);
     }
 
     public ProcedureEntry toProcedureEntry(Location l) {
-        throw new SourceErrorException("Expecting a procedure.  Found "
-                + getEntryTypeDescription(), l);
+        throw new SourceErrorException("Expecting a procedure.  Found " + getEntryTypeDescription(), l);
     }
 
     public ShortFacilityEntry toShortFacilityEntry(Location l) {
-        throw new SourceErrorException("Expecting a short facility module.  "
-                + "Found " + getEntryTypeDescription(), l);
+        throw new SourceErrorException("Expecting a short facility module.  " + "Found "
+                + getEntryTypeDescription(), l);
     }
 
     public ProgramTypeDefinitionEntry toProgramTypeDefinitionEntry(Location l) {
-        throw new SourceErrorException("Expecting a program type definition.  "
-                + "Found " + getEntryTypeDescription(), l);
+        throw new SourceErrorException("Expecting a program type definition.  " + "Found "
+                + getEntryTypeDescription(), l);
     }
 
     public TheoremEntry toTheoremEntry(Location l) {
-        throw new SourceErrorException("Expecting a theorem.  " + "Found "
-                + getEntryTypeDescription(), l);
+        throw new SourceErrorException("Expecting a theorem.  " + "Found " + getEntryTypeDescription(), l);
     }
 
     public abstract String getEntryTypeDescription();
 
-    public abstract SymbolTableEntry instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public abstract SymbolTableEntry instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility);
 
-    public static Map<String, MTType> buildMathTypeGenerics(
-            Map<String, PTType> genericInstantiations) {
+    public static Map<String, MTType> buildMathTypeGenerics(Map<String, PTType> genericInstantiations) {
 
-        Map<String, MTType> genericMathematicalInstantiations =
-                new HashMap<String, MTType>();
+        Map<String, MTType> genericMathematicalInstantiations = new HashMap<String, MTType>();
 
-        for (Map.Entry<String, PTType> instantiation : genericInstantiations
-                .entrySet()) {
+        for (Map.Entry<String, PTType> instantiation : genericInstantiations.entrySet()) {
 
-            genericMathematicalInstantiations.put(instantiation.getKey(),
-                    instantiation.getValue().toMath());
+            genericMathematicalInstantiations.put(instantiation.getKey(), instantiation.getValue().toMath());
         }
 
         return genericMathematicalInstantiations;

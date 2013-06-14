@@ -18,8 +18,7 @@ public class ConjunctGranularityBindingIterator
         implements
             Iterator<ConjunctGranularityBindingIterator.BindingsAndRemainingConjuncts> {
 
-    private static final Map<PExp, PExp> EMPTY_BINDINGS =
-            new HashMap<PExp, PExp>();
+    private static final Map<PExp, PExp> EMPTY_BINDINGS = new HashMap<PExp, PExp>();
 
     private final PExp myLocalPattern;
     private final ImmutableConjuncts myRemainingPattern;
@@ -34,8 +33,7 @@ public class ConjunctGranularityBindingIterator
 
     private BindingsAndRemainingConjuncts myNextReturn;
 
-    public ConjunctGranularityBindingIterator(ImmutableConjuncts pattern,
-            ImmutableConjuncts target) {
+    public ConjunctGranularityBindingIterator(ImmutableConjuncts pattern, ImmutableConjuncts target) {
 
         myTarget = target;
         myTargetSize = myTarget.size();
@@ -51,9 +49,8 @@ public class ConjunctGranularityBindingIterator
             myRemainingPattern = pattern;
             myLocalBindings = new HashMap<PExp, PExp>(); //TODO: Replace with ready made component after we figure out who's changing this one
             myOtherBindings =
-                    new SingletonIterator<BindingsAndRemainingConjuncts>(
-                            new BindingsAndRemainingConjuncts(
-                                    new HashMap<PExp, PExp>(), myTarget)); //TODO : Same as above
+                    new SingletonIterator<BindingsAndRemainingConjuncts>(new BindingsAndRemainingConjuncts(
+                            new HashMap<PExp, PExp>(), myTarget)); //TODO : Same as above
         }
 
         setUpNext();
@@ -71,10 +68,8 @@ public class ConjunctGranularityBindingIterator
                 myLocalBindings = myLocalPattern.bindTo(curLocalTargetConjunct);
 
                 myOtherBindings =
-                        new ConjunctGranularityBindingIterator(
-                                myRemainingPattern, myTarget.removed(
-                                        myLocalTargetConjunctIndex).substitute(
-                                        myLocalBindings));
+                        new ConjunctGranularityBindingIterator(myRemainingPattern, myTarget.removed(
+                                myLocalTargetConjunctIndex).substitute(myLocalBindings));
             }
             catch (BindingException e) {
                 myOtherBindings = DummyIterator.getInstance(myOtherBindings);
@@ -84,8 +79,7 @@ public class ConjunctGranularityBindingIterator
         }
 
         if (myOtherBindings.hasNext()) {
-            BindingsAndRemainingConjuncts otherBindings =
-                    myOtherBindings.next();
+            BindingsAndRemainingConjuncts otherBindings = myOtherBindings.next();
 
             otherBindings.bindings.putAll(myLocalBindings);
 
@@ -120,8 +114,7 @@ public class ConjunctGranularityBindingIterator
         public final Map<PExp, PExp> bindings;
         public final ImmutableConjuncts remainingConjuncts;
 
-        private BindingsAndRemainingConjuncts(Map<PExp, PExp> bindings,
-                ImmutableConjuncts remainingConjuncts) {
+        private BindingsAndRemainingConjuncts(Map<PExp, PExp> bindings, ImmutableConjuncts remainingConjuncts) {
             this.bindings = bindings;
             this.remainingConjuncts = remainingConjuncts;
         }

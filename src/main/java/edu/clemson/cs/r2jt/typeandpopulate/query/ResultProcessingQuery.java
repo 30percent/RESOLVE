@@ -24,19 +24,16 @@ public class ResultProcessingQuery<T extends SymbolTableEntry, R extends SymbolT
     private final SymbolQuery<T> myBaseQuery;
     private final Mapping<T, R> myMapping;
 
-    public ResultProcessingQuery(SymbolQuery<T> baseQuery,
-            Mapping<T, R> processing) {
+    public ResultProcessingQuery(SymbolQuery<T> baseQuery, Mapping<T, R> processing) {
 
         myBaseQuery = baseQuery;
         myMapping = processing;
     }
 
     @Override
-    public List<R> searchFromContext(Scope source, ScopeRepository repo)
-            throws DuplicateSymbolException {
+    public List<R> searchFromContext(Scope source, ScopeRepository repo) throws DuplicateSymbolException {
 
-        List<T> intermediateMatches =
-                myBaseQuery.searchFromContext(source, repo);
+        List<T> intermediateMatches = myBaseQuery.searchFromContext(source, repo);
 
         List<R> finalMatches = new LinkedList<R>();
         for (T intermediateMatch : intermediateMatches) {

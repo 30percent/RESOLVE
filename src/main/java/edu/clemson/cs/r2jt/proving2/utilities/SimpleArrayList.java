@@ -37,8 +37,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
 
         resizeAsNecessary();
 
-        System.arraycopy(myData, index, myData, index + 1, myFirstEmptyIndex
-                - index);
+        System.arraycopy(myData, index, myData, index + 1, myFirstEmptyIndex - index);
 
         myData[index] = e;
         myFirstEmptyIndex++;
@@ -97,8 +96,7 @@ public class SimpleArrayList<E> implements Iterable<E> {
 
         E result = myData[index];
 
-        System.arraycopy(myData, index + 1, myData, index, myFirstEmptyIndex
-                - index - 1);
+        System.arraycopy(myData, index + 1, myData, index, myFirstEmptyIndex - index - 1);
 
         myFirstEmptyIndex--;
 

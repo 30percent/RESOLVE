@@ -104,12 +104,10 @@ public final class Prover {
 
     private static final double FITNESS_THRESHOLD = 0.8;
     public static final String FLAG_SECTION_NAME = "Proving";
-    private static final String FLAG_DESC_PROVE =
-            "Verify program with RESOLVE's integrated prover.";
+    private static final String FLAG_DESC_PROVE = "Verify program with RESOLVE's integrated prover.";
     private static final String FLAG_DESC_LEGACY_PROVE =
             "Verify program with RESOLVE's legacy integrated prover.";
-    private static final String FLAG_DESC_LEGACY_PROVE_ALIAS =
-            "An alias for -prove.";
+    private static final String FLAG_DESC_LEGACY_PROVE_ALIAS = "An alias for -prove.";
     private static final String FLAG_DESC_DEBUG =
             "Prompt user to guide the prover step-by-step.  May be used with "
                     + "either the -prove or -altprove options.";
@@ -117,8 +115,7 @@ public final class Prover {
             "Prints prover debugging information.  May be used with either the "
                     + "-prove or -altprove options.";
     private static final String FLAG_DESC_NOGUI =
-            "Supresses any graphical interfaces so that the compiler can be run "
-                    + "headlessly.";
+            "Supresses any graphical interfaces so that the compiler can be run " + "headlessly.";
 
     public static final String FLAG_TIMEOUT_ARG_NAME = "milliseconds";
 
@@ -130,8 +127,7 @@ public final class Prover {
      * generated VCs.
      * </p>
      */
-    public static final Flag FLAG_PROVE =
-            new Flag(FLAG_SECTION_NAME, "altprove", FLAG_DESC_PROVE);
+    public static final Flag FLAG_PROVE = new Flag(FLAG_SECTION_NAME, "altprove", FLAG_DESC_PROVE);
 
     /**
      * <p>
@@ -140,13 +136,11 @@ public final class Prover {
      * prover circa January 2010.
      * </p>
      */
-    public static final Flag FLAG_LEGACY_PROVE =
-            new Flag(FLAG_SECTION_NAME, "prove", FLAG_DESC_LEGACY_PROVE);
+    public static final Flag FLAG_LEGACY_PROVE = new Flag(FLAG_SECTION_NAME, "prove", FLAG_DESC_LEGACY_PROVE);
 
     private static final String FLAG_DESC_TIMEOUT =
-            "Takes a number of " + "milliseconds to use as a timeout for "
-                    + FLAG_LEGACY_PROVE.invocation + "  Incompatible with "
-                    + FLAG_PROVE.invocation + ".";
+            "Takes a number of " + "milliseconds to use as a timeout for " + FLAG_LEGACY_PROVE.invocation
+                    + "  Incompatible with " + FLAG_PROVE.invocation + ".";
 
     /**
      * <p>
@@ -154,8 +148,7 @@ public final class Prover {
      * </p>
      */
     private static final Flag FLAG_LEGACY_PROVE_ALIAS =
-            new Flag(FLAG_SECTION_NAME, "quickprove",
-                    FLAG_DESC_LEGACY_PROVE_ALIAS, Flag.Type.HIDDEN);
+            new Flag(FLAG_SECTION_NAME, "quickprove", FLAG_DESC_LEGACY_PROVE_ALIAS, Flag.Type.HIDDEN);
     /**
      * <p>
      * Causes the prover to prompt the user to choose a theorem at each step,
@@ -163,8 +156,7 @@ public final class Prover {
      * </p>
      */
     public static final Flag FLAG_DEBUG =
-            new Flag(FLAG_SECTION_NAME, "debugprove", FLAG_DESC_DEBUG,
-                    Flag.Type.HIDDEN);
+            new Flag(FLAG_SECTION_NAME, "debugprove", FLAG_DESC_DEBUG, Flag.Type.HIDDEN);
 
     /**
      * <p>
@@ -172,8 +164,7 @@ public final class Prover {
      * </p>
      */
     public static final Flag FLAG_TIMEOUT =
-            new Flag(FLAG_SECTION_NAME, "timeout", FLAG_DESC_TIMEOUT,
-                    FLAG_TIMEOUT_ARGS, Flag.Type.HIDDEN);
+            new Flag(FLAG_SECTION_NAME, "timeout", FLAG_DESC_TIMEOUT, FLAG_TIMEOUT_ARGS, Flag.Type.HIDDEN);
 
     /**
      * <p>
@@ -181,10 +172,8 @@ public final class Prover {
      * </p>
      */
     public static final Flag FLAG_VERBOSE =
-            new Flag(FLAG_SECTION_NAME, "verboseprove", FLAG_DESC_VERBOSE,
-                    Flag.Type.HIDDEN);
-    public static final Flag FLAG_NOGUI =
-            new Flag(Main.FLAG_SECTION_GENERAL, "noGUI", FLAG_DESC_NOGUI);
+            new Flag(FLAG_SECTION_NAME, "verboseprove", FLAG_DESC_VERBOSE, Flag.Type.HIDDEN);
+    public static final Flag FLAG_NOGUI = new Flag(Main.FLAG_SECTION_GENERAL, "noGUI", FLAG_DESC_NOGUI);
 
     /**
      * <p>
@@ -194,8 +183,7 @@ public final class Prover {
      * </p>
      */
     public static final Flag FLAG_SOME_PROVER =
-            new Flag(Main.FLAG_SECTION_GENERAL, "someprover", "aux",
-                    Flag.Type.AUXILIARY);
+            new Flag(Main.FLAG_SECTION_GENERAL, "someprover", "aux", Flag.Type.AUXILIARY);
 
     private final long TIMEOUT;
 
@@ -270,14 +258,13 @@ public final class Prover {
      * @throes NullPointerException If <code>symbolTable</code> or
      *         <code>vC</code> is <code>null</code>.
      */
-    public Prover(final Iterable<VerificationCondition> vCs,
-            final CompileEnvironment instanceEnvironment)
+    public Prover(final Iterable<VerificationCondition> vCs, final CompileEnvironment instanceEnvironment)
             throws ProverException {
 
         if (instanceEnvironment.flags.isFlagSet(FLAG_TIMEOUT)) {
             TIMEOUT =
-                    Long.parseLong(instanceEnvironment.flags.getFlagArgument(
-                            FLAG_TIMEOUT, FLAG_TIMEOUT_ARG_NAME));
+                    Long.parseLong(instanceEnvironment.flags.getFlagArgument(FLAG_TIMEOUT,
+                            FLAG_TIMEOUT_ARG_NAME));
         }
         else {
             TIMEOUT = Integer.MAX_VALUE;
@@ -314,8 +301,7 @@ public final class Prover {
                 throw new RuntimeException(e);
 
             ErrorHandler handler = myInstanceEnvironment.getErrorHandler();
-            handler.error(e.getMessage()
-                    + "\n\nTry disabling the -prove option.");
+            handler.error(e.getMessage() + "\n\nTry disabling the -prove option.");
         }
 
         if (!myInstanceEnvironment.flags.isFlagSet(FLAG_NOGUI)) {
@@ -343,10 +329,8 @@ public final class Prover {
         myPExpTheorems.clear();
 
         File targetFileName = myInstanceEnvironment.getTargetFile();
-        ModuleID targetFileID =
-                myInstanceEnvironment.getModuleID(targetFileName);
-        List<ModuleID> availableTheories =
-                myInstanceEnvironment.getTheories(targetFileID);
+        ModuleID targetFileID = myInstanceEnvironment.getModuleID(targetFileName);
+        List<ModuleID> availableTheories = myInstanceEnvironment.getTheories(targetFileID);
         Exp curTheorem;
 
         // Add local axioms to the library
@@ -400,8 +384,7 @@ public final class Prover {
     private void addTheoremToLibrary(String name, Exp theorem) {
         try {
 
-            Exp quantifiersAppliedTheorem =
-                    Utilities.applyQuantification(theorem);
+            Exp quantifiersAppliedTheorem = Utilities.applyQuantification(theorem);
 
             if (quantifiersAppliedTheorem instanceof EqualsExp) {
                 myTheorems.add(quantifiersAppliedTheorem);
@@ -409,11 +392,10 @@ public final class Prover {
                 myTheoremNames.add(name);
             }
             else if (quantifiersAppliedTheorem instanceof InfixExp) {
-                InfixExp theoremAsInfixExp =
-                        (InfixExp) quantifiersAppliedTheorem;
+                InfixExp theoremAsInfixExp = (InfixExp) quantifiersAppliedTheorem;
                 if (theoremAsInfixExp.getOpName().getName().equals("implies")) {
-                    myImplications.add(new Implication(theoremAsInfixExp
-                            .getLeft(), theoremAsInfixExp.getRight()));
+                    myImplications.add(new Implication(theoremAsInfixExp.getLeft(), theoremAsInfixExp
+                            .getRight()));
                 }
             }
 
@@ -449,8 +431,7 @@ public final class Prover {
      *             If <code>vCs</code> or <code>theorems</code> is
      *             <code>null</code>.
      */
-    private void proveVCs(final Iterable<VerificationCondition> vcs)
-            throws ProverException {
+    private void proveVCs(final Iterable<VerificationCondition> vcs) throws ProverException {
 
         Metrics metrics = new Metrics();
 
@@ -511,8 +492,7 @@ public final class Prover {
      * @param exitInformation
      *            A prover exception containing the metric information to print.
      */
-    private void printExitReport(long startTime,
-            final ProverException exitInformation) {
+    private void printExitReport(long startTime, final ProverException exitInformation) {
 
         Metrics metrics = exitInformation.getMetrics();
         long endTime = System.currentTimeMillis();
@@ -524,9 +504,8 @@ public final class Prover {
 
         if (!myInstanceEnvironment.flags.isFlagSet(ResolveCompiler.FLAG_WEB)) {
             output.append("  Overall, " + metrics.getNumProofsConsidered()
-                    + " proofs were directly considered and "
-                    + metrics.numTimesBacktracked + " useful backtracks were "
-                    + "performed.");
+                    + " proofs were directly considered and " + metrics.numTimesBacktracked
+                    + " useful backtracks were " + "performed.");
         }
 
         output.append("\n");
@@ -572,12 +551,11 @@ public final class Prover {
      *             If <code>vC</code>, <code>theorems</code>, or
      *             <code>metrics</code> is <code>null</code>.
      */
-    private void proveVC(final VerificationCondition vC, final Metrics metrics,
-            FileWriter proofFile, VCProver p) throws VCInconsistentException {
+    private void proveVC(final VerificationCondition vC, final Metrics metrics, FileWriter proofFile,
+            VCProver p) throws VCInconsistentException {
 
         if (myInstanceEnvironment.flags.isFlagSet(FLAG_VERBOSE)) {
-            System.out.println("\n\n############################# VC "
-                    + "#############################");
+            System.out.println("\n\n############################# VC " + "#############################");
 
             System.out.println(vC);
         }
@@ -611,8 +589,7 @@ public final class Prover {
         // System.out.print(vC.getName() + " ");
 
         try {
-            p.prove(vC.copy(), myProgressWindow, c, System.currentTimeMillis()
-                    + TIMEOUT);
+            p.prove(vC.copy(), myProgressWindow, c, System.currentTimeMillis() + TIMEOUT);
         }
         catch (UnableToProveException e) {
             exitInformation = e;
@@ -644,22 +621,18 @@ public final class Prover {
         printExitReport(startTime, exitInformation);
         if (myInstanceEnvironment.flags.isFlagSet(ResolveCompiler.FLAG_WEB)) {
             output.append("</vcProve>");
-            myInstanceEnvironment.getCompileReport().setProveVCs(
-                    output.toString());
+            myInstanceEnvironment.getCompileReport().setProveVCs(output.toString());
         }
     }
 
     private VCProver setUpProverDebug() {
-        ChainingIterable<VCTransformer> steps =
-                new ChainingIterable<VCTransformer>();
+        ChainingIterable<VCTransformer> steps = new ChainingIterable<VCTransformer>();
 
-        steps.add(new ChooserEncapsulationStep("Reduce",
-                setUpReductionTransformer()));
+        steps.add(new ChooserEncapsulationStep("Reduce", setUpReductionTransformer()));
 
         steps.add(new ExistentialInstantiationStep(myPExpTheorems));
 
-        SubstitutionRuleNormalizer normalizer =
-                new SubstitutionRuleNormalizer(false);
+        SubstitutionRuleNormalizer normalizer = new SubstitutionRuleNormalizer(false);
         for (PExp e : myPExpTheorems) {
             steps.add(normalizer.normalize(e));
         }
@@ -672,40 +645,30 @@ public final class Prover {
             consequent = new Consequent(i.getConsequent());
 
             steps.add(new ConsequentWeakeningStep(antecedent, consequent));
-            steps.add(new TheoryDevelopingStep(antecedent, consequent,
-                    myPExpTheorems));
+            steps.add(new TheoryDevelopingStep(antecedent, consequent, myPExpTheorems));
         }
 
         VCTransformer batchDeveloper = buildBatchTheoryDeveloper(5);
 
-        return new AlternativeProver(myInstanceEnvironment,
-                new FirstStepGivenTransformationChooser(
-                        new SimplifyingTransformationChooser(
-                                new GuidedTransformationChooser(steps), 0),
-                        batchDeveloper));
+        return new AlternativeProver(myInstanceEnvironment, new FirstStepGivenTransformationChooser(
+                new SimplifyingTransformationChooser(new GuidedTransformationChooser(steps), 0),
+                batchDeveloper));
     }
 
-    private TransformationChooser buildConsequentSubstitutions(
-            TransformerFitnessFunction f) {
+    private TransformationChooser buildConsequentSubstitutions(TransformerFitnessFunction f) {
 
-        return new UpfrontFitnessTransformationChooser(f,
-                AbstractEqualityRuleNormalizer.normalizeAll(
-                        new ConsequentSubstitutionRuleNormalizer(false),
-                        myPExpTheorems), FITNESS_THRESHOLD,
+        return new UpfrontFitnessTransformationChooser(f, AbstractEqualityRuleNormalizer.normalizeAll(
+                new ConsequentSubstitutionRuleNormalizer(false), myPExpTheorems), FITNESS_THRESHOLD,
                 myInstanceEnvironment);
     }
 
-    private TransformationChooser buildEquivalentAntecedentDevelopments(
-            TransformerFitnessFunction f) {
+    private TransformationChooser buildEquivalentAntecedentDevelopments(TransformerFitnessFunction f) {
 
-        return new UpfrontFitnessTransformationChooser(f,
-                AbstractEqualityRuleNormalizer.normalizeAll(
-                        new AntecedentExtenderRuleNormalizer(false),
-                        myPExpTheorems), 0, myInstanceEnvironment);
+        return new UpfrontFitnessTransformationChooser(f, AbstractEqualityRuleNormalizer.normalizeAll(
+                new AntecedentExtenderRuleNormalizer(false), myPExpTheorems), 0, myInstanceEnvironment);
     }
 
-    private TransformationChooser buildImplicationAntecedentDevelopments(
-            TransformerFitnessFunction f) {
+    private TransformationChooser buildImplicationAntecedentDevelopments(TransformerFitnessFunction f) {
 
         Antecedent an;
         Consequent co;
@@ -718,12 +681,10 @@ public final class Prover {
             l.add(new TheoryDevelopingStep(an, co, myPExpTheorems));
         }
 
-        return new UpfrontFitnessTransformationChooser(f, l, 0,
-                myInstanceEnvironment);
+        return new UpfrontFitnessTransformationChooser(f, l, 0, myInstanceEnvironment);
     }
 
-    private TransformationChooser buildConsequentStrengthenings(
-            TransformerFitnessFunction f) {
+    private TransformationChooser buildConsequentStrengthenings(TransformerFitnessFunction f) {
 
         Antecedent an;
         Consequent co;
@@ -736,13 +697,11 @@ public final class Prover {
             l.add(new ConsequentWeakeningStep(an, co));
         }
 
-        return new UpfrontFitnessTransformationChooser(f, l, 0,
-                myInstanceEnvironment);
+        return new UpfrontFitnessTransformationChooser(f, l, 0, myInstanceEnvironment);
     }
 
     private VCTransformer buildBatchTheoryDeveloper(int iterations) {
-        BatchTheoryDevelopmentStep developer =
-                new BatchTheoryDevelopmentStep(myPExpTheorems, iterations);
+        BatchTheoryDevelopmentStep developer = new BatchTheoryDevelopmentStep(myPExpTheorems, iterations);
 
         Antecedent an;
         Consequent co;
@@ -772,8 +731,7 @@ public final class Prover {
 
         // These are the different depth-first-searches of the proof
         // space we will try
-        LinkedList<TransformationChooser> rounds =
-                new LinkedList<TransformationChooser>();
+        LinkedList<TransformationChooser> rounds = new LinkedList<TransformationChooser>();
         rounds.add(new LengthWindowTransformationChooser(mainStrategy, 0, 2));
         rounds.add(new LengthWindowTransformationChooser(mainStrategy, 3, 3));
         rounds.add(new LengthWindowTransformationChooser(mainStrategy, 4, 4));
@@ -787,15 +745,12 @@ public final class Prover {
         for (TransformationChooser chooser : rounds) {
 
             // Right before we start proving, we need to develop theories
-            developAndProve =
-                    new FirstStepGivenTransformationChooser(chooser,
-                            batchDeveloper);
+            developAndProve = new FirstStepGivenTransformationChooser(chooser, batchDeveloper);
 
             // And before everything, reduce
             curDepth =
-                    new AlternativeProver(myInstanceEnvironment,
-                            new FailoverChooser(reductionStep, developAndProve,
-                                    failoverNote));
+                    new AlternativeProver(myInstanceEnvironment, new FailoverChooser(reductionStep,
+                            developAndProve, failoverNote));
 
             retval.addStrategy(curDepth);
         }
@@ -804,73 +759,56 @@ public final class Prover {
     }
 
     private TransformationChooser setUpReductionTransformer() {
-        ChainingIterable<VCTransformer> steps =
-                new ChainingIterable<VCTransformer>();
+        ChainingIterable<VCTransformer> steps = new ChainingIterable<VCTransformer>();
 
-        SubstitutionRuleNormalizer normalizer =
-                new SubstitutionRuleNormalizer(false);
+        SubstitutionRuleNormalizer normalizer = new SubstitutionRuleNormalizer(false);
         for (PExp e : myPExpTheorems) {
             steps.add(normalizer.normalize(e));
         }
 
-        return new NoBacktrackChooser(new ProductiveStepChooser(
-                new UpfrontFitnessTransformationChooser(
-                        new NormalizingTransformerFitnessFunction(), steps, 0,
-                        myInstanceEnvironment)));
+        return new NoBacktrackChooser(new ProductiveStepChooser(new UpfrontFitnessTransformationChooser(
+                new NormalizingTransformerFitnessFunction(), steps, 0, myInstanceEnvironment)));
     }
 
     private TransformationChooser setUpMainProofStrategy() {
         // Basic fitness function for equivalence rules
-        TransformerFitnessFunction fitness =
-                new SimpleTransformerFitnessFunction();
+        TransformerFitnessFunction fitness = new SimpleTransformerFitnessFunction();
 
         // OK, first we're going to build objects to perform each of the basic
         // kinds of steps.
 
         // (A ^ B ==> C ^ D) + (C = E) becomes A ^ B ==> E ^ D
-        TransformationChooser consequentSubstitutions =
-                buildConsequentSubstitutions(fitness);
+        TransformationChooser consequentSubstitutions = buildConsequentSubstitutions(fitness);
 
         // (A ^ B ==> C ^ D) + (A = E) becomes A ^ B ^ E ==> C ^ D
-        TransformationChooser equivalentDevelopments =
-                buildEquivalentAntecedentDevelopments(fitness);
+        TransformationChooser equivalentDevelopments = buildEquivalentAntecedentDevelopments(fitness);
 
         // (A ^ B ==> C ^ D) + (A ^ B ==> E) becomes A ^ B ^ E ==> C ^ D
-        TransformationChooser implicationDevelopments =
-                buildImplicationAntecedentDevelopments(fitness);
+        TransformationChooser implicationDevelopments = buildImplicationAntecedentDevelopments(fitness);
 
         // (A ^ B ==> C ^ D) + (E ^ F ==> C) becomes A ^ B ==> E ^ F ^ D
-        TransformationChooser consequentStrengthenings =
-                buildConsequentStrengthenings(fitness);
+        TransformationChooser consequentStrengthenings = buildConsequentStrengthenings(fitness);
 
         // (A:a ^ B:b ==> there exists C:a s.t. C ^ D) becomes A ^ B ==> A ^ D
-        VCTransformer instantiateExistential =
-                new ExistentialInstantiationStep(myPExpTheorems);
+        VCTransformer instantiateExistential = new ExistentialInstantiationStep(myPExpTheorems);
 
         // ###################### Now, the main proofsearch algorithm
         TransformationChooser workingChooser = consequentSubstitutions;
 
         // Include consequent strengthenings
-        workingChooser =
-                new ConcatenatingTransformationChooser(workingChooser,
-                        consequentStrengthenings);
+        workingChooser = new ConcatenatingTransformationChooser(workingChooser, consequentStrengthenings);
 
         // An object for all kinds of antecedent development
         TransformationChooser antecedentDevelopment =
-                new ConcatenatingTransformationChooser(equivalentDevelopments,
-                        implicationDevelopments);
+                new ConcatenatingTransformationChooser(equivalentDevelopments, implicationDevelopments);
 
         // Only develop the antecedent at the beginning of proofs, and only
         // after
         // we've tried everything else (i.e., only as a last resort)
-        workingChooser =
-                new OnlyBeforeChooser(antecedentDevelopment, workingChooser,
-                        true);
+        workingChooser = new OnlyBeforeChooser(antecedentDevelopment, workingChooser, true);
 
         // Always try to instantiate first
-        workingChooser =
-                new FirstChoiceGivenTransformationChooser(workingChooser,
-                        instantiateExistential);
+        workingChooser = new FirstChoiceGivenTransformationChooser(workingChooser, instantiateExistential);
 
         return workingChooser;
     }
@@ -881,16 +819,14 @@ public final class Prover {
         GuidedRuleChooser chooser = new GuidedRuleChooser();
         chooser.addRules(myTheoremNames, myTheorems);
         SingleStrategyProver slaveProver =
-                new SingleStrategyProver(chooser, false, 0, myImplications,
-                        myInstanceEnvironment);
+                new SingleStrategyProver(chooser, false, 0, myImplications, myInstanceEnvironment);
 
         return slaveProver;
     }
 
     private VCProver setUpOldProver(VerificationCondition vc) {
         BlindIterativeRuleChooser baseChooser =
-                new UpfrontFitnessSortRuleChooser(new SimpleFitnessFunction(),
-                        0);
+                new UpfrontFitnessSortRuleChooser(new SimpleFitnessFunction(), 0);
         baseChooser.addRules(myTheoremNames, myTheorems);
         baseChooser.lock(vc);
 
@@ -899,13 +835,13 @@ public final class Prover {
         MultiStrategyProver p = new MultiStrategyProver();
 
         SingleStrategyProver slaveProver =
-                new SingleStrategyProver(new LengthLimitedProvider(baseChooser,
-                        2), false, 0, myImplications, myInstanceEnvironment);
+                new SingleStrategyProver(new LengthLimitedProvider(baseChooser, 2), false, 0, myImplications,
+                        myInstanceEnvironment);
         p.addStrategy(slaveProver);
 
         slaveProver =
-                new SingleStrategyProver(new LengthLimitedProvider(baseChooser,
-                        3), false, 3, myImplications, myInstanceEnvironment);
+                new SingleStrategyProver(new LengthLimitedProvider(baseChooser, 3), false, 3, myImplications,
+                        myInstanceEnvironment);
         p.addStrategy(slaveProver);
 
         return p;

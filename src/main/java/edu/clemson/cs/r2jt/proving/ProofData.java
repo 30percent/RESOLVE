@@ -21,8 +21,7 @@ public class ProofData {
 
     private Deque<VC> myPastStates = new LinkedList<VC>();
 
-    private Map<TransformerData, Object> myTransformerData =
-            new HashMap<TransformerData, Object>();
+    private Map<TransformerData, Object> myTransformerData = new HashMap<TransformerData, Object>();
 
     public ProofData addStep(VC step) {
         ProofData retval = copy();
@@ -42,8 +41,7 @@ public class ProofData {
         return new ImmutableIteratorWrapper<VC>(myPastStates.iterator());
     }
 
-    public ProofData putAttribute(TransformationChooser c, Object key,
-            Object value) {
+    public ProofData putAttribute(TransformationChooser c, Object key, Object value) {
 
         ProofData retval = copy();
 
@@ -68,8 +66,7 @@ public class ProofData {
     public ProofData copy() {
         ProofData retval = new ProofData();
         retval.myPastStates = new LinkedList<VC>(myPastStates);
-        retval.myTransformerData =
-                new HashMap<TransformerData, Object>(myTransformerData);
+        retval.myTransformerData = new HashMap<TransformerData, Object>(myTransformerData);
 
         return retval;
     }
@@ -94,9 +91,7 @@ public class ProofData {
             if (retval) {
                 TransformerData oAsTransformerData = (TransformerData) o;
 
-                retval =
-                        oAsTransformerData.chooser.equals(chooser)
-                                && oAsTransformerData.key.equals(key);
+                retval = oAsTransformerData.chooser.equals(chooser) && oAsTransformerData.key.equals(key);
             }
 
             return retval;

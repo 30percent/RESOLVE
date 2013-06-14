@@ -102,8 +102,7 @@ public class InfixExp extends AbstractFunctionExp {
 
     // special constructor to use when we can determine the statement return 
     // type while building the symbol table in RBuilder.g
-    public InfixExp(Location location, Exp left, PosSymbol opName, Exp right,
-            Type bType) {
+    public InfixExp(Location location, Exp left, PosSymbol opName, Exp right, Type bType) {
         this.location = location;
         this.left = left;
         this.opName = opName;
@@ -117,8 +116,7 @@ public class InfixExp extends AbstractFunctionExp {
         if (retval) {
             InfixExp eAsInfix = (InfixExp) e;
             retval =
-                    posSymbolEquivalent(opName, ((InfixExp) e).opName)
-                            && left.equivalent(eAsInfix.getLeft())
+                    posSymbolEquivalent(opName, ((InfixExp) e).opName) && left.equivalent(eAsInfix.getLeft())
                             && right.equivalent(eAsInfix.getRight());
         }
 
@@ -129,8 +127,8 @@ public class InfixExp extends AbstractFunctionExp {
         Exp retval;
 
         retval =
-                new InfixExp(location, substitute(left, substitutions), opName,
-                        substitute(right, substitutions));
+                new InfixExp(location, substitute(left, substitutions), opName, substitute(right,
+                        substitutions));
 
         retval.setType(type);
         retval.setMathType(getMathType());
@@ -236,8 +234,7 @@ public class InfixExp extends AbstractFunctionExp {
                 //sb.append(opName.toString() + "\n");
                 sb.append(opName.toString() + " ");
             }
-            else if (AssertiveCode.isProvePart()
-                    && opName.toString().equals("and")) {
+            else if (AssertiveCode.isProvePart() && opName.toString().equals("and")) {
                 sb.append(opName.toString() + " ");
             }
             else
@@ -247,9 +244,7 @@ public class InfixExp extends AbstractFunctionExp {
         if (right != null) {
             if (opName.toString().equals("implies")) {
                 /* This is an implication */
-                if (right instanceof InfixExp
-                        && !((InfixExp) right).getOpName().toString().equals(
-                                "implies")) {
+                if (right instanceof InfixExp && !((InfixExp) right).getOpName().toString().equals("implies")) {
                     /* And the right Exp is NOT an implication */
                     //sb.append("\n");
                     sb.append(" ");
@@ -269,9 +264,7 @@ public class InfixExp extends AbstractFunctionExp {
                     sb.append(" " + right.toString(indent + 4) + ")");
             }
             else /* This is Not an Implication */
-            if (right instanceof InfixExp
-                    && !((InfixExp) right).getOpName().toString().equals(
-                            "implies")) {
+            if (right instanceof InfixExp && !((InfixExp) right).getOpName().toString().equals("implies")) {
                 /* And the right Exp is NOT an implication */
                 sb.append(right.toString(indent) + ")");
 
@@ -308,12 +301,8 @@ public class InfixExp extends AbstractFunctionExp {
             }
             else {
                 if (opName.toString().equals("and")) {
-                    if (left instanceof InfixExp
-                            && ((InfixExp) left).getOpName().toString().equals(
-                                    "and")) {
-                        sb.append(""
-                                + ((InfixExp) left).toAltString(0, mycount)
-                                + "");
+                    if (left instanceof InfixExp && ((InfixExp) left).getOpName().toString().equals("and")) {
+                        sb.append("" + ((InfixExp) left).toAltString(0, mycount) + "");
                     }
                     else {
                         int count = mycount.intValue();
@@ -323,8 +312,7 @@ public class InfixExp extends AbstractFunctionExp {
                     }
                 }
                 else if (left instanceof InfixExp) {
-                    sb.append("" + ((InfixExp) left).toAltString(0, mycount)
-                            + "");
+                    sb.append("" + ((InfixExp) left).toAltString(0, mycount) + "");
                 }
                 else {
                     sb.append("(" + left.toString(0) + " ");
@@ -343,35 +331,27 @@ public class InfixExp extends AbstractFunctionExp {
         if (right != null) {
             if (opName.toString().equals("implies")) {
                 /* This is an implication */
-                if (right instanceof InfixExp
-                        && !((InfixExp) right).getOpName().toString().equals(
-                                "implies")) {
+                if (right instanceof InfixExp && !((InfixExp) right).getOpName().toString().equals("implies")) {
                     /* And the right Exp is NOT an implication */
                     sb.append("\n");
                     printSpace(indent, sb);
-                    sb.append(((InfixExp) right).toAltString(indent, mycount)
-                            + "");
+                    sb.append(((InfixExp) right).toAltString(indent, mycount) + "");
                 }
                 else if (right instanceof InfixExp) {
                     /* And the right is an Implication, but could 
                      * contain an implication or is an and/or statement
                      */
                     sb.append("\n");
-                    sb.append(((InfixExp) right).toAltString(indent, mycount)
-                            + "");
+                    sb.append(((InfixExp) right).toAltString(indent, mycount) + "");
                 }
                 else
                     sb.append("\n" + right.toString(indent) + "");
             }
             else /* This is Not an Implication */
-            if (right instanceof InfixExp
-                    && !((InfixExp) right).getOpName().toString().equals(
-                            "implies")) {
+            if (right instanceof InfixExp && !((InfixExp) right).getOpName().toString().equals("implies")) {
                 if (opName.toString().equals("and")) {
                     if (((InfixExp) right).getOpName().toString().equals("and")) {
-                        sb.append(""
-                                + ((InfixExp) right).toAltString(indent,
-                                        mycount) + "");
+                        sb.append("" + ((InfixExp) right).toAltString(indent, mycount) + "");
                     }
                     else {
                         int count = mycount.intValue();
@@ -390,9 +370,7 @@ public class InfixExp extends AbstractFunctionExp {
                  * contain an implication or is an and/or statement
                  */
                 if (((InfixExp) right).getOpName().toString().equals("and")) {
-                    sb.append(""
-                            + ((InfixExp) right).toAltString(indent, mycount)
-                            + "");
+                    sb.append("" + ((InfixExp) right).toAltString(indent, mycount) + "");
                 }
                 else {
                     int count = mycount.intValue();
@@ -428,19 +406,15 @@ public class InfixExp extends AbstractFunctionExp {
             }
             else {
                 if (opName.toString().equals("and")) {
-                    if (left instanceof InfixExp
-                            && ((InfixExp) left).getOpName().toString().equals(
-                                    "and")) {
-                        sb.append("" + ((InfixExp) left).printLocation(mycount)
-                                + "");
+                    if (left instanceof InfixExp && ((InfixExp) left).getOpName().toString().equals("and")) {
+                        sb.append("" + ((InfixExp) left).printLocation(mycount) + "");
                     }
                     else {
                         int count = mycount.intValue();
                         count++;
                         mycount.set(count);
                         if (left.getLocation() != null) {
-                            sb.append("\n" + mycount + ": "
-                                    + left.getLocation() + ": "
+                            sb.append("\n" + mycount + ": " + left.getLocation() + ": "
                                     + left.getLocation().getDetails());
                         }
                         else {
@@ -468,23 +442,17 @@ public class InfixExp extends AbstractFunctionExp {
 
         if (right != null) {
             if (!opName.toString().equals("implies")) {
-                if (right instanceof InfixExp
-                        && !((InfixExp) right).getOpName().toString().equals(
-                                "implies")) {
+                if (right instanceof InfixExp && !((InfixExp) right).getOpName().toString().equals("implies")) {
                     if (opName.toString().equals("and")) {
-                        if (((InfixExp) right).getOpName().toString().equals(
-                                "and")) {
-                            sb.append(""
-                                    + ((InfixExp) right).printLocation(mycount)
-                                    + "");
+                        if (((InfixExp) right).getOpName().toString().equals("and")) {
+                            sb.append("" + ((InfixExp) right).printLocation(mycount) + "");
                         }
                         else {
                             int count = mycount.intValue();
                             count++;
                             mycount.set(count);
                             if (right.getLocation() != null) {
-                                sb.append("\n" + mycount + ": "
-                                        + right.getLocation() + ": "
+                                sb.append("\n" + mycount + ": " + right.getLocation() + ": "
                                         + right.getLocation().getDetails());
                             }
                             else {
@@ -498,8 +466,8 @@ public class InfixExp extends AbstractFunctionExp {
                     count++;
                     mycount.set(count);
                     if (right.getLocation() != null) {
-                        sb.append("\n" + mycount + ": " + right.getLocation()
-                                + ": " + right.getLocation().getDetails());
+                        sb.append("\n" + mycount + ": " + right.getLocation() + ": "
+                                + right.getLocation().getDetails());
                     }
                     else {
                         sb.append("\n" + mycount + ": ");
@@ -534,8 +502,7 @@ public class InfixExp extends AbstractFunctionExp {
             if (!AssertiveCode.isProvePart() && opName.toString().equals("and")) {
                 sb.append(";\n");
             }
-            else if (AssertiveCode.isProvePart()
-                    && opName.toString().equals("and")) {
+            else if (AssertiveCode.isProvePart() && opName.toString().equals("and")) {
                 sb.append(" & ");
             }
             else if (opName.toString().equals("implies")) {
@@ -551,9 +518,7 @@ public class InfixExp extends AbstractFunctionExp {
         if (right != null) {
             if (opName.toString().equals("implies")) {
                 /* This is an implication */
-                if (right instanceof InfixExp
-                        && !((InfixExp) right).getOpName().toString().equals(
-                                "implies")) {
+                if (right instanceof InfixExp && !((InfixExp) right).getOpName().toString().equals("implies")) {
                     /* And the right Exp is NOT an implication */
                     sb.append("\n");
                     printSpace(indent, sb);
@@ -570,9 +535,7 @@ public class InfixExp extends AbstractFunctionExp {
                     sb.append("\n" + right.toString(indent) + "");
             }
             else /* This is Not an Implication */
-            if (right instanceof InfixExp
-                    && !((InfixExp) right).getOpName().toString().equals(
-                            "implies")) {
+            if (right instanceof InfixExp && !((InfixExp) right).getOpName().toString().equals("implies")) {
                 if (opName.toString().equals("and"))
                     sb.append(right.toString(indent) + "");
                 else
@@ -610,8 +573,7 @@ public class InfixExp extends AbstractFunctionExp {
     }
 
     public Exp getAssumptions() {
-        if (this.opName.toString().equals("implies")
-                || this.opName.toString().equals("and")) {
+        if (this.opName.toString().equals("implies") || this.opName.toString().equals("and")) {
             if (left instanceof InfixExp) {
                 left = ((InfixExp) left).getAssumptions();
             }
@@ -664,9 +626,7 @@ public class InfixExp extends AbstractFunctionExp {
                 tmpLeft = left;
 
             if (assumpts != null)
-                tmpLeft =
-                        getMathType().getTypeGraph().formConjunct(assumpts,
-                                tmpLeft);
+                tmpLeft = getMathType().getTypeGraph().formConjunct(assumpts, tmpLeft);
 
             if (right instanceof InfixExp) {
                 tmpRight = ((InfixExp) right).getAssertions();
@@ -680,20 +640,17 @@ public class InfixExp extends AbstractFunctionExp {
                 tmpRight = right;
 
                 if (!(tmpLeft == null || tmpRight == null)) {
-                    lst.add(new InfixExp(null, tmpLeft,
-                            createPosSymbol("implies"), tmpRight));
+                    lst.add(new InfixExp(null, tmpLeft, createPosSymbol("implies"), tmpRight));
                 }
             }
 
         }
         else if (single) {
             if (assumpts == null) {
-                lst.add(new InfixExp(null, getTrueVarExp(),
-                        createPosSymbol("implies"), this));
+                lst.add(new InfixExp(null, getTrueVarExp(), createPosSymbol("implies"), this));
             }
             else {
-                lst.add(new InfixExp(null, assumpts,
-                        createPosSymbol("implies"), this));
+                lst.add(new InfixExp(null, assumpts, createPosSymbol("implies"), this));
             }
         }
 
@@ -829,61 +786,48 @@ public class InfixExp extends AbstractFunctionExp {
         Exp simplified = ((Exp) Exp.clone(this.simplifyComponents()));
 
         if (((InfixExp) simplified).getLeft() != null)
-            ((InfixExp) simplified).setLeft(((InfixExp) simplified).left
-                    .simplify());
+            ((InfixExp) simplified).setLeft(((InfixExp) simplified).left.simplify());
         else
             ((InfixExp) simplified).setLeft(getTrueVarExp());
 
         if (((InfixExp) simplified).getRight() != null)
-            ((InfixExp) simplified).setRight(((InfixExp) simplified).right
-                    .simplify());
+            ((InfixExp) simplified).setRight(((InfixExp) simplified).right.simplify());
         else
             ((InfixExp) simplified).setLeft(getTrueVarExp());
 
         // Simplify A -> true to true
-        if (((InfixExp) simplified).opName.equals("implies")
-                && isTrueExp(((InfixExp) simplified).getRight())) {
+        if (((InfixExp) simplified).opName.equals("implies") && isTrueExp(((InfixExp) simplified).getRight())) {
             return getTrueVarExp();
         }
 
         if (((InfixExp) simplified).getOpName().equals("implies")
                 && ((InfixExp) simplified).getRight() instanceof InfixExp) {
             // Simplify A -> B -> C to (A ^ B) -> C
-            if (((InfixExp) ((InfixExp) simplified).getRight()).getOpName()
-                    .toString().equals("implies")) {
-                ((InfixExp) simplified).setLeft(getMathType().getTypeGraph()
-                        .formConjunct(
-                                ((InfixExp) simplified).getLeft(),
-                                ((InfixExp) ((InfixExp) simplified).getRight())
-                                        .getLeft()));
-                ((InfixExp) simplified)
-                        .setRight(((InfixExp) ((InfixExp) simplified)
-                                .getRight()).getRight());
+            if (((InfixExp) ((InfixExp) simplified).getRight()).getOpName().toString().equals("implies")) {
+                ((InfixExp) simplified).setLeft(getMathType().getTypeGraph().formConjunct(
+                        ((InfixExp) simplified).getLeft(),
+                        ((InfixExp) ((InfixExp) simplified).getRight()).getLeft()));
+                ((InfixExp) simplified).setRight(((InfixExp) ((InfixExp) simplified).getRight()).getRight());
             }
         }
 
         if (((InfixExp) simplified).getOpName().equals("implies")
                 && ((InfixExp) simplified).getRight() instanceof InfixExp) {
             // I need to generalize this
-            if (((InfixExp) ((InfixExp) simplified).getRight()).getOpName()
-                    .toString().equals("and")) {
+            if (((InfixExp) ((InfixExp) simplified).getRight()).getOpName().toString().equals("and")) {
                 // Simplify A -> A ^ B to A -> B
                 if (((InfixExp) simplified).getLeft().equals(
-                        ((InfixExp) ((InfixExp) simplified).getRight())
-                                .getLeft())) {
-                    ((InfixExp) simplified)
-                            .setRight(((InfixExp) ((InfixExp) simplified)
-                                    .getRight()).getRight());
+                        ((InfixExp) ((InfixExp) simplified).getRight()).getLeft())) {
+                    ((InfixExp) simplified).setRight(((InfixExp) ((InfixExp) simplified).getRight())
+                            .getRight());
                     ((InfixExp) simplified).simplify();
 
                 }
                 // Simplify A -> B ^ A to A -> B
                 else if (((InfixExp) simplified).getLeft().equals(
-                        ((InfixExp) ((InfixExp) simplified).getRight())
-                                .getRight())) {
-                    ((InfixExp) simplified)
-                            .setRight(((InfixExp) ((InfixExp) simplified)
-                                    .getRight()).getLeft());
+                        ((InfixExp) ((InfixExp) simplified).getRight()).getRight())) {
+                    ((InfixExp) simplified).setRight(((InfixExp) ((InfixExp) simplified).getRight())
+                            .getLeft());
                     ((InfixExp) simplified).simplify();
                 }
 
@@ -895,27 +839,22 @@ public class InfixExp extends AbstractFunctionExp {
                 && ((InfixExp) simplified).getRight() instanceof InfixExp) {
 
             if (((InfixExp) ((InfixExp) simplified).getLeft()).onlyAndExps()
-                    && ((InfixExp) ((InfixExp) simplified).getRight())
-                            .onlyAndExps()) {
-                List<Exp> lst =
-                        ((InfixExp) ((InfixExp) simplified).getLeft())
-                                .getExpressions();
+                    && ((InfixExp) ((InfixExp) simplified).getRight()).onlyAndExps()) {
+                List<Exp> lst = ((InfixExp) ((InfixExp) simplified).getLeft()).getExpressions();
                 Iterator<Exp> iter = lst.iterator();
                 while (iter.hasNext())
-                    ((InfixExp) simplified).setRight(((InfixExp) simplified)
-                            .getRight().compareWithAssumptions(iter.next()));
+                    ((InfixExp) simplified).setRight(((InfixExp) simplified).getRight()
+                            .compareWithAssumptions(iter.next()));
             }
         }
         else if (((InfixExp) simplified).getOpName().equals("implies")
                 && ((InfixExp) simplified).getLeft() instanceof InfixExp) {
             if (((InfixExp) ((InfixExp) simplified).getLeft()).onlyAndExps()) {
-                List<Exp> lst =
-                        ((InfixExp) ((InfixExp) simplified).getLeft())
-                                .getExpressions();
+                List<Exp> lst = ((InfixExp) ((InfixExp) simplified).getLeft()).getExpressions();
                 Iterator<Exp> iter = lst.iterator();
                 while (iter.hasNext())
-                    ((InfixExp) simplified).setRight(((InfixExp) simplified)
-                            .getRight().compareWithAssumptions(iter.next()));
+                    ((InfixExp) simplified).setRight(((InfixExp) simplified).getRight()
+                            .compareWithAssumptions(iter.next()));
             }
         }
 
@@ -1008,8 +947,7 @@ public class InfixExp extends AbstractFunctionExp {
 
     private boolean isTrueExp(Exp exp) {
         if (exp instanceof VarExp) {
-            if (((VarExp) exp).getName().toString().equals(
-                    getTrueVarExp().getName().toString())) {
+            if (((VarExp) exp).getName().toString().equals(getTrueVarExp().getName().toString())) {
                 ;
                 return true;
             }

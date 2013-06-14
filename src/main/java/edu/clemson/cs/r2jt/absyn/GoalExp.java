@@ -127,8 +127,7 @@ public class GoalExp extends LineNumberedExp {
     // ===========================================================
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new GoalExp(location, this.getLineNum(), substitute(exp,
-                substitutions));
+        return new GoalExp(location, this.getLineNum(), substitute(exp, substitutions));
     }
 
     /** Accepts a ResolveConceptualVisitor. */

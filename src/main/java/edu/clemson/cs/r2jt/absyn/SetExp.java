@@ -97,8 +97,7 @@ public class SetExp extends Exp {
         this.body = body;
     }
 
-    public SetExp(Location location, MathVarDec var, Exp where, Exp body,
-            List<VarExp> vars) {
+    public SetExp(Location location, MathVarDec var, Exp where, Exp body, List<VarExp> vars) {
         this.location = location;
         this.var = var;
         this.where = where;
@@ -107,8 +106,8 @@ public class SetExp extends Exp {
     }
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new SetExp(location, var, substitute(where, substitutions),
-                substitute(body, substitutions), vars);
+        return new SetExp(location, var, substitute(where, substitutions), substitute(body, substitutions),
+                vars);
     }
 
     // ===========================================================

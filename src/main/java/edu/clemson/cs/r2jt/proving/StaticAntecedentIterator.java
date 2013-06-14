@@ -8,8 +8,7 @@ public class StaticAntecedentIterator implements Iterator<VC> {
     private final Iterator<Consequent> myConsequentIterator;
     private String myOriginalVCName;
 
-    public StaticAntecedentIterator(String originalVCName, Antecedent a,
-            Iterator<Consequent> i) {
+    public StaticAntecedentIterator(String originalVCName, Antecedent a, Iterator<Consequent> i) {
 
         myAntecedent = a;
         myConsequentIterator = i;
@@ -23,8 +22,7 @@ public class StaticAntecedentIterator implements Iterator<VC> {
 
     @Override
     public VC next() {
-        return new VC(myOriginalVCName, myAntecedent, myConsequentIterator
-                .next(), true);
+        return new VC(myOriginalVCName, myAntecedent, myConsequentIterator.next(), true);
     }
 
     @Override

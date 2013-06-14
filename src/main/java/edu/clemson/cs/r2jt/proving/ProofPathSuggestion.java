@@ -50,13 +50,12 @@ public class ProofPathSuggestion {
         this(step, data, null, null, false);
     }
 
-    public ProofPathSuggestion(VCTransformer step, ProofData data,
-            String pathNote, String debugNote) {
+    public ProofPathSuggestion(VCTransformer step, ProofData data, String pathNote, String debugNote) {
         this(step, data, null, null, false);
     }
 
-    public ProofPathSuggestion(VCTransformer step, ProofData data,
-            String pathNote, String debugNote, boolean debugPrevious) {
+    public ProofPathSuggestion(VCTransformer step, ProofData data, String pathNote, String debugNote,
+            boolean debugPrevious) {
         this.step = step;
         this.data = data;
         this.pathNote = pathNote;

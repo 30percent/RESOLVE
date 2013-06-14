@@ -93,8 +93,7 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
 
     public abstract void accept(ResolveConceptualVisitor v);
 
-    public abstract Type accept(TypeResolutionVisitor v)
-            throws TypeResolutionException;
+    public abstract Type accept(TypeResolutionVisitor v) throws TypeResolutionException;
 
     public abstract String asString(int indent, int increment);
 
@@ -122,8 +121,7 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
 
     protected Exp replace(Exp old, Exp replacement) {
 
-        throw new UnsupportedOperationException("Replace not implemented for "
-                + this.getClass() + ".");
+        throw new UnsupportedOperationException("Replace not implemented for " + this.getClass() + ".");
         //return new VarExp();
     }
 
@@ -156,10 +154,8 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
 
         java.util.Map.Entry<Exp, Exp> curEntry = null;
         if (substitutions.size() > 0) {
-            Set<java.util.Map.Entry<Exp, Exp>> entries =
-                    substitutions.entrySet();
-            Iterator<java.util.Map.Entry<Exp, Exp>> entryIter =
-                    entries.iterator();
+            Set<java.util.Map.Entry<Exp, Exp>> entries = substitutions.entrySet();
+            Iterator<java.util.Map.Entry<Exp, Exp>> entryIter = entries.iterator();
             //System.out.println("Recursing: " + this.toString(0) + " : " + this.getClass());
             while (entryIter.hasNext() && !match) {
                 curEntry = entryIter.next();
@@ -196,8 +192,7 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
     //      examples we're looking at.  When the new prover is ready, this
     //      method will become unnecessary, because substitutions will occur
     //      on PExps rather than Exps.
-    public static final Exp substituteChildren(Exp target,
-            java.util.Map<Exp, Exp> substitutions) {
+    public static final Exp substituteChildren(Exp target, java.util.Map<Exp, Exp> substitutions) {
 
         MTType originalType = target.getMathType();
         MTType originalTypeValue = target.getMathTypeValue();
@@ -213,12 +208,10 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
     public final Exp substituteNames(java.util.Map<String, Exp> substitutions) {
         java.util.Map<Exp, Exp> finalSubstitutions = new HashMap<Exp, Exp>();
 
-        for (java.util.Map.Entry<String, Exp> substitution : substitutions
-                .entrySet()) {
+        for (java.util.Map.Entry<String, Exp> substitution : substitutions.entrySet()) {
 
-            finalSubstitutions.put(new VarExp(null, null, new PosSymbol(null,
-                    Symbol.symbol(substitution.getKey()))), substitution
-                    .getValue());
+            finalSubstitutions.put(new VarExp(null, null, new PosSymbol(null, Symbol.symbol(substitution
+                    .getKey()))), substitution.getValue());
         }
 
         return substitute(finalSubstitutions);
@@ -250,8 +243,7 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
      * @return A new <code>Exp</code> that is a deep copy of the original with
      *         the provided substitutions made.
      */
-    protected abstract Exp substituteChildren(
-            java.util.Map<Exp, Exp> substitutions);
+    protected abstract Exp substituteChildren(java.util.Map<Exp, Exp> substitutions);
 
     public Exp simplify() {
         return this;
@@ -271,12 +263,10 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
         else if (single) {
             List<InfixExp> lst = new List<InfixExp>();
             if (assumpts == null) {
-                lst.add(new InfixExp(null, null, createPosSymbol("implies"),
-                        this));
+                lst.add(new InfixExp(null, null, createPosSymbol("implies"), this));
             }
             else {
-                lst.add(new InfixExp(null, assumpts,
-                        createPosSymbol("implies"), this));
+                lst.add(new InfixExp(null, assumpts, createPosSymbol("implies"), this));
             }
             return lst;
         }
@@ -316,8 +306,7 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
     }
 
     protected Exp copy() {
-        System.out.println("Shouldn't be calling Exp.copy() from type "
-                + this.getClass() + ".");
+        System.out.println("Shouldn't be calling Exp.copy() from type " + this.getClass() + ".");
         throw new RuntimeException();
         //return null;
     }
@@ -391,9 +380,8 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
      */
     public boolean equivalent(Exp e) {
         System.out.println(e.toString(1));
-        throw new UnsupportedOperationException(
-                "Equivalence for classes of type " + this.getClass()
-                        + " is not currently supported.");
+        throw new UnsupportedOperationException("Equivalence for classes of type " + this.getClass()
+                + " is not currently supported.");
     }
 
     /**
@@ -409,8 +397,7 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
      *         equivalent.
      */
     public static boolean equivalent(Exp e1, Exp e2) {
-        return !((e1 == null ^ e2 == null))
-                && ((e1 == null && e2 == null) || e1.equivalent(e2));
+        return !((e1 == null ^ e2 == null)) && ((e1 == null && e2 == null) || e1.equivalent(e2));
     }
 
     /**
@@ -432,8 +419,7 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
         //The second line short circuits and returns "true" if both are null.
         //The third line performs the string comparison.
         return !((s1 == null) ^ (s2 == null))
-                && ((s1 == null && s2 == null) || (stringEquivalent(s1
-                        .getName(), s2.getName())));
+                && ((s1 == null && s2 == null) || (stringEquivalent(s1.getName(), s2.getName())));
     }
 
     /**
@@ -452,8 +438,7 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
         //neither is.  If not, we short circuit with "false".
         //The second line short circuits and returns "true" if both are null.
         //The third line performs the string comparison.
-        return !((s1 == null) ^ (s2 == null))
-                && ((s1 == null && s2 == null) || (s1.equals(s2)));
+        return !((s1 == null) ^ (s2 == null)) && ((s1 == null && s2 == null) || (s1.equals(s2)));
     }
 
     public boolean shallowCompare(Exp e2) {
@@ -491,15 +476,13 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
     }
 
     public static InfixExp buildImplication(Exp antecedent, Exp consequent) {
-        return new InfixExp(antecedent.getLocation(), antecedent,
-                new PosSymbol(antecedent.getLocation(), Symbol
-                        .symbol("implies")), consequent, BooleanType.INSTANCE);
+        return new InfixExp(antecedent.getLocation(), antecedent, new PosSymbol(antecedent.getLocation(),
+                Symbol.symbol("implies")), consequent, BooleanType.INSTANCE);
     }
 
     public static InfixExp buildConjunction(Exp left, Exp right) {
-        return new InfixExp(left.getLocation(), left, new PosSymbol(left
-                .getLocation(), Symbol.symbol("and")), right,
-                BooleanType.INSTANCE);
+        return new InfixExp(left.getLocation(), left,
+                new PosSymbol(left.getLocation(), Symbol.symbol("and")), right, BooleanType.INSTANCE);
     }
 
     public static VarExp getTrueVarExp() {
@@ -574,10 +557,8 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
         boolean result = (this instanceof VarExp);
 
         result =
-                result
-                        && ((VarExp) this).getName().getName().equals("true")
-                        && this.getMathType().equals(
-                                this.getMathType().getTypeGraph().BOOLEAN);
+                result && ((VarExp) this).getName().getName().equals("true")
+                        && this.getMathType().equals(this.getMathType().getTypeGraph().BOOLEAN);
 
         return result;
     }
@@ -586,10 +567,8 @@ public abstract class Exp extends ResolveConceptualElement implements Cloneable 
         boolean result = (this instanceof VarExp);
 
         result =
-                result
-                        && ((VarExp) this).getName().getName().equals("false")
-                        && this.getMathType().equals(
-                                this.getMathType().getTypeGraph().BOOLEAN);
+                result && ((VarExp) this).getName().getName().equals("false")
+                        && this.getMathType().equals(this.getMathType().getTypeGraph().BOOLEAN);
 
         return result;
     }

@@ -18,15 +18,12 @@ import edu.clemson.cs.r2jt.proving.absyn.PSymbol;
  * theorem and replacing them with the antecedent of the theorem--since if we 
  * can establish the antecedent, we can definitely establish the consequent.</p>
  */
-public class ConsequentConjunctWeakeningTransformer
-        implements
-            ConsequentTransformer {
+public class ConsequentConjunctWeakeningTransformer implements ConsequentTransformer {
 
     private final Antecedent myTheoremAntecedent;
     private final Consequent myTheoremConsequent;
 
-    public ConsequentConjunctWeakeningTransformer(Antecedent theoremAntecedent,
-            Consequent theoremConsequent) {
+    public ConsequentConjunctWeakeningTransformer(Antecedent theoremAntecedent, Consequent theoremConsequent) {
 
         myTheoremAntecedent = theoremAntecedent;
         myTheoremConsequent = theoremConsequent;
@@ -42,8 +39,7 @@ public class ConsequentConjunctWeakeningTransformer
 
     @Override
     public Iterator<Consequent> transform(Consequent source) {
-        return new BindingApplyer(new ConjunctGranularityBindingIterator(
-                myTheoremConsequent, source));
+        return new BindingApplyer(new ConjunctGranularityBindingIterator(myTheoremConsequent, source));
     }
 
     private class BindingApplyer implements Iterator<Consequent> {
@@ -61,24 +57,18 @@ public class ConsequentConjunctWeakeningTransformer
 
         @Override
         public Consequent next() {
-            ConjunctGranularityBindingIterator.BindingsAndRemainingConjuncts binding =
-                    myBindings.next();
+            ConjunctGranularityBindingIterator.BindingsAndRemainingConjuncts binding = myBindings.next();
 
             //We need to make sure that the antecedent doesn't introduce
             //quantified variable names that already exist
             Iterable<PSymbol> unboundVariables =
-                    getUnboundQuantifiedVariables(myTheoremAntecedent,
-                            binding.bindings);
-            Map<PExp, PExp> renamings =
-                    renameAsNecessary(unboundVariables,
-                            binding.remainingConjuncts);
-            Antecedent newAntecedent =
-                    myTheoremAntecedent.substitute(renamings);
+                    getUnboundQuantifiedVariables(myTheoremAntecedent, binding.bindings);
+            Map<PExp, PExp> renamings = renameAsNecessary(unboundVariables, binding.remainingConjuncts);
+            Antecedent newAntecedent = myTheoremAntecedent.substitute(renamings);
             newAntecedent = newAntecedent.substitute(binding.bindings);
 
             Consequent newConsequent =
-                    new Consequent(binding.remainingConjuncts
-                            .appended(newAntecedent.instantiate()));
+                    new Consequent(binding.remainingConjuncts.appended(newAntecedent.instantiate()));
 
             return newConsequent;
         }
@@ -90,8 +80,8 @@ public class ConsequentConjunctWeakeningTransformer
 
     }
 
-    private static Map<PExp, PExp> renameAsNecessary(
-            Iterable<PSymbol> originals, ImmutableConjuncts destination) {
+    private static Map<PExp, PExp> renameAsNecessary(Iterable<PSymbol> originals,
+            ImmutableConjuncts destination) {
 
         Map<PExp, PExp> accumulator = new HashMap<PExp, PExp>();
 
@@ -102,8 +92,8 @@ public class ConsequentConjunctWeakeningTransformer
         return accumulator;
     }
 
-    private static void renameAsNecessary(PSymbol original,
-            ImmutableConjuncts destination, Map<PExp, PExp> accumulator) {
+    private static void renameAsNecessary(PSymbol original, ImmutableConjuncts destination,
+            Map<PExp, PExp> accumulator) {
 
         final String originalName = original.name;
         String consideredName = originalName;
@@ -123,8 +113,7 @@ public class ConsequentConjunctWeakeningTransformer
         accumulator.put(original, newExp);
     }
 
-    private static boolean containsName(String consideredName,
-            ImmutableConjuncts destination) {
+    private static boolean containsName(String consideredName, ImmutableConjuncts destination) {
 
         boolean retval = false;
         Iterator<PExp> destinations = destination.iterator();
@@ -135,8 +124,8 @@ public class ConsequentConjunctWeakeningTransformer
         return retval;
     }
 
-    private static Iterable<PSymbol> getUnboundQuantifiedVariables(
-            ImmutableConjuncts source, Map<PExp, PExp> bindings) {
+    private static Iterable<PSymbol> getUnboundQuantifiedVariables(ImmutableConjuncts source,
+            Map<PExp, PExp> bindings) {
 
         List<PSymbol> finalVariables = new LinkedList<PSymbol>();
 
@@ -163,7 +152,7 @@ public class ConsequentConjunctWeakeningTransformer
     }
 
     public String toString() {
-        return ("Strengthen consequent: " + myTheoremConsequent + " to " + myTheoremAntecedent)
-                .replace('\n', ' ');
+        return ("Strengthen consequent: " + myTheoremConsequent + " to " + myTheoremAntecedent).replace('\n',
+                ' ');
     }
 }

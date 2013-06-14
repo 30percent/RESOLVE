@@ -27,19 +27,16 @@ public class StrengthenConsequentStep extends AbstractProofStep {
     private final ConjunctWithIndex[] myEliminatedConjuncts;
 
     public StrengthenConsequentStep(List<Conjunct> eliminatedConjuncts,
-            List<Integer> eliminatedConjunctsIndecis,
-            Set<Conjunct> newConjuncts, Transformation t, Application a,
-            Collection<Site> boundSites) {
+            List<Integer> eliminatedConjunctsIndecis, Set<Conjunct> newConjuncts, Transformation t,
+            Application a, Collection<Site> boundSites) {
         super(t, a, boundSites);
 
-        myEliminatedConjuncts =
-                new ConjunctWithIndex[eliminatedConjuncts.size()];
+        myEliminatedConjuncts = new ConjunctWithIndex[eliminatedConjuncts.size()];
         Iterator<Conjunct> conjunctIter = eliminatedConjuncts.iterator();
         Iterator<Integer> indexIter = eliminatedConjunctsIndecis.iterator();
         int index = 0;
         while (conjunctIter.hasNext()) {
-            myEliminatedConjuncts[index] =
-                    new ConjunctWithIndex(conjunctIter.next(), indexIter.next());
+            myEliminatedConjuncts[index] = new ConjunctWithIndex(conjunctIter.next(), indexIter.next());
             index++;
         }
         Arrays.sort(myEliminatedConjuncts);
@@ -56,8 +53,7 @@ public class StrengthenConsequentStep extends AbstractProofStep {
         Set<Conjunct> alreadyAdded = new HashSet<Conjunct>();
         for (ConjunctWithIndex elminatedConjunct : myEliminatedConjuncts) {
             if (!alreadyAdded.contains(elminatedConjunct.getConjunct())) {
-                m.insertConjunct(elminatedConjunct.getConjunct(),
-                        elminatedConjunct.getIndex());
+                m.insertConjunct(elminatedConjunct.getConjunct(), elminatedConjunct.getIndex());
 
                 alreadyAdded.add(elminatedConjunct.getConjunct());
             }

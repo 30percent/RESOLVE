@@ -42,11 +42,9 @@ public class MathSymbolEntry extends SymbolTableEntry {
      * named type within the definition's type) and the value giving the type
      * bounds of the parameter.</p>
      */
-    private final Map<String, MTType> mySchematicTypes =
-            new HashMap<String, MTType>();
+    private final Map<String, MTType> mySchematicTypes = new HashMap<String, MTType>();
 
-    private final Map<String, MTType> myGenericsInDefiningContext =
-            new HashMap<String, MTType>();
+    private final Map<String, MTType> myGenericsInDefiningContext = new HashMap<String, MTType>();
 
     /**
      * @param g
@@ -62,9 +60,8 @@ public class MathSymbolEntry extends SymbolTableEntry {
      * @param sourceModule 
      */
     public MathSymbolEntry(TypeGraph g, String name, Quantification q,
-            ResolveConceptualElement definingElement, MTType type,
-            MTType typeValue, Map<String, MTType> schematicTypes,
-            Map<String, MTType> genericsInDefiningContext,
+            ResolveConceptualElement definingElement, MTType type, MTType typeValue,
+            Map<String, MTType> schematicTypes, Map<String, MTType> genericsInDefiningContext,
             ModuleIdentifier sourceModule) {
         super(name, definingElement, sourceModule);
 
@@ -83,9 +80,7 @@ public class MathSymbolEntry extends SymbolTableEntry {
             myTypeValue = typeValue;
         }
         else if (type.isKnownToContainOnlyMTypes()) {
-            myTypeValue =
-                    new MTProper(g, type, type
-                            .membersKnownToContainOnlyMTypes(), name);
+            myTypeValue = new MTProper(g, type, type.membersKnownToContainOnlyMTypes(), name);
         }
         else {
             myTypeValue = null;
@@ -139,24 +134,21 @@ public class MathSymbolEntry extends SymbolTableEntry {
      * @return
      * @throws NoSolutionException 
      */
-    public MathSymbolEntry deschematize(List<Exp> arguments,
-            Scope callingContext, Map<String, MTType> definitionSchematicTypes)
-            throws NoSolutionException {
+    public MathSymbolEntry deschematize(List<Exp> arguments, Scope callingContext,
+            Map<String, MTType> definitionSchematicTypes) throws NoSolutionException {
 
         if (!(myType instanceof MTFunction)) {
             throw NoSolutionException.INSTANCE;
         }
 
-        List<MTType> formalParameterTypes =
-                getParameterTypes(((MTFunction) myType));
+        List<MTType> formalParameterTypes = getParameterTypes(((MTFunction) myType));
         List<MTType> actualArgumentTypes = getArgumentTypes(arguments);
 
         if (formalParameterTypes.size() != actualArgumentTypes.size()) {
             throw NoSolutionException.INSTANCE;
         }
 
-        List<ProgramTypeEntry> callingContextProgramGenerics =
-                callingContext.query(GenericQuery.INSTANCE);
+        List<ProgramTypeEntry> callingContextProgramGenerics = callingContext.query(GenericQuery.INSTANCE);
         Map<String, MTType> callingContextMathGenerics =
                 new HashMap<String, MTType>(definitionSchematicTypes);
 
@@ -166,8 +158,7 @@ public class MathSymbolEntry extends SymbolTableEntry {
             //to math types, so the passed location is irrelevant
             mathGeneric = e.toMathSymbolEntry(null);
 
-            callingContextMathGenerics.put(mathGeneric.getName(),
-                    mathGeneric.myType);
+            callingContextMathGenerics.put(mathGeneric.getName(), mathGeneric.myType);
         }
 
         Iterator<MTType> argumentTypeIter = actualArgumentTypes.iterator();
@@ -176,9 +167,7 @@ public class MathSymbolEntry extends SymbolTableEntry {
         MTType argumentType;
         try {
             for (MTType formalParameterType : formalParameterTypes) {
-                formalParameterType =
-                        formalParameterType
-                                .getCopyWithVariablesSubstituted(bindingsSoFar);
+                formalParameterType = formalParameterType.getCopyWithVariablesSubstituted(bindingsSoFar);
 
                 //We know arguments and formalParameterTypes are the same 
                 //length, see above
@@ -187,8 +176,7 @@ public class MathSymbolEntry extends SymbolTableEntry {
                 if (containsSchematicType(formalParameterType)) {
                     //try{
                     iterationBindings =
-                            argumentType.bindTo(formalParameterType,
-                                    callingContextMathGenerics,
+                            argumentType.bindTo(formalParameterType, callingContextMathGenerics,
                                     mySchematicTypes);
 
                     bindingsSoFar.putAll(iterationBindings);
@@ -206,18 +194,14 @@ public class MathSymbolEntry extends SymbolTableEntry {
         MTType newTypeValue = null;
 
         if (myTypeValue != null) {
-            newTypeValue =
-                    myTypeValue.getCopyWithVariablesSubstituted(bindingsSoFar);
+            newTypeValue = myTypeValue.getCopyWithVariablesSubstituted(bindingsSoFar);
         }
 
         MTType newType =
-                ((MTFunction) myType
-                        .getCopyWithVariablesSubstituted(bindingsSoFar))
-                        .deschematize(arguments);
+                ((MTFunction) myType.getCopyWithVariablesSubstituted(bindingsSoFar)).deschematize(arguments);
 
-        return new MathSymbolEntry(myType.getTypeGraph(), getName(),
-                myQuantification, getDefiningElement(), newType, newTypeValue,
-                null, myGenericsInDefiningContext, getSourceModuleIdentifier());
+        return new MathSymbolEntry(myType.getTypeGraph(), getName(), myQuantification, getDefiningElement(),
+                newType, newTypeValue, null, myGenericsInDefiningContext, getSourceModuleIdentifier());
     }
 
     private static List<MTType> expandAsNeeded(MTType t) {
@@ -264,8 +248,7 @@ public class MathSymbolEntry extends SymbolTableEntry {
     }
 
     private boolean containsSchematicType(MTType t) {
-        ContainsNamedTypeChecker checker =
-                new ContainsNamedTypeChecker(mySchematicTypes.keySet());
+        ContainsNamedTypeChecker checker = new ContainsNamedTypeChecker(mySchematicTypes.keySet());
 
         t.accept(checker);
 
@@ -290,9 +273,8 @@ public class MathSymbolEntry extends SymbolTableEntry {
 
     @Override
     public String toString() {
-        return getSourceModuleIdentifier() + "." + getName() + "\t\t"
-                + myQuantification + "\t\tOf type: " + myType
-                + "\t\t Defines type: " + myTypeValue;
+        return getSourceModuleIdentifier() + "." + getName() + "\t\t" + myQuantification + "\t\tOf type: "
+                + myType + "\t\t Defines type: " + myTypeValue;
     }
 
     @Override
@@ -306,14 +288,12 @@ public class MathSymbolEntry extends SymbolTableEntry {
     }
 
     @Override
-    public MathSymbolEntry instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public MathSymbolEntry instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
         //Any type that appears in our list of schematic types shadows any 
         //possible reference to a generic type
-        genericInstantiations =
-                new HashMap<String, PTType>(genericInstantiations);
+        genericInstantiations = new HashMap<String, PTType>(genericInstantiations);
         for (String schematicType : mySchematicTypes.keySet()) {
             genericInstantiations.remove(schematicType);
         }
@@ -328,21 +308,17 @@ public class MathSymbolEntry extends SymbolTableEntry {
         MTType instantiatedTypeValue = null;
         if (myTypeValue != null) {
             VariableReplacingVisitor typeValueSubstitutor =
-                    new VariableReplacingVisitor(
-                            genericMathematicalInstantiations);
+                    new VariableReplacingVisitor(genericMathematicalInstantiations);
             myTypeValue.accept(typeValueSubstitutor);
             instantiatedTypeValue = typeValueSubstitutor.getFinalExpression();
         }
 
         Map<String, MTType> newGenericsInDefiningContext =
                 new HashMap<String, MTType>(myGenericsInDefiningContext);
-        newGenericsInDefiningContext.keySet().removeAll(
-                genericInstantiations.keySet());
+        newGenericsInDefiningContext.keySet().removeAll(genericInstantiations.keySet());
 
-        return new MathSymbolEntry(myType.getTypeGraph(), getName(),
-                getQuantification(), getDefiningElement(), typeSubstitutor
-                        .getFinalExpression(), instantiatedTypeValue,
-                mySchematicTypes, newGenericsInDefiningContext,
-                getSourceModuleIdentifier());
+        return new MathSymbolEntry(myType.getTypeGraph(), getName(), getQuantification(),
+                getDefiningElement(), typeSubstitutor.getFinalExpression(), instantiatedTypeValue,
+                mySchematicTypes, newGenericsInDefiningContext, getSourceModuleIdentifier());
     }
 }

@@ -88,9 +88,8 @@ public class FacilityModuleDec extends ModuleDec {
 
     public FacilityModuleDec() {};
 
-    public FacilityModuleDec(PosSymbol name, List<UsesItem> usesItems,
-            Exp requirement, InitItem facilityInit, FinalItem facilityFinal,
-            List<Dec> decs) {
+    public FacilityModuleDec(PosSymbol name, List<UsesItem> usesItems, Exp requirement,
+            InitItem facilityInit, FinalItem facilityFinal, List<Dec> decs) {
         this.name = name;
         this.usesItems = usesItems;
         this.requirement = requirement;

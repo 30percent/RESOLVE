@@ -12,15 +12,13 @@ public class VisitorPrintStructure extends TreeWalkerStackVisitor {
         System.out.print(ConvertNodeToString(data, false));
 
         if (this.getParent() != null) {
-            System.out.append(" (Parent: "
-                    + ConvertNodeToString(this.getParent(), true) + ")");
+            System.out.append(" (Parent: " + ConvertNodeToString(this.getParent(), true) + ")");
         }
         System.out.println();
         ++indent;
     }
 
-    private String ConvertNodeToString(ResolveConceptualElement data,
-            boolean disableIndent) {
+    private String ConvertNodeToString(ResolveConceptualElement data, boolean disableIndent) {
         String nodeString = "";
 
         for (int i = 0; !disableIndent && i < indent; ++i) {
@@ -39,12 +37,10 @@ public class VisitorPrintStructure extends TreeWalkerStackVisitor {
                 nodeString += " (" + ((VarExp) data).getName().toString() + ")";
             }
             else if (data instanceof InfixExp) {
-                nodeString +=
-                        " (" + ((InfixExp) data).getOpName().toString() + ")";
+                nodeString += " (" + ((InfixExp) data).getOpName().toString() + ")";
             }
             else if (data instanceof OutfixExp) {
-                nodeString +=
-                        " (" + ((OutfixExp) data).getOperatorAsString() + ")";
+                nodeString += " (" + ((OutfixExp) data).getOperatorAsString() + ")";
             }
         }
 
@@ -57,8 +53,8 @@ public class VisitorPrintStructure extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midFacilityOperationDecStatements(FacilityOperationDec node,
-            Statement previous, Statement next) {
+    public void midFacilityOperationDecStatements(FacilityOperationDec node, Statement previous,
+            Statement next) {
         if (previous == null) {
             System.out.println("Next statement: " + next.toString(0));
         }
@@ -66,8 +62,8 @@ public class VisitorPrintStructure extends TreeWalkerStackVisitor {
             System.out.println("Previous statement: " + previous.toString(0));
         }
         else {
-            System.out.println("Previous statement: " + previous.toString(0)
-                    + "\nNext statement: " + next.toString(0));
+            System.out.println("Previous statement: " + previous.toString(0) + "\nNext statement: "
+                    + next.toString(0));
         }
     }
 }

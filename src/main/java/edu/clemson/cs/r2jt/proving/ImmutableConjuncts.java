@@ -70,15 +70,12 @@ public class ImmutableConjuncts implements Iterable<PExp> {
             //Performance hack: if exps is an ImmutableConjuncts, we can safely
             //just steal it's internal list of conjuncts--after all, that list
             //is immutable. 
-            ImmutableConjuncts expsAsImmutableConjuncts =
-                    (ImmutableConjuncts) exps;
+            ImmutableConjuncts expsAsImmutableConjuncts = (ImmutableConjuncts) exps;
 
             myConjuncts = expsAsImmutableConjuncts.myConjuncts;
             myCachedSymbolNames = expsAsImmutableConjuncts.myCachedSymbolNames;
-            myCachedQuantifiedVariables =
-                    expsAsImmutableConjuncts.myCachedQuantifiedVariables;
-            myCachedFunctionApplications =
-                    expsAsImmutableConjuncts.myCachedFunctionApplications;
+            myCachedQuantifiedVariables = expsAsImmutableConjuncts.myCachedQuantifiedVariables;
+            myCachedFunctionApplications = expsAsImmutableConjuncts.myCachedFunctionApplications;
         }
         else {
             List<PExp> newExps = new LinkedList<PExp>();
@@ -176,8 +173,7 @@ public class ImmutableConjuncts implements Iterable<PExp> {
                 runLength++;
             }
             else {
-                newConjuncts =
-                        appendConjuncts(newConjuncts, runStart, runLength);
+                newConjuncts = appendConjuncts(newConjuncts, runStart, runLength);
 
                 //Any new run will start AFTER this element.
                 runStart += runLength + 1;
@@ -190,8 +186,7 @@ public class ImmutableConjuncts implements Iterable<PExp> {
         return new ImmutableConjuncts(newConjuncts);
     }
 
-    private ImmutableList<PExp> appendConjuncts(ImmutableList<PExp> original,
-            int startIndex, int length) {
+    private ImmutableList<PExp> appendConjuncts(ImmutableList<PExp> original, int startIndex, int length) {
 
         ImmutableList<PExp> retval;
 
@@ -248,9 +243,7 @@ public class ImmutableConjuncts implements Iterable<PExp> {
         if (retval) {
             Iterable<?> conjuncts = (Iterable<?>) o;
 
-            retval =
-                    oneWayEquals(conjuncts, this)
-                            && oneWayEquals(this, conjuncts);
+            retval = oneWayEquals(conjuncts, this) && oneWayEquals(this, conjuncts);
         }
 
         return retval;
@@ -430,8 +423,7 @@ public class ImmutableConjuncts implements Iterable<PExp> {
         //       ImmutableConjuncts to a list of lists
 
         if (i instanceof ImmutableConjuncts) {
-            ImmutableList<PExp> iConjuncts =
-                    ((ImmutableConjuncts) i).myConjuncts;
+            ImmutableList<PExp> iConjuncts = ((ImmutableConjuncts) i).myConjuncts;
 
             if (iConjuncts.size() == 0) {
                 retval = this;
@@ -580,8 +572,7 @@ public class ImmutableConjuncts implements Iterable<PExp> {
 
             Iterator<PExp> conjunctsIter = myConjuncts.iterator();
             while (conjunctsIter.hasNext()) {
-                myCachedQuantifiedVariables.addAll(conjunctsIter.next()
-                        .getQuantifiedVariables());
+                myCachedQuantifiedVariables.addAll(conjunctsIter.next().getQuantifiedVariables());
             }
         }
 
@@ -594,8 +585,7 @@ public class ImmutableConjuncts implements Iterable<PExp> {
 
             Iterator<PExp> conjunctsIter = myConjuncts.iterator();
             while (conjunctsIter.hasNext()) {
-                myCachedFunctionApplications.addAll(conjunctsIter.next()
-                        .getFunctionApplications());
+                myCachedFunctionApplications.addAll(conjunctsIter.next().getFunctionApplications());
             }
         }
 
@@ -608,8 +598,7 @@ public class ImmutableConjuncts implements Iterable<PExp> {
 
             Iterator<PExp> conjunctsIter = myConjuncts.iterator();
             while (conjunctsIter.hasNext()) {
-                myCachedSymbolNames.addAll(conjunctsIter.next()
-                        .getSymbolNames());
+                myCachedSymbolNames.addAll(conjunctsIter.next().getSymbolNames());
             }
         }
 

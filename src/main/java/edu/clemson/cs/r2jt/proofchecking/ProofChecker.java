@@ -77,8 +77,7 @@ public class ProofChecker {
      * <p>Causes proof units to be mechanically checked.</p>
      */
     public static final Flag FLAG_PROOFCHECK =
-            new Flag("Proving", "proofcheck",
-                    "Check consistency of user-supplied proofs.");
+            new Flag("Proving", "proofcheck", "Check consistency of user-supplied proofs.");
 
     private static final boolean debugOn = false;
 
@@ -103,8 +102,7 @@ public class ProofChecker {
     // Constructors
     // ==========================================================
 
-    public ProofChecker(OldSymbolTable table, TypeMatcher tm,
-            CompileEnvironment instanceEnvironment) {
+    public ProofChecker(OldSymbolTable table, TypeMatcher tm, CompileEnvironment instanceEnvironment) {
         myInstanceEnvironment = instanceEnvironment;
         this.table = table;
         this.tm = tm;
@@ -253,11 +251,8 @@ public class ProofChecker {
             Exp ifPartTest = ((IfExp) ifPart).getTest();
             Exp ifPartThen = ((IfExp) ifPart).getThenclause();
             vars = new List<VariableExpBinding>();
-            if (equals(matchThen, ifPartThen, null, null, false, false, true,
-                    vars)
-                    && compareVarScopes(vars)) {
-                if (equals(matchTest, ifPartTest, null, null, false, false,
-                        true, vars)) {
+            if (equals(matchThen, ifPartThen, null, null, false, false, true, vars) && compareVarScopes(vars)) {
+                if (equals(matchTest, ifPartTest, null, null, false, false, true, vars)) {
                     if (compareVarScopes(vars)) {
                         checked = true;
                     }
@@ -271,11 +266,9 @@ public class ProofChecker {
                 Exp ifPartTest = ((IfExp) ifPart).getTest();
                 Exp ifPartThen = ((IfExp) ifPart).getThenclause();
                 vars = new List<VariableExpBinding>();
-                if (equals(matchThen, ifPartThen, null, null, false, false,
-                        true, vars)
+                if (equals(matchThen, ifPartThen, null, null, false, false, true, vars)
                         && compareVarScopes(vars)) {
-                    if (equals(matchTest, ifPartTest, null, null, false, false,
-                            true, vars)) {
+                    if (equals(matchTest, ifPartTest, null, null, false, false, true, vars)) {
                         if (compareVarScopes(vars)) {
                             checked = true;
                         }
@@ -374,24 +367,18 @@ public class ProofChecker {
                 Exp stepThen = ((IfExp) step).getThenclause();
                 List<VariableExpBinding> vars1 = new List<VariableExpBinding>();
                 List<VariableExpBinding> vars2 = new List<VariableExpBinding>();
-                if ((equals(stepThen, then1, null, null, false, false, false,
-                        vars1) && compareVarScopes(vars1))
-                        && (equals(stepThen, then2, null, null, false, false,
-                                false, vars2) && compareVarScopes(vars2))) {
+                if ((equals(stepThen, then1, null, null, false, false, false, vars1) && compareVarScopes(vars1))
+                        && (equals(stepThen, then2, null, null, false, false, false, vars2) && compareVarScopes(vars2))) {
                     if (isOr(stepTest)) {
                         Exp LHS = ((InfixExp) stepTest).getLeft();
                         Exp RHS = ((InfixExp) stepTest).getRight();
-                        if ((equals(LHS, test1, null, null, false, false,
-                                false, vars1) && compareVarScopes(vars1))
-                                && (equals(RHS, test2, null, null, false,
-                                        false, false, vars2) && compareVarScopes(vars2))) {
+                        if ((equals(LHS, test1, null, null, false, false, false, vars1) && compareVarScopes(vars1))
+                                && (equals(RHS, test2, null, null, false, false, false, vars2) && compareVarScopes(vars2))) {
                             return;
                         }
                         else {
-                            if ((equals(LHS, test2, null, null, false, false,
-                                    false, vars1) && compareVarScopes(vars1))
-                                    && (equals(RHS, test1, null, null, false,
-                                            false, false, vars2) && compareVarScopes(vars2))) {
+                            if ((equals(LHS, test2, null, null, false, false, false, vars1) && compareVarScopes(vars1))
+                                    && (equals(RHS, test1, null, null, false, false, false, vars2) && compareVarScopes(vars2))) {
                                 return;
                             }
                         }
@@ -417,8 +404,7 @@ public class ProofChecker {
         exp = (JustifiedExp) (applyQuantifiedExp(exp));
         previousLines.push(exp);
         List<VariableExpBinding> vars = new List<VariableExpBinding>();
-        if (!(equals(exps2.get(0), exp.getExp(), null, null, false, false,
-                false, vars) && compareVarScopes(vars))) {
+        if (!(equals(exps2.get(0), exp.getExp(), null, null, false, false, false, vars) && compareVarScopes(vars))) {
             String msg = couldNotApplyRuleMessage("Quantifier Distribution");
             err.error(exp.getExp().getLocation(), msg);
             return;
@@ -443,8 +429,7 @@ public class ProofChecker {
         if (matchUniqueFromOneReference(exp.getExp(), exps2.get(0))) {
             return;
         }
-        String msg =
-                couldNotApplyRuleMessage("Definition of There Exists Unique");
+        String msg = couldNotApplyRuleMessage("Definition of There Exists Unique");
         err.error(exp.getLocation(), msg);
     }
 
@@ -501,8 +486,7 @@ public class ProofChecker {
                     if (var == null) {
                         var = var2;
                     }
-                    else if (!equals(var, var2, null, null, true, false, false,
-                            null)) {
+                    else if (!equals(var, var2, null, null, true, false, false, null)) {
                         String msg;
                         if (quant == VarExp.NONE) {
                             msg =
@@ -529,8 +513,7 @@ public class ProofChecker {
         }
     }
 
-    private boolean matchUniqueReferences(Exp step, Exp ref1, Exp ref2,
-            VarExp var) {
+    private boolean matchUniqueReferences(Exp step, Exp ref1, Exp ref2, VarExp var) {
         if (matchVariables(step, ref1, VarExp.EXISTS, VarExp.UNIQUE) == null) {
             return false;
         }
@@ -543,11 +526,9 @@ public class ProofChecker {
                 return false;
             }
             Exp LHS = ((InfixExp) (ifE.getTest())).getLeft();
-            List<VariableExpBinding> LHSvars =
-                    matchVariables(step, LHS, VarExp.UNIQUE, VarExp.FORALL);
+            List<VariableExpBinding> LHSvars = matchVariables(step, LHS, VarExp.UNIQUE, VarExp.FORALL);
             Exp RHS = ((InfixExp) (ifE.getTest())).getRight();
-            List<VariableExpBinding> RHSvars =
-                    matchVariables(step, RHS, VarExp.UNIQUE, VarExp.FORALL);
+            List<VariableExpBinding> RHSvars = matchVariables(step, RHS, VarExp.UNIQUE, VarExp.FORALL);
             if (LHSvars == null) {
                 return false;
             }
@@ -569,9 +550,8 @@ public class ProofChecker {
             if (LHSmapping == null || RHSmapping == null) {
                 return false;
             }
-            if (!((equals(LHSmapping, var, null, null, false, false, false,
-                    null)) && (equals(RHSmapping, var, null, null, false,
-                    false, false, null)))) {
+            if (!((equals(LHSmapping, var, null, null, false, false, false, null)) && (equals(RHSmapping,
+                    var, null, null, false, false, false, null)))) {
                 return false;
             }
             return true;
@@ -583,16 +563,14 @@ public class ProofChecker {
         VariableExpBinding temp = null;
         while (varsIt.hasNext()) {
             temp = varsIt.next();
-            if (equals(temp.getVarExp(), e, null, null, false, false, false,
-                    null)) {
+            if (equals(temp.getVarExp(), e, null, null, false, false, false, null)) {
                 return temp.getExp();
             }
         }
         return null;
     }
 
-    private List<VariableExpBinding> matchVariables(Exp step, Exp ref,
-            int refQuant, int stepQuant) {
+    private List<VariableExpBinding> matchVariables(Exp step, Exp ref, int refQuant, int stepQuant) {
         List<VariableExpBinding> vars = new List<VariableExpBinding>();
         if (equals(step, ref, null, null, false, false, false, vars)) {
             if (compareVars(vars, refQuant, stepQuant)) {
@@ -607,8 +585,7 @@ public class ProofChecker {
         if (var == null) {
             return false;
         }
-        List<VariableExpBinding> vars =
-                matchVariables(e1, ref, VarExp.EXISTS, VarExp.UNIQUE);
+        List<VariableExpBinding> vars = matchVariables(e1, ref, VarExp.EXISTS, VarExp.UNIQUE);
         if (vars == null) {
             return false;
         }
@@ -620,11 +597,9 @@ public class ProofChecker {
             return false;
         }
         Exp LHS = ((InfixExp) (ifE.getTest())).getLeft();
-        List<VariableExpBinding> LHSvars =
-                matchVariables(LHS, ref, VarExp.UNIQUE, VarExp.FORALL);
+        List<VariableExpBinding> LHSvars = matchVariables(LHS, ref, VarExp.UNIQUE, VarExp.FORALL);
         Exp RHS = ((InfixExp) (ifE.getTest())).getRight();
-        List<VariableExpBinding> RHSvars =
-                matchVariables(RHS, ref, VarExp.UNIQUE, VarExp.FORALL);
+        List<VariableExpBinding> RHSvars = matchVariables(RHS, ref, VarExp.UNIQUE, VarExp.FORALL);
         if (LHSvars == null || RHSvars == null) {
             return false;
         }
@@ -642,15 +617,14 @@ public class ProofChecker {
         if (LHSmapping == null || RHSmapping == null) {
             return false;
         }
-        if (!((equals(LHSmapping, var, null, null, false, false, false, null)) && (equals(
-                RHSmapping, var, null, null, false, false, false, null)))) {
+        if (!((equals(LHSmapping, var, null, null, false, false, false, null)) && (equals(RHSmapping, var,
+                null, null, false, false, false, null)))) {
             return false;
         }
         return true;
     }
 
-    private boolean compareVars(List<VariableExpBinding> vars, int refQuant,
-            int stepQuant) {
+    private boolean compareVars(List<VariableExpBinding> vars, int refQuant, int stepQuant) {
         Iterator<VariableExpBinding> varsIt = vars.iterator();
         VariableExpBinding temp = null;
         while (varsIt.hasNext()) {
@@ -670,8 +644,7 @@ public class ProofChecker {
     // Universal Quantification and related verification methods
     // ==========================================================
 
-    private boolean matchSubExpressionWithUniversalQuantification(Exp exp,
-            Exp ref, boolean instantiation) {
+    private boolean matchSubExpressionWithUniversalQuantification(Exp exp, Exp ref, boolean instantiation) {
         List<VariableExpBinding> vars = new List<VariableExpBinding>();
         if (equals(exp, ref, null, null, false, false, true, vars)) {
             if (instantiation) {
@@ -689,8 +662,7 @@ public class ProofChecker {
         Exp subRef = null;
         while (subExpsIt.hasNext()) {
             subRef = subExpsIt.next();
-            if (matchSubExpressionWithUniversalQuantification(exp, subRef,
-                    instantiation))
+            if (matchSubExpressionWithUniversalQuantification(exp, subRef, instantiation))
                 return true;
         }
         return false;
@@ -723,8 +695,7 @@ public class ProofChecker {
             if (current.getExp() instanceof VarExp) {
                 ref = current.getVarExp();
                 step = (VarExp) (current.getExp());
-                if (ref.getQuantification() == 0
-                        && step.getQuantification() == VarExp.FORALL) {
+                if (ref.getQuantification() == 0 && step.getQuantification() == VarExp.FORALL) {
                     applied = true;
                 }
                 else if (ref.getQuantification() != step.getQuantification()) {
@@ -762,8 +733,7 @@ public class ProofChecker {
             if (current.getExp() instanceof VarExp) {
                 ref = current.getVarExp();
                 step = (VarExp) (current.getExp());
-                if (ref.getQuantification() == VarExp.FORALL
-                        && step.getQuantification() == 0) {
+                if (ref.getQuantification() == VarExp.FORALL && step.getQuantification() == 0) {
                     applied = true;
                 }
                 else if (ref.getQuantification() != 0) {
@@ -783,8 +753,7 @@ public class ProofChecker {
     // Existential Quantification and related verification methods
     // ==========================================================
 
-    private boolean matchSubExpressionWithExistentialQuantification(Exp exp,
-            Exp ref, boolean instantiation) {
+    private boolean matchSubExpressionWithExistentialQuantification(Exp exp, Exp ref, boolean instantiation) {
         List<VariableExpBinding> vars = new List<VariableExpBinding>();
         if (equals(exp, ref, null, null, false, false, true, vars)) {
             if (instantiation) {
@@ -802,8 +771,7 @@ public class ProofChecker {
         Exp subRef = null;
         while (subExpsIt.hasNext()) {
             subRef = subExpsIt.next();
-            if (matchSubExpressionWithExistentialQuantification(exp, subRef,
-                    instantiation))
+            if (matchSubExpressionWithExistentialQuantification(exp, subRef, instantiation))
                 return true;
         }
         return false;
@@ -836,8 +804,7 @@ public class ProofChecker {
             if (current.getExp() instanceof VarExp) {
                 ref = current.getVarExp();
                 step = (VarExp) (current.getExp());
-                if (ref.getQuantification() == 0
-                        && step.getQuantification() == VarExp.EXISTS) {
+                if (ref.getQuantification() == 0 && step.getQuantification() == VarExp.EXISTS) {
                     applied = true;
                 }
                 else if (ref.getQuantification() != step.getQuantification()) {
@@ -875,8 +842,7 @@ public class ProofChecker {
             if (current.getExp() instanceof VarExp) {
                 ref = current.getVarExp();
                 step = (VarExp) (current.getExp());
-                if (ref.getQuantification() == VarExp.EXISTS
-                        && step.getQuantification() == 0) {
+                if (ref.getQuantification() == VarExp.EXISTS && step.getQuantification() == 0) {
                     applied = true;
                 }
                 else if (ref.getQuantification() != 0) {
@@ -905,25 +871,21 @@ public class ProofChecker {
             List<Exp> LHSRHS = currentLine.getSubExpressions();
             List<VariableExpBinding> vars = new List<VariableExpBinding>();
             boolean matched =
-                    (equals(LHSRHS.get(0), exps2.get(0), null, null, false,
-                            false, true, vars) && compareVarScopes(vars));
+                    (equals(LHSRHS.get(0), exps2.get(0), null, null, false, false, true, vars) && compareVarScopes(vars));
             if (matched) {
-                if (!(equals(LHSRHS.get(1), exps2.get(1), null, null, false,
-                        false, true, vars) && compareVarScopes(vars))) {
+                if (!(equals(LHSRHS.get(1), exps2.get(1), null, null, false, false, true, vars) && compareVarScopes(vars))) {
                     System.out.println("Error 1");
                     andRuleError(exp.getLocation());
                 }
             }
             else {
                 vars = new List<VariableExpBinding>();
-                if (!(equals(LHSRHS.get(0), exps2.get(1), null, null, false,
-                        false, true, vars) && compareVarScopes(vars))) {
+                if (!(equals(LHSRHS.get(0), exps2.get(1), null, null, false, false, true, vars) && compareVarScopes(vars))) {
                     System.out.println("Error 2");
                     andRuleError(exp.getLocation());
                 }
                 vars = new List<VariableExpBinding>();
-                if (!(equals(LHSRHS.get(1), exps2.get(0), null, null, false,
-                        false, true, vars) && compareVarScopes(vars))) {
+                if (!(equals(LHSRHS.get(1), exps2.get(0), null, null, false, false, true, vars) && compareVarScopes(vars))) {
                     System.out.println("Error 3");
                     andRuleError(exp.getLocation());
                 }
@@ -954,14 +916,12 @@ public class ProofChecker {
                 // continue
             }
             else {
-                String msg =
-                        "Proof line must include False when using the contradiction rule.";
+                String msg = "Proof line must include False when using the contradiction rule.";
                 err.error(exp.getLocation(), msg);
             }
         }
         else {
-            String msg =
-                    "Proof line must include False when using the contradiction rule.";
+            String msg = "Proof line must include False when using the contradiction rule.";
             err.error(exp.getLocation(), msg);
         }
         // Confirm the contradiction
@@ -970,15 +930,13 @@ public class ProofChecker {
         if (isNot(e1)) {
             List<VariableExpBinding> vars = new List<VariableExpBinding>();
             Exp subE = ((PrefixExp) e1).getArgument();
-            if (equals(e2, subE, null, null, true, false, false, vars)
-                    && compareVarScopes(vars))
+            if (equals(e2, subE, null, null, true, false, false, vars) && compareVarScopes(vars))
                 return;
         }
         if (isNot(e2)) {
             List<VariableExpBinding> vars = new List<VariableExpBinding>();
             Exp subE = ((PrefixExp) e2).getArgument();
-            if (equals(e1, subE, null, null, true, false, false, vars)
-                    && compareVarScopes(vars))
+            if (equals(e1, subE, null, null, true, false, false, vars) && compareVarScopes(vars))
                 return;
         }
         if ((isTrue(e1) && isFalse(e2)) || (isTrue(e2) && isFalse(e1)))
@@ -1027,8 +985,7 @@ public class ProofChecker {
 
     // This method appears to proofcheck an equality step. -HwS
     // XXX : In the process of refactoring this.  -HwS
-    private void checkHypDesigsAndEquality(
-            JustifiedExp justifiedEqualityExpression) {
+    private void checkHypDesigsAndEquality(JustifiedExp justifiedEqualityExpression) {
         debug("checkHypDesigsAndEquality...");
 
         debug("   " + justifiedEqualityExpression.asString(3, 5));
@@ -1037,15 +994,12 @@ public class ProofChecker {
         previousLines.push(justifiedEqualityExpression);
 
         //Get a handle on any referenced expressions
-        List<Exp> referencedExpressions =
-                getHypothesesExpressions(justifiedEqualityExpression, 1);
+        List<Exp> referencedExpressions = getHypothesesExpressions(justifiedEqualityExpression, 1);
         if (referencedExpressions == null)
             return;
 
-        Exp expressionWithoutJustification =
-                applyQuantifiedExp(justifiedEqualityExpression.getExp());
-        Exp substitutionExpression =
-                applyQuantifiedExp(referencedExpressions.get(0));
+        Exp expressionWithoutJustification = applyQuantifiedExp(justifiedEqualityExpression.getExp());
+        Exp substitutionExpression = applyQuantifiedExp(referencedExpressions.get(0));
 
         //Exp expressionWithoutJustification = expressionWithoutJustification; //applyQuantifiedExp(expressionWithoutJustification);
         //Exp substitutionExpression = substitutionExpression; //applyQuantifiedExp(substitutionExpression);
@@ -1055,56 +1009,43 @@ public class ProofChecker {
 
             debug("One of expressionWithoutJustification or substitutionExpression not an EqualsExp.");
 
-            expressionWithoutJustification =
-                    applyQuantifiedExp(unwrapSetExp(expressionWithoutJustification));
-            substitutionExpression =
-                    applyQuantifiedExp(unwrapSetExp(substitutionExpression));
+            expressionWithoutJustification = applyQuantifiedExp(unwrapSetExp(expressionWithoutJustification));
+            substitutionExpression = applyQuantifiedExp(unwrapSetExp(substitutionExpression));
 
-            if (!(matchExpressions(expressionWithoutJustification, null,
-                    substitutionExpression, null))) {
+            if (!(matchExpressions(expressionWithoutJustification, null, substitutionExpression, null))) {
 
                 debug("Did not match after unwrapSetExp and applyQuantifiedExp.");
 
                 // try doing a simple substitution
                 if (isIn(expressionWithoutJustification)) {
-                    checkFunctionExpression(expressionWithoutJustification,
-                            substitutionExpression);
+                    checkFunctionExpression(expressionWithoutJustification, substitutionExpression);
                 }
                 else if (expressionWithoutJustification instanceof EqualsExp) {
-                    substitute((EqualsExp) expressionWithoutJustification,
-                            justifiedEqualityExpression.getJustification()
-                                    .getHypDesig1().getMathExp().getId(),
-                            substitutionExpression);
+                    substitute((EqualsExp) expressionWithoutJustification, justifiedEqualityExpression
+                            .getJustification().getHypDesig1().getMathExp().getId(), substitutionExpression);
                 }
                 else {
-                    String msg =
-                            "This type of justified statement is not yet supported.";
-                    err
-                            .error(
-                                    expressionWithoutJustification
-                                            .getLocation(), msg);
+                    String msg = "This type of justified statement is not yet supported.";
+                    err.error(expressionWithoutJustification.getLocation(), msg);
                 }
             }
             return;
         }
 
-        Exp expressionLeft =
-                ((EqualsExp) expressionWithoutJustification).getLeft();
-        Exp expressionRight =
-                ((EqualsExp) expressionWithoutJustification).getRight();
+        Exp expressionLeft = ((EqualsExp) expressionWithoutJustification).getLeft();
+        Exp expressionRight = ((EqualsExp) expressionWithoutJustification).getRight();
         Exp substitutionLeft = ((EqualsExp) substitutionExpression).getLeft();
         Exp substitutionRight = ((EqualsExp) substitutionExpression).getRight();
 
         boolean checked =
-                traverseTree(expressionLeft, expressionLeft, expressionRight,
-                        expressionRight, substitutionLeft, substitutionRight);
+                traverseTree(expressionLeft, expressionLeft, expressionRight, expressionRight,
+                        substitutionLeft, substitutionRight);
         if (!checked) {
 
             debug("Not checked.");
 
             checked =
-                    traverseTree(expressionLeft, expressionLeft,
-                            expressionRight, expressionRight,
+                    traverseTree(expressionLeft, expressionLeft, expressionRight, expressionRight,
                             substitutionRight, substitutionLeft);
             if (!checked) {
 
@@ -1114,10 +1055,8 @@ public class ProofChecker {
 
                     debug("expressionWithoutJustification an EqualsExp.");
 
-                    substitute((EqualsExp) expressionWithoutJustification,
-                            justifiedEqualityExpression.getJustification()
-                                    .getHypDesig1().getMathExp().getId(),
-                            substitutionExpression);
+                    substitute((EqualsExp) expressionWithoutJustification, justifiedEqualityExpression
+                            .getJustification().getHypDesig1().getMathExp().getId(), substitutionExpression);
                 }
                 else {
 
@@ -1140,8 +1079,7 @@ public class ProofChecker {
             return;
         exp = (JustifiedExp) (applyQuantifiedExp(exp));
         previousLines.push(exp);
-        System.out
-                .println("The Equality (Def) rule has not yet been implemented.");
+        System.out.println("The Equality (Def) rule has not yet been implemented.");
     }
 
     // ==========================================================
@@ -1163,13 +1101,12 @@ public class ProofChecker {
 
             List<VariableExpBinding> vars = new List<VariableExpBinding>();
             matched =
-                    (equals(LHSRHS.get(0), applyQuantifiedExp(exps2.get(0)),
-                            null, null, false, false, true, vars) && compareVarScopes(vars));
+                    (equals(LHSRHS.get(0), applyQuantifiedExp(exps2.get(0)), null, null, false, false, true,
+                            vars) && compareVarScopes(vars));
             if (!matched) {
                 matched =
-                        (equals(LHSRHS.get(1),
-                                applyQuantifiedExp(exps2.get(0)), null, null,
-                                false, false, true, vars) && compareVarScopes(vars));
+                        (equals(LHSRHS.get(1), applyQuantifiedExp(exps2.get(0)), null, null, false, false,
+                                true, vars) && compareVarScopes(vars));
             }
         }
         if (!matched) {
@@ -1201,14 +1138,14 @@ public class ProofChecker {
         if (e2 instanceof InfixExp) {
             if (isAnd(e2)) {
                 List<VariableExpBinding> vars = new List<VariableExpBinding>();
-                if (equals(e1, applyQuantifiedExp(((InfixExp) e2).getLeft()),
-                        null, null, false, false, false, vars)
+                if (equals(e1, applyQuantifiedExp(((InfixExp) e2).getLeft()), null, null, false, false,
+                        false, vars)
                         && compareVarScopes(vars)) {
                     return true;
                 }
                 vars = new List<VariableExpBinding>();
-                if (equals(e1, applyQuantifiedExp(((InfixExp) e2).getRight()),
-                        null, null, false, false, false, vars)
+                if (equals(e1, applyQuantifiedExp(((InfixExp) e2).getRight()), null, null, false, false,
+                        false, vars)
                         && compareVarScopes(vars)) {
                     return true;
                 }
@@ -1237,15 +1174,13 @@ public class ProofChecker {
             if (isNot(LHS)) {
                 List<VariableExpBinding> vars = new List<VariableExpBinding>();
                 Exp subE = ((PrefixExp) LHS).getArgument();
-                if (equals(RHS, subE, null, null, true, false, false, vars)
-                        && compareVarScopes(vars))
+                if (equals(RHS, subE, null, null, true, false, false, vars) && compareVarScopes(vars))
                     return;
             }
             else if (isNot(RHS)) {
                 List<VariableExpBinding> vars = new List<VariableExpBinding>();
                 Exp subE = ((PrefixExp) RHS).getArgument();
-                if (equals(LHS, subE, null, null, true, false, false, vars)
-                        && compareVarScopes(vars))
+                if (equals(LHS, subE, null, null, true, false, false, vars) && compareVarScopes(vars))
                     return;
             }
             if ((isTrue(LHS) && isFalse(RHS)) || (isTrue(RHS) && isFalse(LHS)))
@@ -1275,8 +1210,7 @@ public class ProofChecker {
                 return dec.getDefinition();
             }
             else {
-                String msg =
-                        "Must reference a single case of an inductive proof.";
+                String msg = "Must reference a single case of an inductive proof.";
                 err.error(loc, msg);
                 return null;
             }
@@ -1482,9 +1416,7 @@ public class ProofChecker {
             return e;
         }
         else {
-            System.out
-                    .println("NOTE: In unwrapQuantExp(), encountered an exp of class "
-                            + e.getClass());
+            System.out.println("NOTE: In unwrapQuantExp(), encountered an exp of class " + e.getClass());
             return e;
         }
     }
@@ -1515,16 +1447,13 @@ public class ProofChecker {
      * @param targetExpression The expression in which to look.
      * @return The marked expression.
      */
-    private Exp markVars(int operator, MathVarDec quantifiedVariable,
-            Exp targetExpression) {
+    private Exp markVars(int operator, MathVarDec quantifiedVariable, Exp targetExpression) {
 
         TypeConverter converter = new TypeConverter(table);
         String quantifiedVariableName = quantifiedVariable.getName().getName();
-        Type quantifiedVariableType =
-                converter.getMathType(quantifiedVariable.getTy());
+        Type quantifiedVariableType = converter.getMathType(quantifiedVariable.getTy());
 
-        return markVars(operator, targetExpression, quantifiedVariableName,
-                quantifiedVariableType);
+        return markVars(operator, targetExpression, quantifiedVariableName, quantifiedVariableType);
 
     }
 
@@ -1538,8 +1467,8 @@ public class ProofChecker {
      * @param quantifiedVariableType The Type of the quantifiedVariable above.
      * @return The marked expression.
      */
-    private Exp markVars(int operator, Exp targetExpression,
-            String quantifiedVariableName, Type quantifiedVariableType) {
+    private Exp markVars(int operator, Exp targetExpression, String quantifiedVariableName,
+            Type quantifiedVariableType) {
 
         if (targetExpression instanceof VarExp) {
             VarExp targetAsVarExp = (VarExp) targetExpression;
@@ -1556,8 +1485,8 @@ public class ProofChecker {
         else {
             List<Exp> subExpList = targetExpression.getSubExpressions();
             for (int index = 0; index < subExpList.size(); index++) {
-                subExpList.set(index, markVars(operator, subExpList.get(index),
-                        quantifiedVariableName, quantifiedVariableType));
+                subExpList.set(index, markVars(operator, subExpList.get(index), quantifiedVariableName,
+                        quantifiedVariableType));
             }
         }
         return targetExpression;
@@ -1627,13 +1556,12 @@ public class ProofChecker {
      * @throws ReferenceNotFoundException If a named hypothesis cannot be
      *                                    found.
      */
-    private List<Exp> innerGetHypothesesExpressions(JustifiedExp justifiedExp,
-            int expectedHypothesesCount) throws ReferenceNotFoundException {
+    private List<Exp> innerGetHypothesesExpressions(JustifiedExp justifiedExp, int expectedHypothesesCount)
+            throws ReferenceNotFoundException {
         List<Exp> retval = null;
 
         //Get any MathRefs contained in the justification
-        List<MathRefExp> list =
-                extractMathRefs(justifiedExp.getJustification());
+        List<MathRefExp> list = extractMathRefs(justifiedExp.getJustification());
 
         //We have references, but we need the things those references refer to.
         //Find any that are in the symbol table...
@@ -1730,8 +1658,7 @@ public class ProofChecker {
 
     private Exp convertTyToExp(Location loc, Ty ty) {
         if (!(ty instanceof NameTy)) {
-            System.out.println("Conversion from " + ty.getClass()
-                    + " to Exp not yet supported.");
+            System.out.println("Conversion from " + ty.getClass() + " to Exp not yet supported.");
             return null;
         }
         else {
@@ -1741,9 +1668,7 @@ public class ProofChecker {
             List<Type> types = new List<Type>();
             types.add(tc.getMathType(nty));
             PosSymbol set = new PosSymbol(loc, Symbol.symbol("Set"));
-            ConstructedType ct =
-                    new ConstructedType(null, set, types, table
-                            .getCurrentBinding());
+            ConstructedType ct = new ConstructedType(null, set, types, table.getCurrentBinding());
             ve.setType(ct);
             return ve;
         }
@@ -1778,12 +1703,10 @@ public class ProofChecker {
         }
     }
 
-    private Exp buildMembershipExpSub(Location loc, List<MathVarDec> members,
-            int i) {
+    private Exp buildMembershipExpSub(Location loc, List<MathVarDec> members, int i) {
         if (i == members.size() - 1)
             return buildIsIn(loc, members.get(i));
-        return buildAnd(loc, buildIsIn(loc, members.get(i)),
-                buildMembershipExpSub(loc, members, i + 1));
+        return buildAnd(loc, buildIsIn(loc, members.get(i)), buildMembershipExpSub(loc, members, i + 1));
     }
 
     private Exp getSelfReference(Exp exp) {
@@ -1844,8 +1767,7 @@ public class ProofChecker {
      *                 
      * @return The corresponding <code>Exp</code>s from previousLines.
      */
-    private List<Exp> getExpRefs(List<MathRefExp> mathRefs)
-            throws ReferenceNotFoundException {
+    private List<Exp> getExpRefs(List<MathRefExp> mathRefs) throws ReferenceNotFoundException {
 
         List<Exp> exps = new List<Exp>();
 
@@ -1885,8 +1807,7 @@ public class ProofChecker {
 
             //Evil evil hack. See TO DO note at top of Analyzer.java. May the 
             //gods forgive me. -HwS
-            if (eAsDefinitionEntry.getIndex() != null
-                    && eAsDefinitionEntry.getIndex().equals("i")) {
+            if (eAsDefinitionEntry.getIndex() != null && eAsDefinitionEntry.getIndex().equals("i")) {
                 retval = eAsDefinitionEntry.getBaseDefinition();
             }
             else {
@@ -1921,12 +1842,9 @@ public class ProofChecker {
         //debug ("findHypothesisIfEntry: " + exp.getId());
         int kind = exp.getKind();
         if (kind == MathRefExp.DEFINITION) {
-            DefinitionLocator locator =
-                    new DefinitionLocator(table, true, tm, err);
+            DefinitionLocator locator = new DefinitionLocator(table, true, tm, err);
             try {
-                DefinitionEntry de =
-                        locator.locateDefinition(exp.getSourceModule(), exp
-                                .getId());
+                DefinitionEntry de = locator.locateDefinition(exp.getSourceModule(), exp.getId());
 
                 //Evil evil hack. See TO DO note at top of Analyzer.java. May 
                 //the gods forgive me. -HwS
@@ -1934,8 +1852,7 @@ public class ProofChecker {
                     de.setIndex(exp.getIndex());
 
                     if (de.getBaseDefinition() == null) {
-                        err.error(de.getLocation(),
-                                "Not an inductive definition.");
+                        err.error(de.getLocation(), "Not an inductive definition.");
                     }
                 }
 
@@ -1954,9 +1871,7 @@ public class ProofChecker {
                 }
                 else {
                     // System.out.println("error location 2");
-                    String msg =
-                            locator.cantFindTheoremMessage(exp.getId()
-                                    .getName());
+                    String msg = locator.cantFindTheoremMessage(exp.getId().getName());
                     err.error(exp.getLocation(), msg);
                     return null;
                 }
@@ -2020,8 +1935,7 @@ public class ProofChecker {
             wrkHypothesis = justification.getHypDesig2();
             if (wrkHypothesis != null) {
                 wrkMathReference = wrkHypothesis.getMathExp();
-                if (wrkMathReference != null
-                        && !isSelfReference(wrkMathReference)) {
+                if (wrkMathReference != null && !isSelfReference(wrkMathReference)) {
 
                     referencedMathRefExps.add(wrkMathReference);
                 }
@@ -2206,8 +2120,7 @@ public class ProofChecker {
 
     private boolean findInSupposition(Exp e, Exp seContents) {
         List<VariableExpBinding> vars = new List<VariableExpBinding>();
-        if (equals(e, seContents, null, null, false, false, true, vars)
-                && compareVarScopes(vars)) {
+        if (equals(e, seContents, null, null, false, false, true, vars) && compareVarScopes(vars)) {
             return true;
         }
         else {
@@ -2232,8 +2145,7 @@ public class ProofChecker {
             if (!(tempLine instanceof GoalExp)) {
                 tlContents = unwrapExp(e.getLocation(), tempLine);
                 vars = new List<VariableExpBinding>();
-                if (equals(e, tlContents, null, null, false, false, true, vars)
-                        && compareVarScopes(vars)) {
+                if (equals(e, tlContents, null, null, false, false, true, vars) && compareVarScopes(vars)) {
                     found = true;
                 }
             }
@@ -2260,11 +2172,9 @@ public class ProofChecker {
                 break;
             }
             else if (!(currentStep instanceof DeductionExp)) {
-                currentStepUnwrapped =
-                        unwrapExp(currentStep.getLocation(), currentStep);
+                currentStepUnwrapped = unwrapExp(currentStep.getLocation(), currentStep);
                 List<VariableExpBinding> vars = new List<VariableExpBinding>();
-                if (equals(e, currentStepUnwrapped, null, null, false, false,
-                        true, vars)
+                if (equals(e, currentStepUnwrapped, null, null, false, false, true, vars)
                         && compareVarScopes(vars)) {
                     found = true;
                 }
@@ -2294,8 +2204,7 @@ public class ProofChecker {
                         LHS = ((EqualsExp) tlContents).getLeft();
                         RHS = ((EqualsExp) tlContents).getRight();
                         vars = new List<VariableExpBinding>();
-                        if (equals(LHS, e, null, null, false, false, true, vars)
-                                && compareVarScopes(vars)) {
+                        if (equals(LHS, e, null, null, false, false, true, vars) && compareVarScopes(vars)) {
                             if (RHS.getMarker() != previousLines.size()) {
                                 list.add(RHS);
                                 RHS.setMarker(previousLines.size());
@@ -2303,8 +2212,7 @@ public class ProofChecker {
                         }
                         else {
                             vars = new List<VariableExpBinding>();
-                            if (equals(RHS, e, null, null, false, false, true,
-                                    vars)
+                            if (equals(RHS, e, null, null, false, false, true, vars)
                                     && compareVarScopes(vars)) {
                                 if (LHS.getMarker() != previousLines.size()) {
                                     list.add(LHS);
@@ -2355,12 +2263,11 @@ public class ProofChecker {
         // match then part
         if (thenPart_de instanceof EqualsExp) {
             boolean matched =
-                    traceDeduction(((EqualsExp) thenPart_de).getRight(),
-                            ((EqualsExp) thenPart_de).getLeft());
+                    traceDeduction(((EqualsExp) thenPart_de).getRight(), ((EqualsExp) thenPart_de).getLeft());
             if (!matched) {
                 matched =
-                        traceDeduction(((EqualsExp) thenPart_de).getLeft(),
-                                ((EqualsExp) thenPart_de).getRight());
+                        traceDeduction(((EqualsExp) thenPart_de).getLeft(), ((EqualsExp) thenPart_de)
+                                .getRight());
             }
             if (((EqualsExp) thenPart_de).getOperator() == EqualsExp.EQUAL) {
                 if (!matched) {
@@ -2385,8 +2292,7 @@ public class ProofChecker {
 
     private boolean traceDeduction(Exp e1, Exp e2) {
         List<VariableExpBinding> vars = new List<VariableExpBinding>();
-        if (equals(e2, e1, null, null, false, false, true, vars)
-                && compareVarScopes(vars)) {
+        if (equals(e2, e1, null, null, false, false, true, vars) && compareVarScopes(vars)) {
             return true;
         }
         List<Exp> list = substituteWithinSupposition(e2);
@@ -2420,8 +2326,7 @@ public class ProofChecker {
      * <code>Boolean_Theory</code>.
      */
     private boolean isAnd(Exp e) {
-        return (isInfixBooleanOperation(e) && infixOperationNamed((InfixExp) e,
-                "and"));
+        return (isInfixBooleanOperation(e) && infixOperationNamed((InfixExp) e, "and"));
     }
 
     /**
@@ -2436,8 +2341,7 @@ public class ProofChecker {
      * <code>Boolean_Theory</code>.
      */
     private boolean isOr(Exp e) {
-        return (isInfixBooleanOperation(e) && infixOperationNamed((InfixExp) e,
-                "or"));
+        return (isInfixBooleanOperation(e) && infixOperationNamed((InfixExp) e, "or"));
     }
 
     /**
@@ -2484,8 +2388,7 @@ public class ProofChecker {
             String s1 = "not";
             String s2 = "Not";
             String s3 = "NOT";
-            if (((PrefixExp) e).getSymbol().equals(s1)
-                    || ((PrefixExp) e).getSymbol().equals(s2)
+            if (((PrefixExp) e).getSymbol().equals(s1) || ((PrefixExp) e).getSymbol().equals(s2)
                     || ((PrefixExp) e).getSymbol().equals(s3)) {
                 if (e.getMathType().isBoolean()) {
                     return true;
@@ -2547,8 +2450,7 @@ public class ProofChecker {
         return !(checkIfPart(e1, seContents));
     }
 
-    private boolean checkSetMembership(Exp e, PosSymbol local, Ty localType,
-            Exp body, Exp set) {
+    private boolean checkSetMembership(Exp e, PosSymbol local, Ty localType, Exp body, Exp set) {
         VarExp var = new VarExp(local.getLocation(), null, local);
         TypeConverter tc = new TypeConverter(table);
         var.setType(tc.getMathType(localType));
@@ -2574,8 +2476,9 @@ public class ProofChecker {
             TypeLocator tl = new TypeLocator(ps, myInstanceEnvironment);
             try {
                 TypeEntry t2e =
-                        tl.locateMathType(new TypeID(((VarExp) e2)
-                                .getQualifier(), ((VarExp) e2).getName(), 0));
+                        tl
+                                .locateMathType(new TypeID(((VarExp) e2).getQualifier(), ((VarExp) e2)
+                                        .getName(), 0));
                 Type t2 = t2e.getType();
                 if (tm.mathMatches(t1, t2)) {
                     if (t2e.hasObligation()) {
@@ -2583,11 +2486,9 @@ public class ProofChecker {
                         TypeConverter tc = new TypeConverter(table);
                         TypeEntry t1e = tl.locateMathType(tc.buildTypeID(t1));
                         if (t1e.hasObligation()) {
-                            List<VariableExpBinding> vars =
-                                    new List<VariableExpBinding>();
-                            if (equals(t1e.getObligation(),
-                                    t2e.getObligation(), null, null, false,
-                                    false, false, vars)
+                            List<VariableExpBinding> vars = new List<VariableExpBinding>();
+                            if (equals(t1e.getObligation(), t2e.getObligation(), null, null, false, false,
+                                    false, vars)
                                     && compareVarScopes(vars)) {
                                 return true;
                             }
@@ -2597,9 +2498,8 @@ public class ProofChecker {
                             err.error(e.getLocation(), msg);
                             return false;
                         }
-                        return checkSetMembership(e1, t2e.getLocal().getName(),
-                                t2e.getLocal().getTy(), applyQuantifiedExp(t2e
-                                        .getObligation()), seContents);
+                        return checkSetMembership(e1, t2e.getLocal().getName(), t2e.getLocal().getTy(),
+                                applyQuantifiedExp(t2e.getObligation()), seContents);
                     }
                     return true;
                 }
@@ -2621,9 +2521,8 @@ public class ProofChecker {
                 err.error(e.getLocation(), msg);
                 return false;
             }
-            return checkSetMembership(e1, ((SetExp) e2).getVar().getName(),
-                    ((SetExp) e2).getVar().getTy(), ((SetExp) e2).getBody(),
-                    seContents);
+            return checkSetMembership(e1, ((SetExp) e2).getVar().getName(), ((SetExp) e2).getVar().getTy(),
+                    ((SetExp) e2).getBody(), seContents);
         }
         else {
             String msg = "Cannot resolve the element as a member of the set.";
@@ -2638,12 +2537,10 @@ public class ProofChecker {
             return checkIsIn(e, seContents);
         }
         if (isAnd(e)) {
-            return checkAnd(((InfixExp) e).getLeft(),
-                    ((InfixExp) e).getRight(), seContents);
+            return checkAnd(((InfixExp) e).getLeft(), ((InfixExp) e).getRight(), seContents);
         }
         if (isOr(e)) {
-            return checkOr(((InfixExp) e).getLeft(), ((InfixExp) e).getRight(),
-                    seContents);
+            return checkOr(((InfixExp) e).getLeft(), ((InfixExp) e).getRight(), seContents);
         }
         if (isNot(e)) {
             return checkNot(((PrefixExp) e).getArgument(), seContents);
@@ -2659,8 +2556,7 @@ public class ProofChecker {
     // ==========================================================
 
     // XXX - This method is in the process of being refactored. -HwS
-    private boolean traverseTree(Exp root, Exp e1, Exp root2, Exp e2, Exp se1,
-            Exp se2) {
+    private boolean traverseTree(Exp root, Exp e1, Exp root2, Exp e2, Exp se1, Exp se2) {
 
         debug("################ TRAVERSE TREE #####################");
         debug(" root = " + root.asString(8, 8));
@@ -2702,8 +2598,7 @@ public class ProofChecker {
         //		printVars(vars);
         // XXX - If e2 could potentially be null here, then e2.getClass() is a
         //       potential NullPointerException.
-        if (e2 == null
-                || !(e1.getClass().getName().equals(e2.getClass().getName()))) {
+        if (e2 == null || !(e1.getClass().getName().equals(e2.getClass().getName()))) {
             debug("Something crazily un-understandable.");
             return false;
         }
@@ -2724,8 +2619,7 @@ public class ProofChecker {
 
         debug("Shallow compare succeeded.");
 
-        if (!findNextInList(root, e1.getSubExpressions(), root2, e2
-                .getSubExpressions(), se1, se2)) {
+        if (!findNextInList(root, e1.getSubExpressions(), root2, e2.getSubExpressions(), se1, se2)) {
 
             debug("Could not findNextInList.");
 
@@ -2738,8 +2632,7 @@ public class ProofChecker {
     }
 
     // XXX - This method is in the process of being refactored.  -HwS
-    private boolean findNextInList(Exp root, List<Exp> list, Exp root2,
-            List<Exp> list2, Exp se1, Exp se2) {
+    private boolean findNextInList(Exp root, List<Exp> list, Exp root2, List<Exp> list2, Exp se1, Exp se2) {
         boolean found = false;
         if (list.size() != list2.size()) {
             // System.out.println("error location 6");
@@ -2763,15 +2656,13 @@ public class ProofChecker {
     }
 
     // XXX - This method is in the process of being refactored
-    private boolean findMatchingExpInList(Exp e, List<Exp> list, Exp se1,
-            Exp se2, boolean varStrict, boolean compareRHS,
-            boolean matchTypesOnly, List<VariableExpBinding> vars) {
+    private boolean findMatchingExpInList(Exp e, List<Exp> list, Exp se1, Exp se2, boolean varStrict,
+            boolean compareRHS, boolean matchTypesOnly, List<VariableExpBinding> vars) {
         Iterator<Exp> it = list.iterator();
         Exp current = null;
         while (it.hasNext()) {
             current = it.next();
-            if (equals(e, current, se1, se2, varStrict, compareRHS,
-                    matchTypesOnly, vars)) {
+            if (equals(e, current, se1, se2, varStrict, compareRHS, matchTypesOnly, vars)) {
                 return true;
             }
         }
@@ -2779,9 +2670,8 @@ public class ProofChecker {
     }
 
     // XXX - This method is in the process of being refactored
-    private boolean matchAndOr(InfixExp and1, InfixExp and2, Exp se1, Exp se2,
-            boolean varStrict, boolean compareRHS, boolean matchTypesOnly,
-            List<VariableExpBinding> vars) {
+    private boolean matchAndOr(InfixExp and1, InfixExp and2, Exp se1, Exp se2, boolean varStrict,
+            boolean compareRHS, boolean matchTypesOnly, List<VariableExpBinding> vars) {
 
         List<Exp> sub1 = and1.getSubExpressions();
         List<Exp> sub2 = and2.getSubExpressions();
@@ -2791,8 +2681,8 @@ public class ProofChecker {
         Iterator<Exp> it = sub1.iterator();
         while (it.hasNext() && !match) {
             match =
-                    findMatchingExpInList(it.next(), sub2, se1, se2, varStrict,
-                            compareRHS, matchTypesOnly, vars);
+                    findMatchingExpInList(it.next(), sub2, se1, se2, varStrict, compareRHS, matchTypesOnly,
+                            vars);
         }
 
         return match;
@@ -2817,13 +2707,12 @@ public class ProofChecker {
      * and "b" are both allowed to map to "m")
      */
     // XXX : This method is in the process of being refactored.  -HwS
-    public boolean equals(Exp e1, Exp e2, Exp RHS, Exp se2, boolean varStrict,
-            boolean compareRHS, boolean matchTypesOnly,
-            List<VariableExpBinding> vars) {
+    public boolean equals(Exp e1, Exp e2, Exp RHS, Exp se2, boolean varStrict, boolean compareRHS,
+            boolean matchTypesOnly, List<VariableExpBinding> vars) {
 
         if ((isAnd(e1) && isAnd(e2)) || (isOr(e1) && isOr(e2))) {
-            return matchAndOr((InfixExp) e1, (InfixExp) e2, RHS, se2,
-                    varStrict, compareRHS, matchTypesOnly, vars);
+            return matchAndOr((InfixExp) e1, (InfixExp) e2, RHS, se2, varStrict, compareRHS, matchTypesOnly,
+                    vars);
         }
 
         if (!(e2 instanceof VarExp)) {
@@ -2838,8 +2727,7 @@ public class ProofChecker {
             Iterator<Exp> i1 = l1.iterator();
             Iterator<Exp> i2 = l2.iterator();
             while (i1.hasNext()) {
-                if (!(equals(i1.next(), i2.next(), RHS, se2, varStrict,
-                        compareRHS, matchTypesOnly, vars))) {
+                if (!(equals(i1.next(), i2.next(), RHS, se2, varStrict, compareRHS, matchTypesOnly, vars))) {
                     return false;
                 }
             }
@@ -2850,30 +2738,23 @@ public class ProofChecker {
                 return addVarToBinding((VarExp) e2, e1, vars);
             }
             if (compareRHS) {
-                return compareRHS(RHS, e1, se2, e2, varStrict, compareRHS,
-                        matchTypesOnly, vars);
+                return compareRHS(RHS, e1, se2, e2, varStrict, compareRHS, matchTypesOnly, vars);
             }
             else {
-                return compareVarExps(e1, (VarExp) e2, RHS, se2, varStrict,
-                        compareRHS, matchTypesOnly, vars);
+                return compareVarExps(e1, (VarExp) e2, RHS, se2, varStrict, compareRHS, matchTypesOnly, vars);
             }
         }
     }
 
-    private boolean compareRHS(Exp LHS, Exp RHS, Exp se1, Exp se2,
-            boolean varStrict, boolean compareRHS, boolean matchTypesOnly,
-            List<VariableExpBinding> vars) {
+    private boolean compareRHS(Exp LHS, Exp RHS, Exp se1, Exp se2, boolean varStrict, boolean compareRHS,
+            boolean matchTypesOnly, List<VariableExpBinding> vars) {
         if (se2 instanceof VarExp) {
             if (((VarExp) se2).getIsLocal()) {
-                Exp subSE2 =
-                        findVariableInSE(LHS, se1, ((VarExp) se2).getName(),
-                                true);
+                Exp subSE2 = findVariableInSE(LHS, se1, ((VarExp) se2).getName(), true);
                 if (subSE2 == null) {
                     if (vars == null) {
                         // System.out.println("error location 5");
-                        String msg =
-                                equivalentExpNotFound(((VarExp) se2).getName()
-                                        .getName());
+                        String msg = equivalentExpNotFound(((VarExp) se2).getName().getName());
                         err.error(se2.getLocation(), msg);
                         return false;
                     }
@@ -2892,8 +2773,7 @@ public class ProofChecker {
         return false;
     }
 
-    private Exp findVariableInSE(Exp LHS, Exp se1, PosSymbol name,
-            boolean foundMarked) {
+    private Exp findVariableInSE(Exp LHS, Exp se1, PosSymbol name, boolean foundMarked) {
         if (se1 == null)
             return null;
         if (se1 instanceof VarExp) {
@@ -2901,12 +2781,10 @@ public class ProofChecker {
                 return LHS;
             }
         }
-        return findVariableInList(LHS.getSubExpressions(), se1
-                .getSubExpressions(), name, foundMarked);
+        return findVariableInList(LHS.getSubExpressions(), se1.getSubExpressions(), name, foundMarked);
     }
 
-    private Exp findVariableInList(List list, List list_se, PosSymbol name,
-            boolean foundMarked) {
+    private Exp findVariableInList(List list, List list_se, PosSymbol name, boolean foundMarked) {
         Exp e = null;
         Iterator<Exp> it = list.iterator();
         Iterator<Exp> it_se = list_se.iterator();
@@ -2920,9 +2798,8 @@ public class ProofChecker {
         return null;
     }
 
-    private boolean compareVarExps(Exp e1, VarExp e2, Exp RHS, Exp se2,
-            boolean varStrict, boolean compareRHS, boolean matchTypesOnly,
-            List<VariableExpBinding> vars) {
+    private boolean compareVarExps(Exp e1, VarExp e2, Exp RHS, Exp se2, boolean varStrict,
+            boolean compareRHS, boolean matchTypesOnly, List<VariableExpBinding> vars) {
         if (!(e1 instanceof VarExp)) {
             if (!matchTypesOnly || !(e2.getIsLocal())) {
                 return false;
@@ -2933,8 +2810,7 @@ public class ProofChecker {
         // compare qualifiers
         if (((VarExp) e1).getQualifier() != null) {
             if (e2.getQualifier() == null
-                    || !(((VarExp) e1).getQualifier().equals(e2.getQualifier()
-                            .getName()))) {
+                    || !(((VarExp) e1).getQualifier().equals(e2.getQualifier().getName()))) {
                 return false;
             }
         }
@@ -2951,8 +2827,7 @@ public class ProofChecker {
             else {
                 if (varStrict) {
                     // if the varStrict flag is on, compare the names too
-                    if (!(((VarExp) e1).getName()
-                            .equals(e2.getName().getName()))) {
+                    if (!(((VarExp) e1).getName().equals(e2.getName().getName()))) {
                         return false;
                     }
                 }
@@ -2967,8 +2842,7 @@ public class ProofChecker {
         return true;
     }
 
-    private boolean checkUntransformedPortion(Exp rootLHS, Exp LHS,
-            Exp rootRHS, Exp RHS) {
+    private boolean checkUntransformedPortion(Exp rootLHS, Exp LHS, Exp rootRHS, Exp RHS) {
         if (rootLHS == LHS) {
             return true;
         }
@@ -3016,16 +2890,14 @@ public class ProofChecker {
         if (isNot(e1)) {
             List<VariableExpBinding> vars = new List<VariableExpBinding>();
             Exp subE = ((PrefixExp) e1).getArgument();
-            if (equals(e2, subE, null, null, true, false, false, vars)
-                    && compareVarScopes(vars)) {
+            if (equals(e2, subE, null, null, true, false, false, vars) && compareVarScopes(vars)) {
                 return true;
             }
         }
         if (isNot(e2)) {
             List<VariableExpBinding> vars = new List<VariableExpBinding>();
             Exp subE = ((PrefixExp) e2).getArgument();
-            if (equals(e1, subE, null, null, true, false, false, vars)
-                    && compareVarScopes(vars)) {
+            if (equals(e1, subE, null, null, true, false, false, vars) && compareVarScopes(vars)) {
                 return true;
             }
         }
@@ -3043,8 +2915,7 @@ public class ProofChecker {
         return false;
     }
 
-    private boolean addVarToBinding(VarExp var, Exp e,
-            List<VariableExpBinding> list) {
+    private boolean addVarToBinding(VarExp var, Exp e, List<VariableExpBinding> list) {
         Exp savedE = getExpFromVar(var, list);
         if (savedE != null) {
             return equals(savedE, e, null, null, true, false, false, null);
@@ -3069,8 +2940,7 @@ public class ProofChecker {
         List<VariableExpBinding> vars = new List<VariableExpBinding>();
         vars.add(veb);
         if (!substituteSub(exp.getLeft(), exp.getRight(), vars)) {
-            String msg =
-                    "Could not apply substitution to the justified expression.";
+            String msg = "Could not apply substitution to the justified expression.";
             err.error(exp.getLocation(), msg);
             return false;
         }
@@ -3145,8 +3015,7 @@ public class ProofChecker {
                 || variable.getQuantification() == match.getQuantification();
     }
 
-    private boolean compareSubExpressionScopes(VarExp variable,
-            Exp matchedExpression) {
+    private boolean compareSubExpressionScopes(VarExp variable, Exp matchedExpression) {
         boolean retval = true;
 
         List<Exp> subexpressions = matchedExpression.getSubExpressions();
@@ -3176,14 +3045,10 @@ public class ProofChecker {
             currentBinding = varsIter.next();
 
             if (currentBinding.getExp() instanceof VarExp) {
-                retval =
-                        compareVarExpScopes(currentBinding.getVarExp(),
-                                (VarExp) currentBinding.getExp());
+                retval = compareVarExpScopes(currentBinding.getVarExp(), (VarExp) currentBinding.getExp());
             }
             else {
-                retval =
-                        compareSubExpressionScopes(currentBinding.getVarExp(),
-                                currentBinding.getExp());
+                retval = compareSubExpressionScopes(currentBinding.getVarExp(), currentBinding.getExp());
             }
         }
 
@@ -3267,8 +3132,7 @@ public class ProofChecker {
         VariableExpBinding temp = null;
         while (it.hasNext()) {
             temp = it.next();
-            if (temp.getVarName().equals(varStr)
-                    && (tm.mathMatches(temp.getVarType(), var.getType()))) {
+            if (temp.getVarName().equals(varStr) && (tm.mathMatches(temp.getVarType(), var.getType()))) {
                 return temp.getExp();
             }
         }
@@ -3280,8 +3144,7 @@ public class ProofChecker {
     // ==========================================================
 
     private String lineNotFoundMessage(String lineId) {
-        return "Could not find a line by the identifier " + lineId
-                + " above the currentLine.";
+        return "Could not find a line by the identifier " + lineId + " above the currentLine.";
     }
 
     private boolean mismatchedRHSError(Location loc) {
@@ -3330,8 +3193,8 @@ public class ProofChecker {
     }
 
     private String conflictingVariableBindings(PosSymbol name) {
-        return "Conflicting values in the expression to be checked for the local variable "
-                + name.getName() + ".";
+        return "Conflicting values in the expression to be checked for the local variable " + name.getName()
+                + ".";
     }
 
     private void mismatchedDeductionError(Location loc, int i) {
@@ -3346,8 +3209,7 @@ public class ProofChecker {
     }
 
     private void suppositionError(Location loc) {
-        String msg =
-                "Could not verify deduction from supposition and intervening statements.";
+        String msg = "Could not verify deduction from supposition and intervening statements.";
         err.error(loc, msg);
     }
 

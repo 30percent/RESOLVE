@@ -7,8 +7,6 @@ import java.util.Iterator;
  * over various new versions of <code>Antecedent</code>s according to some
  * pre-defined rule.</p>
  */
-public interface AntecedentTransformer
-        extends
-            Transformer<Antecedent, Iterator<Antecedent>> {
+public interface AntecedentTransformer extends Transformer<Antecedent, Iterator<Antecedent>> {
 
 }

@@ -38,8 +38,7 @@ public class VC {
         this(name, antecedent, consequent, false);
     }
 
-    public VC(String name, Antecedent antecedent, Consequent consequent,
-            boolean derived) {
+    public VC(String name, Antecedent antecedent, Consequent consequent, boolean derived) {
 
         myName = name;
         myAntecedent = antecedent;
@@ -70,8 +69,7 @@ public class VC {
     }
 
     public VC substitute(Map<PExp, PExp> e) {
-        return new VC(myName, myAntecedent.substitute(e), myConsequent
-                .substitute(e), true);
+        return new VC(myName, myAntecedent.substitute(e), myConsequent.substitute(e), true);
     }
 
     public VC applyAntecedentExpansions() {
@@ -88,8 +86,7 @@ public class VC {
         return retval;
     }
 
-    private static VC applySingleExpansion(VC original)
-            throws NoSuchReplacementException {
+    private static VC applySingleExpansion(VC original) throws NoSuchReplacementException {
 
         VC retval;
 
@@ -107,13 +104,10 @@ public class VC {
         }
 
         if (replacement.size() > 0) {
-            Antecedent newAntecedent =
-                    a.removed(conjunctIndex - 1).substitute(replacement);
+            Antecedent newAntecedent = a.removed(conjunctIndex - 1).substitute(replacement);
 
             Consequent newConsequent = c.substitute(replacement);
-            retval =
-                    new VC(original.getSourceName(), newAntecedent,
-                            newConsequent);
+            retval = new VC(original.getSourceName(), newAntecedent, newConsequent);
         }
         else {
             throw new NoSuchReplacementException();
@@ -154,19 +148,18 @@ public class VC {
     }
 
     public VC eliminateObviousConjuncts() {
-        return new VC(myName, myAntecedent.eliminateObviousConjuncts(),
-                myConsequent.eliminateObviousConjuncts(), true);
+        return new VC(myName, myAntecedent.eliminateObviousConjuncts(), myConsequent
+                .eliminateObviousConjuncts(), true);
     }
 
     public VC eliminateRedundantConjuncts() {
-        return new VC(myName, myAntecedent.eliminateRedundantConjuncts(),
-                myConsequent.eliminateRedundantConjuncts(), true);
+        return new VC(myName, myAntecedent.eliminateRedundantConjuncts(), myConsequent
+                .eliminateRedundantConjuncts(), true);
     }
 
     public VC simplify() {
         VC workingVC =
-                this.applyAntecedentExpansions().eliminateObviousConjuncts()
-                        .eliminateRedundantConjuncts();
+                this.applyAntecedentExpansions().eliminateObviousConjuncts().eliminateRedundantConjuncts();
 
         List<PExp> finalConsequents = new LinkedList<PExp>();
         Consequent newConsequent = workingVC.getConsequent();
@@ -176,13 +169,12 @@ public class VC {
             }
         }
 
-        return new VC(myName, workingVC.getAntecedent(), new Consequent(
-                finalConsequents), true);
+        return new VC(myName, workingVC.getAntecedent(), new Consequent(finalConsequents), true);
     }
 
     public VC applyToAntecedent(VC implication) {
-        return new VC(myName, myAntecedent.apply(implication.getAntecedent(),
-                implication.getConsequent()), myConsequent, true);
+        return new VC(myName, myAntecedent.apply(implication.getAntecedent(), implication.getConsequent()),
+                myConsequent, true);
     }
 
     /**
@@ -195,8 +187,7 @@ public class VC {
      *         equivalent to <code>o</code>.
      */
     public boolean equivalent(VC o) {
-        return myAntecedent.equals(o.getAntecedent())
-                && myConsequent.equals(o.getConsequent());
+        return myAntecedent.equals(o.getAntecedent()) && myConsequent.equals(o.getConsequent());
     }
 
     public Set<String> getSymbolNames() {
@@ -208,9 +199,7 @@ public class VC {
 
     public String toString() {
 
-        String retval =
-                "========== " + getName() + " ==========\n" + myAntecedent
-                        + "  -->\n" + myConsequent;
+        String retval = "========== " + getName() + " ==========\n" + myAntecedent + "  -->\n" + myConsequent;
 
         return retval;
     }

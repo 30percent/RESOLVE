@@ -110,11 +110,9 @@ public class FacilityOperationDec extends Dec {
 
     public FacilityOperationDec() {};
 
-    public FacilityOperationDec(PosSymbol name,
-            List<ParameterVarDec> parameters, Ty returnTy,
-            List<AffectsItem> stateVars, Exp requires, Exp ensures,
-            Exp decreasing, List<FacilityDec> facilities,
-            List<VarDec> variables, List<AuxVarDec> aux_variables,
+    public FacilityOperationDec(PosSymbol name, List<ParameterVarDec> parameters, Ty returnTy,
+            List<AffectsItem> stateVars, Exp requires, Exp ensures, Exp decreasing,
+            List<FacilityDec> facilities, List<VarDec> variables, List<AuxVarDec> aux_variables,
             List<Statement> statements) {
         this.name = name;
         this.parameters = parameters;
@@ -130,11 +128,9 @@ public class FacilityOperationDec extends Dec {
         this.recursive = recursive;
     }
 
-    public FacilityOperationDec(PosSymbol name,
-            List<ParameterVarDec> parameters, Ty returnTy,
-            List<AffectsItem> stateVars, Exp requires, Exp ensures,
-            Exp decreasing, List<FacilityDec> facilities,
-            List<VarDec> variables, List<AuxVarDec> aux_variables,
+    public FacilityOperationDec(PosSymbol name, List<ParameterVarDec> parameters, Ty returnTy,
+            List<AffectsItem> stateVars, Exp requires, Exp ensures, Exp decreasing,
+            List<FacilityDec> facilities, List<VarDec> variables, List<AuxVarDec> aux_variables,
             List<Statement> statements, boolean recursive) {
         this.name = name;
         this.parameters = parameters;

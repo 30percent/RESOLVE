@@ -30,16 +30,14 @@ public class FailoverChooser implements TransformationChooser {
     private final Mapping<ProofPathSuggestion, ProofPathSuggestion> myNoteAdder;
     private final TransformationChooser myFirstChooser, mySecondChooser;
 
-    public FailoverChooser(TransformationChooser first,
-            TransformationChooser second, String failoverNote) {
+    public FailoverChooser(TransformationChooser first, TransformationChooser second, String failoverNote) {
 
         myFirstChooser = first;
         mySecondChooser = second;
         myNoteAdder = new NoteAddingMapping(failoverNote);
     }
 
-    public FailoverChooser(TransformationChooser first,
-            TransformationChooser second) {
+    public FailoverChooser(TransformationChooser first, TransformationChooser second) {
 
         myFirstChooser = first;
         mySecondChooser = second;
@@ -53,25 +51,20 @@ public class FailoverChooser implements TransformationChooser {
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData proofData) {
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData proofData) {
 
         Iterator<ProofPathSuggestion> retval = null;
 
         if (proofData.attributeDefined(this, FAILED_AT_STEP)) {
-            int failoverStep =
-                    (Integer) proofData.getAttribute(this, FAILED_AT_STEP);
+            int failoverStep = (Integer) proofData.getAttribute(this, FAILED_AT_STEP);
 
-            retval =
-                    mySecondChooser.suggestTransformations(vc, curLength
-                            - failoverStep, metrics, proofData);
+            retval = mySecondChooser.suggestTransformations(vc, curLength - failoverStep, metrics, proofData);
         }
         else {
             retval =
-                    new FailoverIterator(this, myFirstChooser
-                            .suggestTransformations(vc, curLength, metrics,
-                                    proofData), vc, curLength, metrics,
-                            proofData);
+                    new FailoverIterator(this, myFirstChooser.suggestTransformations(vc, curLength, metrics,
+                            proofData), vc, curLength, metrics, proofData);
         }
 
         return retval;
@@ -98,9 +91,8 @@ public class FailoverChooser implements TransformationChooser {
         private final int myOriginalProofLength;
         private ProofPathSuggestion myNextSuggestion;
 
-        public FailoverIterator(FailoverChooser parent,
-                Iterator<ProofPathSuggestion> firstIterator, VC originalVC,
-                int proofLength, Metrics metrics, ProofData data) {
+        public FailoverIterator(FailoverChooser parent, Iterator<ProofPathSuggestion> firstIterator,
+                VC originalVC, int proofLength, Metrics metrics, ProofData data) {
 
             myParent = parent;
             myFirstIterator = firstIterator;
@@ -132,8 +124,7 @@ public class FailoverChooser implements TransformationChooser {
             //completely done with the last-returned transformer, so get the
             //final count of VCs it transformed and add it to our total
             if (myCurrentTransformer != null) {
-                myFirstReturnedCount +=
-                        myCurrentTransformer.getVCTransformationCount();
+                myFirstReturnedCount += myCurrentTransformer.getVCTransformationCount();
             }
 
             if (myFirstIterator.hasNext()) {
@@ -141,9 +132,7 @@ public class FailoverChooser implements TransformationChooser {
 
                 myCurrentTransformer = new CountingVCTransformer(retval.step);
 
-                retval =
-                        new ProofPathSuggestion(myCurrentTransformer,
-                                retval.data);
+                retval = new ProofPathSuggestion(myCurrentTransformer, retval.data);
             }
             else {
                 if (myFirstReturnedCount > 0) {
@@ -156,18 +145,13 @@ public class FailoverChooser implements TransformationChooser {
 
                         //System.out.println(myOriginalVC);
                         ProofData newProofData =
-                                myOriginalProofData.putAttribute(myParent,
-                                        FAILED_AT_STEP,
+                                myOriginalProofData.putAttribute(myParent, FAILED_AT_STEP,
                                         (Integer) myOriginalProofLength);
 
                         mySecondIterator =
                                 new LazyMappingIterator<ProofPathSuggestion, ProofPathSuggestion>(
-                                        mySecondChooser
-                                                .suggestTransformations(
-                                                        myOriginalVC, 0,
-                                                        myOriginalMetrics,
-                                                        newProofData),
-                                        myNoteAdder);
+                                        mySecondChooser.suggestTransformations(myOriginalVC, 0,
+                                                myOriginalMetrics, newProofData), myNoteAdder);
                     }
 
                     if (mySecondIterator.hasNext()) {
@@ -205,8 +189,7 @@ public class FailoverChooser implements TransformationChooser {
     private class CountingVCTransformer implements VCTransformer {
 
         private final VCTransformer mySource;
-        private Deque<CountingIterator<?>> myIterators =
-                new LinkedList<CountingIterator<?>>();
+        private Deque<CountingIterator<?>> myIterators = new LinkedList<CountingIterator<?>>();
         private int myFinishedIteratorCountTotal = 0;
         private CountingIterator<VC> myLastIterator;
 
@@ -223,8 +206,7 @@ public class FailoverChooser implements TransformationChooser {
 
             pruneIterators();
 
-            myLastIterator =
-                    new CountingIterator<VC>(mySource.transform(original));
+            myLastIterator = new CountingIterator<VC>(mySource.transform(original));
 
             myIterators.add(myLastIterator);
 
@@ -248,8 +230,7 @@ public class FailoverChooser implements TransformationChooser {
         }
 
         private void popIterator() {
-            myFinishedIteratorCountTotal +=
-                    myIterators.peek().getReturnedCount();
+            myFinishedIteratorCountTotal += myIterators.peek().getReturnedCount();
             myIterators.pop();
         }
 
@@ -309,9 +290,7 @@ public class FailoverChooser implements TransformationChooser {
         }
     }
 
-    private class NoteAddingMapping
-            implements
-                Mapping<ProofPathSuggestion, ProofPathSuggestion> {
+    private class NoteAddingMapping implements Mapping<ProofPathSuggestion, ProofPathSuggestion> {
 
         private final String myNote;
 
@@ -321,21 +300,17 @@ public class FailoverChooser implements TransformationChooser {
 
         @Override
         public ProofPathSuggestion map(ProofPathSuggestion i) {
-            return new ProofPathSuggestion(i.step, i.data, myNote,
-                    "Failed over from " + myFirstChooser + " to "
-                            + mySecondChooser + " with VC:", true);
+            return new ProofPathSuggestion(i.step, i.data, myNote, "Failed over from " + myFirstChooser
+                    + " to " + mySecondChooser + " with VC:", true);
         }
     }
 
-    private class DummyMapping
-            implements
-                Mapping<ProofPathSuggestion, ProofPathSuggestion> {
+    private class DummyMapping implements Mapping<ProofPathSuggestion, ProofPathSuggestion> {
 
         @Override
         public ProofPathSuggestion map(ProofPathSuggestion i) {
-            return new ProofPathSuggestion(i.step, i.data, null,
-                    "Failed over from " + myFirstChooser + " to "
-                            + mySecondChooser + " with VC:", true);
+            return new ProofPathSuggestion(i.step, i.data, null, "Failed over from " + myFirstChooser
+                    + " to " + mySecondChooser + " with VC:", true);
         }
     }
 }

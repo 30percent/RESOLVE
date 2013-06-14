@@ -84,8 +84,7 @@ public class CallStmt extends Statement {
 
     public CallStmt() {};
 
-    public CallStmt(PosSymbol qualifier, PosSymbol name,
-            List<ProgramExp> arguments) {
+    public CallStmt(PosSymbol qualifier, PosSymbol name, List<ProgramExp> arguments) {
         this.qualifier = qualifier;
         this.name = name;
         this.arguments = arguments;

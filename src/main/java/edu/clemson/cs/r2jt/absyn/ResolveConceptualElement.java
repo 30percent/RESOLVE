@@ -74,6 +74,7 @@ public abstract class ResolveConceptualElement implements AsStringCapability {
 
     public abstract void accept(ResolveConceptualVisitor v);
 
+    @Override
     public abstract String asString(int indent, int increment);
 
     public abstract Location getLocation();
@@ -100,8 +101,7 @@ public abstract class ResolveConceptualElement implements AsStringCapability {
             curClass = curClass.getSuperclass();
         } while (curClass != ResolveConceptualElement.class);
 
-        List<ResolveConceptualElement> children =
-                new List<ResolveConceptualElement>();
+        List<ResolveConceptualElement> children = new List<ResolveConceptualElement>();
         // get a list of all the declared and inherited members of that class
         ArrayList<Field> fields = new ArrayList<Field>();
         while (!hierarchy.isEmpty()) {
@@ -128,33 +128,23 @@ public abstract class ResolveConceptualElement implements AsStringCapability {
                 try {
                     // is this member a ResolveConceptualElement?
                     // if so, add it as a child
-                    if (ResolveConceptualElement.class
-                            .isAssignableFrom(fieldType)) {
+                    if (ResolveConceptualElement.class.isAssignableFrom(fieldType)) {
                         //System.out.println("Walking: " + curField.getName());
-                        children.add(ResolveConceptualElement.class
-                                .cast(curField.get(this)));
+                        children.add(ResolveConceptualElement.class.cast(curField.get(this)));
                     }
                     // is this member a list of ResolveConceptualElements?
                     // if so, add the elements to the list of children
                     else if (java.util.List.class.isAssignableFrom(fieldType)) {
                         Class<?> listOf =
-                                (Class<?>) ((ParameterizedType) curField
-                                        .getGenericType())
+                                (Class<?>) ((ParameterizedType) curField.getGenericType())
                                         .getActualTypeArguments()[0];
-                        java.util.List<?> fieldList =
-                                java.util.List.class.cast(curField.get(this));
-                        if (fieldList != null
-                                && fieldList.size() > 0
-                                && ResolveConceptualElement.class
-                                        .isAssignableFrom(listOf)) {
-                            children
-                                    .add(new VirtualListNode(
-                                            this,
-                                            curField.getName(),
-                                            (java.util.List<ResolveConceptualElement>) fieldList,
-                                            (Class<?>) ((ParameterizedType) curField
-                                                    .getGenericType())
-                                                    .getActualTypeArguments()[0]));
+                        java.util.List<?> fieldList = java.util.List.class.cast(curField.get(this));
+                        if (fieldList != null && fieldList.size() > 0
+                                && ResolveConceptualElement.class.isAssignableFrom(listOf)) {
+                            children.add(new VirtualListNode(this, curField.getName(),
+                                    (java.util.List<ResolveConceptualElement>) fieldList,
+                                    (Class<?>) ((ParameterizedType) curField.getGenericType())
+                                            .getActualTypeArguments()[0]));
                         }
                     }
                 }

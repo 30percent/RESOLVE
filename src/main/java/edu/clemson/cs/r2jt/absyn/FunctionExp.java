@@ -107,8 +107,8 @@ public class FunctionExp extends AbstractFunctionExp {
 
     public FunctionExp() {};
 
-    public FunctionExp(Location location, PosSymbol qualifier, PosSymbol name,
-            Exp natural, List<FunctionArgList> paramList) {
+    public FunctionExp(Location location, PosSymbol qualifier, PosSymbol name, Exp natural,
+            List<FunctionArgList> paramList) {
         this.location = location;
         this.qualifier = qualifier;
         this.name = name;
@@ -117,8 +117,8 @@ public class FunctionExp extends AbstractFunctionExp {
         //this.isab = false;
     }
 
-    public FunctionExp(Location location, PosSymbol qualifier, PosSymbol name,
-            Exp natural, List<FunctionArgList> paramList, Type b) {
+    public FunctionExp(Location location, PosSymbol qualifier, PosSymbol name, Exp natural,
+            List<FunctionArgList> paramList, Type b) {
         this.location = location;
         this.qualifier = qualifier;
         this.name = name;
@@ -128,8 +128,8 @@ public class FunctionExp extends AbstractFunctionExp {
         //this.isab = false;
     }
 
-    public FunctionExp(Location location, PosSymbol qualifier, PosSymbol name,
-            Exp natural, List<FunctionArgList> paramList, int quantification) {
+    public FunctionExp(Location location, PosSymbol qualifier, PosSymbol name, Exp natural,
+            List<FunctionArgList> paramList, int quantification) {
         this.location = location;
         this.qualifier = qualifier;
         this.name = name;
@@ -148,16 +148,14 @@ public class FunctionExp extends AbstractFunctionExp {
                     posSymbolEquivalent(qualifier, eAsFunction.qualifier)
                             && posSymbolEquivalent(name, eAsFunction.name)
                             && equivalent(natural, eAsFunction.natural)
-                            && paramsEquivalent(paramList,
-                                    eAsFunction.paramList)
+                            && paramsEquivalent(paramList, eAsFunction.paramList)
                             && quantification == eAsFunction.quantification;
         }
 
         return retval;
     }
 
-    private boolean paramsEquivalent(List<FunctionArgList> p1,
-            List<FunctionArgList> p2) {
+    private boolean paramsEquivalent(List<FunctionArgList> p1, List<FunctionArgList> p2) {
         boolean retval = true;
 
         Iterator<FunctionArgList> params1 = p1.iterator();
@@ -173,8 +171,7 @@ public class FunctionExp extends AbstractFunctionExp {
         return retval && !(params2.hasNext() || params1.hasNext());
     }
 
-    private boolean functionArgListEquivalent(FunctionArgList l1,
-            FunctionArgList l2) {
+    private boolean functionArgListEquivalent(FunctionArgList l1, FunctionArgList l2) {
         boolean retval = true;
 
         Iterator<Exp> args1 = l1.getArguments().iterator();
@@ -232,13 +229,10 @@ public class FunctionExp extends AbstractFunctionExp {
      *         call.
      */
     public java.util.Iterator<Exp> argumentIterator() {
-        java.util.Iterator<Exp> retval =
-                DummyIterator.getInstance((Iterator<Exp>) null);
+        java.util.Iterator<Exp> retval = DummyIterator.getInstance((Iterator<Exp>) null);
 
         for (FunctionArgList l : paramList) {
-            retval =
-                    new ChainingIterator<Exp>(l.getArguments().iterator(),
-                            retval);
+            retval = new ChainingIterator<Exp>(l.getArguments().iterator(), retval);
         }
 
         return retval;
@@ -319,14 +313,13 @@ public class FunctionExp extends AbstractFunctionExp {
             //representing such a thing.  It doesn't tend to come up, but if it
             //ever did, this would throw a ClassCastException.
             newName =
-                    new VarExp(location, qualifier, ((VarExp) substitutions
-                            .get(newName)).getName(), quantification);
+                    new VarExp(location, qualifier, ((VarExp) substitutions.get(newName)).getName(),
+                            quantification);
         }
 
         retval =
-                new FunctionExp(location, qualifier, newName.getName(),
-                        substitute(natural, substitutions), newParamList,
-                        quantification);
+                new FunctionExp(location, qualifier, newName.getName(), substitute(natural, substitutions),
+                        newParamList, quantification);
 
         retval.setType(type);
         retval.setMathType(myMathType);
@@ -498,8 +491,7 @@ public class FunctionExp extends AbstractFunctionExp {
         return false;
     }
 
-    private boolean funcArgListContainsVar(String varName,
-            FunctionArgList list, Boolean IsOldExp) {
+    private boolean funcArgListContainsVar(String varName, FunctionArgList list, Boolean IsOldExp) {
         List<Exp> expList = list.getArguments();
         Iterator<Exp> i = expList.iterator();
         while (i.hasNext()) {
@@ -585,27 +577,21 @@ public class FunctionExp extends AbstractFunctionExp {
 
     public Exp replace(Exp old, Exp replacement) {
         if (!(old instanceof FunctionExp)) {
-            paramList =
-                    replaceVariableInParamListWithExp(paramList, old,
-                            replacement);
+            paramList = replaceVariableInParamListWithExp(paramList, old, replacement);
             if (name != null) {
                 if (old instanceof VarExp) {
 
-                    if (((VarExp) old).getName().toString().equals(
-                            name.toString())) {
+                    if (((VarExp) old).getName().toString().equals(name.toString())) {
                         if (replacement instanceof VarExp) {
 
                             this.name = ((VarExp) replacement).getName();
-                            this.qualifier =
-                                    ((VarExp) replacement).getQualifier();
+                            this.qualifier = ((VarExp) replacement).getQualifier();
                             return this;
                         }
                         else if (replacement instanceof DotExp) {
                             DotExp exp = (DotExp) Exp.clone(replacement);
                             List<Exp> segments = exp.getSegments();
-                            Exp result =
-                                    Exp.replace(this, old, segments
-                                            .get(segments.size() - 1));
+                            Exp result = Exp.replace(this, old, segments.get(segments.size() - 1));
                             segments.remove(segments.size() - 1);
                             segments.add(result);
                             exp.setSegments(segments);
@@ -628,31 +614,28 @@ public class FunctionExp extends AbstractFunctionExp {
         return this;
     }
 
-    public List<FunctionArgList> replaceVariableInParamListWithExp(
-            List<FunctionArgList> paramList, Exp old, Exp replacement) {
+    public List<FunctionArgList> replaceVariableInParamListWithExp(List<FunctionArgList> paramList, Exp old,
+            Exp replacement) {
         if (paramList != null) {
             Iterator<FunctionArgList> i = paramList.iterator();
             while (i.hasNext()) {
                 FunctionArgList tmp = i.next();
                 i.previous();
                 i.remove();
-                i.add(replaceVariableInFunctionArgListWithExp(
-                        (FunctionArgList) tmp, old, replacement));
+                i.add(replaceVariableInFunctionArgListWithExp((FunctionArgList) tmp, old, replacement));
             }
         }
         return paramList;
     }
 
-    private FunctionArgList replaceVariableInFunctionArgListWithExp(
-            FunctionArgList list, Exp old, Exp replacement) {
+    private FunctionArgList replaceVariableInFunctionArgListWithExp(FunctionArgList list, Exp old,
+            Exp replacement) {
         List<Exp> expList = list.getArguments();
-        list.setArguments(replaceVariableInExpListWithExp(expList, old,
-                replacement));
+        list.setArguments(replaceVariableInExpListWithExp(expList, old, replacement));
         return list;
     }
 
-    private List<Exp> replaceVariableInExpListWithExp(List<Exp> list, Exp old,
-            Exp replacement) {
+    private List<Exp> replaceVariableInExpListWithExp(List<Exp> list, Exp old, Exp replacement) {
         // 	AssertiveCode assertion = new AssertiveCode();
         Iterator<Exp> i = list.iterator();
         while (i.hasNext()) {
@@ -731,9 +714,7 @@ public class FunctionExp extends AbstractFunctionExp {
         List<FunctionArgList> newParamList = new List<FunctionArgList>();
         newParamList.add(newFAL);
 
-        retval =
-                new FunctionExp(null, newQualifier, newName, newNatural,
-                        newParamList, quantification);
+        retval = new FunctionExp(null, newQualifier, newName, newNatural, newParamList, quantification);
         retval.setType(type);
         retval.setMathType(myMathType);
         return retval;

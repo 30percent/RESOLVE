@@ -13,8 +13,7 @@ public class MutatingVisitor extends BoundVariableVisitor {
 
     private LinkedList<Integer> myIndices = new LinkedList<Integer>();
     private MTType myRoot;
-    private LinkedList<Map<Integer, MTType>> myChangesAtLevel =
-            new LinkedList<Map<Integer, MTType>>();
+    private LinkedList<Map<Integer, MTType>> myChangesAtLevel = new LinkedList<Map<Integer, MTType>>();
 
     private MTType myClosingType;
 

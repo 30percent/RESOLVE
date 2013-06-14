@@ -8,18 +8,15 @@ import java.util.List;
 import edu.clemson.cs.r2jt.init.CompileEnvironment;
 import edu.clemson.cs.r2jt.proving.absyn.PExp;
 
-public class UpfrontFitnessTransformationChooser
-        extends
-            AbstractTransformationChooser {
+public class UpfrontFitnessTransformationChooser extends AbstractTransformationChooser {
 
     private final TransformerFitnessFunction myFitnessFunction;
     private final double myThreshold;
     private List<VCTransformer> myPerVCOrdering;
     private final CompileEnvironment myInstanceEnvironment;
 
-    public UpfrontFitnessTransformationChooser(TransformerFitnessFunction f,
-            Iterable<VCTransformer> library, double threshold,
-            CompileEnvironment e) {
+    public UpfrontFitnessTransformationChooser(TransformerFitnessFunction f, Iterable<VCTransformer> library,
+            double threshold, CompileEnvironment e) {
 
         super(library);
         myFitnessFunction = f;
@@ -41,8 +38,7 @@ public class UpfrontFitnessTransformationChooser
             curFitness = myFitnessFunction.calculateFitness(curRule, vc);
 
             if (curFitness >= myThreshold) {
-                priorityList.add(new PriorityAugmentedObject<VCTransformer>(
-                        curRule, curFitness));
+                priorityList.add(new PriorityAugmentedObject<VCTransformer>(curRule, curFitness));
             }
         }
 
@@ -55,8 +51,7 @@ public class UpfrontFitnessTransformationChooser
 
         for (PriorityAugmentedObject<VCTransformer> curRule : priorityList) {
             if (myInstanceEnvironment.flags.isFlagSet(Prover.FLAG_VERBOSE)) {
-                System.out.println("  " + curRule.getPriority() + " \t\t "
-                        + curRule.getObject());
+                System.out.println("  " + curRule.getPriority() + " \t\t " + curRule.getObject());
             }
 
             myPerVCOrdering.add(curRule.getObject());
@@ -70,15 +65,13 @@ public class UpfrontFitnessTransformationChooser
         }
     }
 
-    protected Iterator<ProofPathSuggestion> doSuggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d,
-            Iterable<VCTransformer> localTheorems) {
+    protected Iterator<ProofPathSuggestion> doSuggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d, Iterable<VCTransformer> localTheorems) {
 
         Iterator<ProofPathSuggestion> retval;
 
         retval =
-                new LazyMappingIterator<VCTransformer, ProofPathSuggestion>(
-                        myPerVCOrdering.iterator(),
+                new LazyMappingIterator<VCTransformer, ProofPathSuggestion>(myPerVCOrdering.iterator(),
                         new StaticProofDataSuggestionMapping(d));
 
         return retval;

@@ -56,13 +56,11 @@ public class MainProofLevel implements Automator {
 
     private boolean myDetectedCycleFlag;
 
-    public MainProofLevel(PerVCProverModel model, int tetherLength,
-            Iterable<Transformation> transformations) {
+    public MainProofLevel(PerVCProverModel model, int tetherLength, Iterable<Transformation> transformations) {
         this(model, tetherLength, transformations, new HashSet<Integer>());
     }
 
-    public MainProofLevel(PerVCProverModel model, int tetherLength,
-            Iterable<Transformation> transformations,
+    public MainProofLevel(PerVCProverModel model, int tetherLength, Iterable<Transformation> transformations,
             Set<Integer> previousProofStates) {
 
         myModel = model;
@@ -70,13 +68,11 @@ public class MainProofLevel implements Automator {
         myTransformations = transformations;
         myPreviousProofStates = previousProofStates;
 
-        myCurrentApplications =
-                DummyIterator.getInstance(myCurrentApplications);
+        myCurrentApplications = DummyIterator.getInstance(myCurrentApplications);
     }
 
     private void prepTransformationIterator() {
-        List<Transformation> localTransformations =
-                new LinkedList<Transformation>();
+        List<Transformation> localTransformations = new LinkedList<Transformation>();
         List<Transformation> localTheoremTransformations;
         for (Theorem t : myModel.getLocalTheoremList()) {
             localTheoremTransformations = t.getTransformations();
@@ -89,8 +85,8 @@ public class MainProofLevel implements Automator {
         }
 
         myTransformationsIterator =
-                new ChainingIterator<Transformation>(localTransformations
-                        .iterator(), myTransformations.iterator());
+                new ChainingIterator<Transformation>(localTransformations.iterator(), myTransformations
+                        .iterator());
     }
 
     /**
@@ -114,12 +110,10 @@ public class MainProofLevel implements Automator {
         switch (myStep) {
         case 0:
             //Apply some application
-            while (!myCurrentApplications.hasNext()
-                    && myTransformationsIterator.hasNext()) {
+            while (!myCurrentApplications.hasNext() && myTransformationsIterator.hasNext()) {
 
                 myCurrentTransformation = myTransformationsIterator.next();
-                myCurrentApplications =
-                        myCurrentTransformation.getApplications(model);
+                myCurrentApplications = myCurrentTransformation.getApplications(model);
             }
 
             if (myCurrentApplications.hasNext()) {
@@ -139,12 +133,11 @@ public class MainProofLevel implements Automator {
 
             myDetectedCycleFlag =
                     AutomatedProver.H_DETECT_CYCLES
-                            && myPreviousProofStates.contains(myModel
-                                    .implicationHashCode());
+                            && myPreviousProofStates.contains(myModel.implicationHashCode());
 
             if (myTetherLength > 0 && !myDetectedCycleFlag) {
-                stack.push(new MainProofLevel(myModel, myTetherLength - 1,
-                        myTransformations, myPreviousProofStates));
+                stack.push(new MainProofLevel(myModel, myTetherLength - 1, myTransformations,
+                        myPreviousProofStates));
             }
             break;
         default:

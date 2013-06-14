@@ -24,8 +24,7 @@ public class NameSearcher implements MultimatchTableSearcher<SymbolTableEntry> {
     }
 
     @Override
-    public boolean addMatches(SymbolTable entries,
-            List<SymbolTableEntry> matches, SearchContext l) {
+    public boolean addMatches(SymbolTable entries, List<SymbolTableEntry> matches, SearchContext l) {
 
         boolean result = entries.containsKey(mySearchString);
 
@@ -34,8 +33,7 @@ public class NameSearcher implements MultimatchTableSearcher<SymbolTableEntry> {
 
             //Parameters of imported modules or facility instantiations ar not
             //exported and therefore should not be considered for results
-            if (l.equals(SearchContext.SOURCE_MODULE)
-                    || !(e instanceof ProgramParameterEntry)) {
+            if (l.equals(SearchContext.SOURCE_MODULE) || !(e instanceof ProgramParameterEntry)) {
                 matches.add(entries.get(mySearchString));
             }
         }

@@ -78,10 +78,8 @@ public class OutfixExp extends AbstractFunctionExp {
     public static final int BAR = 5;
     public static final int DBL_BAR = 6;
 
-    private static final String[] myLeftDelimiters =
-            { "", "<", "<<", "[", "[[", "|", "||" };
-    private static final String[] myRightDelimiters =
-            { "", ">", ">>", "]", "]]", "|", "||" };
+    private static final String[] myLeftDelimiters = { "", "<", "<<", "[", "[[", "|", "||" };
+    private static final String[] myRightDelimiters = { "", ">", ">>", "]", "]]", "|", "||" };
 
     // ===========================================================
     // Variables
@@ -113,18 +111,14 @@ public class OutfixExp extends AbstractFunctionExp {
 
         if (retval) {
             OutfixExp eAsOutfix = (OutfixExp) e;
-            retval =
-                    (operator == eAsOutfix.operator)
-                            && equivalent(argument, eAsOutfix.argument);
+            retval = (operator == eAsOutfix.operator) && equivalent(argument, eAsOutfix.argument);
         }
 
         return retval;
     }
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        Exp retval =
-                new OutfixExp(location, operator, substitute(argument,
-                        substitutions));
+        Exp retval = new OutfixExp(location, operator, substitute(argument, substitutions));
         retval.setType(type);
         return retval;
     }

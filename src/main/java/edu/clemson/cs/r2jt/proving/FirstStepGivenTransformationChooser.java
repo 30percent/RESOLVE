@@ -9,9 +9,7 @@ import edu.clemson.cs.r2jt.init.CompileEnvironment;
  * an existing <code>TransformationChooser</code> to insert a particular
  * <code>VCTransformer</code> as the first step in any proof.</p>
  */
-public class FirstStepGivenTransformationChooser
-        implements
-            TransformationChooser {
+public class FirstStepGivenTransformationChooser implements TransformationChooser {
 
     private final TransformationChooser myBaseChooser;
     private final VCTransformer myFirstStep;
@@ -24,8 +22,7 @@ public class FirstStepGivenTransformationChooser
      * @param baseChooser The existing chooser to defer to.
      * @param rounds The number of rounds of theory development.
      */
-    public FirstStepGivenTransformationChooser(
-            TransformationChooser baseChooser, VCTransformer firstStep) {
+    public FirstStepGivenTransformationChooser(TransformationChooser baseChooser, VCTransformer firstStep) {
 
         myFirstStep = firstStep;
         myBaseChooser = baseChooser;
@@ -37,22 +34,18 @@ public class FirstStepGivenTransformationChooser
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d) {
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d) {
 
         Iterator<ProofPathSuggestion> retval;
 
         if (curLength == 0) {
             retval =
-                    new SingletonIterator<ProofPathSuggestion>(
-                            new ProofPathSuggestion(myFirstStep, d, null,
-                                    "After first step (" + myFirstStep
-                                            + "), VC is: "));
+                    new SingletonIterator<ProofPathSuggestion>(new ProofPathSuggestion(myFirstStep, d, null,
+                            "After first step (" + myFirstStep + "), VC is: "));
         }
         else {
-            retval =
-                    myBaseChooser.suggestTransformations(vc, curLength - 1,
-                            metrics, d);
+            retval = myBaseChooser.suggestTransformations(vc, curLength - 1, metrics, d);
         }
 
         return retval;
@@ -60,7 +53,6 @@ public class FirstStepGivenTransformationChooser
 
     @Override
     public String toString() {
-        return "FirstStepGiven(" + myFirstStep + ", then continue with "
-                + myBaseChooser + ")";
+        return "FirstStepGiven(" + myFirstStep + ", then continue with " + myBaseChooser + ")";
     }
 }

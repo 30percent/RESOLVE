@@ -126,8 +126,8 @@ public class ColsToken extends antlr.Token {
     /** Returns A string representation for this object. */
     public String toString() {
         String str =
-                "[\"" + getText() + "\",type:<" + getType() + ">,line:"
-                        + getLine() + ",column:" + getColumn() + "]";
+                "[\"" + getText() + "\",type:<" + getType() + ">,line:" + getLine() + ",column:"
+                        + getColumn() + "]";
         return (str);
     }
 }

@@ -22,8 +22,7 @@ public class ProgramTypeEntry extends SymbolTableEntry {
      */
     private final MathSymbolEntry myMathTypeAlterEgo;
 
-    public ProgramTypeEntry(TypeGraph g, String name,
-            ResolveConceptualElement definingElement,
+    public ProgramTypeEntry(TypeGraph g, String name, ResolveConceptualElement definingElement,
             ModuleIdentifier sourceModule, MTType modelType, PTType programType) {
         super(name, definingElement, sourceModule);
 
@@ -32,9 +31,8 @@ public class ProgramTypeEntry extends SymbolTableEntry {
         //TODO: Probably need to recajigger this to correctly account for any
         //      generics in the defining context
         myMathTypeAlterEgo =
-                new MathSymbolEntry(g, name,
-                        SymbolTableEntry.Quantification.NONE, definingElement,
-                        g.MTYPE, modelType, null, null, sourceModule);
+                new MathSymbolEntry(g, name, SymbolTableEntry.Quantification.NONE, definingElement, g.MTYPE,
+                        modelType, null, null, sourceModule);
         myProgramType = programType;
     }
 
@@ -62,8 +60,7 @@ public class ProgramTypeEntry extends SymbolTableEntry {
     }
 
     @Override
-    public ProgramTypeEntry instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public ProgramTypeEntry instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
         Map<String, MTType> genericMathematicalInstantiations =
@@ -73,11 +70,9 @@ public class ProgramTypeEntry extends SymbolTableEntry {
                 new VariableReplacingVisitor(genericMathematicalInstantiations);
         myModelType.accept(typeSubstitutor);
 
-        return new ProgramTypeEntry(myModelType.getTypeGraph(), getName(),
-                getDefiningElement(), getSourceModuleIdentifier(),
-                typeSubstitutor.getFinalExpression(), myProgramType
-                        .instantiateGenerics(genericInstantiations,
-                                instantiatingFacility));
+        return new ProgramTypeEntry(myModelType.getTypeGraph(), getName(), getDefiningElement(),
+                getSourceModuleIdentifier(), typeSubstitutor.getFinalExpression(), myProgramType
+                        .instantiateGenerics(genericInstantiations, instantiatingFacility));
     }
 
 }

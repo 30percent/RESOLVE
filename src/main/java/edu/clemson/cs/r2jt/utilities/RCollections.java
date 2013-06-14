@@ -41,8 +41,8 @@ public class RCollections {
         return result;
     }
 
-    public static <P1, P2, R> R foldr2(List<P1> list1, List<P2> list2,
-            Mapping3<P1, P2, R, R> mapping, R initialValue) {
+    public static <P1, P2, R> R foldr2(List<P1> list1, List<P2> list2, Mapping3<P1, P2, R, R> mapping,
+            R initialValue) {
 
         if (list1.size() != list2.size()) {
             throw new IllegalArgumentException();

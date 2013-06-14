@@ -18,10 +18,8 @@ import edu.clemson.cs.r2jt.typeandpopulate.PossiblyQualifiedPath;
  */
 public class OperationQuery extends BaseSymbolQuery<OperationEntry> {
 
-    public OperationQuery(PosSymbol qualifier, PosSymbol name,
-            List<PTType> argumentTypes) {
+    public OperationQuery(PosSymbol qualifier, PosSymbol name, List<PTType> argumentTypes) {
         super(new PossiblyQualifiedPath(qualifier, ImportStrategy.IMPORT_NAMED,
-                FacilityStrategy.FACILITY_INSTANTIATE, false),
-                new OperationSearcher(name, argumentTypes));
+                FacilityStrategy.FACILITY_INSTANTIATE, false), new OperationSearcher(name, argumentTypes));
     }
 }

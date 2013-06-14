@@ -21,8 +21,7 @@ public class RepeatedApplicationTransformer<T extends ImmutableConjuncts>
     private final Transformer<T, Iterator<T>> mySubTransformer;
     private final int myIterationCount;
 
-    public RepeatedApplicationTransformer(Transformer<T, Iterator<T>> t,
-            int iterations) {
+    public RepeatedApplicationTransformer(Transformer<T, Iterator<T>> t, int iterations) {
 
         mySubTransformer = t;
         myIterationCount = iterations;
@@ -41,8 +40,7 @@ public class RepeatedApplicationTransformer<T extends ImmutableConjuncts>
             }
 
             if (singletonIterator.hasNext()) {
-                throw new RuntimeException("Non-singleton transform used in "
-                        + this.getClass());
+                throw new RuntimeException("Non-singleton transform used in " + this.getClass());
             }
         }
 

@@ -25,12 +25,10 @@ public class GuiWrapper {
             CompileEnvironment instanceEnvironment) {
         gui = new GuiSetup();
         this.type = type;
-        String facilityFileName =
-                analyzeTargetFile(targetFile, workspaceDir) + ".fa";
+        String facilityFileName = analyzeTargetFile(targetFile, workspaceDir) + ".fa";
         //String facilityFileName = analyzeManifest(manifestContents) + ".fa";
 
-        javaLocation =
-                targetFile.replaceAll(facilityFileName, guiName + ".java");
+        javaLocation = targetFile.replaceAll(facilityFileName, guiName + ".java");
         CompileReport myReport = instanceEnvironment.getCompileReport();
         if (!myReport.getFacilityName().equals("")) {
             programFacilityName = myReport.getFacilityName();
@@ -59,9 +57,7 @@ public class GuiWrapper {
     }
 
     private void generateSwing() {
-        SwingGui sg =
-                new SwingGui(guiName, facilityName, programFacilityName,
-                        packageName, gui);
+        SwingGui sg = new SwingGui(guiName, facilityName, programFacilityName, packageName, gui);
         sb = sg.generateCode();
     }
 
@@ -84,8 +80,7 @@ public class GuiWrapper {
     public boolean createJavaFile() {
         boolean created = false;
         try {
-            BufferedWriter out =
-                    new BufferedWriter(new FileWriter(javaLocation));
+            BufferedWriter out = new BufferedWriter(new FileWriter(javaLocation));
             out.write(sb.toString());
             out.close();
             created = true;
@@ -101,10 +96,8 @@ public class GuiWrapper {
         int lastSlash = targetFile.lastIndexOf(File.separator);
         int dot = targetFile.lastIndexOf(".");
         String path = targetFile.substring(0, lastSlash);
-        String packagePath =
-                path.substring(workspaceDir.length(), path.length());
-        packageName =
-                packagePath.replaceAll(Pattern.quote(File.separator), ".");
+        String packagePath = path.substring(workspaceDir.length(), path.length());
+        packageName = packagePath.replaceAll(Pattern.quote(File.separator), ".");
         facilityName = targetFile.substring(lastSlash + 1, dot);
         guiName = facilityName + "_Gui";
         entryClass = packageName + "." + guiName;

@@ -6,8 +6,7 @@ import java.util.List;
 
 public class ChainingIterable<T> implements Iterable<T> {
 
-    private final List<Iterable<T>> mySubIterables =
-            new LinkedList<Iterable<T>>();
+    private final List<Iterable<T>> mySubIterables = new LinkedList<Iterable<T>>();
 
     /**
      * <p>Adds a new iterable set of <code>T</code>s to the list of 

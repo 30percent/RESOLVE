@@ -49,12 +49,11 @@ public abstract class MTType {
         }
         else if (oldType instanceof FormalType) {
             FormalType formal = (FormalType) oldType;
-            result =
-                    new MTNamed(repo.getTypeGraph(), formal.getName().getName());
+            result = new MTNamed(repo.getTypeGraph(), formal.getName().getName());
         }
         else {
-            throw new RuntimeException("Don't know how to convert type: "
-                    + oldType + " (" + oldType.getClass() + ")");
+            throw new RuntimeException("Don't know how to convert type: " + oldType + " ("
+                    + oldType.getClass() + ")");
         }
 
         return result;
@@ -78,9 +77,7 @@ public abstract class MTType {
 
         MTType target = this;
         for (Map.Entry<Integer, MTType> entry : newTypes.entrySet()) {
-            target =
-                    target.withComponentReplaced(entry.getKey(), entry
-                            .getValue());
+            target = target.withComponentReplaced(entry.getKey(), entry.getValue());
         }
 
         return target;
@@ -112,16 +109,13 @@ public abstract class MTType {
         else {
             //We only check our cache if we're at the first level of equals
             //comparison to avoid an infinite recursive loop
-            result =
-                    (myEqualsDepth == 1)
-                            && myKnownAlphaEquivalencies.contains(o);
+            result = (myEqualsDepth == 1) && myKnownAlphaEquivalencies.contains(o);
 
             if (!result) {
                 try {
                     //All 'equals' logic should be put into AlphaEquivalencyChecker! 
                     //Don't override equals!
-                    AlphaEquivalencyChecker alphaEq =
-                            myTypeGraph.threadResources.alphaChecker;
+                    AlphaEquivalencyChecker alphaEq = myTypeGraph.threadResources.alphaChecker;
                     alphaEq.reset();
 
                     alphaEq.visit(this, (MTType) o);
@@ -145,8 +139,7 @@ public abstract class MTType {
         return result;
     }
 
-    public final Map<String, MTType> getSyntacticSubtypeBindings(MTType o)
-            throws NoSolutionException {
+    public final Map<String, MTType> getSyntacticSubtypeBindings(MTType o) throws NoSolutionException {
 
         Map<String, MTType> result;
 
@@ -154,8 +147,7 @@ public abstract class MTType {
             result = myKnownSyntacticSubtypeBindings.get(o);
         }
         else {
-            SyntacticSubtypeChecker checker =
-                    new SyntacticSubtypeChecker(myTypeGraph);
+            SyntacticSubtypeChecker checker = new SyntacticSubtypeChecker(myTypeGraph);
 
             try {
                 checker.visit(this, o);
@@ -163,8 +155,7 @@ public abstract class MTType {
             catch (RuntimeException e) {
 
                 Throwable cause = e;
-                while (cause != null
-                        && !(cause instanceof TypeMismatchException)) {
+                while (cause != null && !(cause instanceof TypeMismatchException)) {
                     cause = cause.getCause();
                 }
 
@@ -209,16 +200,13 @@ public abstract class MTType {
         return this.equals(t);
     }
 
-    public final MTType getCopyWithVariablesSubstituted(
-            Map<String, MTType> substitutions) {
-        VariableReplacingVisitor renamer =
-                new VariableReplacingVisitor(substitutions);
+    public final MTType getCopyWithVariablesSubstituted(Map<String, MTType> substitutions) {
+        VariableReplacingVisitor renamer = new VariableReplacingVisitor(substitutions);
         accept(renamer);
         return renamer.getFinalExpression();
     }
 
-    public Map<String, MTType> bindTo(MTType o, FinalizedScope context)
-            throws BindingException {
+    public Map<String, MTType> bindTo(MTType o, FinalizedScope context) throws BindingException {
 
         BindingVisitor bind = new BindingVisitor(myTypeGraph, context);
         bind.visit(this, o);
@@ -230,8 +218,7 @@ public abstract class MTType {
         return bind.getBindings();
     }
 
-    public Map<String, MTType> bindTo(MTType o, Map<String, MTType> context)
-            throws BindingException {
+    public Map<String, MTType> bindTo(MTType o, Map<String, MTType> context) throws BindingException {
 
         BindingVisitor bind = new BindingVisitor(myTypeGraph, context);
         bind.visit(this, o);
@@ -243,12 +230,10 @@ public abstract class MTType {
         return bind.getBindings();
     }
 
-    public Map<String, MTType> bindTo(MTType template,
-            Map<String, MTType> thisContext, Map<String, MTType> templateContext)
-            throws BindingException {
+    public Map<String, MTType> bindTo(MTType template, Map<String, MTType> thisContext,
+            Map<String, MTType> templateContext) throws BindingException {
 
-        BindingVisitor bind =
-                new BindingVisitor(myTypeGraph, thisContext, templateContext);
+        BindingVisitor bind = new BindingVisitor(myTypeGraph, thisContext, templateContext);
         bind.visit(this, template);
 
         if (!bind.binds()) {

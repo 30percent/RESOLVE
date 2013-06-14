@@ -78,8 +78,7 @@ public class ProcedureScope extends Scope {
 
     private List<Entry> parameters = new List<Entry>();
 
-    private Map<Symbol, ModuleEntry> facilities =
-            new Map<Symbol, ModuleEntry>();
+    private Map<Symbol, ModuleEntry> facilities = new Map<Symbol, ModuleEntry>();
     private Map<Symbol, VarEntry> variables = new Map<Symbol, VarEntry>();
 
     private Binding binding = null;
@@ -88,8 +87,7 @@ public class ProcedureScope extends Scope {
     // Constructors
     // ===========================================================
 
-    public ProcedureScope(ModuleScope scope, ScopeID sid,
-            CompileEnvironment instanceEnvironment) {
+    public ProcedureScope(ModuleScope scope, ScopeID sid, CompileEnvironment instanceEnvironment) {
         this.sid = sid;
         this.moduleScope = scope;
         binding = new Binding(this, instanceEnvironment);

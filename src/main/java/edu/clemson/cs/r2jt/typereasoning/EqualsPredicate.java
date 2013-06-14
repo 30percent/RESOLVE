@@ -24,11 +24,9 @@ public class EqualsPredicate implements TypeRelationshipPredicate {
     }
 
     @Override
-    public TypeRelationshipPredicate replaceUnboundVariablesInTypes(
-            Map<String, String> substitions) {
+    public TypeRelationshipPredicate replaceUnboundVariablesInTypes(Map<String, String> substitions) {
 
-        VariableReplacingVisitor renamer =
-                new VariableReplacingVisitor(substitions, myTypeGraph);
+        VariableReplacingVisitor renamer = new VariableReplacingVisitor(substitions, myTypeGraph);
 
         myType1.accept(renamer);
         MTType newType1 = renamer.getFinalExpression();
@@ -42,14 +40,11 @@ public class EqualsPredicate implements TypeRelationshipPredicate {
     }
 
     @Override
-    public boolean canBeDemonstratedStatically(MTType canonical1,
-            MTType canonical2, Map<String, MTType> typeBindings,
-            Map<String, Exp> expressionBindings) {
+    public boolean canBeDemonstratedStatically(MTType canonical1, MTType canonical2,
+            Map<String, MTType> typeBindings, Map<String, Exp> expressionBindings) {
 
-        MTType substituted1 =
-                myType1.getCopyWithVariablesSubstituted(typeBindings);
-        MTType substituted2 =
-                myType2.getCopyWithVariablesSubstituted(typeBindings);
+        MTType substituted1 = myType1.getCopyWithVariablesSubstituted(typeBindings);
+        MTType substituted2 = myType2.getCopyWithVariablesSubstituted(typeBindings);
 
         //TODO : This was not well considered, it just made some fun stuff work
         //       out right.  So think about if it's ok to make this a "subset

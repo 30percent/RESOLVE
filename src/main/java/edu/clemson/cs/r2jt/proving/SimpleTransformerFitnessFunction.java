@@ -14,9 +14,7 @@ import java.util.Set;
  * <code>calculateFitness()</code>) the application of transformations that
  * introduce quantified variables.</p>
  */
-public class SimpleTransformerFitnessFunction
-        extends
-            TransformerFitnessFunction {
+public class SimpleTransformerFitnessFunction extends TransformerFitnessFunction {
 
     @Override
     public String toString() {
@@ -42,25 +40,17 @@ public class SimpleTransformerFitnessFunction
 
                 int nonOverlaps = inAButNotB(ruleFunctions, vcFunctions);
 
-                double findFunctionCount =
-                        pattern.getFunctionApplications().size();
-                double replaceFunctionCount =
-                        template.getFunctionApplications().size();
-                double simplificationRatio =
-                        (replaceFunctionCount + 1.0)
-                                / (findFunctionCount + 1.0);
+                double findFunctionCount = pattern.getFunctionApplications().size();
+                double replaceFunctionCount = template.getFunctionApplications().size();
+                double simplificationRatio = (replaceFunctionCount + 1.0) / (findFunctionCount + 1.0);
 
-                double simplificationFactor =
-                        Math.pow(0.9, simplificationRatio);
+                double simplificationFactor = Math.pow(0.9, simplificationRatio);
 
-                retval =
-                        Math.min(Math.pow(0.8, nonOverlaps)
-                                * simplificationFactor, 1.0);
+                retval = Math.min(Math.pow(0.8, nonOverlaps) * simplificationFactor, 1.0);
             }
         }
         catch (UnsupportedOperationException e) {
-            throw new RuntimeException(this.getClass() + " doesn't know how "
-                    + "to rank a " + t.getClass());
+            throw new RuntimeException(this.getClass() + " doesn't know how " + "to rank a " + t.getClass());
         }
 
         return retval;

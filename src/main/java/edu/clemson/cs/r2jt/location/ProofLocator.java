@@ -120,8 +120,7 @@ public class ProofLocator {
         }
     }
 
-    public ProofEntry locateProof(PosSymbol qual, PosSymbol name)
-            throws SymbolSearchException {
+    public ProofEntry locateProof(PosSymbol qual, PosSymbol name) throws SymbolSearchException {
         if (qual == null) {
             return locateProof(name);
         }
@@ -133,8 +132,7 @@ public class ProofLocator {
             return p;
         }
         else {
-            String msg =
-                    cantFindProofInModMessage(name.toString(), qual.toString());
+            String msg = cantFindProofInModMessage(name.toString(), qual.toString());
             err.error(qual.getLocation(), msg);
             throw new SymbolSearchException();
         }
@@ -144,8 +142,7 @@ public class ProofLocator {
     // Private Methods
     // ===========================================================
 
-    private List<ProofEntry> locateProofsInStack(PosSymbol name)
-            throws SymbolSearchException {
+    private List<ProofEntry> locateProofsInStack(PosSymbol name) throws SymbolSearchException {
         List<ProofEntry> proofs = new List<ProofEntry>();
         Stack<Scope> stack = table.getStack();
         Stack<Scope> hold = new Stack<Scope>();
@@ -171,11 +168,9 @@ public class ProofLocator {
         }
     }
 
-    private List<ProofEntry> locateProofsInImports(PosSymbol name)
-            throws SymbolSearchException {
+    private List<ProofEntry> locateProofsInImports(PosSymbol name) throws SymbolSearchException {
         List<ProofEntry> proofs = new List<ProofEntry>();
-        Iterator<ModuleScope> i =
-                table.getModuleScope().getMathVisibleModules();
+        Iterator<ModuleScope> i = table.getModuleScope().getMathVisibleModules();
         while (i.hasNext()) {
             ModuleScope iscope = i.next();
             if (iscope.containsProof(name.getSymbol())) {
@@ -200,8 +195,7 @@ public class ProofLocator {
     // -----------------------------------------------------------
 
     private String cantFindProofInModMessage(String name, String module) {
-        return "Cannot find a proof named " + name + " in module " + module
-                + ".";
+        return "Cannot find a proof named " + name + " in module " + module + ".";
     }
 
     private String cantFindProofMessage(String name) {
@@ -209,8 +203,8 @@ public class ProofLocator {
     }
 
     private String ambigProofRefMessage(String name, String mods) {
-        return "The proof named " + name + " is found in more than one "
-                + "module visible from this scope: " + mods + ".";
+        return "The proof named " + name + " is found in more than one " + "module visible from this scope: "
+                + mods + ".";
     }
 
 }

@@ -120,9 +120,8 @@ public class Mode {
     }
 
     public boolean isMathMode() {
-        if (equals(this, MATH) || equals(this, DEFINITION)
-                || equals(this, DEF_PARAM) || equals(this, CONCEPTUAL)
-                || equals(this, EXEMPLAR) || equals(this, MATH_FIELD)) {
+        if (equals(this, MATH) || equals(this, DEFINITION) || equals(this, DEF_PARAM)
+                || equals(this, CONCEPTUAL) || equals(this, EXEMPLAR) || equals(this, MATH_FIELD)) {
             return true;
         }
         else
@@ -275,8 +274,8 @@ public class Mode {
 
     private static boolean updatesImplementsCompatible(Mode actual) {
         boolean result;
-        if /**/(actual.equals(UPDATES) || actual.equals(CLEARS)
-                || actual.equals(RESTORES) || actual.equals(PRESERVES)) {
+        if /**/(actual.equals(UPDATES) || actual.equals(CLEARS) || actual.equals(RESTORES)
+                || actual.equals(PRESERVES)) {
             result = true;
         }
         else {
@@ -287,9 +286,8 @@ public class Mode {
 
     private static boolean altersImplementsCompatible(Mode actual) {
         boolean result;
-        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS)
-                || actual.equals(CLEARS) || actual.equals(RESTORES)
-                || actual.equals(PRESERVES)) {
+        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS) || actual.equals(CLEARS)
+                || actual.equals(RESTORES) || actual.equals(PRESERVES)) {
             result = true;
         }
         else {
@@ -359,9 +357,8 @@ public class Mode {
 
     private static boolean updatesCallCompatible(Mode actual) {
         boolean result;
-        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS)
-                || actual.equals(REPLACES) || actual.equals(CLEARS)
-                || actual.equals(RESTORES) || actual.equals(LOCAL)) {
+        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS) || actual.equals(REPLACES)
+                || actual.equals(CLEARS) || actual.equals(RESTORES) || actual.equals(LOCAL)) {
             result = true;
         }
         else {
@@ -372,9 +369,8 @@ public class Mode {
 
     private static boolean altersCallCompatible(Mode actual) {
         boolean result;
-        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS)
-                || actual.equals(REPLACES) || actual.equals(CLEARS)
-                || actual.equals(RESTORES) || actual.equals(LOCAL)) {
+        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS) || actual.equals(REPLACES)
+                || actual.equals(CLEARS) || actual.equals(RESTORES) || actual.equals(LOCAL)) {
             result = true;
         }
         else {
@@ -385,9 +381,8 @@ public class Mode {
 
     private static boolean replacesCallCompatible(Mode actual) {
         boolean result;
-        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS)
-                || actual.equals(REPLACES) || actual.equals(CLEARS)
-                || actual.equals(RESTORES) || actual.equals(LOCAL)) {
+        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS) || actual.equals(REPLACES)
+                || actual.equals(CLEARS) || actual.equals(RESTORES) || actual.equals(LOCAL)) {
             result = true;
         }
         else {
@@ -398,9 +393,8 @@ public class Mode {
 
     private static boolean clearsCallCompatible(Mode actual) {
         boolean result;
-        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS)
-                || actual.equals(REPLACES) || actual.equals(CLEARS)
-                || actual.equals(RESTORES) || actual.equals(LOCAL)) {
+        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS) || actual.equals(REPLACES)
+                || actual.equals(CLEARS) || actual.equals(RESTORES) || actual.equals(LOCAL)) {
             result = true;
         }
         else {
@@ -411,9 +405,8 @@ public class Mode {
 
     private static boolean restoresCallCompatible(Mode actual) {
         boolean result;
-        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS)
-                || actual.equals(REPLACES) || actual.equals(CLEARS)
-                || actual.equals(RESTORES) || actual.equals(LOCAL)) {
+        if /**/(actual.equals(UPDATES) || actual.equals(ALTERS) || actual.equals(REPLACES)
+                || actual.equals(CLEARS) || actual.equals(RESTORES) || actual.equals(LOCAL)) {
             result = true;
         }
         else {

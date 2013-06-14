@@ -31,8 +31,8 @@ public class ConditionalAntecedentExtender implements AntecedentDeveloper {
     private final Consequent myTheoremConsequent;
     private final Iterable<PExp> myTheorems;
 
-    public ConditionalAntecedentExtender(Antecedent theoremAntecedent,
-            Consequent theoremConsequent, Iterable<PExp> globalTheorems) {
+    public ConditionalAntecedentExtender(Antecedent theoremAntecedent, Consequent theoremConsequent,
+            Iterable<PExp> globalTheorems) {
 
         myTheorems = globalTheorems;
         myTheoremAntecedent = theoremAntecedent;
@@ -47,8 +47,7 @@ public class ConditionalAntecedentExtender implements AntecedentDeveloper {
     }
 
     public String toString() {
-        return (myTheoremAntecedent + " ==> " + myTheoremConsequent).replace(
-                '\n', ' ');
+        return (myTheoremAntecedent + " ==> " + myTheoremConsequent).replace('\n', ' ');
     }
 
     /**
@@ -73,22 +72,17 @@ public class ConditionalAntecedentExtender implements AntecedentDeveloper {
             myVCAntecedent = vcAntecedent;
             myLocalConditionIndex = 0;
 
-            myLocalConditionApplications =
-                    DummyIterator.getInstance(myLocalConditionApplications);
+            myLocalConditionApplications = DummyIterator.getInstance(myLocalConditionApplications);
 
             setUpNext();
         }
 
         private void setUpNext() {
-            while (!myLocalConditionApplications.hasNext()
-                    && myLocalConditionIndex < myTheoremAntecedentSize) {
+            while (!myLocalConditionApplications.hasNext() && myLocalConditionIndex < myTheoremAntecedentSize) {
 
                 myLocalConditionApplications =
-                        new QuirkyBindingIterator(myTheoremAntecedent
-                                .get(myLocalConditionIndex),
-                                myTheoremAntecedent
-                                        .removed(myLocalConditionIndex),
-                                myVCAntecedent);
+                        new QuirkyBindingIterator(myTheoremAntecedent.get(myLocalConditionIndex),
+                                myTheoremAntecedent.removed(myLocalConditionIndex), myVCAntecedent);
                 myLocalConditionIndex++;
             }
 
@@ -140,8 +134,7 @@ public class ConditionalAntecedentExtender implements AntecedentDeveloper {
 
         private Antecedent myNextAntecedent;
 
-        public QuirkyBindingIterator(PExp firstPattern,
-                Antecedent otherPatterns, Antecedent vcAntecedent) {
+        public QuirkyBindingIterator(PExp firstPattern, Antecedent otherPatterns, Antecedent vcAntecedent) {
 
             myOtherPatterns = otherPatterns;
             myVCAntecedent = vcAntecedent;
@@ -150,8 +143,7 @@ public class ConditionalAntecedentExtender implements AntecedentDeveloper {
             myFacts.add(vcAntecedent);
             myFacts.add(myTheorems);
 
-            myFirstBinding =
-                    new IncrementalBindingIterator(firstPattern, myVCAntecedent);
+            myFirstBinding = new IncrementalBindingIterator(firstPattern, myVCAntecedent);
 
             myOtherBindings = DummyIterator.getInstance(myOtherBindings);
 
@@ -163,15 +155,12 @@ public class ConditionalAntecedentExtender implements AntecedentDeveloper {
             Map<PExp, PExp> firstBindings;
             while (!myOtherBindings.hasNext() && myFirstBinding.hasNext()) {
                 firstBindings = myFirstBinding.next();
-                myOtherBindings =
-                        new TotalBindingIterator(myOtherPatterns, myFacts,
-                                firstBindings);
+                myOtherBindings = new TotalBindingIterator(myOtherPatterns, myFacts, firstBindings);
             }
 
             if (myOtherBindings.hasNext()) {
                 Map<PExp, PExp> bindings = myOtherBindings.next();
-                myNextAntecedent =
-                        myTheoremConsequent.substitute(bindings).assumed();
+                myNextAntecedent = myTheoremConsequent.substitute(bindings).assumed();
             }
             else {
                 myNextAntecedent = null;

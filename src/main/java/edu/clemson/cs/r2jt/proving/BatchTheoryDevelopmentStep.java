@@ -13,18 +13,15 @@ public class BatchTheoryDevelopmentStep implements VCTransformer {
 
     private final Iterable<PExp> myGlobalTheorems;
     private final int myIterationCount;
-    private DevelopmentAlternativesTransformer myExtenders =
-            new DevelopmentAlternativesTransformer();
+    private DevelopmentAlternativesTransformer myExtenders = new DevelopmentAlternativesTransformer();
 
-    public BatchTheoryDevelopmentStep(Iterable<PExp> globalTheorems,
-            int iterationCount) {
+    public BatchTheoryDevelopmentStep(Iterable<PExp> globalTheorems, int iterationCount) {
         myGlobalTheorems = globalTheorems;
         myIterationCount = iterationCount;
     }
 
     public void addImplicationTheorem(Antecedent a, Consequent c) {
-        ConditionalAntecedentExtender e =
-                new ConditionalAntecedentExtender(a, c, myGlobalTheorems);
+        ConditionalAntecedentExtender e = new ConditionalAntecedentExtender(a, c, myGlobalTheorems);
 
         addExtender(e);
     }
@@ -36,16 +33,14 @@ public class BatchTheoryDevelopmentStep implements VCTransformer {
     @Override
     public Iterator<VC> transform(VC vc) {
 
-        AccumulatingAntecedentExtender accumulator =
-                new AccumulatingAntecedentExtender(myExtenders);
+        AccumulatingAntecedentExtender accumulator = new AccumulatingAntecedentExtender(myExtenders);
 
         RepeatedApplicationTransformer<Antecedent> repeater =
-                new RepeatedApplicationTransformer<Antecedent>(
-                        new AntecedentSimplifier(new DevelopmentAppender(
-                                accumulator)), myIterationCount);
+                new RepeatedApplicationTransformer<Antecedent>(new AntecedentSimplifier(
+                        new DevelopmentAppender(accumulator)), myIterationCount);
 
-        return new StaticConsequentIterator(vc.getSourceName(), repeater
-                .transform(vc.getAntecedent()), vc.getConsequent());
+        return new StaticConsequentIterator(vc.getSourceName(), repeater.transform(vc.getAntecedent()), vc
+                .getConsequent());
     }
 
     @Override

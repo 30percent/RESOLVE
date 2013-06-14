@@ -16,8 +16,7 @@ import java.util.Map;
  */
 class BaseSymbolTable implements SymbolTable {
 
-    private Map<String, SymbolTableEntry> myEntries =
-            new HashMap<String, SymbolTableEntry>();
+    private Map<String, SymbolTableEntry> myEntries = new HashMap<String, SymbolTableEntry>();
     private Map<Class<?>, List<SymbolTableEntry>> myEntriesByType =
             new HashMap<Class<?>, List<SymbolTableEntry>>();
 
@@ -68,8 +67,7 @@ class BaseSymbolTable implements SymbolTable {
 
     @Override
     public Iterator<SymbolTableEntry> iterator() {
-        return Collections.unmodifiableCollection(myEntries.values())
-                .iterator();
+        return Collections.unmodifiableCollection(myEntries.values()).iterator();
     }
 
     @Override
@@ -83,8 +81,7 @@ class BaseSymbolTable implements SymbolTable {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends SymbolTableEntry> Iterator<T> iterateByType(
-            Collection<Class<T>> types) {
+    public <T extends SymbolTableEntry> Iterator<T> iterateByType(Collection<Class<T>> types) {
         List<T> result = new LinkedList<T>();
 
         List<T> typeList;

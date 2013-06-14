@@ -95,8 +95,7 @@ public class CompileEnvironment {
      * NOTE: This assumes that all files are formatted:
      * Std_XXX_Fac, XXX_Template, XXX_Theory
      */
-    private final String[] stdUses =
-            { "Boolean", "Integer", "Character", "Char_Str" };
+    private final String[] stdUses = { "Boolean", "Integer", "Character", "Char_Str" };
     /**
      * Automatically generated Std_Fac dependency list for
      * ImportScanner/Populator.visistModuleDec()
@@ -123,13 +122,11 @@ public class CompileEnvironment {
 
     public void setSymbolTable(ScopeRepository table) {
         if (table == null) {
-            throw new IllegalArgumentException(
-                    "Symbol table may not be set to null!");
+            throw new IllegalArgumentException("Symbol table may not be set to null!");
         }
 
         if (mySymbolTable != null) {
-            throw new IllegalStateException(
-                    "Symbol table may only be set once!");
+            throw new IllegalStateException("Symbol table may only be set once!");
         }
 
         mySymbolTable = table;
@@ -312,8 +309,7 @@ public class CompileEnvironment {
             String path = file.toString();
             String mask = par.toString();
 
-            assert path.startsWith(mask) : "path does not start with mask: "
-                    + path;
+            assert path.startsWith(mask) : "path does not start with mask: " + path;
             return path.substring(mask.length() + 1);
         }
     }
@@ -487,8 +483,7 @@ public class CompileEnvironment {
             return false;
         }
         else {
-            return (!map.get(fmap.get(file)).isComplete() && !map.get(
-                    fmap.get(file)).containsErrors());
+            return (!map.get(fmap.get(file)).isComplete() && !map.get(fmap.get(file)).containsErrors());
         }
     }
 
@@ -633,14 +628,11 @@ public class CompileEnvironment {
      */
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("=============================="
-                + "==============================\n");
+        sb.append("==============================" + "==============================\n");
         sb.append("Compilation environment for " + targetFile.getName() + "\n");
-        sb.append("=============================="
-                + "==============================\n");
+        sb.append("==============================" + "==============================\n");
         sb.append("Main directory: " + mainDir.getName() + "\n");
-        sb.append("------------------------------"
-                + "------------------------------\n");
+        sb.append("------------------------------" + "------------------------------\n");
         sb.append("Unparsable files: " + getResolveNames(unparsables) + "\n");
         sb.append("Compile stack: " + stack.toString() + "\n");
         Iterator<ModuleID> i = map.keyIterator();
@@ -662,8 +654,7 @@ public class CompileEnvironment {
             sb.append("    Theories: " + record.getTheories().toString());
             sb.append("\n");
         }
-        sb.append("------------------------------"
-                + "------------------------------\n");
+        sb.append("------------------------------" + "------------------------------\n");
         return sb.toString();
     }
 

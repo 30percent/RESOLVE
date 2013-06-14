@@ -98,8 +98,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
     // Constructors
     // ===========================================================
 
-    public OldPopulator(OldSymbolTable table,
-            CompileEnvironment myInstanceEnvironment) {
+    public OldPopulator(OldSymbolTable table, CompileEnvironment myInstanceEnvironment) {
         this.table = table;
         this.myInstanceEnvironment = myInstanceEnvironment;
         this.err = myInstanceEnvironment.getErrorHandler();
@@ -126,12 +125,10 @@ public class OldPopulator extends ResolveConceptualVisitor {
 
         if (!ImportScanner.NO_DEFAULT_IMPORT_MODULES.contains(decName)) {
 
-            List<List<UsesItem>> listOfDependLists =
-                    myInstanceEnvironment.getStdUsesDepends();
+            List<List<UsesItem>> listOfDependLists = myInstanceEnvironment.getStdUsesDepends();
 
             for (int i = 0; i < stdUses.length; i++) {
-                if (decName.equals("Std_" + stdUses[i] + "_Fac")
-                        || decName.equals(stdUses[i] + "_Template")
+                if (decName.equals("Std_" + stdUses[i] + "_Fac") || decName.equals(stdUses[i] + "_Template")
                         || decName.equals(stdUses[i] + "_Theory")) {
                     // Don't need to do anything for these
                     dec.accept(this);
@@ -144,8 +141,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
                         if (dependencies != null) {
                             Iterator<UsesItem> it = dependencies.iterator();
                             while (it.hasNext()) {
-                                if (it.next().getName().getName().equals(
-                                        decName)) {
+                                if (it.next().getName().getName().equals(decName)) {
                                     // This is a dependency do NOT add
                                     dec.accept(this);
                                     return;
@@ -158,13 +154,10 @@ public class OldPopulator extends ResolveConceptualVisitor {
                     stdFac = Symbol.symbol("Std_" + stdUses[i] + "_Fac");
 
                     PosSymbol stdFacPosSymbol = new PosSymbol(null, stdFac);
-                    ModuleID stdBooleanFacModuleID =
-                            ModuleID.createFacilityID(stdFac);
+                    ModuleID stdBooleanFacModuleID = ModuleID.createFacilityID(stdFac);
                     ModuleEntry entry =
-                            new ModuleEntry(stdFacPosSymbol,
-                                    myInstanceEnvironment.getSymbolTable(
-                                            stdBooleanFacModuleID)
-                                            .getModuleScope());
+                            new ModuleEntry(stdFacPosSymbol, myInstanceEnvironment.getSymbolTable(
+                                    stdBooleanFacModuleID).getModuleScope());
                     table.addFacilityToScope(entry);
                 }
             }
@@ -269,12 +262,9 @@ public class OldPopulator extends ResolveConceptualVisitor {
 
     public void visitEnhancementBodyModuleDec(EnhancementBodyModuleDec dec) {
         visitUsesItemList(dec.getUsesItems());
-        table
-                .addEnhancementSpec(dec.getEnhancementName(), dec
-                        .getConceptName());
+        table.addEnhancementSpec(dec.getEnhancementName(), dec.getConceptName());
         table.addAssocConcept(dec.getConceptName());
-        addAssocEnhancementsToTable(dec.getEnhancementBodies(), dec
-                .getConceptName());
+        addAssocEnhancementsToTable(dec.getEnhancementBodies(), dec.getConceptName());
         table.addAssocVisibleModules();
         visitModuleParameterList(dec.getParameters());
         visitExp(dec.getRequires());
@@ -316,8 +306,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
     /* Operation parameters */
     public void visitParameterVarDec(ParameterVarDec dec) {
         VarEntry var =
-                new VarEntry(table.getCurrentScope(), dec.getMode(), dec
-                        .getName(), getProgramType(dec.getTy()));
+                new VarEntry(table.getCurrentScope(), dec.getMode(), dec.getName(), getProgramType(dec
+                        .getTy()));
         table.addVariableToScope(var);
     }
 
@@ -330,10 +320,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
         if (params1 == null)
             return false;
         Iterator<MathVarDec> i = params1.iterator();
-        if (!i.hasNext()
-                && !(getMathType(dec.getReturnTy()) instanceof FunctionType)) {
-            if (dec.getDefinition() == null && dec.getBase() == null
-                    && dec.getHypothesis() == null) {
+        if (!i.hasNext() && !(getMathType(dec.getReturnTy()) instanceof FunctionType)) {
+            if (dec.getDefinition() == null && dec.getBase() == null && dec.getHypothesis() == null) {
                 return true;
             }
         }
@@ -346,16 +334,15 @@ public class OldPopulator extends ResolveConceptualVisitor {
         // If the defn. has no params, treat it as a VarEntry
         if (isDecAVar(dec)) {
             VarEntry vEntry =
-                    new VarEntry(table.getCurrentScope(), Mode.MATH, dec
-                            .getName(), getMathType(dec.getReturnTy()));
+                    new VarEntry(table.getCurrentScope(), Mode.MATH, dec.getName(), getMathType(dec
+                            .getReturnTy()));
             table.addVariableToScope(vEntry);
         }
         // "Definition suc: N -> N;", etc.
         else if (dec.getReturnTy() instanceof FunctionTy) {
             // Add as a definition
             DefinitionEntry defEntry = null;
-            FunctionType ftype =
-                    (FunctionType) (getMathType(dec.getReturnTy()));
+            FunctionType ftype = (FunctionType) (getMathType(dec.getReturnTy()));
             Type newParam = ftype.getDomain();
             Type retValue = ftype.getRange();
             PosSymbol ps = new PosSymbol(null, Symbol.symbol(""));
@@ -365,25 +352,18 @@ public class OldPopulator extends ResolveConceptualVisitor {
                 Iterator<FieldItem> i = oldParams.iterator();
                 List<VarEntry> newParamList = new List<VarEntry>();
                 while (i.hasNext()) {
-                    VarEntry ve =
-                            new VarEntry(table.getCurrentScope(), Mode.MATH,
-                                    ps, i.next().getType());
+                    VarEntry ve = new VarEntry(table.getCurrentScope(), Mode.MATH, ps, i.next().getType());
                     newParamList.add(ve);
                 }
                 defEntry =
-                        new DefinitionEntry(table.getCurrentScope(), dec
-                                .getName(), newParamList, retValue);
+                        new DefinitionEntry(table.getCurrentScope(), dec.getName(), newParamList, retValue);
                 table.addDefinitionToScope(defEntry);
             }
             else {
-                VarEntry vEntry =
-                        new VarEntry(table.getCurrentScope(), Mode.MATH, ps,
-                                newParam);
+                VarEntry vEntry = new VarEntry(table.getCurrentScope(), Mode.MATH, ps, newParam);
                 List<VarEntry> params = new List<VarEntry>();
                 params.add(vEntry);
-                defEntry =
-                        new DefinitionEntry(table.getCurrentScope(), dec
-                                .getName(), params, retValue);
+                defEntry = new DefinitionEntry(table.getCurrentScope(), dec.getName(), params, retValue);
                 table.addDefinitionToScope(defEntry);
             }
         }
@@ -396,15 +376,15 @@ public class OldPopulator extends ResolveConceptualVisitor {
                 while (paramsIt.hasNext()) {
                     MathVarDec mvDec = paramsIt.next();
                     VarEntry vEntry =
-                            new VarEntry(table.getCurrentScope(), Mode.MATH,
-                                    mvDec.getName(), getMathType(mvDec.getTy()));
+                            new VarEntry(table.getCurrentScope(), Mode.MATH, mvDec.getName(),
+                                    getMathType(mvDec.getTy()));
                     params.add(vEntry);
                 }
             }
 
             defEntry =
-                    new DefinitionEntry(table.getCurrentScope(), dec.getName(),
-                            params, getMathType(dec.getReturnTy()));
+                    new DefinitionEntry(table.getCurrentScope(), dec.getName(), params, getMathType(dec
+                            .getReturnTy()));
             table.addDefinitionToScope(defEntry);
         }
         addDefinitionAsType(dec);
@@ -443,9 +423,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
                 w = se.getWhere();
                 o = se.getBody();
             }
-            TypeEntry te =
-                    new TypeEntry(table.getCurrentScope(), dec.getName(),
-                            typeOfSet, vd, w, o);
+            TypeEntry te = new TypeEntry(table.getCurrentScope(), dec.getName(), typeOfSet, vd, w, o);
             table.addDefinitionTypeToScope(te);
         }
     }
@@ -473,23 +451,19 @@ public class OldPopulator extends ResolveConceptualVisitor {
                 paramCount = 1;
             }
 
-            decType =
-                    new PrimitiveType(table.getModuleID(), dec.getName(),
-                            paramCount);
+            decType = new PrimitiveType(table.getModuleID(), dec.getName(), paramCount);
         }
         else {
             decType = new PrimitiveType(table.getModuleID(), dec.getName(), 0);
         }
 
-        TypeEntry entry =
-                new TypeEntry(table.getCurrentScope(), dec.getName(), decType);
+        TypeEntry entry = new TypeEntry(table.getCurrentScope(), dec.getName(), decType);
         table.addTypeToScope(entry);
     }
 
     public void visitMathTypeFormalDec(MathTypeFormalDec dec) {
         Type type = new MathFormalType(table.getModuleID(), dec.getName());
-        TypeEntry entry =
-                new TypeEntry(table.getCurrentScope(), dec.getName(), type);
+        TypeEntry entry = new TypeEntry(table.getCurrentScope(), dec.getName(), type);
         table.addTypeToScope(entry);
     }
 
@@ -505,8 +479,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
         try {
             TypeEntry baseEntry = tl.locateMathType(base);
             TypeEntry subtypeEntry = tl.locateMathType(subtype);
-            table.addTypeCorrespondence(baseEntry.getType(), subtypeEntry
-                    .getType());
+            table.addTypeCorrespondence(baseEntry.getType(), subtypeEntry.getType());
         }
         catch (Exception e) {
             ;
@@ -519,8 +492,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
 
     public void visitFacilityTypeDec(FacilityTypeDec dec) {
         Type type = getProgramType(dec.getRepresentation(), dec.getName());
-        TypeEntry entry =
-                new TypeEntry(table.getCurrentScope(), dec.getName(), type);
+        TypeEntry entry = new TypeEntry(table.getCurrentScope(), dec.getName(), type);
         table.addTypeToScope(entry);
         table.createTypeScope();
         visitExp(dec.getConvention());
@@ -535,14 +507,10 @@ public class OldPopulator extends ResolveConceptualVisitor {
 
     public void visitTypeDec(TypeDec dec) {
         Type type = getConceptualType(dec.getModel(), dec.getName());
-        TypeEntry entry =
-                new TypeEntry(table.getCurrentScope(), dec.getName(), type, dec
-                        .getExemplar());
+        TypeEntry entry = new TypeEntry(table.getCurrentScope(), dec.getName(), type, dec.getExemplar());
         table.addTypeToScope(entry);
         table.createTypeScope();
-        VarEntry ex =
-                new VarEntry(table.getCurrentScope(), Mode.EXEMPLAR, dec
-                        .getExemplar(), type);
+        VarEntry ex = new VarEntry(table.getCurrentScope(), Mode.EXEMPLAR, dec.getExemplar(), type);
         table.addVariableToScope(ex);
         visitExp(dec.getConstraint());
         if (dec.getInitialization() != null) {
@@ -557,8 +525,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
     // changed this to handle local type declarations
     public void visitRepresentationDec(RepresentationDec dec) {
         Type type = getProgramType(dec.getRepresentation(), dec.getName());
-        TypeEntry entry =
-                new TypeEntry(table.getCurrentScope(), dec.getName(), type);
+        TypeEntry entry = new TypeEntry(table.getCurrentScope(), dec.getName(), type);
         table.addTypeToScope(entry);
         table.createTypeScope();
         // re-do;
@@ -596,8 +563,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
     public void visitFacilityOperationDec(FacilityOperationDec dec) {
         List<VarEntry> vars = getVariables(dec.getParameters());
         OperationEntry oper =
-                new OperationEntry(table.getCurrentScope(), dec.getName(),
-                        vars, getProgramType(dec.getReturnTy()));
+                new OperationEntry(table.getCurrentScope(), dec.getName(), vars, getProgramType(dec
+                        .getReturnTy()));
         table.addOperationToScope(oper);
         table.createOperationScope(dec.getName());
         addVariablesToScope(vars);
@@ -607,8 +574,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
         addVariablesToScope(vars);
         if (dec.getReturnTy() != null) {
             VarEntry var =
-                    new VarEntry(table.getCurrentScope(), Mode.OPER_NAME, dec
-                            .getName(), getProgramType(dec.getReturnTy()));
+                    new VarEntry(table.getCurrentScope(), Mode.OPER_NAME, dec.getName(), getProgramType(dec
+                            .getReturnTy()));
             table.addVariableToScope(var);
         }
         visitExp(dec.getDecreasing());
@@ -622,8 +589,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
     public void visitOperationDec(OperationDec dec) {
         List<VarEntry> vars = getVariables(dec.getParameters());
         OperationEntry oper =
-                new OperationEntry(table.getCurrentScope(), dec.getName(),
-                        vars, getProgramType(dec.getReturnTy()));
+                new OperationEntry(table.getCurrentScope(), dec.getName(), vars, getProgramType(dec
+                        .getReturnTy()));
         table.addOperationToScope(oper);
         table.createOperationScope(dec.getName());
         addVariablesToScope(vars);
@@ -662,8 +629,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
     public void visitProcedureDec(ProcedureDec dec) {
         List<VarEntry> vars = getVariables(dec.getParameters());
         OperationEntry oper =
-                new OperationEntry(table.getCurrentScope(), dec.getName(),
-                        vars, getProgramType(dec.getReturnTy()));
+                new OperationEntry(table.getCurrentScope(), dec.getName(), vars, getProgramType(dec
+                        .getReturnTy()));
         table.addOperationToScope(oper);
         table.createOperationScope(dec.getName());
         addVariablesToScope(vars);
@@ -672,8 +639,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
 
         if (dec.getReturnTy() != null) {
             VarEntry var =
-                    new VarEntry(table.getCurrentScope(), Mode.OPER_NAME, dec
-                            .getName(), getProgramType(dec.getReturnTy()));
+                    new VarEntry(table.getCurrentScope(), Mode.OPER_NAME, dec.getName(), getProgramType(dec
+                            .getReturnTy()));
             table.addVariableToScope(var);
         }
         visitFacilityDecList(dec.getFacilities());
@@ -721,16 +688,15 @@ public class OldPopulator extends ResolveConceptualVisitor {
 
     public void visitConceptTypeParamDec(ConceptTypeParamDec dec) {
         Type type = new FormalType(table.getModuleID(), dec.getName());
-        TypeEntry entry =
-                new TypeEntry(table.getCurrentScope(), dec.getName(), type);
+        TypeEntry entry = new TypeEntry(table.getCurrentScope(), dec.getName(), type);
         table.addTypeToScope(entry);
         table.addModuleParameter(entry);
     }
 
     public void visitConstantParamDec(ConstantParamDec dec) {
         VarEntry var =
-                new VarEntry(table.getCurrentScope(), Mode.EVALUATES, dec
-                        .getName(), getProgramType(dec.getTy()));
+                new VarEntry(table.getCurrentScope(), Mode.EVALUATES, dec.getName(), getProgramType(dec
+                        .getTy()));
         table.addVariableToScope(var);
         table.addModuleParameter(var);
     }
@@ -818,8 +784,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
             }
             if (doAnnex) {
                 ModuleEntry entry =
-                        new ModuleEntry(item.getName(), myInstanceEnvironment
-                                .getSymbolTable(fid).getModuleScope());
+                        new ModuleEntry(item.getName(), myInstanceEnvironment.getSymbolTable(fid)
+                                .getModuleScope());
                 table.addFacilityToScope(entry);
             }
         }
@@ -943,8 +909,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
         table.createExpressionScope();
         MathVarDec var = exp.getVar();
         VarEntry ventry =
-                new VarEntry(table.getCurrentScope(), Mode.MATH, var.getName(),
-                        getMathType(var.getTy()));
+                new VarEntry(table.getCurrentScope(), Mode.MATH, var.getName(), getMathType(var.getTy()));
         table.addVariableToScope(ventry);
         visitExp(exp.getWhere());
         visitExp(exp.getBody());
@@ -956,8 +921,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
 
         for (MathVarDec p : exp.getParameters()) {
             VarEntry ve =
-                    new VarEntry(table.getCurrentScope(), Mode.MATH, p
-                            .getName(), getMathType(p.getTy()));
+                    new VarEntry(table.getCurrentScope(), Mode.MATH, p.getName(), getMathType(p.getTy()));
             table.addVariableToScope(ve);
         }
 
@@ -1070,20 +1034,18 @@ public class OldPopulator extends ResolveConceptualVisitor {
         }
         else {
             VarEntry progexemp =
-                    new VarEntry(table.getCurrentScope(), Mode.EXEMPLAR,
-                            specentry.getExemplar(), entry.getType());
+                    new VarEntry(table.getCurrentScope(), Mode.EXEMPLAR, specentry.getExemplar(), entry
+                            .getType());
             table.addVariableToScope(progexemp);
             VarEntry concexemp =
-                    new VarEntry(table.getCurrentScope(), Mode.EXEMPLAR,
-                            createConcName(specentry.getExemplar()), specentry
-                                    .getType().toMath());
+                    new VarEntry(table.getCurrentScope(), Mode.EXEMPLAR, createConcName(specentry
+                            .getExemplar()), specentry.getType().toMath());
             table.addVariableToScope(concexemp);
         }
     }
 
     private PosSymbol createConcName(PosSymbol name) {
-        return new PosSymbol(name.getLocation(), Symbol.symbol("%Conc."
-                + name.getSymbol().toString()));
+        return new PosSymbol(name.getLocation(), Symbol.symbol("%Conc." + name.getSymbol().toString()));
     }
 
     // -----------------------------------------------------------
@@ -1164,16 +1126,15 @@ public class OldPopulator extends ResolveConceptualVisitor {
         }
         else {
             VarEntry var =
-                    new VarEntry(table.getCurrentScope(), Mode.CONCEPTUAL, dec
-                            .getName(), getMathType(dec.getTy()));
+                    new VarEntry(table.getCurrentScope(), Mode.CONCEPTUAL, dec.getName(), getMathType(dec
+                            .getTy()));
             table.addVariableToScope(var);
         }
     }
 
     private void visitStateVariable(VarDec dec) {
         VarEntry var =
-                new VarEntry(table.getCurrentScope(), Mode.STATE,
-                        dec.getName(), getProgramType(dec.getTy()));
+                new VarEntry(table.getCurrentScope(), Mode.STATE, dec.getName(), getProgramType(dec.getTy()));
         table.addVariableToScope(var);
     }
 
@@ -1204,13 +1165,11 @@ public class OldPopulator extends ResolveConceptualVisitor {
         VarEntry var = null;
         if (dec.getParameters() == null) {
             var =
-                    new VarEntry(table.getCurrentScope(), Mode.DEFINITION, dec
-                            .getName(), getMathType(dec.getReturnTy()));
+                    new VarEntry(table.getCurrentScope(), Mode.DEFINITION, dec.getName(), getMathType(dec
+                            .getReturnTy()));
         }
         else {
-            var =
-                    new VarEntry(table.getCurrentScope(), Mode.DEFINITION, dec
-                            .getName(), getFunctionType(dec));
+            var = new VarEntry(table.getCurrentScope(), Mode.DEFINITION, dec.getName(), getFunctionType(dec));
         }
         table.addVariableToScope(var);
         // FIX: We should not need to add scopes here, we should avoid
@@ -1223,8 +1182,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
     private void visitModParamOperDec(OperationDec dec) {
         List<VarEntry> vars = getVariables(dec.getParameters());
         OperationEntry oper =
-                new OperationEntry(table.getCurrentScope(), dec.getName(),
-                        vars, getProgramType(dec.getReturnTy()));
+                new OperationEntry(table.getCurrentScope(), dec.getName(), vars, getProgramType(dec
+                        .getReturnTy()));
         table.addOperationToScope(oper);
         table.addModuleParameter(oper);
         table.createOperationScope(dec.getName());
@@ -1393,8 +1352,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
 
     private Type getFunctionType(FunctionTy ty) {
         TypeConverter tc = new TypeConverter(table);
-        return new FunctionType(tc.getMathType(ty.getDomain()), tc
-                .getMathType(ty.getRange()));
+        return new FunctionType(tc.getMathType(ty.getDomain()), tc.getMathType(ty.getRange()));
     }
 
     // private Type getFunctionType(FunctionTy ty) {
@@ -1458,8 +1416,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
     private Type getFunctionType(DefinitionDec dec) {
         assert dec.getParameters().size() > 0 : "function takes no parameters";
         TypeConverter tc = new TypeConverter(table);
-        return new FunctionType(tc.getTupleType(dec.getParameters()), tc
-                .getMathType(dec.getReturnTy()));
+        return new FunctionType(tc.getTupleType(dec.getParameters()), tc.getMathType(dec.getReturnTy()));
     }
 
     // private Type getFunctionType(DefinitionDec dec) {
@@ -1491,17 +1448,15 @@ public class OldPopulator extends ResolveConceptualVisitor {
             while (i.hasNext()) {
                 MathVarDec dec = i.next();
                 VarEntry var =
-                        new VarEntry(table.getCurrentScope(), Mode.DEF_PARAM,
-                                dec.getName(), getMathType(dec.getTy()));
+                        new VarEntry(table.getCurrentScope(), Mode.DEF_PARAM, dec.getName(), getMathType(dec
+                                .getTy()));
                 table.addVariableToScope(var);
 
                 if (dec.getTy() instanceof NameTy) {
                     NameTy decAsNameTy = (NameTy) dec.getTy();
                     if (decAsNameTy.getName().getName().equals("SSet")) {
                         Type type = new FormalType(null, dec.getName());
-                        TypeEntry entry =
-                                new TypeEntry(table.getCurrentScope(), dec
-                                        .getName(), type);
+                        TypeEntry entry = new TypeEntry(table.getCurrentScope(), dec.getName(), type);
                         table.addTypeToScope(entry);
                     }
                 }
@@ -1520,8 +1475,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
         while (i.hasNext()) {
             MathVarDec dec = i.next();
             VarEntry var =
-                    new VarEntry(table.getCurrentScope(), Mode.MATH, dec
-                            .getName(), getMathType(dec.getTy()));
+                    new VarEntry(table.getCurrentScope(), Mode.MATH, dec.getName(), getMathType(dec.getTy()));
             table.addVariableToScope(var);
         }
     }
@@ -1531,8 +1485,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
         while (i.hasNext()) {
             VarDec dec = i.next();
             VarEntry var =
-                    new VarEntry(table.getCurrentScope(), Mode.LOCAL, dec
-                            .getName(), getProgramType(dec.getTy()));
+                    new VarEntry(table.getCurrentScope(), Mode.LOCAL, dec.getName(), getProgramType(dec
+                            .getTy()));
             table.addVariableToScope(var);
         }
     }
@@ -1547,8 +1501,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
         while (i.hasNext()) {
             ParameterVarDec dec = i.next();
             VarEntry var =
-                    new VarEntry(table.getCurrentScope(), dec.getMode(), dec
-                            .getName(), getProgramType(dec.getTy()));
+                    new VarEntry(table.getCurrentScope(), dec.getMode(), dec.getName(), getProgramType(dec
+                            .getTy()));
             vars.add(var);
         }
         return vars;
@@ -1569,8 +1523,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
     // Symbol Table Add Methods
     // -----------------------------------------------------------
 
-    private void addAssocEnhancementsToTable(List<EnhancementBodyItem> items,
-            PosSymbol cName) {
+    private void addAssocEnhancementsToTable(List<EnhancementBodyItem> items, PosSymbol cName) {
         Iterator<EnhancementBodyItem> i = items.iterator();
         while (i.hasNext()) {
             table.addAssocEnhancement(i.next().getName(), cName);
@@ -1585,35 +1538,29 @@ public class OldPopulator extends ResolveConceptualVisitor {
         List<ModuleScope> scopes = new List<ModuleScope>();
         ModuleID cid = ModuleID.createConceptID(dec.getConceptName());
         scopes.add(myInstanceEnvironment.getSymbolTable(cid).getModuleScope());
-        scopes.addAll(getEnhConceptualModules(dec.getEnhancements(), dec
-                .getConceptName()));
-        scopes.addAll(getEnhBodConceptualModules(dec.getEnhancementBodies(),
-                dec.getConceptName()));
+        scopes.addAll(getEnhConceptualModules(dec.getEnhancements(), dec.getConceptName()));
+        scopes.addAll(getEnhBodConceptualModules(dec.getEnhancementBodies(), dec.getConceptName()));
         return scopes;
     }
 
-    private List<ModuleScope> getEnhConceptualModules(
-            List<EnhancementItem> items, PosSymbol cname) {
+    private List<ModuleScope> getEnhConceptualModules(List<EnhancementItem> items, PosSymbol cname) {
         List<ModuleScope> scopes = new List<ModuleScope>();
         Iterator<EnhancementItem> i = items.iterator();
         while (i.hasNext()) {
             EnhancementItem item = i.next();
             ModuleID eid = ModuleID.createEnhancementID(item.getName(), cname);
-            scopes.add(myInstanceEnvironment.getSymbolTable(eid)
-                    .getModuleScope());
+            scopes.add(myInstanceEnvironment.getSymbolTable(eid).getModuleScope());
         }
         return scopes;
     }
 
-    private List<ModuleScope> getEnhBodConceptualModules(
-            List<EnhancementBodyItem> items, PosSymbol cname) {
+    private List<ModuleScope> getEnhBodConceptualModules(List<EnhancementBodyItem> items, PosSymbol cname) {
         List<ModuleScope> scopes = new List<ModuleScope>();
         Iterator<EnhancementBodyItem> i = items.iterator();
         while (i.hasNext()) {
             EnhancementBodyItem item = i.next();
             ModuleID eid = ModuleID.createEnhancementID(item.getName(), cname);
-            scopes.add(myInstanceEnvironment.getSymbolTable(eid)
-                    .getModuleScope());
+            scopes.add(myInstanceEnvironment.getSymbolTable(eid).getModuleScope());
         }
         return scopes;
     }
@@ -1631,8 +1578,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
     private Map<Symbol, Type> getTypeMappings(FacilityDec dec) {
         Map<Symbol, Type> typeMap = new Map<Symbol, Type>();
         ModuleID cid = ModuleID.createConceptID(dec.getConceptName());
-        ModuleScope scope =
-                myInstanceEnvironment.getSymbolTable(cid).getModuleScope();
+        ModuleScope scope = myInstanceEnvironment.getSymbolTable(cid).getModuleScope();
         List<Entry> pars = scope.getModuleParameters();
         if (dec.getConceptParams().size() < pars.size()) {
             String msg = moreParsThanArgsMessage();
@@ -1645,22 +1591,18 @@ public class OldPopulator extends ResolveConceptualVisitor {
             return typeMap;
         }
         typeMap.putAll(getParamTypeMappings(pars, dec.getConceptParams()));
-        typeMap.putAll(getEnhTypeMappings(dec.getEnhancements(), dec
-                .getConceptName()));
-        typeMap.putAll(getEnhBodTypeMappings(dec.getEnhancementBodies(), dec
-                .getConceptName()));
+        typeMap.putAll(getEnhTypeMappings(dec.getEnhancements(), dec.getConceptName()));
+        typeMap.putAll(getEnhBodTypeMappings(dec.getEnhancementBodies(), dec.getConceptName()));
         return typeMap;
     }
 
-    private Map<Symbol, Type> getEnhTypeMappings(List<EnhancementItem> items,
-            PosSymbol cname) {
+    private Map<Symbol, Type> getEnhTypeMappings(List<EnhancementItem> items, PosSymbol cname) {
         Map<Symbol, Type> typeMap = new Map<Symbol, Type>();
         Iterator<EnhancementItem> i = items.iterator();
         while (i.hasNext()) {
             EnhancementItem item = i.next();
             ModuleID eid = ModuleID.createEnhancementID(item.getName(), cname);
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(eid).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(eid).getModuleScope();
             List<Entry> pars = scope.getModuleParameters();
             if (item.getParams().size() < pars.size()) {
                 String msg = moreParsThanArgsMessage();
@@ -1677,15 +1619,13 @@ public class OldPopulator extends ResolveConceptualVisitor {
         return typeMap;
     }
 
-    private Map<Symbol, Type> getEnhBodTypeMappings(
-            List<EnhancementBodyItem> items, PosSymbol cname) {
+    private Map<Symbol, Type> getEnhBodTypeMappings(List<EnhancementBodyItem> items, PosSymbol cname) {
         Map<Symbol, Type> typeMap = new Map<Symbol, Type>();
         Iterator<EnhancementBodyItem> i = items.iterator();
         while (i.hasNext()) {
             EnhancementBodyItem item = i.next();
             ModuleID eid = ModuleID.createEnhancementID(item.getName(), cname);
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(eid).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(eid).getModuleScope();
             List<Entry> pars = scope.getModuleParameters();
             if (item.getParams().size() < pars.size()) {
                 String msg = moreParsThanArgsMessage();
@@ -1702,8 +1642,7 @@ public class OldPopulator extends ResolveConceptualVisitor {
         return typeMap;
     }
 
-    private Map<Symbol, Type> getParamTypeMappings(List<Entry> parameters,
-            List<ModuleArgumentItem> arguments) {
+    private Map<Symbol, Type> getParamTypeMappings(List<Entry> parameters, List<ModuleArgumentItem> arguments) {
 
         Map<Symbol, Type> typeMap = new Map<Symbol, Type>();
 
@@ -1734,11 +1673,8 @@ public class OldPopulator extends ResolveConceptualVisitor {
                    * err.error(item.getName().getLocation(), msg); break; } } }
                    */
                 Binding bind = table.getCurrentBinding();
-                Type type =
-                        new IndirectType(curArgument.getQualifier(),
-                                curArgument.getName(), bind);
-                bind.addProgramIndirectName(curArgument.getQualifier(),
-                        curArgument.getName());
+                Type type = new IndirectType(curArgument.getQualifier(), curArgument.getName(), bind);
+                bind.addProgramIndirectName(curArgument.getQualifier(), curArgument.getName());
                 typeMap.put(sym, type);
             }
         }
@@ -1750,30 +1686,23 @@ public class OldPopulator extends ResolveConceptualVisitor {
     // -----------------------------------------------------------
 
     private PosSymbol createInitName(Location loc) {
-        Symbol sym =
-                Symbol.symbol("%Init(" + loc.getPos().getLine() + ","
-                        + loc.getPos().getColumn() + ")");
+        Symbol sym = Symbol.symbol("%Init(" + loc.getPos().getLine() + "," + loc.getPos().getColumn() + ")");
         return new PosSymbol(loc, sym);
     }
 
     private PosSymbol createFinalName(Location loc) {
-        Symbol sym =
-                Symbol.symbol("%Final(" + loc.getPos().getLine() + ","
-                        + loc.getPos().getColumn() + ")");
+        Symbol sym = Symbol.symbol("%Final(" + loc.getPos().getLine() + "," + loc.getPos().getColumn() + ")");
         return new PosSymbol(loc, sym);
     }
 
     private PosSymbol createArrayName(Location loc) {
-        Symbol sym =
-                Symbol.symbol("%Array(" + loc.getPos().getLine() + ","
-                        + loc.getPos().getColumn() + ")");
+        Symbol sym = Symbol.symbol("%Array(" + loc.getPos().getLine() + "," + loc.getPos().getColumn() + ")");
         return new PosSymbol(loc, sym);
     }
 
     private PosSymbol createRecordName(Location loc) {
         Symbol sym =
-                Symbol.symbol("%Record(" + loc.getPos().getLine() + ","
-                        + loc.getPos().getColumn() + ")");
+                Symbol.symbol("%Record(" + loc.getPos().getLine() + "," + loc.getPos().getColumn() + ")");
         return new PosSymbol(loc, sym);
     }
 
@@ -1791,13 +1720,11 @@ public class OldPopulator extends ResolveConceptualVisitor {
     // -----------------------------------------------------------
 
     private String expForTypeMessage() {
-        return "Cannot pass an expression to a module where a "
-                + "type is required.";
+        return "Cannot pass an expression to a module where a " + "type is required.";
     }
 
     private String moreParsThanArgsMessage() {
-        return "The number of arguments is less than the number "
-                + "of parameters.";
+        return "The number of arguments is less than the number " + "of parameters.";
     }
 
     private String moreArgsThanParsMessage() {

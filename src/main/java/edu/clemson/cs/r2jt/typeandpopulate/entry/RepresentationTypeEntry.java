@@ -25,10 +25,8 @@ public class RepresentationTypeEntry extends SymbolTableEntry {
     private final Exp myCorrespondence;
     private final TypeGraph myTypeGraph;
 
-    public RepresentationTypeEntry(TypeGraph g, String name,
-            ResolveConceptualElement definingElement,
-            ModuleIdentifier sourceModule,
-            ProgramTypeDefinitionEntry definition, PTType representation,
+    public RepresentationTypeEntry(TypeGraph g, String name, ResolveConceptualElement definingElement,
+            ModuleIdentifier sourceModule, ProgramTypeDefinitionEntry definition, PTType representation,
             Exp convention, Exp correspondence) {
         super(name, definingElement, sourceModule);
 
@@ -59,19 +57,16 @@ public class RepresentationTypeEntry extends SymbolTableEntry {
 
     @Override
     public ProgramTypeEntry toProgramTypeEntry(Location l) {
-        return new ProgramTypeEntry(myTypeGraph, getName(),
-                getDefiningElement(), getSourceModuleIdentifier(), myDefinition
-                        .getModelType(), myRepresentation);
+        return new ProgramTypeEntry(myTypeGraph, getName(), getDefiningElement(),
+                getSourceModuleIdentifier(), myDefinition.getModelType(), myRepresentation);
     }
 
     @Override
-    public SymbolTableEntry instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public SymbolTableEntry instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
         //Representation is an internal implementation detail of a realization
         //and cannot be accessed through a facility instantiation
-        throw new UnsupportedOperationException("Cannot instantiate "
-                + this.getClass());
+        throw new UnsupportedOperationException("Cannot instantiate " + this.getClass());
     }
 }

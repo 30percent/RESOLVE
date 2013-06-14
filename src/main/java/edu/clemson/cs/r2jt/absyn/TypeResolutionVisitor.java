@@ -64,20 +64,17 @@ import edu.clemson.cs.r2jt.data.Location;
 
 public class TypeResolutionVisitor {
 
-    public Type getCrossTypeExpType(CrossTypeExpression data)
-            throws TypeResolutionException {
+    public Type getCrossTypeExpType(CrossTypeExpression data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getArbitraryExpType(ArbitraryExpTy data)
-            throws TypeResolutionException {
+    public Type getArbitraryExpType(ArbitraryExpTy data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getImplicitTypeParameterExp(TypeAssertionExp data)
-            throws TypeResolutionException {
+    public Type getImplicitTypeParameterExp(TypeAssertionExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
@@ -87,20 +84,17 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public Type getBetweenExpType(BetweenExp data)
-            throws TypeResolutionException {
+    public Type getBetweenExpType(BetweenExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getAlternativeExpType(AlternativeExp data)
-            throws TypeResolutionException {
+    public Type getAlternativeExpType(AlternativeExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getProgramFunctionExpType(ProgramFunctionExp data)
-            throws TypeResolutionException {
+    public Type getProgramFunctionExpType(ProgramFunctionExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
@@ -125,8 +119,7 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public Type getFunctionExpType(FunctionExp data)
-            throws TypeResolutionException {
+    public Type getFunctionExpType(FunctionExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
@@ -136,26 +129,22 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public Type getProgramDoubleExpType(ProgramDoubleExp data)
-            throws TypeResolutionException {
+    public Type getProgramDoubleExpType(ProgramDoubleExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getIntegerExpType(IntegerExp data)
-            throws TypeResolutionException {
+    public Type getIntegerExpType(IntegerExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getCartProdTyType(CartProdTy data)
-            throws TypeResolutionException {
+    public Type getCartProdTyType(CartProdTy data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getProgramDotExpType(ProgramDotExp data)
-            throws TypeResolutionException {
+    public Type getProgramDotExpType(ProgramDotExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
@@ -165,20 +154,17 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public Type getProgramIntegerExpType(ProgramIntegerExp data)
-            throws TypeResolutionException {
+    public Type getProgramIntegerExpType(ProgramIntegerExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getProgramCharExpType(ProgramCharExp data)
-            throws TypeResolutionException {
+    public Type getProgramCharExpType(ProgramCharExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getProgramStringExpType(ProgramStringExp data)
-            throws TypeResolutionException {
+    public Type getProgramStringExpType(ProgramStringExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
@@ -203,8 +189,7 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public Type getIterativeExpType(IterativeExp data)
-            throws TypeResolutionException {
+    public Type getIterativeExpType(IterativeExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
@@ -214,8 +199,7 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public Type getVariableNameExpType(VariableNameExp data)
-            throws TypeResolutionException {
+    public Type getVariableNameExpType(VariableNameExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
@@ -225,32 +209,27 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public Type getProgramParamExpType(ProgramParamExp data)
-            throws TypeResolutionException {
+    public Type getProgramParamExpType(ProgramParamExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getAltItemExpType(AltItemExp data)
-            throws TypeResolutionException {
+    public Type getAltItemExpType(AltItemExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getTypeFunctionExpType(TypeFunctionExp data)
-            throws TypeResolutionException {
+    public Type getTypeFunctionExpType(TypeFunctionExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getProgramOpExpType(ProgramOpExp data)
-            throws TypeResolutionException {
+    public Type getProgramOpExpType(ProgramOpExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getVariableRecordExpType(VariableRecordExp data)
-            throws TypeResolutionException {
+    public Type getVariableRecordExpType(VariableRecordExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
@@ -265,14 +244,12 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public Type getVariableDotExpType(VariableDotExp data)
-            throws TypeResolutionException {
+    public Type getVariableDotExpType(VariableDotExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getUnaryMinusExpType(UnaryMinusExp data)
-            throws TypeResolutionException {
+    public Type getUnaryMinusExpType(UnaryMinusExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
@@ -287,20 +264,17 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public Type getVariableArrayExpType(VariableArrayExp data)
-            throws TypeResolutionException {
+    public Type getVariableArrayExpType(VariableArrayExp data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getConstructedTyType(ConstructedTy data)
-            throws TypeResolutionException {
+    public Type getConstructedTyType(ConstructedTy data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
 
-    public Type getFunctionTyType(FunctionTy data)
-            throws TypeResolutionException {
+    public Type getFunctionTyType(FunctionTy data) throws TypeResolutionException {
         assert false : "This method should not be called.";
         return null;
     }
@@ -324,43 +298,35 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public Type getSuppositionExpType(SuppositionExp data)
-            throws TypeResolutionException {
+    public Type getSuppositionExpType(SuppositionExp data) throws TypeResolutionException {
         return null;
     }
 
-    public Type getDeductionExpType(DeductionExp data)
-            throws TypeResolutionException {
+    public Type getDeductionExpType(DeductionExp data) throws TypeResolutionException {
         return null;
     }
 
-    public Type getSuppositionDeductionExpType(SuppositionDeductionExp data)
-            throws TypeResolutionException {
+    public Type getSuppositionDeductionExpType(SuppositionDeductionExp data) throws TypeResolutionException {
         return null;
     }
 
-    public Type getProofDefinitionExpType(ProofDefinitionExp data)
-            throws TypeResolutionException {
+    public Type getProofDefinitionExpType(ProofDefinitionExp data) throws TypeResolutionException {
         return null;
     }
 
-    public Type getJustifiedExpType(JustifiedExp data)
-            throws TypeResolutionException {
+    public Type getJustifiedExpType(JustifiedExp data) throws TypeResolutionException {
         return null;
     }
 
-    public Type getJustificationExpType(JustificationExp data)
-            throws TypeResolutionException {
+    public Type getJustificationExpType(JustificationExp data) throws TypeResolutionException {
         return null;
     }
 
-    public Type getHypDesigExpType(HypDesigExp data)
-            throws TypeResolutionException {
+    public Type getHypDesigExpType(HypDesigExp data) throws TypeResolutionException {
         return null;
     }
 
-    public Type getMathRefExpType(MathRefExp data)
-            throws TypeResolutionException {
+    public Type getMathRefExpType(MathRefExp data) throws TypeResolutionException {
         return null;
     }
 
@@ -373,8 +339,8 @@ public class TypeResolutionVisitor {
         return null;
     }
 
-    public boolean matchTypes(Location loc, Type t1, Type t2, boolean b1,
-            boolean b2) throws TypeResolutionException {
+    public boolean matchTypes(Location loc, Type t1, Type t2, boolean b1, boolean b2)
+            throws TypeResolutionException {
         assert false : "This method should not be called.";
         return false;
     }

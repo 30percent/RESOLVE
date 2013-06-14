@@ -87,8 +87,7 @@ public class JustifiedExp extends LineNumberedExp {
         super(null);
     }
 
-    public JustifiedExp(Location location, PosSymbol lineNum, Exp exp,
-            JustificationExp justification) {
+    public JustifiedExp(Location location, PosSymbol lineNum, Exp exp, JustificationExp justification) {
         super(lineNum);
         this.location = location;
         this.exp = exp;
@@ -142,8 +141,7 @@ public class JustifiedExp extends LineNumberedExp {
     // ===========================================================
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new JustifiedExp(location, this.getLineNum(), substitute(exp,
-                substitutions), justification);
+        return new JustifiedExp(location, this.getLineNum(), substitute(exp, substitutions), justification);
     }
 
     /** Accepts a ResolveConceptualVisitor. */
@@ -214,8 +212,7 @@ public class JustifiedExp extends LineNumberedExp {
         if (myLineNumber != null)
             newLineNum = myLineNumber.copy();
         Exp newExp = Exp.copy(exp);
-        JustificationExp newJustification =
-                (JustificationExp) (Exp.copy(justification));
+        JustificationExp newJustification = (JustificationExp) (Exp.copy(justification));
         return new JustifiedExp(null, newLineNum, newExp, newJustification);
     }
 

@@ -171,8 +171,7 @@ public class VariableLocator {
         }
     }
 
-    public VarEntry locateMathVariable(PosSymbol qual, PosSymbol name, Exp exp)
-            throws SymbolSearchException {
+    public VarEntry locateMathVariable(PosSymbol qual, PosSymbol name, Exp exp) throws SymbolSearchException {
         local = false;
         VarEntry ve = locateMathVariable(qual, name);
         if (local && (exp instanceof VarExp)) {
@@ -181,8 +180,8 @@ public class VariableLocator {
         return ve;
     }
 
-    public VarEntry locateProgramVariable(PosSymbol qual, PosSymbol name,
-            Exp exp) throws SymbolSearchException {
+    public VarEntry locateProgramVariable(PosSymbol qual, PosSymbol name, Exp exp)
+            throws SymbolSearchException {
         local = false;
         VarEntry ve = locateProgramVariable(qual, name);
         if (local && (exp instanceof VarExp)) {
@@ -191,8 +190,7 @@ public class VariableLocator {
         return ve;
     }
 
-    public VarEntry locateMathVariable(PosSymbol name)
-            throws SymbolSearchException {
+    public VarEntry locateMathVariable(PosSymbol name) throws SymbolSearchException {
         List<VarEntry> vars = locateVariablesInStack(name);
         if (vars.size() == 0) {
             vars = locateMathVariablesInImports(name);
@@ -200,8 +198,7 @@ public class VariableLocator {
         return getUniqueMathVariable(name, vars);
     }
 
-    public VarEntry locateProgramVariable(PosSymbol name)
-            throws SymbolSearchException {
+    public VarEntry locateProgramVariable(PosSymbol name) throws SymbolSearchException {
         List<VarEntry> vars = locateVariablesInStack(name);
         if (vars.size() == 0) {
             vars = locateProgramVariablesInImports(name);
@@ -209,8 +206,7 @@ public class VariableLocator {
         return getUniqueProgramVariable(name, vars);
     }
 
-    public VarEntry locateMathVariable(PosSymbol qual, PosSymbol name)
-            throws SymbolSearchException {
+    public VarEntry locateMathVariable(PosSymbol qual, PosSymbol name) throws SymbolSearchException {
         if (qual == null) {
             return locateMathVariable(name);
         }
@@ -221,17 +217,14 @@ public class VariableLocator {
         }
         else {
             if (showErrors) {
-                String msg =
-                        cantFindVarInModMessage(name.toString(), qual
-                                .toString());
+                String msg = cantFindVarInModMessage(name.toString(), qual.toString());
                 err.error(qual.getLocation(), msg);
             }
             throw new SymbolSearchException();
         }
     }
 
-    public VarEntry locateProgramVariable(PosSymbol qual, PosSymbol name)
-            throws SymbolSearchException {
+    public VarEntry locateProgramVariable(PosSymbol qual, PosSymbol name) throws SymbolSearchException {
         if (qual == null) {
             return locateProgramVariable(name);
         }
@@ -244,9 +237,7 @@ public class VariableLocator {
         }
         else {
             if (showErrors) {
-                String msg =
-                        cantFindVarInModMessage(name.toString(), qual
-                                .toString());
+                String msg = cantFindVarInModMessage(name.toString(), qual.toString());
                 err.error(qual.getLocation(), msg);
             }
             throw new SymbolSearchException();
@@ -257,8 +248,7 @@ public class VariableLocator {
     // Location Methods
     // -----------------------------------------------------------
 
-    public List<VarEntry> locateVariablesInStack(PosSymbol name)
-            throws SymbolSearchException {
+    public List<VarEntry> locateVariablesInStack(PosSymbol name) throws SymbolSearchException {
         List<VarEntry> vars = new List<VarEntry>();
         Stack<Scope> stack = table.getStack();
         Stack<Scope> hold = new Stack<Scope>();
@@ -269,25 +259,20 @@ public class VariableLocator {
                 if (scope.containsVariable(name.getSymbol())) {
                     vars.add(scope.getVariable(name.getSymbol()));
                     // if you find the variable in a procedure, mark it local (for the proof checker)
-                    if (scope instanceof ProcedureScope
-                            || scope instanceof DefinitionScope
-                            || scope instanceof OperationScope
-                            || scope instanceof ExpressionScope) {
+                    if (scope instanceof ProcedureScope || scope instanceof DefinitionScope
+                            || scope instanceof OperationScope || scope instanceof ExpressionScope) {
                         local = true;
                     }
                     break;
                 }
                 if (scope instanceof ProcedureScope) {
-                    vars.addAll(locateVariablesInProc(name,
-                            (ProcedureScope) scope));
+                    vars.addAll(locateVariablesInProc(name, (ProcedureScope) scope));
                     if (vars.size() > 0) {
                         break;
                     }
                 }
                 if (scope instanceof ProofScope) {
-                    vars
-                            .addAll(locateVariablesInProof(name,
-                                    (ProofScope) scope));
+                    vars.addAll(locateVariablesInProof(name, (ProofScope) scope));
                     if (vars.size() > 0) {
                         break;
                     }
@@ -302,11 +287,9 @@ public class VariableLocator {
         }
     }
 
-    public List<VarEntry> locateMathVariablesInImports(PosSymbol name)
-            throws SymbolSearchException {
+    public List<VarEntry> locateMathVariablesInImports(PosSymbol name) throws SymbolSearchException {
         List<VarEntry> vars = new List<VarEntry>();
-        Iterator<ModuleScope> i =
-                table.getModuleScope().getMathVisibleModules();
+        Iterator<ModuleScope> i = table.getModuleScope().getMathVisibleModules();
         while (i.hasNext()) {
             ModuleScope iscope = i.next();
             if (iscope.containsVariable(name.getSymbol())) {
@@ -331,8 +314,8 @@ public class VariableLocator {
     // General Variable Location Methods
     // -----------------------------------------------------------
 
-    private List<VarEntry> locateVariablesInProc(PosSymbol name,
-            ProcedureScope scope) throws SymbolSearchException {
+    private List<VarEntry> locateVariablesInProc(PosSymbol name, ProcedureScope scope)
+            throws SymbolSearchException {
         List<VarEntry> vars = new List<VarEntry>();
         Iterator<ModuleScope> i = scope.getVisibleModules();
         while (i.hasNext()) {
@@ -344,8 +327,8 @@ public class VariableLocator {
         return vars;
     }
 
-    private List<VarEntry> locateVariablesInProof(PosSymbol name,
-            ProofScope scope) throws SymbolSearchException {
+    private List<VarEntry> locateVariablesInProof(PosSymbol name, ProofScope scope)
+            throws SymbolSearchException {
         List<VarEntry> vars = new List<VarEntry>();
         Iterator<ModuleScope> i = scope.getVisibleModules();
         while (i.hasNext()) {
@@ -361,8 +344,7 @@ public class VariableLocator {
     // Unqualified Math Variable Methods
     // -----------------------------------------------------------
 
-    private VarEntry getUniqueMathVariable(PosSymbol name, List<VarEntry> vars)
-            throws SymbolSearchException {
+    private VarEntry getUniqueMathVariable(PosSymbol name, List<VarEntry> vars) throws SymbolSearchException {
         if (vars.size() == 0) {
             String msg = cantFindVarMessage(name.toString());
             throw new SymbolSearchException(msg);
@@ -373,8 +355,7 @@ public class VariableLocator {
         else { // vars.size() > 1
             List<Location> locs = getLocationList(vars);
             if (showErrors) {
-                String msg =
-                        ambigVarRefMessage(name.toString(), locs.toString());
+                String msg = ambigVarRefMessage(name.toString(), locs.toString());
                 err.error(name.getLocation(), msg);
             }
             throw new SymbolSearchException();
@@ -385,11 +366,9 @@ public class VariableLocator {
     // Unqualified Program Variable Methods
     // -----------------------------------------------------------
 
-    private List<VarEntry> locateProgramVariablesInImports(PosSymbol name)
-            throws SymbolSearchException {
+    private List<VarEntry> locateProgramVariablesInImports(PosSymbol name) throws SymbolSearchException {
         List<VarEntry> vars = new List<VarEntry>();
-        Iterator<ModuleScope> i =
-                table.getModuleScope().getProgramVisibleModules();
+        Iterator<ModuleScope> i = table.getModuleScope().getProgramVisibleModules();
         while (i.hasNext()) {
             ModuleScope iscope = i.next();
             if (iscope.containsVariable(name.getSymbol())) {
@@ -399,8 +378,8 @@ public class VariableLocator {
         return vars;
     }
 
-    private VarEntry getUniqueProgramVariable(PosSymbol name,
-            List<VarEntry> vars) throws SymbolSearchException {
+    private VarEntry getUniqueProgramVariable(PosSymbol name, List<VarEntry> vars)
+            throws SymbolSearchException {
         if (vars.size() == 0) {
             if (showErrors) {
                 String msg = cantFindProgVarMessage(name.toString());
@@ -417,8 +396,8 @@ public class VariableLocator {
         }
     }
 
-    private VarEntry disambiguateProgramVariables(PosSymbol name,
-            List<VarEntry> vars) throws SymbolSearchException {
+    private VarEntry disambiguateProgramVariables(PosSymbol name, List<VarEntry> vars)
+            throws SymbolSearchException {
         List<VarEntry> newvars = new List<VarEntry>();
         Iterator<VarEntry> i = vars.iterator();
         while (i.hasNext()) {
@@ -430,8 +409,7 @@ public class VariableLocator {
         if (newvars.size() == 0) {
             List<Location> locs = getLocationList(vars);
             if (showErrors) {
-                String msg =
-                        cantFindProgVarMessage(name.toString(), locs.toString());
+                String msg = cantFindProgVarMessage(name.toString(), locs.toString());
                 err.error(name.getLocation(), msg);
             }
             throw new SymbolSearchException();
@@ -442,16 +420,14 @@ public class VariableLocator {
         else { // newvars.size() > 1
             List<Location> locs = getLocationList(vars);
             if (showErrors) {
-                String msg =
-                        ambigVarRefMessage(name.toString(), locs.toString());
+                String msg = ambigVarRefMessage(name.toString(), locs.toString());
                 err.error(name.getLocation(), msg);
             }
             throw new SymbolSearchException();
         }
     }
 
-    private void checkProgramVariable(PosSymbol name, VarEntry var)
-            throws SymbolSearchException {
+    private void checkProgramVariable(PosSymbol name, VarEntry var) throws SymbolSearchException {
         if (!isProgramVariable(var)) {
             if (showErrors) {
                 String msg = notProgVarMessage(var.getName().toString());
@@ -470,8 +446,8 @@ public class VariableLocator {
                 return true;
             }
         }
-        return (type instanceof FormalType || type instanceof ConcType
-                || type instanceof NameType || type instanceof ArrayType || type instanceof RecordType);
+        return (type instanceof FormalType || type instanceof ConcType || type instanceof NameType
+                || type instanceof ArrayType || type instanceof RecordType);
     }
 
     private List<Location> getLocationList(List<VarEntry> entries) {
@@ -489,8 +465,7 @@ public class VariableLocator {
     // -----------------------------------------------------------
 
     private String cantFindVarInModMessage(String name, String module) {
-        return "Cannot find a variable named " + name + " in module " + module
-                + ".";
+        return "Cannot find a variable named " + name + " in module " + module + ".";
     }
 
     private String ambigVarRefMessage(String name, String mods) {
@@ -503,8 +478,7 @@ public class VariableLocator {
     }
 
     private String cantFindProgVarMessage(String name, String mods) {
-        return "Cannot find a program variable named " + name
-                + ", but found math variables: " + mods + ".";
+        return "Cannot find a program variable named " + name + ", but found math variables: " + mods + ".";
     }
 
     private String cantFindVarMessage(String name) {

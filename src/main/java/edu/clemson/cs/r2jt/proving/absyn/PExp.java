@@ -46,8 +46,7 @@ import java.util.Deque;
  */
 public abstract class PExp {
 
-    protected final static BindingException BINDING_EXCEPTION =
-            new BindingException();
+    protected final static BindingException BINDING_EXCEPTION = new BindingException();
 
     public final int structureHash;
     public final int valueHash;
@@ -98,8 +97,7 @@ public abstract class PExp {
         while (path.hasNext()) {
             integerPath.push(path.next());
 
-            pexpPath.push(pexpPath.peek().getSubExpressions().get(
-                    integerPath.peek()));
+            pexpPath.push(pexpPath.peek().getSubExpressions().get(integerPath.peek()));
         }
 
         pexpPath.pop();
@@ -107,8 +105,7 @@ public abstract class PExp {
 
         while (pexpPath.size() > 1) {
             newValue = pexpPath.pop();
-            pexpPath.push(pexpPath.pop().withSubExpressionReplaced(
-                    integerPath.pop(), newValue));
+            pexpPath.push(pexpPath.pop().withSubExpressionReplaced(integerPath.pop(), newValue));
         }
 
         return pexpPath.peek();
@@ -124,9 +121,7 @@ public abstract class PExp {
         PExp working = this;
 
         for (Map.Entry<Integer, PExp> entry : e.entrySet()) {
-            working =
-                    working.withSubExpressionReplaced(entry.getKey(), entry
-                            .getValue());
+            working = working.withSubExpressionReplaced(entry.getKey(), entry.getValue());
         }
 
         return working;
@@ -200,8 +195,7 @@ public abstract class PExp {
         Deque<PExp> stack = new LinkedList<PExp>();
 
         Quantification quant = Quantification.NONE;
-        Iterator<String> tokens =
-                Arrays.asList(description.split(" ")).iterator();
+        Iterator<String> tokens = Arrays.asList(description.split(" ")).iterator();
         String token;
         while (tokens.hasNext()) {
             token = tokens.next();
@@ -226,8 +220,7 @@ public abstract class PExp {
                     displayType = DisplayType.PREFIX;
                 }
                 else {
-                    throw new IllegalArgumentException("Unknown display type: "
-                            + displayTypeDesc);
+                    throw new IllegalArgumentException("Unknown display type: " + displayTypeDesc);
                 }
 
                 MTType type = typeFromDesc(typeDesc, g);
@@ -236,9 +229,8 @@ public abstract class PExp {
                 List<MTType> parameterTypes = new LinkedList<MTType>();
                 for (int i = 0; i < parameterCount; i++) {
                     if (stack.isEmpty()) {
-                        throw new IllegalArgumentException(
-                                "Not enough parameters on stack: "
-                                        + parameterCount);
+                        throw new IllegalArgumentException("Not enough parameters on stack: "
+                                + parameterCount);
                     }
 
                     parameters.add(0, stack.pop());
@@ -247,8 +239,7 @@ public abstract class PExp {
 
                 MTType functionType = new MTFunction(g, type, parameterTypes);
 
-                stack.push(new PSymbol(functionType, null, functionName,
-                        parameters, quant, displayType));
+                stack.push(new PSymbol(functionType, null, functionName, parameters, quant, displayType));
                 quant = Quantification.NONE;
             }
             else {
@@ -261,9 +252,8 @@ public abstract class PExp {
         }
 
         if (stack.size() != 1) {
-            throw new IllegalArgumentException(
-                    "Must set up stack with exactly one PExp on it.  "
-                            + "Left with: " + stack.size());
+            throw new IllegalArgumentException("Must set up stack with exactly one PExp on it.  "
+                    + "Left with: " + stack.size());
         }
 
         return stack.pop();
@@ -307,9 +297,8 @@ public abstract class PExp {
                                 + ((VarExp) e).getName().getLocation();
             }
 
-            throw new UnsupportedOperationException(
-                    "Expression has null type.\n\n" + e + " (" + e.getClass()
-                            + ")" + varExpAdditional);
+            throw new UnsupportedOperationException("Expression has null type.\n\n" + e + " (" + e.getClass()
+                    + ")" + varExpAdditional);
         }
 
         for (Exp subexp : e.getSubExpressions()) {
@@ -325,8 +314,7 @@ public abstract class PExp {
         e = Utilities.applyQuantification(e);
 
         if (e == null) {
-            throw new IllegalArgumentException("Prover does not accept null "
-                    + "as an expression.");
+            throw new IllegalArgumentException("Prover does not accept null " + "as an expression.");
         }
 
         if (e instanceof FunctionExp) {
@@ -339,11 +327,9 @@ public abstract class PExp {
             }
 
             retval =
-                    new PSymbol(e.getMathType(), e.getMathTypeValue(),
-                            fullName(eAsFunctionExp.getQualifier(),
-                                    eAsFunctionExp.getName().getName()),
-                            arguments, convertExpQuantification(eAsFunctionExp
-                                    .getQuantification()));
+                    new PSymbol(e.getMathType(), e.getMathTypeValue(), fullName(
+                            eAsFunctionExp.getQualifier(), eAsFunctionExp.getName().getName()), arguments,
+                            convertExpQuantification(eAsFunctionExp.getQuantification()));
         }
         else if (e instanceof PrefixExp) {
             PrefixExp eAsPrefixExp = (PrefixExp) e;
@@ -352,8 +338,8 @@ public abstract class PExp {
             arguments.add(PExp.buildPExp(eAsPrefixExp.getArgument()));
 
             retval =
-                    new PSymbol(e.getMathType(), e.getMathTypeValue(),
-                            eAsPrefixExp.getSymbol().getName(), arguments);
+                    new PSymbol(e.getMathType(), e.getMathTypeValue(), eAsPrefixExp.getSymbol().getName(),
+                            arguments);
         }
         else if (e instanceof InfixExp) {
             InfixExp eAsInfixExp = (InfixExp) e;
@@ -363,9 +349,8 @@ public abstract class PExp {
             arguments.add(PExp.buildPExp(eAsInfixExp.getRight()));
 
             retval =
-                    new PSymbol(e.getMathType(), e.getMathTypeValue(),
-                            eAsInfixExp.getOpName().getName(), arguments,
-                            PSymbol.DisplayType.INFIX);
+                    new PSymbol(e.getMathType(), e.getMathTypeValue(), eAsInfixExp.getOpName().getName(),
+                            arguments, PSymbol.DisplayType.INFIX);
         }
         else if (e instanceof IsInExp) {
             IsInExp eAsIsInExp = (IsInExp) e;
@@ -375,8 +360,8 @@ public abstract class PExp {
             arguments.add(PExp.buildPExp(eAsIsInExp.getRight()));
 
             retval =
-                    new PSymbol(e.getMathType(), e.getMathTypeValue(), "is_in",
-                            arguments, PSymbol.DisplayType.INFIX);
+                    new PSymbol(e.getMathType(), e.getMathTypeValue(), "is_in", arguments,
+                            PSymbol.DisplayType.INFIX);
         }
         else if (e instanceof OutfixExp) {
             OutfixExp eAsOutfixExp = (OutfixExp) e;
@@ -385,10 +370,8 @@ public abstract class PExp {
             arguments.add(PExp.buildPExp(eAsOutfixExp.getArgument()));
 
             retval =
-                    new PSymbol(e.getMathType(), e.getMathTypeValue(),
-                            eAsOutfixExp.getLeftDelimiter(), eAsOutfixExp
-                                    .getRightDelimiter(), arguments,
-                            PSymbol.DisplayType.OUTFIX);
+                    new PSymbol(e.getMathType(), e.getMathTypeValue(), eAsOutfixExp.getLeftDelimiter(),
+                            eAsOutfixExp.getRightDelimiter(), arguments, PSymbol.DisplayType.OUTFIX);
         }
         else if (e instanceof EqualsExp) {
             EqualsExp eAsEqualsExp = (EqualsExp) e;
@@ -398,9 +381,8 @@ public abstract class PExp {
             arguments.add(PExp.buildPExp(eAsEqualsExp.getRight()));
 
             retval =
-                    new PSymbol(e.getMathType(), e.getMathTypeValue(),
-                            eAsEqualsExp.getOperatorAsString(), arguments,
-                            PSymbol.DisplayType.INFIX);
+                    new PSymbol(e.getMathType(), e.getMathTypeValue(), eAsEqualsExp.getOperatorAsString(),
+                            arguments, PSymbol.DisplayType.INFIX);
         }
         else if (e instanceof IntegerExp) {
             IntegerExp eAsIntegerExp = (IntegerExp) e;
@@ -442,19 +424,15 @@ public abstract class PExp {
                 symbol += PExp.buildPExp(eAsDotExp.getSemanticExp());
             }
 
-            retval =
-                    new PSymbol(e.getMathType(), e.getMathTypeValue(), symbol,
-                            arguments);
+            retval = new PSymbol(e.getMathType(), e.getMathTypeValue(), symbol, arguments);
         }
         else if (e instanceof VarExp) {
             VarExp eAsVarExp = (VarExp) e;
 
             retval =
-                    new PSymbol(eAsVarExp.getMathType(), eAsVarExp
-                            .getMathTypeValue(), fullName(eAsVarExp
+                    new PSymbol(eAsVarExp.getMathType(), eAsVarExp.getMathTypeValue(), fullName(eAsVarExp
                             .getQualifier(), eAsVarExp.getName().getName()),
-                            convertExpQuantification(eAsVarExp
-                                    .getQuantification()));
+                            convertExpQuantification(eAsVarExp.getQuantification()));
         }
         else if (e instanceof VariableDotExp) {
             VariableDotExp eAsDotExp = (VariableDotExp) e;
@@ -467,23 +445,20 @@ public abstract class PExp {
             finalName += eAsDotExp.getSemanticExp().toString(0);
 
             retval =
-                    new PSymbol(eAsDotExp.getSemanticExp().getMathType(),
-                            eAsDotExp.getSemanticExp().getMathTypeValue(),
-                            finalName);
+                    new PSymbol(eAsDotExp.getSemanticExp().getMathType(), eAsDotExp.getSemanticExp()
+                            .getMathTypeValue(), finalName);
         }
         else if (e instanceof LambdaExp) {
             LambdaExp eAsLambdaExp = (LambdaExp) e;
 
-            List<PLambda.Parameter> parameters =
-                    new LinkedList<PLambda.Parameter>();
+            List<PLambda.Parameter> parameters = new LinkedList<PLambda.Parameter>();
             for (MathVarDec p : eAsLambdaExp.getParameters()) {
-                parameters.add(new PLambda.Parameter(p.getName().getName(), p
-                        .getTy().getMathTypeValue()));
+                parameters.add(new PLambda.Parameter(p.getName().getName(), p.getTy().getMathTypeValue()));
             }
 
             retval =
-                    new PLambda(new ArrayBackedImmutableList(parameters), PExp
-                            .buildPExp(eAsLambdaExp.getBody()));
+                    new PLambda(new ArrayBackedImmutableList(parameters), PExp.buildPExp(eAsLambdaExp
+                            .getBody()));
         }
         else if (e instanceof AlternativeExp) {
             AlternativeExp eAsAlternativeExp = (AlternativeExp) e;
@@ -511,9 +486,8 @@ public abstract class PExp {
                                 + ((VarExp) e).getName().getLocation();
             }
 
-            throw new UnsupportedOperationException(
-                    "Expression has null type.\n\n" + e + " (" + e.getClass()
-                            + ")" + varExpAdditional);
+            throw new UnsupportedOperationException("Expression has null type.\n\n" + e + " (" + e.getClass()
+                    + ")" + varExpAdditional);
         }
 
         return retval;
@@ -527,8 +501,7 @@ public abstract class PExp {
         return bindings;
     }
 
-    public abstract void bindTo(PExp target, Map<PExp, PExp> accumulator)
-            throws BindingException;
+    public abstract void bindTo(PExp target, Map<PExp, PExp> accumulator) throws BindingException;
 
     @Override
     public int hashCode() {
@@ -544,8 +517,7 @@ public abstract class PExp {
     public final Set<String> getSymbolNames() {
         if (myCachedSymbolNames == null) {
             //We're immutable, so only do this once
-            myCachedSymbolNames =
-                    Collections.unmodifiableSet(getSymbolNamesNoCache());
+            myCachedSymbolNames = Collections.unmodifiableSet(getSymbolNamesNoCache());
         }
 
         return myCachedSymbolNames;
@@ -556,9 +528,7 @@ public abstract class PExp {
     public final Set<PSymbol> getQuantifiedVariables() {
         if (myCachedQuantifiedVariables == null) {
             //We're immutable, so only do this once
-            myCachedQuantifiedVariables =
-                    Collections
-                            .unmodifiableSet(getQuantifiedVariablesNoCache());
+            myCachedQuantifiedVariables = Collections.unmodifiableSet(getQuantifiedVariablesNoCache());
         }
 
         return myCachedQuantifiedVariables;
@@ -652,8 +622,7 @@ public abstract class PExp {
 
     public final String toString() {
         StringWriter output = new StringWriter();
-        PExpTextRenderingVisitor renderer =
-                new PExpTextRenderingVisitor(output);
+        PExpTextRenderingVisitor renderer = new PExpTextRenderingVisitor(output);
 
         this.accept(renderer);
 

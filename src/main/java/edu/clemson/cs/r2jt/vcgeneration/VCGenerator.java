@@ -48,8 +48,7 @@ public class VCGenerator extends TreeWalkerVisitor {
             new Flag(FLAG_ALTSECTION_NAME, "altVCs", FLAG_DESC_ATLVERIFY_VC);
 
     public static final Flag FLAG_ALTLISTVCS_VC =
-            new Flag(FLAG_ALTSECTION_NAME, "altListVCs",
-                    FLAG_DESC_ATTLISTVCS_VC, Flag.Type.HIDDEN);
+            new Flag(FLAG_ALTSECTION_NAME, "altListVCs", FLAG_DESC_ATTLISTVCS_VC, Flag.Type.HIDDEN);
 
     public static final void setUpFlags() {
         FlagDependencies.addImplies(FLAG_ALTVERIFY_VC, FLAG_ALTLISTVCS_VC);
@@ -94,18 +93,12 @@ public class VCGenerator extends TreeWalkerVisitor {
         myUtilities.constructParamList(dec.getConceptName());
 
         // Get Corresponding EnhancementModuleDec
-        ModuleID eid =
-                ModuleID.createEnhancementID(dec.getEnhancementName(), dec
-                        .getConceptName());
-        myUtilities
-                .setEnhancementModuleDec((EnhancementModuleDec) myInstanceEnvironment
-                        .getModuleDec(eid));
+        ModuleID eid = ModuleID.createEnhancementID(dec.getEnhancementName(), dec.getConceptName());
+        myUtilities.setEnhancementModuleDec((EnhancementModuleDec) myInstanceEnvironment.getModuleDec(eid));
 
         // Get Corresponding ConceptModuleDec
         ModuleID cid = ModuleID.createConceptID(dec.getConceptName());
-        myUtilities
-                .setConceptModuleDec((ConceptModuleDec) myInstanceEnvironment
-                        .getModuleDec(cid));
+        myUtilities.setConceptModuleDec((ConceptModuleDec) myInstanceEnvironment.getModuleDec(cid));
     }
 
     @Override

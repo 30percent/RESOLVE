@@ -21,8 +21,7 @@ public class ProbationaryApplication implements Automator {
     private boolean myAppliedFlag = false;
     private boolean myChangeStuckFlag = true;
 
-    public ProbationaryApplication(Application application,
-            Predicate<ProofStep> p) {
+    public ProbationaryApplication(Application application, Predicate<ProofStep> p) {
 
         myApplication = application;
         myPredicate = p;
@@ -42,8 +41,7 @@ public class ProbationaryApplication implements Automator {
             if (!myPredicate.test(model.getLastProofStep())) {
                 model.undoLastProofStep();
                 myChangeStuckFlag = false;
-                System.out
-                        .println("ProbationaryApplication - Rolling back change");
+                System.out.println("ProbationaryApplication - Rolling back change");
             }
 
             stack.pop();

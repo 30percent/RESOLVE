@@ -88,8 +88,8 @@ public class SuppositionDeductionExp extends Exp {
 
     public SuppositionDeductionExp() {};
 
-    public SuppositionDeductionExp(Location location,
-            SuppositionExp supposition, List<Exp> body, DeductionExp deduction) {
+    public SuppositionDeductionExp(Location location, SuppositionExp supposition, List<Exp> body,
+            DeductionExp deduction) {
         this.location = location;
         this.supposition = supposition;
         this.body = body;
@@ -102,8 +102,7 @@ public class SuppositionDeductionExp extends Exp {
             newBody.add(substitute(e, substitutions));
         }
 
-        return new SuppositionDeductionExp(location,
-                (SuppositionExp) substitute(supposition, substitutions),
+        return new SuppositionDeductionExp(location, (SuppositionExp) substitute(supposition, substitutions),
                 newBody, (DeductionExp) substitute(deduction, substitutions));
     }
 
@@ -245,16 +244,14 @@ public class SuppositionDeductionExp extends Exp {
     }
 
     public Exp copy() {
-        SuppositionExp newSupposition =
-                (SuppositionExp) (Exp.copy(supposition));
+        SuppositionExp newSupposition = (SuppositionExp) (Exp.copy(supposition));
         DeductionExp newDeduction = (DeductionExp) (Exp.copy(deduction));
         Iterator<Exp> it = body.iterator();
         List<Exp> newBody = new List<Exp>();
         while (it.hasNext()) {
             newBody.add(Exp.copy(it.next()));
         }
-        return new SuppositionDeductionExp(null, newSupposition, newBody,
-                newDeduction);
+        return new SuppositionDeductionExp(null, newSupposition, newBody, newDeduction);
     }
 
 }

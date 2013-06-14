@@ -20,27 +20,22 @@ public class NameQuery extends BaseMultimatchSymbolQuery<SymbolTableEntry>
         implements
             MultimatchSymbolQuery<SymbolTableEntry> {
 
-    public NameQuery(PosSymbol qualifier, String name,
-            ImportStrategy importStrategy, FacilityStrategy facilityStrategy,
-            boolean localPriority) {
-        super(new PossiblyQualifiedPath(qualifier, importStrategy,
-                facilityStrategy, localPriority), new NameSearcher(name, false));
+    public NameQuery(PosSymbol qualifier, String name, ImportStrategy importStrategy,
+            FacilityStrategy facilityStrategy, boolean localPriority) {
+        super(new PossiblyQualifiedPath(qualifier, importStrategy, facilityStrategy, localPriority),
+                new NameSearcher(name, false));
     }
 
-    public NameQuery(PosSymbol qualifier, PosSymbol name,
-            ImportStrategy importStrategy, FacilityStrategy facilityStrategy,
-            boolean localPriority) {
-        this(qualifier, name.getName(), importStrategy, facilityStrategy,
-                localPriority);
+    public NameQuery(PosSymbol qualifier, PosSymbol name, ImportStrategy importStrategy,
+            FacilityStrategy facilityStrategy, boolean localPriority) {
+        this(qualifier, name.getName(), importStrategy, facilityStrategy, localPriority);
     }
 
     public NameQuery(PosSymbol qualifier, String name) {
-        this(qualifier, name, ImportStrategy.IMPORT_NONE,
-                FacilityStrategy.FACILITY_IGNORE, false);
+        this(qualifier, name, ImportStrategy.IMPORT_NONE, FacilityStrategy.FACILITY_IGNORE, false);
     }
 
     public NameQuery(PosSymbol qualifier, PosSymbol name) {
-        this(qualifier, name, ImportStrategy.IMPORT_NONE,
-                FacilityStrategy.FACILITY_IGNORE, false);
+        this(qualifier, name, ImportStrategy.IMPORT_NONE, FacilityStrategy.FACILITY_IGNORE, false);
     }
 }

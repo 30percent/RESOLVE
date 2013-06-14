@@ -33,8 +33,8 @@ public class NoBacktrackTransformer implements VCTransformer {
     @Override
     public Iterator<VC> transform(VC original) {
         myLastTransformationIterator =
-                new ZeroOrOneIterator<VC>(new NonEquivalentIterator(
-                        myBaseTransformer.transform(original), original));
+                new ZeroOrOneIterator<VC>(new NonEquivalentIterator(myBaseTransformer.transform(original),
+                        original));
 
         return myLastTransformationIterator;
     }

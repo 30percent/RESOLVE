@@ -231,17 +231,14 @@ public class OldExp extends Exp {
     public Exp replace(Exp old, Exp replacement) {
         if (old instanceof OldExp) {
             if (replacement instanceof OldExp) {
-                Exp tmp =
-                        Exp.replace(exp, ((OldExp) old).getExp(),
-                                ((OldExp) replacement).getExp());
+                Exp tmp = Exp.replace(exp, ((OldExp) old).getExp(), ((OldExp) replacement).getExp());
                 if (tmp != null) {
                     exp = tmp;
                     return this;
                 }
             }
             else {
-                Exp tmp =
-                        Exp.replace(exp, ((OldExp) old).getExp(), replacement);
+                Exp tmp = Exp.replace(exp, ((OldExp) old).getExp(), replacement);
                 if (tmp != null)
                     return tmp;
             }
@@ -249,20 +246,15 @@ public class OldExp extends Exp {
         else {
             if (exp instanceof FunctionExp) {
                 if (old instanceof VarExp
-                        && !((FunctionExp) exp).getName().equals(
-                                ((VarExp) old).getName().toString())) {
-                    if (!(replacement instanceof VarExp && (((VarExp) replacement)
-                            .getName().getName().startsWith("?") || ((VarExp) replacement)
-                            .getName().getName().startsWith("_")))) {
+                        && !((FunctionExp) exp).getName().equals(((VarExp) old).getName().toString())) {
+                    if (!(replacement instanceof VarExp && (((VarExp) replacement).getName().getName()
+                            .startsWith("?") || ((VarExp) replacement).getName().getName().startsWith("_")))) {
                         exp = Exp.replace(exp, old, replacement);
                     }
                     else {
                         List<FunctionArgList> paramList =
-                                ((FunctionExp) exp)
-                                        .replaceVariableInParamListWithExp(
-                                                ((FunctionExp) exp)
-                                                        .getParamList(), old,
-                                                replacement);
+                                ((FunctionExp) exp).replaceVariableInParamListWithExp(((FunctionExp) exp)
+                                        .getParamList(), old, replacement);
                         ((FunctionExp) exp).setParamList(paramList);
                     }
                 }

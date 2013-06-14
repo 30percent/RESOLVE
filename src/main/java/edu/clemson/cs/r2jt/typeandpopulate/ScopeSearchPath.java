@@ -38,7 +38,6 @@ public interface ScopeSearchPath {
      * 
      * @return A list of matches.
      */
-    public <E extends SymbolTableEntry> List<E> searchFromContext(
-            TableSearcher<E> searcher, Scope source, ScopeRepository repo)
-            throws DuplicateSymbolException;
+    public <E extends SymbolTableEntry> List<E> searchFromContext(TableSearcher<E> searcher, Scope source,
+            ScopeRepository repo) throws DuplicateSymbolException;
 }

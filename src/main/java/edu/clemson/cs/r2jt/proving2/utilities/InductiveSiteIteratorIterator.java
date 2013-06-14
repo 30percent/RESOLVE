@@ -23,8 +23,7 @@ public class InductiveSiteIteratorIterator implements Iterator<Site> {
 
     public InductiveSiteIteratorIterator(Iterator<Site> topLevelSites) {
         myTopLevelSites = topLevelSites;
-        myCurInductiveIterator =
-                DummyIterator.getInstance(myCurInductiveIterator);
+        myCurInductiveIterator = DummyIterator.getInstance(myCurInductiveIterator);
 
         setUpNext();
     }
@@ -35,8 +34,7 @@ public class InductiveSiteIteratorIterator implements Iterator<Site> {
         }
         else {
             if (myTopLevelSites.hasNext()) {
-                myCurInductiveIterator =
-                        new InductiveSiteIterator(myTopLevelSites.next());
+                myCurInductiveIterator = new InductiveSiteIterator(myTopLevelSites.next());
                 myNextReturn = myCurInductiveIterator.next();
             }
             else {

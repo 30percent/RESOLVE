@@ -92,10 +92,9 @@ public class ConceptModuleDec extends AbstractParameterizedModuleDec {
     // Empty
     }
 
-    public ConceptModuleDec(PosSymbol name,
-            List<ModuleParameterDec> parameters, List<UsesItem> usesItems,
-            Exp requirement, List<Exp> constraints, InitItem facilityInit,
-            FinalItem facilityFinal, List<Dec> decs) {
+    public ConceptModuleDec(PosSymbol name, List<ModuleParameterDec> parameters, List<UsesItem> usesItems,
+            Exp requirement, List<Exp> constraints, InitItem facilityInit, FinalItem facilityFinal,
+            List<Dec> decs) {
         this.name = name;
         this.parameters = parameters;
         this.usesItems = usesItems;

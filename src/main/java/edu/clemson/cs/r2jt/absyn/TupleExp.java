@@ -113,8 +113,7 @@ public class TupleExp extends Exp {
     private TupleExp(Location l, Exp[] fields, int elementCount) {
         if (elementCount < 2) {
             //We assert this isn't possible, but who knows?
-            throw new IllegalArgumentException(
-                    "Unexpected cartesian product size.");
+            throw new IllegalArgumentException("Unexpected cartesian product size.");
         }
 
         location = l;
@@ -233,8 +232,7 @@ public class TupleExp extends Exp {
         for (Exp field : fields) {
             soFar =
                     soFar
-                            && ((field instanceof VarExp && ((VarExp) field)
-                                    .getQuantification() == VarExp.FORALL) || (field instanceof TupleExp && ((TupleExp) field)
+                            && ((field instanceof VarExp && ((VarExp) field).getQuantification() == VarExp.FORALL) || (field instanceof TupleExp && ((TupleExp) field)
                                     .isUniversallyQuantified()));
         }
 

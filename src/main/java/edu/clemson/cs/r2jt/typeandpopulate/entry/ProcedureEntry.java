@@ -10,8 +10,7 @@ public class ProcedureEntry extends SymbolTableEntry {
 
     private final OperationEntry myCorrespondingOperation;
 
-    public ProcedureEntry(String name,
-            ResolveConceptualElement definingElement,
+    public ProcedureEntry(String name, ResolveConceptualElement definingElement,
             ModuleIdentifier sourceModule, OperationEntry correspondingOperation) {
         super(name, definingElement, sourceModule);
 
@@ -28,14 +27,11 @@ public class ProcedureEntry extends SymbolTableEntry {
     }
 
     @Override
-    public ProcedureEntry instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public ProcedureEntry instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
-        return new ProcedureEntry(getName(), getDefiningElement(),
-                getSourceModuleIdentifier(), myCorrespondingOperation
-                        .instantiateGenerics(genericInstantiations,
-                                instantiatingFacility));
+        return new ProcedureEntry(getName(), getDefiningElement(), getSourceModuleIdentifier(),
+                myCorrespondingOperation.instantiateGenerics(genericInstantiations, instantiatingFacility));
     }
 
     @Override

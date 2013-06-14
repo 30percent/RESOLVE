@@ -8,14 +8,11 @@ import java.util.Iterator;
  * each in sequent.  That is, all the suggestions from the first, then all the
  * suggestions from the second.</p>
  */
-public class ConcatenatingTransformationChooser
-        implements
-            TransformationChooser {
+public class ConcatenatingTransformationChooser implements TransformationChooser {
 
     private final TransformationChooser myFirst, mySecond;
 
-    public ConcatenatingTransformationChooser(TransformationChooser first,
-            TransformationChooser second) {
+    public ConcatenatingTransformationChooser(TransformationChooser first, TransformationChooser second) {
 
         myFirst = first;
         mySecond = second;
@@ -33,11 +30,10 @@ public class ConcatenatingTransformationChooser
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d) {
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d) {
 
-        return new ChainingIterator<ProofPathSuggestion>(myFirst
-                .suggestTransformations(vc, curLength, metrics, d), mySecond
-                .suggestTransformations(vc, curLength, metrics, d));
+        return new ChainingIterator<ProofPathSuggestion>(myFirst.suggestTransformations(vc, curLength,
+                metrics, d), mySecond.suggestTransformations(vc, curLength, metrics, d));
     }
 }

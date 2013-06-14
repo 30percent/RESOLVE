@@ -18,8 +18,7 @@ import edu.clemson.cs.r2jt.typereasoning.TypeGraph;
 
 public class HardCoded {
 
-    public static void addBuiltInRelationships(TypeGraph g,
-            MathSymbolTableBuilder b) {
+    public static void addBuiltInRelationships(TypeGraph g, MathSymbolTableBuilder b) {
         try {
             //This is just a hard-coded version of this theoretical type theorem
             //that can't actually appear in a theory because it won't type-check
@@ -33,8 +32,7 @@ public class HardCoded {
             //       f : D1 -> R1;
 
             PosSymbol ntv = new PosSymbol(null, Symbol.symbol("native"));
-            ModuleDec module =
-                    new FacilityModuleDec(ntv, null, null, null, null, null);
+            ModuleDec module = new FacilityModuleDec(ntv, null, null, null, null, null);
 
             VarExp v = new VarExp();
             v.setName(ntv);
@@ -43,23 +41,21 @@ public class HardCoded {
             s.addBinding("D1", Quantification.UNIVERSAL, v, g.MTYPE);
             s.addBinding("R1", Quantification.UNIVERSAL, v, g.MTYPE);
 
-            s.addBinding("D2", Quantification.UNIVERSAL, v,
-                    new MTPowertypeApplication(g, new MTNamed(g, "D1")));
-            s.addBinding("R2", Quantification.UNIVERSAL, v,
-                    new MTPowertypeApplication(g, new MTNamed(g, "R1")));
+            s.addBinding("D2", Quantification.UNIVERSAL, v, new MTPowertypeApplication(g,
+                    new MTNamed(g, "D1")));
+            s.addBinding("R2", Quantification.UNIVERSAL, v, new MTPowertypeApplication(g,
+                    new MTNamed(g, "R1")));
 
-            s.addBinding("f", Quantification.UNIVERSAL, v, new MTFunction(g,
-                    new MTNamed(g, "R2"), new MTNamed(g, "D2")));
+            s.addBinding("f", Quantification.UNIVERSAL, v, new MTFunction(g, new MTNamed(g, "R2"),
+                    new MTNamed(g, "D2")));
 
             PosSymbol fSym = new PosSymbol(null, Symbol.symbol("f"));
             VarExp f = new VarExp();
             f.setName(fSym);
-            f.setMathType(new MTFunction(g, new MTNamed(g, "R2"), new MTNamed(
-                    g, "D2")));
+            f.setMathType(new MTFunction(g, new MTNamed(g, "R2"), new MTNamed(g, "D2")));
             f.setQuantification(VarExp.FORALL);
 
-            g.addRelationship(f, new MTFunction(g, new MTNamed(g, "R1"),
-                    new MTNamed(g, "D1")), null, s);
+            g.addRelationship(f, new MTFunction(g, new MTNamed(g, "R1"), new MTNamed(g, "D1")), null, s);
 
             b.endScope();
         }
@@ -80,8 +76,7 @@ public class HardCoded {
             b.addBinding("Entity", v, g.MTYPE, g.ENTITY);
             b.addBinding("MType", v, g.MTYPE, g.MTYPE);
 
-            b.addBinding("Instance_Of", v, new MTFunction(g, g.BOOLEAN,
-                    g.MTYPE, g.ENTITY));
+            b.addBinding("Instance_Of", v, new MTFunction(g, g.BOOLEAN, g.MTYPE, g.ENTITY));
 
             b.addBinding("SSet", v, g.MTYPE, g.SET);
             b.addBinding("B", v, g.MTYPE, g.BOOLEAN);
@@ -97,12 +92,9 @@ public class HardCoded {
             b.addBinding("not", v, g.NOT);
             b.addBinding("*", v, g.CROSS);
 
-            b.addBinding("=", v, new MTFunction(g, g.BOOLEAN, g.ENTITY,
-                    g.ENTITY));
-            b.addBinding("/=", v, new MTFunction(g, g.BOOLEAN, g.ENTITY,
-                    g.ENTITY));
-            b.addBinding("or", v, new MTFunction(g, g.BOOLEAN, g.BOOLEAN,
-                    g.BOOLEAN));
+            b.addBinding("=", v, new MTFunction(g, g.BOOLEAN, g.ENTITY, g.ENTITY));
+            b.addBinding("/=", v, new MTFunction(g, g.BOOLEAN, g.ENTITY, g.ENTITY));
+            b.addBinding("or", v, new MTFunction(g, g.BOOLEAN, g.BOOLEAN, g.BOOLEAN));
 
             b.addBinding("Z", v, g.MTYPE, g.Z);
             b.addBinding("-", v, new MTFunction(g, g.Z, g.Z));

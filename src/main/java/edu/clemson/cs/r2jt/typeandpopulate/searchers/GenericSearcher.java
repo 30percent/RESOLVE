@@ -15,9 +15,7 @@ import java.util.List;
  *
  * @author hamptos
  */
-public class GenericSearcher
-        implements
-            MultimatchTableSearcher<ProgramTypeEntry> {
+public class GenericSearcher implements MultimatchTableSearcher<ProgramTypeEntry> {
 
     public static final GenericSearcher INSTANCE = new GenericSearcher();
 
@@ -26,17 +24,14 @@ public class GenericSearcher
     }
 
     @Override
-    public boolean addMatches(SymbolTable entries,
-            List<ProgramTypeEntry> matches, SearchContext l) {
+    public boolean addMatches(SymbolTable entries, List<ProgramTypeEntry> matches, SearchContext l) {
 
-        Iterator<ProgramParameterEntry> parameters =
-                entries.iterateByType(ProgramParameterEntry.class);
+        Iterator<ProgramParameterEntry> parameters = entries.iterateByType(ProgramParameterEntry.class);
         ProgramParameterEntry parameter;
         while (parameters.hasNext()) {
             parameter = parameters.next();
 
-            if (parameter.getParameterMode().equals(
-                    ProgramParameterEntry.ParameterMode.TYPE)) {
+            if (parameter.getParameterMode().equals(ProgramParameterEntry.ParameterMode.TYPE)) {
                 matches.add(parameter.toProgramTypeEntry(null));
             }
         }

@@ -58,8 +58,7 @@ public class PSymbol extends PExp {
                     argumentsAsString = "";
                 }
                 else {
-                    argumentsAsString =
-                            "(" + delimit(s.arguments.iterator(), ", ") + ")";
+                    argumentsAsString = "(" + delimit(s.arguments.iterator(), ", ") + ")";
                 }
 
                 return s.name + argumentsAsString;
@@ -80,9 +79,7 @@ public class PSymbol extends PExp {
         INFIX {
 
             protected String toString(PSymbol s) {
-                return "("
-                        + delimit(s.arguments.iterator(), " " + s.name + " ")
-                        + ")";
+                return "(" + delimit(s.arguments.iterator(), " " + s.name + " ") + ")";
             }
 
             protected void beginAccept(PExpVisitor v, PSymbol s) {
@@ -124,8 +121,7 @@ public class PSymbol extends PExp {
         OUTFIX {
 
             protected String toString(PSymbol s) {
-                return s.leftPrint + delimit(s.arguments.iterator(), ", ")
-                        + s.rightPrint;
+                return s.leftPrint + delimit(s.arguments.iterator(), ", ") + s.rightPrint;
             }
 
             protected void beginAccept(PExpVisitor v, PSymbol s) {
@@ -162,20 +158,16 @@ public class PSymbol extends PExp {
     private int myArgumentsSize;
     private final PExp[] myScratchSpace;
 
-    public PSymbol(MTType type, MTType typeValue, String leftPrint,
-            String rightPrint, Collection<PExp> arguments,
-            Quantification quantification, DisplayType display) {
+    public PSymbol(MTType type, MTType typeValue, String leftPrint, String rightPrint,
+            Collection<PExp> arguments, Quantification quantification, DisplayType display) {
 
-        this(type, typeValue, leftPrint, rightPrint,
-                new ArrayBackedImmutableList<PExp>(arguments), quantification,
-                display);
+        this(type, typeValue, leftPrint, rightPrint, new ArrayBackedImmutableList<PExp>(arguments),
+                quantification, display);
     }
 
-    public PSymbol(MTType type, MTType typeValue, String leftPrint,
-            String rightPrint, ImmutableList<PExp> arguments,
-            Quantification quantification, DisplayType display) {
-        super(calculateHashes(leftPrint, rightPrint, arguments.iterator()),
-                type, typeValue);
+    public PSymbol(MTType type, MTType typeValue, String leftPrint, String rightPrint,
+            ImmutableList<PExp> arguments, Quantification quantification, DisplayType display) {
+        super(calculateHashes(leftPrint, rightPrint, arguments.iterator()), type, typeValue);
 
         if (rightPrint == null || leftPrint.equals(rightPrint)) {
             rightPrint = leftPrint;
@@ -196,48 +188,38 @@ public class PSymbol extends PExp {
         displayType = display;
     }
 
-    public PSymbol(MTType type, MTType typeValue, String leftPrint,
-            String rightPrint, Collection<PExp> arguments, DisplayType display) {
-        this(type, typeValue, leftPrint, rightPrint, arguments,
-                Quantification.NONE, display);
+    public PSymbol(MTType type, MTType typeValue, String leftPrint, String rightPrint,
+            Collection<PExp> arguments, DisplayType display) {
+        this(type, typeValue, leftPrint, rightPrint, arguments, Quantification.NONE, display);
     }
 
-    public PSymbol(MTType type, MTType typeValue, String name,
-            Collection<PExp> arguments, Quantification quantification,
-            DisplayType display) {
+    public PSymbol(MTType type, MTType typeValue, String name, Collection<PExp> arguments,
+            Quantification quantification, DisplayType display) {
         this(type, typeValue, name, null, arguments, quantification, display);
     }
 
-    public PSymbol(MTType type, MTType typeValue, String name,
-            Collection<PExp> arguments, Quantification quantification) {
-        this(type, typeValue, name, null, arguments, quantification,
-                DisplayType.PREFIX);
+    public PSymbol(MTType type, MTType typeValue, String name, Collection<PExp> arguments,
+            Quantification quantification) {
+        this(type, typeValue, name, null, arguments, quantification, DisplayType.PREFIX);
     }
 
-    public PSymbol(MTType type, MTType typeValue, String name,
-            Collection<PExp> arguments, DisplayType display) {
+    public PSymbol(MTType type, MTType typeValue, String name, Collection<PExp> arguments, DisplayType display) {
         this(type, typeValue, name, arguments, Quantification.NONE, display);
     }
 
-    public PSymbol(MTType type, MTType typeValue, String name,
-            Collection<PExp> arguments) {
-        this(type, typeValue, name, arguments, Quantification.NONE,
-                DisplayType.PREFIX);
+    public PSymbol(MTType type, MTType typeValue, String name, Collection<PExp> arguments) {
+        this(type, typeValue, name, arguments, Quantification.NONE, DisplayType.PREFIX);
     }
 
-    public PSymbol(MTType type, MTType typeValue, String name,
-            Quantification quantification) {
-        this(type, typeValue, name, new LinkedList<PExp>(), quantification,
-                DisplayType.PREFIX);
+    public PSymbol(MTType type, MTType typeValue, String name, Quantification quantification) {
+        this(type, typeValue, name, new LinkedList<PExp>(), quantification, DisplayType.PREFIX);
     }
 
     public PSymbol(MTType type, MTType typeValue, String name) {
-        this(type, typeValue, name, new LinkedList<PExp>(),
-                Quantification.NONE, DisplayType.PREFIX);
+        this(type, typeValue, name, new LinkedList<PExp>(), Quantification.NONE, DisplayType.PREFIX);
     }
 
-    private static PExp.HashDuple calculateHashes(String left, String right,
-            Iterator<PExp> args) {
+    private static PExp.HashDuple calculateHashes(String left, String right, Iterator<PExp> args) {
 
         int structureHash;
 
@@ -303,9 +285,7 @@ public class PSymbol extends PExp {
                 argTypes.add(arg.getType());
             }
 
-            myPreApplicationType =
-                    new MTFunction(getType().getTypeGraph(), getType(),
-                            argTypes);
+            myPreApplicationType = new MTFunction(getType().getTypeGraph(), getType(), argTypes);
         }
 
         return myPreApplicationType;
@@ -321,13 +301,11 @@ public class PSymbol extends PExp {
     }
 
     public PSymbol withTypeReplaced(MTType t) {
-        return new PSymbol(t, myTypeValue, leftPrint, rightPrint, arguments,
-                quantification, displayType);
+        return new PSymbol(t, myTypeValue, leftPrint, rightPrint, arguments, quantification, displayType);
     }
 
     public PSymbol withTypeValueReplaced(MTType t) {
-        return new PSymbol(myType, t, leftPrint, rightPrint, arguments,
-                quantification, displayType);
+        return new PSymbol(myType, t, leftPrint, rightPrint, arguments, quantification, displayType);
     }
 
     public PSymbol withSubExpressionReplaced(int i, PExp e) {
@@ -337,8 +315,8 @@ public class PSymbol extends PExp {
 
         ImmutableList<PExp> newArguments = arguments.set(i, e);
 
-        return new PSymbol(myType, myTypeValue, leftPrint, rightPrint,
-                newArguments, quantification, displayType);
+        return new PSymbol(myType, myTypeValue, leftPrint, rightPrint, newArguments, quantification,
+                displayType);
     }
 
     public ImmutableList<PExp> getSubExpressions() {
@@ -351,9 +329,7 @@ public class PSymbol extends PExp {
         if (retval) {
             PSymbol oAsPSymbol = (PSymbol) o;
 
-            retval =
-                    (oAsPSymbol.valueHash == valueHash)
-                            && name.equals(oAsPSymbol.name);
+            retval = (oAsPSymbol.valueHash == valueHash) && name.equals(oAsPSymbol.name);
 
             if (retval) {
                 Iterator<PExp> localArgs = arguments.iterator();
@@ -393,8 +369,7 @@ public class PSymbol extends PExp {
     @Override
     public boolean isObviouslyTrue() {
         return (myArgumentsSize == 0 && name.equalsIgnoreCase("true"))
-                || (myArgumentsSize == 2 && name.equals("=") && arguments
-                        .get(0).equals(arguments.get(1)));
+                || (myArgumentsSize == 2 && name.equals("=") && arguments.get(0).equals(arguments.get(1)));
     }
 
     @Override
@@ -407,17 +382,14 @@ public class PSymbol extends PExp {
             Quantification newQuantification = quantification;
 
             if (arguments.size() > 0 && displayType.equals(DisplayType.PREFIX)) {
-                PExp asVar =
-                        new PSymbol(getType(), getTypeValue(), leftPrint,
-                                quantification);
+                PExp asVar = new PSymbol(getType(), getTypeValue(), leftPrint, quantification);
 
                 PExp functionSubstitution = substitutions.get(asVar);
 
                 if (functionSubstitution != null) {
                     newLeft = ((PSymbol) functionSubstitution).leftPrint;
                     newRight = ((PSymbol) functionSubstitution).rightPrint;
-                    newQuantification =
-                            ((PSymbol) functionSubstitution).quantification;
+                    newQuantification = ((PSymbol) functionSubstitution).quantification;
                 }
             }
 
@@ -438,8 +410,7 @@ public class PSymbol extends PExp {
             if (argumentChanged) {
                 retval =
                         new PSymbol(myType, myTypeValue, newLeft, newRight,
-                                new ArrayBackedImmutableList<PExp>(
-                                        myScratchSpace), newQuantification,
+                                new ArrayBackedImmutableList<PExp>(myScratchSpace), newQuantification,
                                 displayType);
             }
             else {
@@ -464,18 +435,17 @@ public class PSymbol extends PExp {
     public PSymbol setArgument(int index, PExp newArgument) {
         ImmutableList<PExp> newArguments = arguments.set(index, newArgument);
 
-        return new PSymbol(myType, myTypeValue, leftPrint, rightPrint,
-                newArguments, quantification, displayType);
+        return new PSymbol(myType, myTypeValue, leftPrint, rightPrint, newArguments, quantification,
+                displayType);
     }
 
     public PSymbol setArguments(Collection<PExp> newArguments) {
-        return new PSymbol(myType, myTypeValue, leftPrint, rightPrint,
-                newArguments, quantification, displayType);
+        return new PSymbol(myType, myTypeValue, leftPrint, rightPrint, newArguments, quantification,
+                displayType);
     }
 
     public PSymbol setName(String newName) {
-        return new PSymbol(myType, myTypeValue, newName, rightPrint, arguments,
-                quantification, displayType);
+        return new PSymbol(myType, myTypeValue, newName, rightPrint, arguments, quantification, displayType);
     }
 
     @Override
@@ -498,9 +468,8 @@ public class PSymbol extends PExp {
 
         if (argumentChanged) {
             retval =
-                    new PSymbol(myType, myTypeValue, leftPrint, rightPrint,
-                            Arrays.asList(myScratchSpace), quantification
-                                    .flipped(), displayType);
+                    new PSymbol(myType, myTypeValue, leftPrint, rightPrint, Arrays.asList(myScratchSpace),
+                            quantification.flipped(), displayType);
         }
         else {
             Quantification flipped = quantification.flipped();
@@ -510,8 +479,8 @@ public class PSymbol extends PExp {
             }
             else {
                 retval =
-                        new PSymbol(myType, myTypeValue, leftPrint, rightPrint,
-                                arguments, flipped, displayType);
+                        new PSymbol(myType, myTypeValue, leftPrint, rightPrint, arguments, flipped,
+                                displayType);
             }
         }
 
@@ -524,8 +493,7 @@ public class PSymbol extends PExp {
     }
 
     @Override
-    public void bindTo(PExp target, Map<PExp, PExp> accumulator)
-            throws BindingException {
+    public void bindTo(PExp target, Map<PExp, PExp> accumulator) throws BindingException {
 
         PSymbol sTarget;
         try {
@@ -554,16 +522,14 @@ public class PSymbol extends PExp {
                     throw BINDING_EXCEPTION;
                 }
 
-                accumulator.put(new PSymbol(myType, myTypeValue, name),
-                        new PSymbol(sTarget.getPreApplicationType(), null,
-                                sTarget.name));
+                accumulator.put(new PSymbol(myType, myTypeValue, name), new PSymbol(sTarget
+                        .getPreApplicationType(), null, sTarget.name));
 
                 Iterator<PExp> thisArgumentsIter = arguments.iterator();
-                Iterator<PExp> targetArgumentsIter =
-                        sTarget.arguments.iterator();
+                Iterator<PExp> targetArgumentsIter = sTarget.arguments.iterator();
                 while (thisArgumentsIter.hasNext()) {
-                    thisArgumentsIter.next().substitute(accumulator).bindTo(
-                            targetArgumentsIter.next(), accumulator);
+                    thisArgumentsIter.next().substitute(accumulator).bindTo(targetArgumentsIter.next(),
+                            accumulator);
                 }
             }
         }
@@ -571,8 +537,7 @@ public class PSymbol extends PExp {
             //TODO : This isn't right.  The real logic should be "is the 
             //       expression I reresent is in the type of target", but right
             //       now "isKnownToBeIn" in TypeGraph doesn't operate on PExps
-            if (!(myType.isSubtypeOf(target.myType) || target.myType
-                    .isSubtypeOf(myType))) {
+            if (!(myType.isSubtypeOf(target.myType) || target.myType.isSubtypeOf(myType))) {
                 //We can only match something we're a subset of
                 throw BINDING_EXCEPTION;
             }
@@ -589,8 +554,8 @@ public class PSymbol extends PExp {
             Iterator<PExp> thisArgumentsIter = arguments.iterator();
             Iterator<PExp> targetArgumentsIter = sTarget.arguments.iterator();
             while (thisArgumentsIter.hasNext()) {
-                thisArgumentsIter.next().substitute(accumulator).bindTo(
-                        targetArgumentsIter.next(), accumulator);
+                thisArgumentsIter.next().substitute(accumulator).bindTo(targetArgumentsIter.next(),
+                        accumulator);
             }
         }
     }
@@ -709,7 +674,6 @@ public class PSymbol extends PExp {
         //      "S'' = empty_string", the left and right sides of the equality
         //      are indistinguishable except for their names.  Until this
         //      situation is resolved, literals should be hard coded here.
-        return (name.equalsIgnoreCase("empty_string"))
-                || (name.equals("0") || name.equals("1"));
+        return (name.equalsIgnoreCase("empty_string")) || (name.equals("0") || name.equals("1"));
     }
 }

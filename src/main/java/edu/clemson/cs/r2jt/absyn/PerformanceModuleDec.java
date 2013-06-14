@@ -117,8 +117,7 @@ public class PerformanceModuleDec extends AbstractParameterizedModuleDec {
 
     public PerformanceModuleDec() {};
 
-    public PerformanceModuleDec(
-            PosSymbol profileNames1,
+    public PerformanceModuleDec(PosSymbol profileNames1,
             List<ModuleParameterDec> parameters,
             //            PosSymbol conceptName,
             PosSymbol profileNames2, PosSymbol name, List<UsesItem> usesItems,
@@ -126,8 +125,8 @@ public class PerformanceModuleDec extends AbstractParameterizedModuleDec {
             List<Exp> constraints,
             //     List<Exp> conventions,
             //     List<Exp> corrs,
-            PerformanceInitItem perfInit, PerformanceFinalItem perfFinal,
-            InitItem facilityInit, FinalItem facilityFinal, List<Dec> decs) {
+            PerformanceInitItem perfInit, PerformanceFinalItem perfFinal, InitItem facilityInit,
+            FinalItem facilityFinal, List<Dec> decs) {
         //this.name = name;
         this.name = profileNames1;
         this.parameters = parameters;

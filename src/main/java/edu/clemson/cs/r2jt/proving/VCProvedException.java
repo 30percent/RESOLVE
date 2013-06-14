@@ -38,8 +38,7 @@ public class VCProvedException extends ProverException {
         String retval = "";
 
         if (myOriginalVC != null) {
-            retval +=
-                    "==== Proof for VC " + myOriginalVC.getName() + " ====\n\n";
+            retval += "==== Proof for VC " + myOriginalVC.getName() + " ====\n\n";
 
             retval += myOriginalVC + "\n";
         }

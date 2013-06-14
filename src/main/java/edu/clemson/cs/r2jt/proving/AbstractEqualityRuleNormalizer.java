@@ -16,8 +16,7 @@ import edu.clemson.cs.r2jt.proving.absyn.PSymbol;
  */
 public abstract class AbstractEqualityRuleNormalizer implements RuleNormalizer {
 
-    private static final List<VCTransformer> DUMMY_SET =
-            new LinkedList<VCTransformer>();
+    private static final List<VCTransformer> DUMMY_SET = new LinkedList<VCTransformer>();
 
     private final boolean myNoisyFlag;
 
@@ -39,8 +38,7 @@ public abstract class AbstractEqualityRuleNormalizer implements RuleNormalizer {
 
         if (myNoisyFlag && retval == DUMMY_SET) {
             System.out.println("WARNING: " + this.getClass() + " is "
-                    + "filtering out this non-equality rule: \n" + e.toString()
-                    + "(" + e.getClass() + ")");
+                    + "filtering out this non-equality rule: \n" + e.toString() + "(" + e.getClass() + ")");
         }
 
         return retval;
@@ -52,11 +50,9 @@ public abstract class AbstractEqualityRuleNormalizer implements RuleNormalizer {
         return normalizeAll(this, es);
     }
 
-    public static final Iterable<VCTransformer> normalizeAll(RuleNormalizer n,
-            Iterable<PExp> es) {
+    public static final Iterable<VCTransformer> normalizeAll(RuleNormalizer n, Iterable<PExp> es) {
 
-        ChainingIterable<VCTransformer> transformers =
-                new ChainingIterable<VCTransformer>();
+        ChainingIterable<VCTransformer> transformers = new ChainingIterable<VCTransformer>();
 
         for (PExp e : es) {
             transformers.add(n.normalize(e));

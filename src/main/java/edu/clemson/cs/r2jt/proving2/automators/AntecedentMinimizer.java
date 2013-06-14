@@ -22,8 +22,7 @@ import java.util.List;
  */
 public class AntecedentMinimizer implements Automator {
 
-    private static final ApplyAll DUMMY_APPLIER =
-            new ApplyAll(new NoOpLabel(null, "Dummy"));
+    private static final ApplyAll DUMMY_APPLIER = new ApplyAll(new NoOpLabel(null, "Dummy"));
 
     public List<ExpandAntecedentBySubstitution> myReducingTranformations =
             new LinkedList<ExpandAntecedentBySubstitution>();
@@ -35,11 +34,9 @@ public class AntecedentMinimizer implements Automator {
     public AntecedentMinimizer(ImmutableList<Theorem> theoremLibrary) {
         for (Theorem theorem : theoremLibrary) {
             for (Transformation t : theorem.getTransformations()) {
-                if (t instanceof ExpandAntecedentBySubstitution
-                        && !t.introducesQuantifiedVariables()
+                if (t instanceof ExpandAntecedentBySubstitution && !t.introducesQuantifiedVariables()
                         && t.functionApplicationCountDelta() < 0) {
-                    myReducingTranformations
-                            .add((ExpandAntecedentBySubstitution) t);
+                    myReducingTranformations.add((ExpandAntecedentBySubstitution) t);
                 }
             }
         }
@@ -51,15 +48,12 @@ public class AntecedentMinimizer implements Automator {
     @Override
     public void step(Deque<Automator> stack, PerVCProverModel model) {
         if (myCurrentRound.hasNext()) {
-            myProductiveRoundFlag =
-                    myProductiveRoundFlag
-                            || (myCurrentApplier.getApplicationCount() > 0);
+            myProductiveRoundFlag = myProductiveRoundFlag || (myCurrentApplier.getApplicationCount() > 0);
 
             ExpandAntecedentBySubstitution expander = myCurrentRound.next();
             SubstituteInPlaceInAntecedent substituter =
-                    new SubstituteInPlaceInAntecedent(expander.getTheorem(),
-                            expander.getMatchPattern(), expander
-                                    .getTransformationTemplate());
+                    new SubstituteInPlaceInAntecedent(expander.getTheorem(), expander.getMatchPattern(),
+                            expander.getTransformationTemplate());
 
             myCurrentApplier = new ApplyAll(substituter);
             stack.push(myCurrentApplier);

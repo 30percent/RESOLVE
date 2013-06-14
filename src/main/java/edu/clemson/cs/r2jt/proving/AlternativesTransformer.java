@@ -8,8 +8,7 @@ public class AlternativesTransformer<T> implements Transformer<T, Iterator<T>> {
 
     private final Iterator<T> TYPE_SAFE_ITERATOR = null;
 
-    private List<Transformer<T, Iterator<T>>> myAlternatives =
-            new LinkedList<Transformer<T, Iterator<T>>>();
+    private List<Transformer<T, Iterator<T>>> myAlternatives = new LinkedList<Transformer<T, Iterator<T>>>();
 
     public void addAlternative(Transformer<T, Iterator<T>> a) {
         myAlternatives.add(a);

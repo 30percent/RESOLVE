@@ -4,8 +4,7 @@ import java.util.NoSuchElementException;
 
 public class EmptySubexpressionIterator implements PExpSubexpressionIterator {
 
-    public static final EmptySubexpressionIterator INSTANCE =
-            new EmptySubexpressionIterator();
+    public static final EmptySubexpressionIterator INSTANCE = new EmptySubexpressionIterator();
 
     private EmptySubexpressionIterator() {
 

@@ -19,8 +19,7 @@ import java.util.Set;
  */
 public class EliminateRedundantAntecedents implements Automator {
 
-    public static final EliminateRedundantAntecedents INSTANCE =
-            new EliminateRedundantAntecedents();
+    public static final EliminateRedundantAntecedents INSTANCE = new EliminateRedundantAntecedents();
 
     private EliminateRedundantAntecedents() {
 
@@ -32,8 +31,7 @@ public class EliminateRedundantAntecedents implements Automator {
 
         LocalTheorem curTheorem;
         LocalTheorem toRemove = null;
-        Iterator<LocalTheorem> localTheorems =
-                model.getLocalTheoremList().iterator();
+        Iterator<LocalTheorem> localTheorems = model.getLocalTheoremList().iterator();
         while (toRemove == null && localTheorems.hasNext()) {
             curTheorem = localTheorems.next();
 
@@ -48,8 +46,7 @@ public class EliminateRedundantAntecedents implements Automator {
             stack.pop();
         }
         else {
-            new RemoveAntecedent(model, toRemove).getApplications(model).next()
-                    .apply(model);
+            new RemoveAntecedent(model, toRemove).getApplications(model).next().apply(model);
         }
     }
 }

@@ -89,8 +89,8 @@ public class ProgramFunctionExp extends ProgramExp {
 
     public ProgramFunctionExp() {};
 
-    public ProgramFunctionExp(Location location, PosSymbol qualifier,
-            PosSymbol name, List<ProgramExp> arguments) {
+    public ProgramFunctionExp(Location location, PosSymbol qualifier, PosSymbol name,
+            List<ProgramExp> arguments) {
         this.location = location;
         this.qualifier = qualifier;
         this.name = name;
@@ -105,8 +105,7 @@ public class ProgramFunctionExp extends ProgramExp {
             newArguments.add((ProgramExp) substitute(a, substitutions));
         }
 
-        retval =
-                new ProgramFunctionExp(location, qualifier, name, newArguments);
+        retval = new ProgramFunctionExp(location, qualifier, name, newArguments);
         retval.setType(type);
 
         return retval;

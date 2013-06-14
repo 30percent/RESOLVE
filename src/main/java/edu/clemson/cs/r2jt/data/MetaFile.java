@@ -22,8 +22,7 @@ public class MetaFile {
     private String myCustomPath;
     private String jarTempDir;
 
-    public MetaFile(String fileName, String assocConcept, String pkg,
-            String fileSource, ModuleKind kind) {
+    public MetaFile(String fileName, String assocConcept, String pkg, String fileSource, ModuleKind kind) {
         myFileName = fileName;
         myAssocConcept = assocConcept;
         myPkg = pkg;
@@ -119,8 +118,7 @@ public class MetaFile {
             else {
                 filePath += File.separator + "Concepts" + File.separator;
             }
-            filePath +=
-                    myPkg + File.separator + myFileName + myKind.getExtension();
+            filePath += myPkg + File.separator + myFileName + myKind.getExtension();
             return new File(filePath);
         }
         else {
@@ -138,12 +136,9 @@ public class MetaFile {
                 myPkg = "Standard" + File.separator + "Static_Array_Template";
             }
             else if (myPkg.equals("Location_Linking_Template_1")) {
-                myPkg =
-                        "Standard" + File.separator
-                                + "Location_Linking_Template_1";
+                myPkg = "Standard" + File.separator + "Location_Linking_Template_1";
             }
-            filePath +=
-                    myPkg + File.separator + myFileName + myKind.getExtension();
+            filePath += myPkg + File.separator + myFileName + myKind.getExtension();
             return new File(filePath);
         }
     }

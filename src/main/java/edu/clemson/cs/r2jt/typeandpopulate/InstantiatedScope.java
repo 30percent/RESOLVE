@@ -23,11 +23,9 @@ public class InstantiatedScope extends AbstractScope {
 
     private final Scope myBaseScope;
     private final FacilityEntry myInstantiatingFacility;
-    private final Map<String, PTType> myAdditionalGenericInstantiations =
-            new HashMap<String, PTType>();
+    private final Map<String, PTType> myAdditionalGenericInstantiations = new HashMap<String, PTType>();
 
-    public InstantiatedScope(Scope baseScope,
-            Map<String, PTType> genericInstantiations,
+    public InstantiatedScope(Scope baseScope, Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
         myBaseScope = baseScope;
         myAdditionalGenericInstantiations.putAll(genericInstantiations);
@@ -35,8 +33,7 @@ public class InstantiatedScope extends AbstractScope {
     }
 
     @Override
-    public <E extends SymbolTableEntry> List<E> query(
-            MultimatchSymbolQuery<E> query) {
+    public <E extends SymbolTableEntry> List<E> query(MultimatchSymbolQuery<E> query) {
         return myBaseScope.query(query);
     }
 
@@ -48,12 +45,9 @@ public class InstantiatedScope extends AbstractScope {
     }
 
     @Override
-    public <E extends SymbolTableEntry> boolean addMatches(
-            TableSearcher<E> searcher, List<E> matches,
-            Set<Scope> searchedScopes,
-            Map<String, PTType> genericInstantiations,
-            FacilityEntry facilityInstantiation, SearchContext l)
-            throws DuplicateSymbolException {
+    public <E extends SymbolTableEntry> boolean addMatches(TableSearcher<E> searcher, List<E> matches,
+            Set<Scope> searchedScopes, Map<String, PTType> genericInstantiations,
+            FacilityEntry facilityInstantiation, SearchContext l) throws DuplicateSymbolException {
 
         if (facilityInstantiation != null) {
             //It's unclear how this could happen or what it would mean, so we
@@ -62,8 +56,8 @@ public class InstantiatedScope extends AbstractScope {
             throw new RuntimeException("Duplicate instantiation???");
         }
 
-        return myBaseScope.addMatches(searcher, matches, searchedScopes,
-                myAdditionalGenericInstantiations, myInstantiatingFacility, l);
+        return myBaseScope.addMatches(searcher, matches, searchedScopes, myAdditionalGenericInstantiations,
+                myInstantiatingFacility, l);
     }
 
     @Override

@@ -21,17 +21,14 @@ public class TypeRelationship {
     private final BindingExpression myBindingExpression;
     private final List<TypeRelationshipPredicate> myStaticPredicates;
 
-    public TypeRelationship(TypeGraph typeGraph, MTType destinationType,
-            Exp bindingCondition, Exp bindingExpression,
-            List<TypeRelationshipPredicate> staticPredicates) {
+    public TypeRelationship(TypeGraph typeGraph, MTType destinationType, Exp bindingCondition,
+            Exp bindingExpression, List<TypeRelationshipPredicate> staticPredicates) {
 
         myTypeGraph = typeGraph;
         myDestinationType = destinationType;
         myBindingCondition = Exp.copy(bindingCondition);
-        myBindingExpression =
-                new BindingExpression(myTypeGraph, bindingExpression);
-        myStaticPredicates =
-                new LinkedList<TypeRelationshipPredicate>(staticPredicates);
+        myBindingExpression = new BindingExpression(myTypeGraph, bindingExpression);
+        myStaticPredicates = new LinkedList<TypeRelationshipPredicate>(staticPredicates);
     }
 
     public MTType getDestinationType() {
@@ -47,14 +44,12 @@ public class TypeRelationship {
     }
 
     public String toString() {
-        return "Destination: " + myDestinationType + "\nBindingExpression: "
-                + myBindingExpression + "\nPredicates: " + myStaticPredicates
-                + "\nCondition: " + myBindingCondition;
+        return "Destination: " + myDestinationType + "\nBindingExpression: " + myBindingExpression
+                + "\nPredicates: " + myStaticPredicates + "\nCondition: " + myBindingCondition;
     }
 
     public String getDestinationTypeString() {
-        throw new UnsupportedOperationException(
-                "Don't know what this should do");
+        throw new UnsupportedOperationException("Don't know what this should do");
         //return myDestinationTypeNode.getType().toString();
     }
 
@@ -77,8 +72,8 @@ public class TypeRelationship {
         return myBindingExpression.getType();
     }
 
-    public Exp getValidTypeConditionsTo(MTType value,
-            Map<String, MTType> typeBindings) throws NoSolutionException {
+    public Exp getValidTypeConditionsTo(MTType value, Map<String, MTType> typeBindings)
+            throws NoSolutionException {
 
         //The Exp hierarchy is a Lovecraftian nightmare-scape.  If we can avoid
         //having to reason about it, we will.  So while we could certainly
@@ -89,20 +84,16 @@ public class TypeRelationship {
         if (bindingExpressionTypeValue == null) {
             //If our bindingExpression doesn't define a type, there's no way
             //it binds to a type
-            throw new NoSolutionException(new BindingException(value,
-                    myBindingExpression));
+            throw new NoSolutionException(new BindingException(value, myBindingExpression));
         }
 
-        MTType substitutedValue =
-                TypeGraph.getCopyWithVariablesSubstituted(value, typeBindings);
+        MTType substitutedValue = TypeGraph.getCopyWithVariablesSubstituted(value, typeBindings);
         MTType substitutedBinding =
-                TypeGraph.getCopyWithVariablesSubstituted(
-                        bindingExpressionTypeValue, typeBindings);
+                TypeGraph.getCopyWithVariablesSubstituted(bindingExpressionTypeValue, typeBindings);
 
         Map<String, MTType> internalBindings;
         try {
-            internalBindings =
-                    substitutedValue.bindTo(substitutedBinding, typeBindings);
+            internalBindings = substitutedValue.bindTo(substitutedBinding, typeBindings);
         }
         catch (BindingException be) {
             throw new NoSolutionException(be);
@@ -116,13 +107,11 @@ public class TypeRelationship {
         //       BindingException if we couldn't bind.
 
         boolean holdsSoFar = true;
-        Iterator<TypeRelationshipPredicate> predicates =
-                myStaticPredicates.iterator();
+        Iterator<TypeRelationshipPredicate> predicates = myStaticPredicates.iterator();
         while (holdsSoFar && predicates.hasNext()) {
             holdsSoFar =
-                    predicates.next().canBeDemonstratedStatically(
-                            value.getType(), myDestinationType, typeBindings,
-                            new HashMap<String, Exp>());
+                    predicates.next().canBeDemonstratedStatically(value.getType(), myDestinationType,
+                            typeBindings, new HashMap<String, Exp>());
         }
 
         if (!holdsSoFar) {
@@ -131,15 +120,13 @@ public class TypeRelationship {
 
         //This is a valid typing, just need to pretty up our binding 
         //conditions and return them
-        Exp result =
-                TypeGraph.getCopyWithVariablesSubstituted(myBindingCondition,
-                        typeBindings);
+        Exp result = TypeGraph.getCopyWithVariablesSubstituted(myBindingCondition, typeBindings);
 
         return result;
     }
 
-    public Exp getValidTypeConditionsTo(Exp value,
-            Map<String, MTType> typeBindings) throws NoSolutionException {
+    public Exp getValidTypeConditionsTo(Exp value, Map<String, MTType> typeBindings)
+            throws NoSolutionException {
 
         Exp result;
 
@@ -155,12 +142,10 @@ public class TypeRelationship {
         }
 
         boolean holdsSoFar = true;
-        Iterator<TypeRelationshipPredicate> predicates =
-                myStaticPredicates.iterator();
+        Iterator<TypeRelationshipPredicate> predicates = myStaticPredicates.iterator();
         while (holdsSoFar && predicates.hasNext()) {
             holdsSoFar =
-                    predicates.next().canBeDemonstratedStatically(
-                            value.getMathType(), myDestinationType,
+                    predicates.next().canBeDemonstratedStatically(value.getMathType(), myDestinationType,
                             typeBindings, internalBindings);
         }
 
@@ -170,9 +155,7 @@ public class TypeRelationship {
 
         //This is a valid typing, just need to pretty up our binding 
         //conditions and return them
-        result =
-                TypeGraph.getCopyWithVariablesSubstituted(myBindingCondition,
-                        typeBindings);
+        result = TypeGraph.getCopyWithVariablesSubstituted(myBindingCondition, typeBindings);
         result = result.substituteNames(internalBindings);
 
         return result;

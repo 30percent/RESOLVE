@@ -322,8 +322,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
 
     public void visitInfixExp(InfixExp exp) {
 
-        if (myInstanceEnvironment.flags.isFlagSet(Verifier.FLAG_LISTVCS_VC)
-                && !single_line) {
+        if (myInstanceEnvironment.flags.isFlagSet(Verifier.FLAG_LISTVCS_VC) && !single_line) {
             getInfixAltString(exp, indent);
         }
         else if (isabelle) {
@@ -350,14 +349,11 @@ public class PrintAssertions extends ResolveConceptualVisitor {
 
             if (exp.getOpName() != null) {
 
-                if (!AssertiveCode.isProvePart()
-                        && exp.getOpName().toString().equals("and")
-                        && !single_line) {
+                if (!AssertiveCode.isProvePart() && exp.getOpName().toString().equals("and") && !single_line) {
                     if (!single_line)
                         sb.append(exp.getOpName().toString() + "\n");
                 }
-                else if (AssertiveCode.isProvePart()
-                        && exp.getOpName().toString().equals("and")) {
+                else if (AssertiveCode.isProvePart() && exp.getOpName().toString().equals("and")) {
                     sb.append(" " + exp.getOpName().toString() + " ");
                 }
                 else {
@@ -369,8 +365,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
                 if (exp.getOpName().toString().equals("implies")) {
                     /* This is an implication */
                     if (exp.getRight() instanceof InfixExp
-                            && !((InfixExp) exp.getRight()).getOpName()
-                                    .toString().equals("implies")) {
+                            && !((InfixExp) exp.getRight()).getOpName().toString().equals("implies")) {
                         /* And the right Exp is NOT an implication */
                         sb.append("\n");
                         printSpace(indent + 4, sb);
@@ -399,8 +394,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
                 }
                 else /* This is Not an Implication */
                 if (exp.getRight() instanceof InfixExp
-                        && !((InfixExp) exp.getRight()).getOpName().toString()
-                                .equals("implies")) {
+                        && !((InfixExp) exp.getRight()).getOpName().toString().equals("implies")) {
                     /* And the right Exp is NOT an implication */
                     visitAssertion(exp.getRight());
                     sb.append(")");
@@ -432,8 +426,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
 
     }
 
-    public void getInfixAltString(InfixExp exp, int indent,
-            AtomicInteger mycount) {
+    public void getInfixAltString(InfixExp exp, int indent, AtomicInteger mycount) {
 
         printSpace(indent, sb);
         int oldindent = indent;
@@ -454,12 +447,12 @@ public class PrintAssertions extends ResolveConceptualVisitor {
             }
             else {
                 if (exp.getOpName().toString().equals("and")) {
-                    if ((exp.getLeft() instanceof InfixExp && ((InfixExp) exp
-                            .getLeft()).getOpName().toString().equals("and"))) {
+                    if ((exp.getLeft() instanceof InfixExp && ((InfixExp) exp.getLeft()).getOpName()
+                            .toString().equals("and"))) {
                         getInfixAltString((InfixExp) exp.getLeft(), 0, mycount);
                     }
-                    else if ((exp.getLeft() instanceof InfixExp && (((InfixExp) exp
-                            .getLeft()).getOpName().toString().equals("or")))) {
+                    else if ((exp.getLeft() instanceof InfixExp && (((InfixExp) exp.getLeft()).getOpName()
+                            .toString().equals("or")))) {
                         int count = mycount.intValue();
                         count++;
                         mycount.set(count);
@@ -490,8 +483,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
         }
 
         if (exp.getOpName() != null) {
-            if (!AssertiveCode.isProvePart()
-                    && exp.getOpName().toString().equals("and")) {
+            if (!AssertiveCode.isProvePart() && exp.getOpName().toString().equals("and")) {
                 sb.append("\n");
             }
             else
@@ -502,21 +494,18 @@ public class PrintAssertions extends ResolveConceptualVisitor {
             if (exp.getOpName().toString().equals("implies")) {
                 /* This is an implication */
                 if (exp.getRight() instanceof InfixExp
-                        && !((InfixExp) exp.getRight()).getOpName().toString()
-                                .equals("implies")) {
+                        && !((InfixExp) exp.getRight()).getOpName().toString().equals("implies")) {
                     /* And the right Exp is NOT an implication */
                     sb.append("\n");
                     printSpace(indent, sb);
-                    getInfixAltString(((InfixExp) exp.getRight()), indent,
-                            mycount);
+                    getInfixAltString(((InfixExp) exp.getRight()), indent, mycount);
                 }
                 else if (exp.getRight() instanceof InfixExp) {
                     /* And the right is an Implication, but could 
                      * contain an implication or is an and/or statement
                      */
                     sb.append("\n");
-                    getInfixAltString((InfixExp) exp.getRight(), indent,
-                            mycount);
+                    getInfixAltString((InfixExp) exp.getRight(), indent, mycount);
                 }
                 else {
                     sb.append("\n");
@@ -525,13 +514,10 @@ public class PrintAssertions extends ResolveConceptualVisitor {
             }
             else /* This is Not an Implication */
             if (exp.getRight() instanceof InfixExp
-                    && !((InfixExp) exp.getRight()).getOpName().toString()
-                            .equals("implies")) {
+                    && !((InfixExp) exp.getRight()).getOpName().toString().equals("implies")) {
                 if (exp.getOpName().toString().equals("and")) {
-                    if (((InfixExp) exp.getRight()).getOpName().toString()
-                            .equals("and")) {
-                        getInfixAltString((InfixExp) exp.getRight(), indent,
-                                mycount);
+                    if (((InfixExp) exp.getRight()).getOpName().toString().equals("and")) {
+                        getInfixAltString((InfixExp) exp.getRight(), indent, mycount);
                     }
                     else {
 
@@ -553,10 +539,8 @@ public class PrintAssertions extends ResolveConceptualVisitor {
                 /* And the right is an Implication, but could 
                  * contain an implication or is an and/or statement
                  */
-                if (((InfixExp) exp.getRight()).getOpName().toString().equals(
-                        "and")) {
-                    getInfixAltString((InfixExp) exp.getRight(), indent,
-                            mycount);
+                if (((InfixExp) exp.getRight()).getOpName().toString().equals("and")) {
+                    getInfixAltString((InfixExp) exp.getRight(), indent, mycount);
                 }
                 else {
                     int count = mycount.intValue();
@@ -613,19 +597,15 @@ public class PrintAssertions extends ResolveConceptualVisitor {
             else {
                 if (exp.getOpName().toString().equals("and")) {
                     if (exp.getLeft() instanceof InfixExp
-                            && ((InfixExp) exp.getLeft()).getOpName()
-                                    .toString().equals("and")) {
-                        sb.append(""
-                                + ((InfixExp) exp.getLeft())
-                                        .printLocation(mycount) + "");
+                            && ((InfixExp) exp.getLeft()).getOpName().toString().equals("and")) {
+                        sb.append("" + ((InfixExp) exp.getLeft()).printLocation(mycount) + "");
                     }
                     else {
                         int count = mycount.intValue();
                         count++;
                         mycount.set(count);
                         if (exp.getLeft().getLocation() != null) {
-                            sb.append("\n" + mycount + ": "
-                                    + exp.getLeft().getLocation() + ": "
+                            sb.append("\n" + mycount + ": " + exp.getLeft().getLocation() + ": "
                                     + exp.getLeft().getLocation().getDetails());
                         }
                         else {
@@ -637,8 +617,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
         }
 
         if (exp.getOpName() != null) {
-            if (AssertiveCode.isProvePart()
-                    || !exp.getOpName().toString().equals("and")) {
+            if (AssertiveCode.isProvePart() || !exp.getOpName().toString().equals("and")) {
                 int count = mycount.intValue();
                 count++;
                 mycount.set(count);
@@ -655,27 +634,18 @@ public class PrintAssertions extends ResolveConceptualVisitor {
         if (exp.getRight() != null) {
             if (!exp.getOpName().toString().equals("implies")) {
                 if (exp.getRight() instanceof InfixExp
-                        && !((InfixExp) exp.getRight()).getOpName().toString()
-                                .equals("implies")) {
+                        && !((InfixExp) exp.getRight()).getOpName().toString().equals("implies")) {
                     if (exp.getOpName().toString().equals("and")) {
-                        if (((InfixExp) exp.getRight()).getOpName().toString()
-                                .equals("and")) {
-                            sb.append(""
-                                    + ((InfixExp) exp.getRight())
-                                            .printLocation(mycount) + "");
+                        if (((InfixExp) exp.getRight()).getOpName().toString().equals("and")) {
+                            sb.append("" + ((InfixExp) exp.getRight()).printLocation(mycount) + "");
                         }
                         else {
                             int count = mycount.intValue();
                             count++;
                             mycount.set(count);
                             if (exp.getRight().getLocation() != null) {
-                                sb.append("\n"
-                                        + mycount
-                                        + ": "
-                                        + exp.getRight().getLocation()
-                                        + ": "
-                                        + exp.getRight().getLocation()
-                                                .getDetails());
+                                sb.append("\n" + mycount + ": " + exp.getRight().getLocation() + ": "
+                                        + exp.getRight().getLocation().getDetails());
                             }
                             else {
                                 sb.append("\n" + mycount + ": ");
@@ -688,8 +658,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
                     count++;
                     mycount.set(count);
                     if (exp.getRight().getLocation() != null) {
-                        sb.append("\n" + mycount + ": "
-                                + exp.getRight().getLocation() + ": "
+                        sb.append("\n" + mycount + ": " + exp.getRight().getLocation() + ": "
                                 + exp.getRight().getLocation().getDetails());
                     }
                     else {
@@ -722,12 +691,10 @@ public class PrintAssertions extends ResolveConceptualVisitor {
         }
 
         if (exp.getOpName() != null) {
-            if (!AssertiveCode.isProvePart()
-                    && exp.getOpName().toString().equals("and")) {
+            if (!AssertiveCode.isProvePart() && exp.getOpName().toString().equals("and")) {
                 sb.append(";\n");
             }
-            else if (AssertiveCode.isProvePart()
-                    && exp.getOpName().toString().equals("and")) {
+            else if (AssertiveCode.isProvePart() && exp.getOpName().toString().equals("and")) {
                 sb.append(" & ");
             }
             else if (exp.getOpName().toString().equals("implies")) {
@@ -744,8 +711,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
             if (exp.getOpName().toString().equals("implies")) {
                 /* This is an implication */
                 if (exp.getRight() instanceof InfixExp
-                        && !((InfixExp) exp.getRight()).getOpName().toString()
-                                .equals("implies")) {
+                        && !((InfixExp) exp.getRight()).getOpName().toString().equals("implies")) {
                     /* And the right Exp is NOT an implication */
                     sb.append("\n");
                     printSpace(indent, sb);
@@ -763,8 +729,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
             }
             else /* This is Not an Implication */
             if (exp.getRight() instanceof InfixExp
-                    && !((InfixExp) exp.getRight()).getOpName().toString()
-                            .equals("implies")) {
+                    && !((InfixExp) exp.getRight()).getOpName().toString().equals("implies")) {
                 if (exp.getOpName().toString().equals("and"))
                     sb.append(exp.getRight().toString(indent) + "");
                 else
@@ -944,8 +909,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
                 if (typeStr.equals("Integer") || typeStr.equals("*Z")) {
                     typeStr = "int";
                 }
-                else if (typeStr.equals("*String")
-                        || typeStr.equals("*Str(*Entry)")) {
+                else if (typeStr.equals("*String") || typeStr.equals("*Str(*Entry)")) {
                     typeStr = "'obj string";
                 }
                 else if (typeStr.equals("*Entry") || typeStr.equals("*Entry")) {
@@ -1030,8 +994,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
                 if (typeStr.equals("Integer") || typeStr.equals("*Z")) {
                     typeStr = "int";
                 }
-                else if (typeStr.equals("*String")
-                        || typeStr.equals("*Str(*Entry)")) {
+                else if (typeStr.equals("*String") || typeStr.equals("*Str(*Entry)")) {
                     typeStr = "'obj string";
                 }
                 else if (typeStr.equals("*Entry") || typeStr.equals("*Entry")) {
@@ -1189,8 +1152,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
             while (i.hasNext()) {
                 sb.append(i.next().toString(0));
                 if (i.hasNext()) {
-                    if (myInstanceEnvironment.flags
-                            .isFlagSet(Verifier.FLAG_LISTVCS_VC))
+                    if (myInstanceEnvironment.flags.isFlagSet(Verifier.FLAG_LISTVCS_VC))
                         sb.append(" and ");
                     else if (!AssertiveCode.isProvePart())
                         sb.append("and\n");
@@ -1228,9 +1190,7 @@ public class PrintAssertions extends ResolveConceptualVisitor {
                     num++;
                     index++;
                 }
-                strName =
-                        strName.concat(strName.substring(index, strName
-                                .length()));
+                strName = strName.concat(strName.substring(index, strName.length()));
                 for (int i = 0; i < num; i++) {
                     strName = strName.concat("'");
                 }
@@ -1245,10 +1205,8 @@ public class PrintAssertions extends ResolveConceptualVisitor {
         }
         else {
 
-            VarExp tmp =
-                    new VarExp(dec.getName().getLocation(), null, dec.getName());
-            PrintAssertions printer =
-                    new PrintAssertions(myInstanceEnvironment);
+            VarExp tmp = new VarExp(dec.getName().getLocation(), null, dec.getName());
+            PrintAssertions printer = new PrintAssertions(myInstanceEnvironment);
             String str = printer.clearAndVisitAssertion(tmp);
             str = str.concat(":");
             if (dec.getTy() instanceof NameTy)

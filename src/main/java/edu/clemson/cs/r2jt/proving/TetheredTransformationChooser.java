@@ -9,14 +9,12 @@ import java.util.Iterator;
  */
 public class TetheredTransformationChooser implements TransformationChooser {
 
-    private static final Iterator<ProofPathSuggestion> TYPE_SAFE_ITERATOR =
-            null;
+    private static final Iterator<ProofPathSuggestion> TYPE_SAFE_ITERATOR = null;
 
     private final TransformationChooser mySourceChooser;
     private final int myMaxDepth;
 
-    public TetheredTransformationChooser(TransformationChooser sourceChooser,
-            int maxDepth) {
+    public TetheredTransformationChooser(TransformationChooser sourceChooser, int maxDepth) {
 
         mySourceChooser = sourceChooser;
         myMaxDepth = maxDepth;
@@ -28,8 +26,8 @@ public class TetheredTransformationChooser implements TransformationChooser {
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d) {
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d) {
 
         Iterator<ProofPathSuggestion> retval;
 
@@ -37,9 +35,7 @@ public class TetheredTransformationChooser implements TransformationChooser {
             retval = DummyIterator.getInstance(TYPE_SAFE_ITERATOR);
         }
         else {
-            retval =
-                    mySourceChooser.suggestTransformations(vc, curLength,
-                            metrics, d);
+            retval = mySourceChooser.suggestTransformations(vc, curLength, metrics, d);
         }
 
         return retval;
@@ -47,7 +43,6 @@ public class TetheredTransformationChooser implements TransformationChooser {
 
     @Override
     public String toString() {
-        return "Tethered(" + mySourceChooser + ", tethered to " + myMaxDepth
-                + " steps.)";
+        return "Tethered(" + mySourceChooser + ", tethered to " + myMaxDepth + " steps.)";
     }
 }

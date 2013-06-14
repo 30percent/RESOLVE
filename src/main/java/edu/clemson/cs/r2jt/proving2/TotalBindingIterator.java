@@ -39,29 +39,26 @@ public class TotalBindingIterator implements Iterator<Map<PExp, PExp>> {
 
     private Iterator<Map<PExp, PExp>> myRemainderBindings;
 
-    public TotalBindingIterator(ImmutableList<PExp> patterns,
-            Iterable<PExp> facts, Map<PExp, PExp> assumedBindings) {
+    public TotalBindingIterator(ImmutableList<PExp> patterns, Iterable<PExp> facts,
+            Map<PExp, PExp> assumedBindings) {
 
         myFacts = facts;
         myAssumedBindings = assumedBindings;
 
         if (patterns.size() > 0) {
             myLocalPatternBinder =
-                    new IncrementalBindingIterator(patterns.get(0), myFacts
-                            .iterator(), myAssumedBindings);
+                    new IncrementalBindingIterator(patterns.get(0), myFacts.iterator(), myAssumedBindings);
             myRemainingPatterns = patterns.tail(1);
         }
         else {
-            myLocalPatternBinder =
-                    new SingletonIterator<Map<PExp, PExp>>(assumedBindings);
+            myLocalPatternBinder = new SingletonIterator<Map<PExp, PExp>>(assumedBindings);
             myRemainingPatterns = null;
         }
 
         setUpNext();
     }
 
-    public TotalBindingIterator(ImmutableList<PExp> patterns,
-            Iterable<PExp> facts) {
+    public TotalBindingIterator(ImmutableList<PExp> patterns, Iterable<PExp> facts) {
         this(patterns, facts, (Map<PExp, PExp>) Collections.EMPTY_MAP);
     }
 
@@ -72,17 +69,13 @@ public class TotalBindingIterator implements Iterator<Map<PExp, PExp>> {
         while (myLocalPatternBinder.hasNext() && !myRemainderBindings.hasNext()) {
 
             Map<PExp, PExp> nextLocalBinding = myLocalPatternBinder.next();
-            Map<PExp, PExp> unifiedBindings =
-                    unifyMaps(nextLocalBinding, myAssumedBindings);
+            Map<PExp, PExp> unifiedBindings = unifyMaps(nextLocalBinding, myAssumedBindings);
 
             if (myRemainingPatterns != null) {
-                myRemainderBindings =
-                        new TotalBindingIterator(myRemainingPatterns, myFacts,
-                                unifiedBindings);
+                myRemainderBindings = new TotalBindingIterator(myRemainingPatterns, myFacts, unifiedBindings);
             }
             else {
-                myRemainderBindings =
-                        new SingletonIterator<Map<PExp, PExp>>(unifiedBindings);
+                myRemainderBindings = new SingletonIterator<Map<PExp, PExp>>(unifiedBindings);
             }
         }
 

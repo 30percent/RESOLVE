@@ -54,15 +54,10 @@ public class PrettyCTranslationInfo {
             }
             retBuf.append("){");
             if (!returnType[0].equals("void ")) {
-                retBuf.append(returnType[0]).append(returnName).append(
-                        returnType[1]).append(";");
+                retBuf.append(returnType[0]).append(returnName).append(returnType[1]).append(";");
             }
             for (String a : varInit) {
                 retBuf.append(a).append(";");
-            }
-            for (String a : stmts) {
-                //retBuf.append(a).append(";");
-
             }
             if (allStmt != null) {
                 retBuf.append(allStmt);
@@ -93,9 +88,7 @@ public class PrettyCTranslationInfo {
             newFunc.returnType = getCVarType(newReturnTy.getName());
         }
         newFunc.returnName = newFuncName.getName();
-        newFunc.functionName =
-                stringFromSym(newFuncName, newFunc.returnType[0]);
-        String te = newFunc.functionName.trim();
+        newFunc.functionName = stringFromSym(newFuncName, newFunc.returnType[0]);
         funcList.add(newFunc);
         newFunc.params = new ArrayList<String>();
         newFunc.stmts = new ArrayList<String>();

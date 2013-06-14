@@ -105,11 +105,10 @@ public class ConceptBodyModuleDec extends AbstractParameterizedModuleDec {
 
     public ConceptBodyModuleDec() {};
 
-    public ConceptBodyModuleDec(PosSymbol name, PosSymbol profileName,
-            List<ModuleParameterDec> parameters, PosSymbol conceptName,
-            List<PosSymbol> enhancementNames, List<UsesItem> usesItems,
-            Exp requires, List<Exp> conventions, List<Exp> corrs,
-            InitItem facilityInit, FinalItem facilityFinal, List<Dec> decs) {
+    public ConceptBodyModuleDec(PosSymbol name, PosSymbol profileName, List<ModuleParameterDec> parameters,
+            PosSymbol conceptName, List<PosSymbol> enhancementNames, List<UsesItem> usesItems, Exp requires,
+            List<Exp> conventions, List<Exp> corrs, InitItem facilityInit, FinalItem facilityFinal,
+            List<Dec> decs) {
         this.name = name;
         this.profileName = profileName;
         this.parameters = parameters;

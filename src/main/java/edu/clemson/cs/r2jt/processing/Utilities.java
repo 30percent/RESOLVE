@@ -188,8 +188,7 @@ public class Utilities {
      * @param newDec The name of the newly created <code>FacilityDec</code>.
      *
      */
-    public void addFacilityDec(Iterator<ResolveConceptualElement> it,
-            FacilityDec newDec) {
+    public void addFacilityDec(Iterator<ResolveConceptualElement> it, FacilityDec newDec) {
         // Loop
         while (it.hasNext()) {
             // Obtain a temp from it
@@ -214,15 +213,13 @@ public class Utilities {
             }
             else if (temp instanceof FacilityOperationDec) {
                 // Obtain a list of Decs from FacilityOperationDec
-                List<FacilityDec> decList =
-                        ((FacilityOperationDec) temp).getFacilities();
+                List<FacilityDec> decList = ((FacilityOperationDec) temp).getFacilities();
 
                 // Add the FacilityDec created to decList
                 decList.add(0, newDec);
 
                 // Reinsert the modified list back into FacilityOperationDec
-                ((FacilityOperationDec) temp)
-                        .setFacilities((List<FacilityDec>) decList);
+                ((FacilityOperationDec) temp).setFacilities((List<FacilityDec>) decList);
                 break;
             }
             else if (temp instanceof ConceptBodyModuleDec) {
@@ -239,15 +236,13 @@ public class Utilities {
             }
             else if (temp instanceof ProcedureDec) {
                 // Obtain a list of FacilityDecs from ProcedureDec
-                List<FacilityDec> decList =
-                        ((ProcedureDec) temp).getFacilities();
+                List<FacilityDec> decList = ((ProcedureDec) temp).getFacilities();
 
                 // Add the FacilityDec created to decList
                 decList.add(0, newDec);
 
                 // Reinsert the modified list back into ProcedureDec
-                ((ProcedureDec) temp)
-                        .setFacilities((List<FacilityDec>) decList);
+                ((ProcedureDec) temp).setFacilities((List<FacilityDec>) decList);
                 break;
             }
             else if (temp instanceof EnhancementBodyModuleDec) {
@@ -276,8 +271,7 @@ public class Utilities {
      *
      * @return New list of statements.
      */
-    private List<Statement> addStatements(Location location,
-            List<Statement> stmtList) {
+    private List<Statement> addStatements(Location location, List<Statement> stmtList) {
         // Loop through the list
         for (int i = 0; i < stmtList.size(); i++) {
             // CallStmts
@@ -318,8 +312,7 @@ public class Utilities {
      *
      * @return New list of statements.
      */
-    private List<Statement> addSwapCalls(Location location,
-            List<Statement> stmtList) {
+    private List<Statement> addSwapCalls(Location location, List<Statement> stmtList) {
         // Loop through the list
         for (int i = 0; i < stmtList.size(); i++) {
             // CallStmts
@@ -434,11 +427,9 @@ public class Utilities {
      *
      * @return newly created <code>FacilityDec</code>
      */
-    public FacilityDec createFacilityDec(Location location, String name,
-            String conceptName, String conceptRealizationName,
-            List<ModuleArgumentItem> conceptParam,
-            List<ModuleArgumentItem> conceptBodiesParam,
-            List<EnhancementItem> enhancementParam,
+    public FacilityDec createFacilityDec(Location location, String name, String conceptName,
+            String conceptRealizationName, List<ModuleArgumentItem> conceptParam,
+            List<ModuleArgumentItem> conceptBodiesParam, List<EnhancementItem> enhancementParam,
             List<EnhancementBodyItem> enhancementBodiesParam) {
         // Create a FacilityDec
         FacilityDec newFacilityDec = new FacilityDec();
@@ -446,17 +437,14 @@ public class Utilities {
         // Check for null
         if (newFacilityDec != null) {
             // Set the name
-            newFacilityDec
-                    .setName(new PosSymbol(location, Symbol.symbol(name)));
+            newFacilityDec.setName(new PosSymbol(location, Symbol.symbol(name)));
 
             // Set the Concept to "Static_Array_Template
-            newFacilityDec.setConceptName(new PosSymbol(location, Symbol
-                    .symbol(conceptName)));
+            newFacilityDec.setConceptName(new PosSymbol(location, Symbol.symbol(conceptName)));
             newFacilityDec.setConceptParams(conceptParam);
 
             // Set the Concept Realization to "Std_Array_Realiz */
-            newFacilityDec.setBodyName(new PosSymbol(location, Symbol
-                    .symbol(conceptRealizationName)));
+            newFacilityDec.setBodyName(new PosSymbol(location, Symbol.symbol(conceptRealizationName)));
             newFacilityDec.setBodyParams(conceptBodiesParam);
 
             // Set the Enhancement to empty
@@ -484,8 +472,8 @@ public class Utilities {
 
         // Create new right hand side with the Replica function
         ProgramParamExp newExp =
-                new ProgramParamExp(oldExp.getLocation(), new PosSymbol(oldExp
-                        .getLocation(), Symbol.symbol("Replica")), params, null);
+                new ProgramParamExp(oldExp.getLocation(), new PosSymbol(oldExp.getLocation(), Symbol
+                        .symbol("Replica")), params, null);
 
         return newExp;
     }
@@ -554,8 +542,7 @@ public class Utilities {
      * @param location Location of the <code>CallStmt</code>/<code>
      * FunctionAssignStmt</code>
      */
-    public void loopAndAddStatements(Iterator<ResolveConceptualElement> it,
-            Location location) {
+    public void loopAndAddStatements(Iterator<ResolveConceptualElement> it, Location location) {
         // Iterate through our ancestors
         while (it.hasNext()) {
             // Obtain a temp from it
@@ -565,8 +552,7 @@ public class Utilities {
             if (temp instanceof FacilityOperationDec) {
                 // Update the list of statements inside the FacilityOperation
                 List<Statement> stmtList =
-                        addStatements(location, ((FacilityOperationDec) temp)
-                                .getStatements());
+                        addStatements(location, ((FacilityOperationDec) temp).getStatements());
                 ((FacilityOperationDec) temp).setStatements(stmtList);
                 break;
             } /*
@@ -576,9 +562,7 @@ public class Utilities {
                 /*
                  * Update the list of statements inside the Procedure
                  */
-                List<Statement> stmtList =
-                        addStatements(location, ((ProcedureDec) temp)
-                                .getStatements());
+                List<Statement> stmtList = addStatements(location, ((ProcedureDec) temp).getStatements());
                 ((ProcedureDec) temp).setStatements(stmtList);
                 break;
             }
@@ -597,8 +581,7 @@ public class Utilities {
      * FunctionAssignStmt</code>
      *
      */
-    public void loopAndAddSwapCalls(Iterator<ResolveConceptualElement> it,
-            Location location) {
+    public void loopAndAddSwapCalls(Iterator<ResolveConceptualElement> it, Location location) {
         // Iterate through our ancestors
         while (it.hasNext()) {
             // Obtain a temp from it
@@ -608,17 +591,14 @@ public class Utilities {
             if (temp instanceof FacilityOperationDec) {
                 // Update the list of statements inside the FacilityOperation
                 List<Statement> stmtList =
-                        addSwapCalls(location, ((FacilityOperationDec) temp)
-                                .getStatements());
+                        addSwapCalls(location, ((FacilityOperationDec) temp).getStatements());
                 ((FacilityOperationDec) temp).setStatements(stmtList);
                 break;
             }
             // Look for ProcedureDec
             else if (temp instanceof ProcedureDec) {
                 // Update the list of statements inside the Procedure
-                List<Statement> stmtList =
-                        addSwapCalls(location, ((ProcedureDec) temp)
-                                .getStatements());
+                List<Statement> stmtList = addSwapCalls(location, ((ProcedureDec) temp).getStatements());
                 ((ProcedureDec) temp).setStatements(stmtList);
                 break;
             }
@@ -634,8 +614,7 @@ public class Utilities {
      * @param oldStmt The old statement that needs to be replaced.
      * @param newStmt The new statement that will replace oldStmt.
      */
-    public void replaceStmt(Iterator<ResolveConceptualElement> it,
-            Statement oldStmt, Statement newStmt) {
+    public void replaceStmt(Iterator<ResolveConceptualElement> it, Statement oldStmt, Statement newStmt) {
         // Variables
         List<Statement> stmtList = null;
         boolean found = false;
@@ -743,18 +722,15 @@ public class Utilities {
                 ProcedureDec currentProcDec = (ProcedureDec) current;
 
                 // Update the map
-                myLocalOperMap.put(currentProcDec.getName().getName(),
-                        currentProcDec.getParameters());
+                myLocalOperMap.put(currentProcDec.getName().getName(), currentProcDec.getParameters());
             }
             // Check if it is a FacilityOperationDec or not
             else if (current instanceof FacilityOperationDec) {
                 // Type cast to FacilityOperationDec
-                FacilityOperationDec currentProcDec =
-                        (FacilityOperationDec) current;
+                FacilityOperationDec currentProcDec = (FacilityOperationDec) current;
 
                 // Update the map
-                myLocalOperMap.put(currentProcDec.getName().getName(),
-                        currentProcDec.getParameters());
+                myLocalOperMap.put(currentProcDec.getName().getName(), currentProcDec.getParameters());
             }
         }
     }
@@ -841,19 +817,15 @@ public class Utilities {
                 RepresentationDec tempRepDec = it.next();
 
                 // Check name of tempRepDec against ty of tempVarDec
-                if (tempRepDec.getName().getName().equals(
-                        ty.getName().getName())) {
+                if (tempRepDec.getName().getName().equals(ty.getName().getName())) {
                     RecordTy tempTy = (RecordTy) tempRepDec.getRepresentation();
 
                     // Get list of fields
                     VarDec varInRecord =
-                            iterateFindVarDec(((VariableArrayExp) exp)
-                                    .getName(), tempTy.getFields());
+                            iterateFindVarDec(((VariableArrayExp) exp).getName(), tempTy.getFields());
                     if (varInRecord != null) {
                         // Set the return ty
-                        nameOfArray =
-                                ((NameTy) varInRecord.getTy()).getQualifier()
-                                        .getName();
+                        nameOfArray = ((NameTy) varInRecord.getTy()).getQualifier().getName();
                         break;
                     }
                 }
@@ -868,20 +840,16 @@ public class Utilities {
                 FacilityTypeDec tempRepDec = it.next();
 
                 // Check name of tempRepDec against ty of tempVarDec
-                if (tempRepDec.getName().getName().equals(
-                        ty.getName().getName())) {
+                if (tempRepDec.getName().getName().equals(ty.getName().getName())) {
                     RecordTy tempTy = (RecordTy) tempRepDec.getRepresentation();
 
                     // Get list of fields
                     VarDec varInRecord =
-                            iterateFindVarDec(((VariableArrayExp) exp)
-                                    .getName(), tempTy.getFields());
+                            iterateFindVarDec(((VariableArrayExp) exp).getName(), tempTy.getFields());
 
                     if (varInRecord != null) {
                         // Set the return ty
-                        nameOfArray =
-                                ((NameTy) varInRecord.getTy()).getQualifier()
-                                        .getName();
+                        nameOfArray = ((NameTy) varInRecord.getTy()).getQualifier().getName();
                         break;
                     }
                 }

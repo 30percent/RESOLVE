@@ -9,8 +9,7 @@ public class VCNodeIdentifier {
     private final int myConjunctIndex;
     private final NodeIdentifier myNodeIdentifier;
 
-    public VCNodeIdentifier(VC vc, boolean antecedent, int conjunct,
-            NodeIdentifier nid) {
+    public VCNodeIdentifier(VC vc, boolean antecedent, int conjunct, NodeIdentifier nid) {
 
         myVC = vc;
         myAntecedentFlag = antecedent;

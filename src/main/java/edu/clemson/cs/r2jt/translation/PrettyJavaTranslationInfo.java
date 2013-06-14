@@ -48,8 +48,7 @@ public class PrettyJavaTranslationInfo {
             }
             retBuf.append("){");
             if (!returnType[0].equals("void ")) {
-                retBuf.append(returnType[0]).append(returnName).append(
-                        returnType[1]).append(";");
+                retBuf.append(returnType[0]).append(returnName).append(returnType[1]).append(";");
             }
             /*for (String a : varInit) {
                 retBuf.append(a).append(";");

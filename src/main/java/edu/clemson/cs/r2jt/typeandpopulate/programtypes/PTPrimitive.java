@@ -44,8 +44,7 @@ public class PTPrimitive extends PTType {
     }
 
     @Override
-    public PTType instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public PTType instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -71,9 +70,7 @@ public class PTPrimitive extends PTType {
 
             if (result) {
                 GraphTypeKey oAsGTK = (GraphTypeKey) o;
-                result =
-                        (myName.equals(oAsGTK.myName))
-                                && (myTypeGraph.equals(oAsGTK.myTypeGraph));
+                result = (myName.equals(oAsGTK.myName)) && (myTypeGraph.equals(oAsGTK.myTypeGraph));
             }
 
             return result;

@@ -105,17 +105,14 @@ public class Main {
     public static final String FLAG_SECTION_GENERAL = "General";
 
     public static final Flag FLAG_HELP =
-            new Flag(FLAG_SECTION_GENERAL, "help",
-                    "Displays this help information.");
+            new Flag(FLAG_SECTION_GENERAL, "help", "Displays this help information.");
 
     public static final Flag FLAG_EXTENDED_HELP =
-            new Flag("General", "xhelp",
-                    "Displays all flags, including development flags and many others "
-                            + "not relevant to most users.");
+            new Flag("General", "xhelp", "Displays all flags, including development flags and many others "
+                    + "not relevant to most users.");
 
     public static final Flag FLAG_NO_STANDARD_IMPORT =
-            new Flag("General", "nostdimport",
-                    "Prevents the compiler from importing standard uses modules.");
+            new Flag("General", "nostdimport", "Prevents the compiler from importing standard uses modules.");
 
     //private static boolean      bodies      = false;
     private static boolean compileDirs = false;
@@ -130,8 +127,7 @@ public class Main {
         setUpFlagDependencies();
 
         try {
-            CompileEnvironment compileEnvironment =
-                    new CompileEnvironment(args);
+            CompileEnvironment compileEnvironment = new CompileEnvironment(args);
             args = compileEnvironment.getRemainingArgs();
             ErrorHandler err = new ErrorHandler(compileEnvironment);
             compileEnvironment.setErrorHandler(err);
@@ -141,8 +137,7 @@ public class Main {
             String preferredMainDirectory = null;
 
             List<File> files = new List<File>();
-            if (args.length >= 1
-                    && !compileEnvironment.flags.isFlagSet(FLAG_HELP)) {
+            if (args.length >= 1 && !compileEnvironment.flags.isFlagSet(FLAG_HELP)) {
 
                 for (int i = 0; i < args.length; i++) {
                     if (args[i].equals("-showBuild")) {
@@ -194,14 +189,11 @@ public class Main {
                     }
                 }
 
-                if (!compileEnvironment.flags
-                        .isFlagSet(ResolveCompiler.FLAG_WEB)) {
-                    System.out.println("RESOLVE Compiler/Verifier - " + VERSION
-                            + " Version.");
+                if (!compileEnvironment.flags.isFlagSet(ResolveCompiler.FLAG_WEB)) {
+                    System.out.println("RESOLVE Compiler/Verifier - " + VERSION + " Version.");
                     System.out.println("  Use -help flag for options.");
                 }
-                if (compileEnvironment.flags
-                        .isFlagSet(ResolveCompiler.FLAG_NO_DEBUG)) {
+                if (compileEnvironment.flags.isFlagSet(ResolveCompiler.FLAG_NO_DEBUG)) {
                     compileEnvironment.setDebugOff();
                 }
 
@@ -214,15 +206,14 @@ public class Main {
             }
         }
         catch (FlagDependencyException fde) {
-            System.out.println("RESOLVE Compiler/Verifier - " + VERSION
-                    + " Version.");
+            System.out.println("RESOLVE Compiler/Verifier - " + VERSION + " Version.");
             System.out.println("  Use -help flag for options.");
             System.err.println(fde.getMessage());
         }
     }
 
-    public static void runMain(String[] args, CompileReport rep,
-            MetaFile inputFile, HashMap<String, MetaFile> userFileMap) {
+    public static void runMain(String[] args, CompileReport rep, MetaFile inputFile,
+            HashMap<String, MetaFile> userFileMap) {
         runMain(args, rep, inputFile, userFileMap, null);
     }
 
@@ -230,9 +221,8 @@ public class Main {
      * Added this so we could make the CompileReport non static, and pass
      * it in from the ResolveCompiler class (for use in the web interface)
      */
-    public static void runMain(String[] args, CompileReport rep,
-            MetaFile inputFile, HashMap<String, MetaFile> userFileMap,
-            ProverListener listener) {
+    public static void runMain(String[] args, CompileReport rep, MetaFile inputFile,
+            HashMap<String, MetaFile> userFileMap, ProverListener listener) {
         //Environment.newInstance();
         //env = Environment.getInstance();
 
@@ -240,8 +230,7 @@ public class Main {
         String fileName = inputFile.getMyFileName();
         String fileSource = inputFile.getMyFileSource();
         try {
-            CompileEnvironment compileEnvironment =
-                    new CompileEnvironment(args);
+            CompileEnvironment compileEnvironment = new CompileEnvironment(args);
             compileEnvironment.setCompileReport(rep);
             compileEnvironment.setTargetFileName(fileName);
             compileEnvironment.setTargetSource(fileSource);
@@ -256,8 +245,7 @@ public class Main {
             String preferredMainDirectory = null;
 
             List<File> files = new List<File>();
-            if (args.length >= 1
-                    && !compileEnvironment.flags.isFlagSet(FLAG_HELP)) {
+            if (args.length >= 1 && !compileEnvironment.flags.isFlagSet(FLAG_HELP)) {
 
                 for (int i = 0; i < args.length; i++) {
                     if (args[i].equals("-showBuild")) {
@@ -306,14 +294,11 @@ public class Main {
                     }
                 }
 
-                if (!compileEnvironment.flags
-                        .isFlagSet(ResolveCompiler.FLAG_WEB)) {
-                    System.out.println("RESOLVE Compiler/Verifier - " + VERSION
-                            + " Version.");
+                if (!compileEnvironment.flags.isFlagSet(ResolveCompiler.FLAG_WEB)) {
+                    System.out.println("RESOLVE Compiler/Verifier - " + VERSION + " Version.");
                     System.out.println("  Use -help flag for options.");
                 }
-                if (compileEnvironment.flags
-                        .isFlagSet(ResolveCompiler.FLAG_NO_DEBUG)) {
+                if (compileEnvironment.flags.isFlagSet(ResolveCompiler.FLAG_NO_DEBUG)) {
                     compileEnvironment.setDebugOff();
                 }
 
@@ -325,8 +310,7 @@ public class Main {
             }
         }
         catch (FlagDependencyException fde) {
-            System.out.println("RESOLVE Compiler/Verifier - " + VERSION
-                    + " Version.");
+            System.out.println("RESOLVE Compiler/Verifier - " + VERSION + " Version.");
             System.out.println("  Use -help flag for options.");
             System.err.println(fde.getMessage());
         }
@@ -335,8 +319,7 @@ public class Main {
     /**
      * Sets up the compilation environment
      */
-    private static void setupEnv(String preferredMainDirectory,
-            CompileEnvironment env) {
+    private static void setupEnv(String preferredMainDirectory, CompileEnvironment env) {
         /*if (bodies) {
             env.setCompileBodiesFlag();
         }*/
@@ -347,8 +330,8 @@ public class Main {
      * Iterates over the files in the list and compiles them one
      * at a time.
      */
-    private static void compileFiles(List<File> files,
-            CompileEnvironment instanceEnvironment, MetaFile inputFile) {
+    private static void compileFiles(List<File> files, CompileEnvironment instanceEnvironment,
+            MetaFile inputFile) {
 
         MathSymbolTableBuilder symbolTable = new MathSymbolTableBuilder();
         instanceEnvironment.setSymbolTable(symbolTable);
@@ -364,12 +347,10 @@ public class Main {
                 }
             }
             else if (!isResolveFile(file.getName())) {
-                System.err.println("The file " + file.getName()
-                        + " is not a RESOLVE file.");
+                System.err.println("The file " + file.getName() + " is not a RESOLVE file.");
             }
             else if (!file.isFile()) {
-                System.err.println("Cannot find the file " + file.getName()
-                        + " in this directory.");
+                System.err.println("Cannot find the file " + file.getName() + " in this directory.");
             }
             else {
                 instanceEnvironment.setTargetFile(file);
@@ -383,8 +364,7 @@ public class Main {
         }
     }
 
-    public static void compileFilesInDir(File dir,
-            CompileEnvironment instanceEnvironment) {
+    public static void compileFilesInDir(File dir, CompileEnvironment instanceEnvironment) {
 
         File[] fileArray = dir.listFiles();
         List<File> files = new List<File>();
@@ -398,8 +378,7 @@ public class Main {
         compileFiles(files, instanceEnvironment, dummy);
     }
 
-    public static void compileMainFile(File file,
-            CompileEnvironment instanceEnvironment,
+    public static void compileMainFile(File file, CompileEnvironment instanceEnvironment,
             MathSymbolTableBuilder symbolTable) {
 
         Controller control = new Controller(instanceEnvironment);
@@ -412,14 +391,12 @@ public class Main {
         else if (instanceEnvironment.showEnv()) {
             printEnvironment(file, instanceEnvironment);
         }
-        else if (instanceEnvironment.showTable()
-                || instanceEnvironment.showBind()) {
+        else if (instanceEnvironment.showTable() || instanceEnvironment.showBind()) {
             printSymbolTable(file, instanceEnvironment);
         }
     }
 
-    public static void compileMainSource(MetaFile inputFile,
-            CompileEnvironment instanceEnvironment,
+    public static void compileMainSource(MetaFile inputFile, CompileEnvironment instanceEnvironment,
             MathSymbolTableBuilder symbolTable) {
 
         Controller control = new Controller(instanceEnvironment);
@@ -473,8 +450,7 @@ public class Main {
             mainDir = new File(preferredMainDirectory);
 
             if (!mainDir.exists()) {
-                System.err.println("Warning: Directory '"
-                        + preferredMainDirectory
+                System.err.println("Warning: Directory '" + preferredMainDirectory
                         + "' not found, using current " + "directory.");
 
                 mainDir = getAbsoluteFile("");
@@ -517,9 +493,8 @@ public class Main {
      * Determines if the specified filename is a valid Resolve filename.
      */
     private static boolean isResolveFile(String filename) {
-        return (filename.endsWith(".mt") || filename.endsWith(".co")
-                || filename.endsWith(".en") || filename.endsWith(".rb")
-                || filename.endsWith(".fa") || filename.endsWith(".pp"));
+        return (filename.endsWith(".mt") || filename.endsWith(".co") || filename.endsWith(".en")
+                || filename.endsWith(".rb") || filename.endsWith(".fa") || filename.endsWith(".pp"));
     }
 
     private static void printHelpMessage(CompileEnvironment e) {
@@ -530,29 +505,20 @@ public class Main {
     }
 
     private static void printOptions(CompileEnvironment e) {
-        System.out
-                .println("  +bodies        Compile imported realization modules.");
-        System.out
-                .println("  -showBuild     Show the ModuleDec of the target file.");
-        System.out
-                .println("  -showEnv       Show the compilation environment.");
-        System.out
-                .println("  -showTable     Show the symbol table before binding.");
-        System.out
-                .println("  -showBind      Show the symbol table after binding.");
-        System.out
-                .println("  -showIndirect  Show the bindings associated with indirect types.");
+        System.out.println("  +bodies        Compile imported realization modules.");
+        System.out.println("  -showBuild     Show the ModuleDec of the target file.");
+        System.out.println("  -showEnv       Show the compilation environment.");
+        System.out.println("  -showTable     Show the symbol table before binding.");
+        System.out.println("  -showBind      Show the symbol table after binding.");
+        System.out.println("  -showIndirect  Show the bindings associated with indirect types.");
         System.out.println("  -assertions    Print Only Final Assertions");
         System.out.println("  -R             Recurse through directories.");
         System.out.println("  -D <dir>       Use <dir> as the main directory.");
         System.out.println("  -translate     Translate to Java code.");
-        System.out.println("  -VCs           Generate verification "
-                + "conditions.");
-        System.out.println("  -isabelle      Used with -VCs to generate "
-                + "VCs for Isabelle.");
+        System.out.println("  -VCs           Generate verification " + "conditions.");
+        System.out.println("  -isabelle      Used with -VCs to generate " + "VCs for Isabelle.");
 
-        System.out.println(FlagDependencies.getListingString(e.flags
-                .isFlagSet(FLAG_EXTENDED_HELP)));
+        System.out.println(FlagDependencies.getListingString(e.flags.isFlagSet(FLAG_EXTENDED_HELP)));
     }
 
     /**
@@ -596,31 +562,18 @@ public class Main {
         String pkg = "Unbounded_List";
         String source =
                 "Realization Std_Unbounded_List_Realiz for Unbounded_List_Template;\n"
-                        + "Type List is represented by Record\n"
-                        + "Contents: Array 1..Max_Depth of Entry;\n"
-                        + "end;\n"
-                        + "convention\n"
-                        + "true;\n"
-                        +
+                        + "Type List is represented by Record\n" + "Contents: Array 1..Max_Depth of Entry;\n"
+                        + "end;\n" + "convention\n" + "true;\n" +
 
-                        "true;\n"
-                        + "Procedure Advance( upd P: List );\n"
-                        + "end;\n"
-                        + "Procedure Reset( upd P: List );\n"
-                        + "end;\n"
-                        + "Procedure Is_Rem_Empty( rest P: List ): Boolean;\n"
-                        + "end;\n"
-                        + "Procedure Insert( alt New_Entry: Entry; upd P: List );\n"
-                        + "end;\n"
-                        + "Procedure Remove( rpl Entry_Removed: Entry; upd P: List );\n"
-                        + "end;\n"
-                        + "Procedure Advance_to_End( upd P: List );\n"
-                        + "end;\n"
-                        + "Procedure Swap_Remainders( upd P, Q: List );\n"
-                        + "end;\n"
-                        + "Procedure Is_Prec_Empty( rest P: List ): Boolean;\n"
-                        + "end;\n" + "Procedure Clear( clr P: List );\n"
-                        + "end;\n" + "end Std_Unbounded_List_Realiz;";
+                        "true;\n" + "Procedure Advance( upd P: List );\n" + "end;\n"
+                        + "Procedure Reset( upd P: List );\n" + "end;\n"
+                        + "Procedure Is_Rem_Empty( rest P: List ): Boolean;\n" + "end;\n"
+                        + "Procedure Insert( alt New_Entry: Entry; upd P: List );\n" + "end;\n"
+                        + "Procedure Remove( rpl Entry_Removed: Entry; upd P: List );\n" + "end;\n"
+                        + "Procedure Advance_to_End( upd P: List );\n" + "end;\n"
+                        + "Procedure Swap_Remainders( upd P, Q: List );\n" + "end;\n"
+                        + "Procedure Is_Prec_Empty( rest P: List ): Boolean;\n" + "end;\n"
+                        + "Procedure Clear( clr P: List );\n" + "end;\n" + "end Std_Unbounded_List_Realiz;";
         ModuleKind kind = ModuleKind.CONCEPT_BODY;
         MetaFile mf = new MetaFile(fileName, assocConcept, pkg, source, kind);
         aMap.put(key, mf);
@@ -630,12 +583,11 @@ public class Main {
         pkg = "Stack";
         source =
                 "Realization Do_Nothing_Realiz for Do_Nothing_Capability of Stack_Template;\n"
-                        + "uses Std_Boolean_Fac;\n"
-                        + "Procedure Do_Nothing(restores S: Stack);\n"
+                        + "uses Std_Boolean_Fac;\n" + "Procedure Do_Nothing(restores S: Stack);\n"
                         + "Var Next_Entry: Entry;\n" +
 
-                        "Pop(Next_Entry, S);\n" + "Push(Next_Entry, S);\n"
-                        + "end Do_Nothing;\n" + "end Do_Nothing_Realiz;\n";
+                        "Pop(Next_Entry, S);\n" + "Push(Next_Entry, S);\n" + "end Do_Nothing;\n"
+                        + "end Do_Nothing_Realiz;\n";
         kind = ModuleKind.ENHANCEMENT_BODY;
         mf = new MetaFile(fileName, assocConcept, pkg, source, kind);
         aMap.put(key, mf);
@@ -646,18 +598,15 @@ public class Main {
         source =
                 "Facility a_a0123456;\n"
                         + "uses Std_Boolean_Fac, Std_Character_Fac, Std_Integer_Fac, Std_Char_Str_Fac;\n"
-                        + "Facility Stack_Fac is Stack_Template(Integer, 4)\n"
-                        + "realized by Array_Realiz\n"
+                        + "Facility Stack_Fac is Stack_Template(Integer, 4)\n" + "realized by Array_Realiz\n"
                         + "enhanced by Reading_Capability\n"
                         + "realized by Obvious_Reading_Realiz(Std_Integer_Fac.Read)\n"
                         + "enhanced by Writing_Capability\n"
-                        + "realized by Obvious_Writing_Realiz (Std_Integer_Fac.Write);\n"
-                        +
+                        + "realized by Obvious_Writing_Realiz (Std_Integer_Fac.Write);\n" +
 
-                        "Operation Main();\n" + "Procedure\n"
-                        + "Var S: Stack_Fac.Stack;\n" + "Read(S);\n"
-                        + "Write_Line(\"REVERSED ORDER\");\n" + "Write(S);\n"
-                        + "end Main;\n" + "end a_a0123456;\n";
+                        "Operation Main();\n" + "Procedure\n" + "Var S: Stack_Fac.Stack;\n" + "Read(S);\n"
+                        + "Write_Line(\"REVERSED ORDER\");\n" + "Write(S);\n" + "end Main;\n"
+                        + "end a_a0123456;\n";
         kind = ModuleKind.FACILITY;
         mf = new MetaFile(fileName, assocConcept, pkg, source, kind);
         aMap.put(key, mf);

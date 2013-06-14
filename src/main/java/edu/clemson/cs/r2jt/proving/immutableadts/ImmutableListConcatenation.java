@@ -14,8 +14,7 @@ public class ImmutableListConcatenation<E> extends AbstractImmutableList<E> {
 
     private final int myTotalSize;
 
-    public ImmutableListConcatenation(ImmutableList<E> firstList,
-            ImmutableList<E> secondList) {
+    public ImmutableListConcatenation(ImmutableList<E> firstList, ImmutableList<E> secondList) {
 
         myFirstList = firstList;
         myFirstListSize = myFirstList.size();
@@ -58,8 +57,7 @@ public class ImmutableListConcatenation<E> extends AbstractImmutableList<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new ChainingIterator<E>(myFirstList.iterator(), mySecondList
-                .iterator());
+        return new ChainingIterator<E>(myFirstList.iterator(), mySecondList.iterator());
     }
 
     @Override
@@ -77,9 +75,7 @@ public class ImmutableListConcatenation<E> extends AbstractImmutableList<E> {
         ImmutableList<E> retval;
 
         if (startIndex < myFirstListSize) {
-            retval =
-                    new ImmutableListConcatenation<E>(myFirstList
-                            .tail(startIndex), mySecondList);
+            retval = new ImmutableListConcatenation<E>(myFirstList.tail(startIndex), mySecondList);
         }
         else {
             retval = mySecondList.tail(startIndex - myFirstListSize);

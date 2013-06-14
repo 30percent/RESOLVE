@@ -8,9 +8,7 @@ package edu.clemson.cs.r2jt.proving;
  * same or increase it) are recommended against (i.e., they will be given a 
  * negative weight.)</p>
  */
-public class NormalizingTransformerFitnessFunction
-        extends
-            TransformerFitnessFunction {
+public class NormalizingTransformerFitnessFunction extends TransformerFitnessFunction {
 
     @Override
     public String toString() {
@@ -31,10 +29,8 @@ public class NormalizingTransformerFitnessFunction
             }
             else {
 
-                double findFunctionCount =
-                        pattern.getFunctionApplications().size();
-                double replaceFunctionCount =
-                        template.getFunctionApplications().size();
+                double findFunctionCount = pattern.getFunctionApplications().size();
+                double replaceFunctionCount = template.getFunctionApplications().size();
                 double difference = findFunctionCount - replaceFunctionCount;
 
                 double simplificationFactor = Math.pow(0.5, difference);

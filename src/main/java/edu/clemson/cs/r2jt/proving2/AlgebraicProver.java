@@ -49,11 +49,9 @@ import javax.swing.SwingUtilities;
  */
 public class AlgebraicProver {
 
-    private static final String FLAG_DESC_NEW_PROVE =
-            "Verify target file with RESOLVE's integrated prover.";
+    private static final String FLAG_DESC_NEW_PROVE = "Verify target file with RESOLVE's integrated prover.";
 
-    private static final String FLAG_DESC_INTERACTIVE =
-            "Start the prover in interactive mode.";
+    private static final String FLAG_DESC_INTERACTIVE = "Start the prover in interactive mode.";
 
     /**
      * <p>
@@ -61,15 +59,13 @@ public class AlgebraicProver {
      * generated VCs.
      * </p>
      */
-    public static final Flag FLAG_PROVE =
-            new Flag(Prover.FLAG_SECTION_NAME, "newprove", FLAG_DESC_NEW_PROVE);
+    public static final Flag FLAG_PROVE = new Flag(Prover.FLAG_SECTION_NAME, "newprove", FLAG_DESC_NEW_PROVE);
 
     /**
      * <p>Makes the prover start in interactive mode by default.</p>
      */
     public static final Flag FLAG_INTERACTIVE =
-            new Flag(Prover.FLAG_SECTION_NAME, "interactive",
-                    FLAG_DESC_INTERACTIVE);
+            new Flag(Prover.FLAG_SECTION_NAME, "interactive", FLAG_DESC_INTERACTIVE);
 
     public static void setUpFlags() {
         FlagDependencies.addExcludes(FLAG_PROVE, Prover.FLAG_PROVE);
@@ -101,8 +97,7 @@ public class AlgebraicProver {
 
     private Thread myWorkingThread;
 
-    private final List<ProverListener> myProverListeners =
-            new LinkedList<ProverListener>();
+    private final List<ProverListener> myProverListeners = new LinkedList<ProverListener>();
 
     private final ModuleScope myModuleScope;
 
@@ -110,9 +105,8 @@ public class AlgebraicProver {
 
     private final int myTimeout;
 
-    public AlgebraicProver(TypeGraph g, List<VC> vcs, ModuleScope scope,
-            final boolean startInteractive, CompileEnvironment environment,
-            ProverListener listener) {
+    public AlgebraicProver(TypeGraph g, List<VC> vcs, ModuleScope scope, final boolean startInteractive,
+            CompileEnvironment environment, ProverListener listener) {
 
         myInstanceEnvironment = environment;
         myModels = new PerVCProverModel[vcs.size()];
@@ -121,8 +115,8 @@ public class AlgebraicProver {
 
         if (environment.flags.isFlagSet(Prover.FLAG_TIMEOUT)) {
             myTimeout =
-                    Integer.parseInt(environment.flags.getFlagArgument(
-                            Prover.FLAG_TIMEOUT, Prover.FLAG_TIMEOUT_ARG_NAME));
+                    Integer.parseInt(environment.flags.getFlagArgument(Prover.FLAG_TIMEOUT,
+                            Prover.FLAG_TIMEOUT_ARG_NAME));
         }
         else {
             myTimeout = -1;
@@ -133,8 +127,7 @@ public class AlgebraicProver {
         }
 
         List<TheoremEntry> theoremEntries =
-                scope.query(new EntryTypeQuery(TheoremEntry.class,
-                        ImportStrategy.IMPORT_RECURSIVE,
+                scope.query(new EntryTypeQuery(TheoremEntry.class, ImportStrategy.IMPORT_RECURSIVE,
                         FacilityStrategy.FACILITY_IGNORE));
 
         //Ensure that the theorems are in a consistent (even if arbitrary) order
@@ -148,12 +141,8 @@ public class AlgebraicProver {
 
         myTheoremLibrary = new ArrayBackedImmutableList<Theorem>(theorems);
 
-        myModels[0] =
-                new PerVCProverModel(g, vcs.get(0).getName(), vcs.get(0),
-                        myTheoremLibrary);
-        myAutomatedProvers[0] =
-                new AutomatedProver(myModels[0], myTheoremLibrary, scope,
-                        myTimeout);
+        myModels[0] = new PerVCProverModel(g, vcs.get(0).getName(), vcs.get(0), myTheoremLibrary);
+        myAutomatedProvers[0] = new AutomatedProver(myModels[0], myTheoremLibrary, scope, myTimeout);
 
         if (environment.flags.isFlagSet(Prover.FLAG_NOGUI)) {
             myUI = null;
@@ -164,18 +153,15 @@ public class AlgebraicProver {
 
                     @Override
                     public void run() {
-                        JProverFrame proverPanel =
-                                new JProverFrame(myModels[0]);
-                        proverPanel
-                                .setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        JProverFrame proverPanel = new JProverFrame(myModels[0]);
+                        proverPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         proverPanel.setVisible(true);
                         proverPanel.setInteractiveMode(startInteractive);
 
                         proverPanel.addNextVCButtonActionListener(NEXT_VC);
                         proverPanel.addLastVCButtonActionListener(LAST_VC);
                         proverPanel.addPlayButtonActionListener(GO_AUTOMATIC);
-                        proverPanel
-                                .addPauseButtonActionListener(GO_INTERACTIVE);
+                        proverPanel.addPauseButtonActionListener(GO_INTERACTIVE);
                         proverPanel.addStepButtonActionListener(STEP_PROVER);
 
                         proverPanel.setInteractiveMode(startInteractive);
@@ -215,11 +201,9 @@ public class AlgebraicProver {
             if (!myInteractiveModeFlag) {
                 myAutomatedProvers[myVCIndex].start();
             }
-            System.out.println("AlgebraicProver - Out -- Interactive: "
-                    + myInteractiveModeFlag);
+            System.out.println("AlgebraicProver - Out -- Interactive: " + myInteractiveModeFlag);
             //myModels[myVCIndex].touch();
-            if (myModels[myVCIndex].noConsequents()
-                    || myAutomatedProvers[myVCIndex].doneSearching()) {
+            if (myModels[myVCIndex].noConsequents() || myAutomatedProvers[myVCIndex].doneSearching()) {
                 //We finished searching--either proved or failed
 
                 boolean proved = myModels[myVCIndex].noConsequents();
@@ -294,8 +278,7 @@ public class AlgebraicProver {
     private void outputProofFile() throws IOException {
         FileWriter w = new FileWriter(new File(proofFileName()));
 
-        w.write("Proofs for " + myModuleScope.getModuleIdentifier()
-                + " generated " + new Date() + "\n\n");
+        w.write("Proofs for " + myModuleScope.getModuleIdentifier() + " generated " + new Date() + "\n\n");
 
         w.write("=================================== ");
         w.write("Summary");
@@ -319,8 +302,8 @@ public class AlgebraicProver {
                 buffers[i].append("[PROVED] via:\n\n");
 
                 PerVCProverModel workingModel =
-                        new PerVCProverModel(myTypeGraph, myVCs.get(i)
-                                .getName(), myVCs.get(i), myTheoremLibrary);
+                        new PerVCProverModel(myTypeGraph, myVCs.get(i).getName(), myVCs.get(i),
+                                myTheoremLibrary);
 
                 buffers[i].append(workingModel.toString());
                 buffers[i].append("\n\n");
@@ -348,10 +331,8 @@ public class AlgebraicProver {
                         if (stepTransformation instanceof NoOpLabel) {
                             doneWithAntecedentDevelopment =
                                     doneWithAntecedentDevelopment
-                                            || stepTransformation
-                                                    .toString()
-                                                    .equals(
-                                                            AutomatedProver.SEARCH_START_LABEL);
+                                            || stepTransformation.toString().equals(
+                                                    AutomatedProver.SEARCH_START_LABEL);
 
                             buffers[i].append(stepTransformation.toString());
                             buffers[i].append("\n\n");
@@ -375,14 +356,11 @@ public class AlgebraicProver {
             w.write("\t" + myModels[i].getTheoremName() + "\t......... ");
 
             if (myModels[i].noConsequents()) {
-                w.write("proved in "
-                        + myAutomatedProvers[i].getLastStartLength()
-                        + "ms via " + stepCount[i] + " steps ("
-                        + searchStepCount[i] + " search)\n");
+                w.write("proved in " + myAutomatedProvers[i].getLastStartLength() + "ms via " + stepCount[i]
+                        + " steps (" + searchStepCount[i] + " search)\n");
             }
             else {
-                w.write("[SKIPPED] after "
-                        + myAutomatedProvers[i].getLastStartLength() + "ms\n");
+                w.write("[SKIPPED] after " + myAutomatedProvers[i].getLastStartLength() + "ms\n");
             }
         }
 
@@ -404,11 +382,10 @@ public class AlgebraicProver {
 
         if (myModels[myVCIndex] == null) {
             myModels[myVCIndex] =
-                    new PerVCProverModel(myTypeGraph, myVCs.get(myVCIndex)
-                            .getName(), myVCs.get(myVCIndex), myTheoremLibrary);
+                    new PerVCProverModel(myTypeGraph, myVCs.get(myVCIndex).getName(), myVCs.get(myVCIndex),
+                            myTheoremLibrary);
             myAutomatedProvers[myVCIndex] =
-                    new AutomatedProver(myModels[myVCIndex], myTheoremLibrary,
-                            myModuleScope, myTimeout);
+                    new AutomatedProver(myModels[myVCIndex], myTheoremLibrary, myModuleScope, myTimeout);
         }
 
         if (myUI != null) {

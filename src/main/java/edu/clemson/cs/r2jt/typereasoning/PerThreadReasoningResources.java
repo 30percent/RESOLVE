@@ -16,6 +16,5 @@ import edu.clemson.cs.r2jt.typeandpopulate.AlphaEquivalencyChecker;
  */
 public class PerThreadReasoningResources {
 
-    public final AlphaEquivalencyChecker alphaChecker =
-            new AlphaEquivalencyChecker();
+    public final AlphaEquivalencyChecker alphaChecker = new AlphaEquivalencyChecker();
 }

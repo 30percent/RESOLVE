@@ -134,8 +134,7 @@ public class VarEntry extends Entry {
     // ===========================================================
 
     public VarEntry instantiate(ScopeID sid, Binding binding) {
-        return new VarEntry(binding.getScope(), mode, name, type.instantiate(
-                sid, binding));
+        return new VarEntry(binding.getScope(), mode, name, type.instantiate(sid, binding));
     }
 
     public String toString() {

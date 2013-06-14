@@ -59,8 +59,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
      * RESOLVE source code to Java source code.</p>
      */
     public static final Flag FLAG_TRANSLATE =
-            new Flag(FLAG_SECTION_NAME, "translatePrettyJava",
-                    FLAG_DESC_TRANSLATE);
+            new Flag(FLAG_SECTION_NAME, "translatePrettyJava", FLAG_DESC_TRANSLATE);
 
     /**
      * <p>Tells the compiler to regenerate Java code for all 
@@ -69,8 +68,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
     //public static final Flag FLAG_TRANSLATE_CLEAN = 
     //new Flag(FLAG_SECTION_NAME, "translateClean", FLAG_DESC_TRANSLATE_CLEAN);
 
-    private static String IMPORT_ARRAY =
-            "import RESOLVE.Main.Concepts.Standard.Static_Array.*;\n";
+    private static String IMPORT_ARRAY = "import RESOLVE.Main.Concepts.Standard.Static_Array.*;\n";
 
     private final CompileEnvironment myInstanceEnvironment;
 
@@ -127,12 +125,10 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
 
     // Files not to compile (would overwrite hand-written stuff Java stuff)
     private String[] noTranslate =
-            { "Std_Boolean_Fac.fa", "Std_Char_Str_Fac.fa",
-                    "Std_Character_Fac.fa", "Std_Integer_Fac.fa",
-                    "Std_Boolean_Realiz", "Integer_Template.co",
-                    "Character_Template.co", "Char_Str_Template.co",
-                    "Seq_Input_Template.co", "Seq_Output_Template.co",
-                    "Print.co", "Std_Location_Linking_Realiz.rb" };
+            { "Std_Boolean_Fac.fa", "Std_Char_Str_Fac.fa", "Std_Character_Fac.fa", "Std_Integer_Fac.fa",
+                    "Std_Boolean_Realiz", "Integer_Template.co", "Character_Template.co",
+                    "Char_Str_Template.co", "Seq_Input_Template.co", "Seq_Output_Template.co", "Print.co",
+                    "Std_Location_Linking_Realiz.rb" };
 
     // Freebie imports
     private String[] autoImports =
@@ -144,8 +140,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
     /**
      * Construct a Translator.
      */
-    public PrettyJavaTranslator(CompileEnvironment e, OldSymbolTable table,
-            ModuleDec dec, ErrorHandler err) {
+    public PrettyJavaTranslator(CompileEnvironment e, OldSymbolTable table, ModuleDec dec, ErrorHandler err) {
         myInstanceEnvironment = e;
         targetFileName = dec.getName().getFile().toString();
         this.table = table;
@@ -1548,8 +1543,8 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             appendJava("{", true);
             if (function) {
                 retSymbol =
-                        new PosSymbol(((NameTy) returnTy).getName()
-                                .getLocation(), Symbol.symbol("_returnVar"));
+                        new PosSymbol(((NameTy) returnTy).getName().getLocation(), Symbol
+                                .symbol("_returnVar"));
                 VarDec retVarDec = new VarDec(retSymbol, returnTy);
                 visitVarDec(retVarDec);
                 //appendJava(returnTy.toString(0) + " ", false);
@@ -1966,14 +1961,12 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             stmtBuf.append(".");
         }
         else {
-            ProgramExpTypeResolver resolver =
-                    new ProgramExpTypeResolver(table, myInstanceEnvironment);
+            ProgramExpTypeResolver resolver = new ProgramExpTypeResolver(table, myInstanceEnvironment);
             Location loc =
-                    (stmt.getQualifier() == null) ? stmt.getName()
-                            .getLocation() : stmt.getQualifier().getLocation();
+                    (stmt.getQualifier() == null) ? stmt.getName().getLocation() : stmt.getQualifier()
+                            .getLocation();
             ProgramFunctionExp exp =
-                    new ProgramFunctionExp(loc, stmt.getQualifier(), stmt
-                            .getName(), stmt.getArguments());
+                    new ProgramFunctionExp(loc, stmt.getQualifier(), stmt.getName(), stmt.getArguments());
             try {
                 OperationEntry oper = resolver.getOperationEntry(exp);
                 ModuleScope modScope = (ModuleScope) oper.getScope();
@@ -2207,10 +2200,8 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
     public void visitFuncAssignStmt(FuncAssignStmt stmt) {
         bumpLine(stmt.getLocation().getPos().getLine());
         ProgramExp pgmExp = stmt.getAssign();
-        if (pgmExp instanceof ProgramParamExp
-                || pgmExp instanceof ProgramIntegerExp
-                || pgmExp instanceof ProgramCharExp
-                || pgmExp instanceof ProgramStringExp
+        if (pgmExp instanceof ProgramParamExp || pgmExp instanceof ProgramIntegerExp
+                || pgmExp instanceof ProgramCharExp || pgmExp instanceof ProgramStringExp
                 || pgmExp instanceof VariableExp) {
             visitVariableExp(stmt.getVar());
             appendJava(" = ", false);
@@ -2310,9 +2301,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             }*/
         }
         else if (varExp instanceof VariableDotExp) {
-            VariableRecordExp varRecExp =
-                    (VariableRecordExp) ((VariableDotExp) varExp)
-                            .getSemanticExp();
+            VariableRecordExp varRecExp = (VariableRecordExp) ((VariableDotExp) varExp).getSemanticExp();
             if (!isLocalVar) { //inside record constructor doin't qualify
                 stmtBuf.append(castLookUp(varRecExp.getName().toString()));
                 stmtBuf.append(".rep.");
@@ -2322,12 +2311,10 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             while (fieldsIter.hasNext()) {
                 field = fieldsIter.next();
                 if (field instanceof VariableNameExp) {
-                    stmtBuf.append(((VariableNameExp) field).getName()
-                            .toString());
+                    stmtBuf.append(((VariableNameExp) field).getName().toString());
                 }
                 else if (field instanceof VariableExp) {
-                    stmtBuf.append(((VariableArrayExp) field).getName()
-                            .toString());
+                    stmtBuf.append(((VariableArrayExp) field).getName().toString());
                 }
                 if (fieldsIter.hasNext()) {
                     stmtBuf.append(".rep.");
@@ -2346,12 +2333,10 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
                    stmtBuf.append(((VariableRecordExp)field).getName().toString());
                     stmtBuf.append(".rep");
                    } else if */(field instanceof VariableNameExp) {
-                    stmtBuf.append(((VariableNameExp) field).getName()
-                            .toString());
+                    stmtBuf.append(((VariableNameExp) field).getName().toString());
                 }
                 else if (field instanceof VariableExp) {
-                    stmtBuf.append(((VariableArrayExp) field).getName()
-                            .toString());
+                    stmtBuf.append(((VariableArrayExp) field).getName().toString());
                 }
                 if (fieldsIter.hasNext()) {
                     stmtBuf.append(".rep.");
@@ -2427,11 +2412,8 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             // Since Entry_Replica operation returns something of RType, we need to cast it to the proper type
             // when using it as parameter to a function invokation.
             // - YS
-            if (((ProgramFunctionExp) pgmExp).getName().getName().equals(
-                    "Entry_Replica")) {
-                VariableExp tempExp =
-                        (VariableExp) ((ProgramFunctionExp) pgmExp)
-                                .getArguments().get(0);
+            if (((ProgramFunctionExp) pgmExp).getName().getName().equals("Entry_Replica")) {
+                VariableExp tempExp = (VariableExp) ((ProgramFunctionExp) pgmExp).getArguments().get(0);
                 if (tempExp instanceof VariableNameExp) {
                     VariableNameExp arrayName = (VariableNameExp) tempExp;
                     stmtBuf.append(castLookUp(arrayName.getName().getName()));
@@ -2446,16 +2428,13 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             visitProgramFunctionExp((ProgramFunctionExp) pgmExp);
         }
         else if (pgmExp instanceof ProgramIntegerExp) {
-            appendJava(Integer
-                    .toString(((ProgramIntegerExp) pgmExp).getValue()), false);
+            appendJava(Integer.toString(((ProgramIntegerExp) pgmExp).getValue()), false);
             //stmtBuf.append("Std_Integer_Fac.createInteger(");
             //stmtBuf.append(((ProgramIntegerExp)pgmExp).getValue());
             //stmtBuf.append(")");
         }
         else if (pgmExp instanceof ProgramCharExp) {
-            appendJava(
-                    Character.toString(((ProgramCharExp) pgmExp).getValue()),
-                    false);
+            appendJava(Character.toString(((ProgramCharExp) pgmExp).getValue()), false);
             //stmtBuf.append("Std_Character_Fac.createCharacter('"); //changed this from Char to Character
             //stmtBuf.append(((ProgramCharExp)pgmExp).getValue());
             //stmtBuf.append("')");
@@ -2615,8 +2594,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
                 //stmtBuf.append(")");
                 break;
             default:
-                appendJava(Integer.toString(((ProgramOpExp) pgmExp)
-                        .getOperator()), false);
+                appendJava(Integer.toString(((ProgramOpExp) pgmExp).getOperator()), false);
                 //stmtBuf.append(((ProgramOpExp)pgmExp).getOperator());
                 break;
             }
@@ -2634,8 +2612,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             stmtBuf.append(".");
         }
         else {
-            ProgramExpTypeResolver resolver =
-                    new ProgramExpTypeResolver(table, myInstanceEnvironment);
+            ProgramExpTypeResolver resolver = new ProgramExpTypeResolver(table, myInstanceEnvironment);
             try {
                 OperationEntry oper = resolver.getOperationEntry(exp);
                 ModuleScope modScope = (ModuleScope) oper.getScope();
@@ -4035,8 +4012,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
 
     private List<String> getTypeParms(ModuleID cid) {
         List<String> typeParms = new List<String>();
-        ConceptModuleDec cDec =
-                (ConceptModuleDec) myInstanceEnvironment.getModuleDec(cid);
+        ConceptModuleDec cDec = (ConceptModuleDec) myInstanceEnvironment.getModuleDec(cid);
         List<ModuleParameterDec> mpList = cDec.getParameters();
         Iterator<ModuleParameterDec> mpIt = mpList.iterator();
         ModuleParameterDec md = null;
@@ -4045,8 +4021,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             md = mpIt.next();
             mp = md.getWrappedDec();
             if (mp instanceof ConceptTypeParamDec) {
-                typeParms.addUnique(((ConceptTypeParamDec) mp).getName()
-                        .toString());
+                typeParms.addUnique(((ConceptTypeParamDec) mp).getName().toString());
             }
         }
         return typeParms;
@@ -4054,8 +4029,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
 
     private List<String> getConcParms(ModuleID cid) {
         List<String> concParms = new List<String>();
-        ConceptModuleDec cDec =
-                (ConceptModuleDec) myInstanceEnvironment.getModuleDec(cid);
+        ConceptModuleDec cDec = (ConceptModuleDec) myInstanceEnvironment.getModuleDec(cid);
         List<ModuleParameterDec> mpList = cDec.getParameters();
         Iterator<ModuleParameterDec> mpIt = mpList.iterator();
         ModuleParameterDec md = null;
@@ -4064,8 +4038,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             md = mpIt.next();
             mp = md.getWrappedDec();
             if (mp instanceof ConstantParamDec) {
-                concParms.addUnique(((ConstantParamDec) mp).getName()
-                        .toString());
+                concParms.addUnique(((ConstantParamDec) mp).getName().toString());
             }
         }
         return concParms;
@@ -4150,9 +4123,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
         TypeID typeId = new TypeID(qual, name, 0);
         if (table.getCurrentScope() instanceof OperationScope) {
             try {
-                typeLoc =
-                        new TypeLocator(table.getModuleScope(),
-                                myInstanceEnvironment);
+                typeLoc = new TypeLocator(table.getModuleScope(), myInstanceEnvironment);
                 typeEntry = typeLoc.locateProgramType(typeId);
             }
             catch (SymbolSearchException ex) {
@@ -4162,9 +4133,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
         }
         else if (table.getCurrentScope() instanceof TypeScope) {
             try {
-                typeLoc =
-                        new TypeLocator(table.getModuleScope(),
-                                myInstanceEnvironment);
+                typeLoc = new TypeLocator(table.getModuleScope(), myInstanceEnvironment);
                 typeEntry = typeLoc.locateProgramType(typeId);
             }
             catch (SymbolSearchException ex) {
@@ -4174,9 +4143,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
         }
         else {
             try {
-                typeLoc =
-                        new TypeLocator(table.getCurrentScope(),
-                                myInstanceEnvironment);
+                typeLoc = new TypeLocator(table.getCurrentScope(), myInstanceEnvironment);
                 typeEntry = typeLoc.locateProgramType(typeId);
             }
             catch (SymbolSearchException ex) {
@@ -4205,9 +4172,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
         TypeID typeId = new TypeID(qual, name, 0);
         if (table.getCurrentScope() instanceof OperationScope) {
             try {
-                typeLoc =
-                        new TypeLocator(table.getModuleScope(),
-                                myInstanceEnvironment);
+                typeLoc = new TypeLocator(table.getModuleScope(), myInstanceEnvironment);
                 typeEntry = typeLoc.locateProgramType(typeId);
             }
             catch (SymbolSearchException ex) {
@@ -4217,9 +4182,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
         }
         else if (table.getCurrentScope() instanceof TypeScope) {
             try {
-                typeLoc =
-                        new TypeLocator(table.getModuleScope(),
-                                myInstanceEnvironment);
+                typeLoc = new TypeLocator(table.getModuleScope(), myInstanceEnvironment);
                 typeEntry = typeLoc.locateProgramType(typeId);
             }
             catch (SymbolSearchException ex) {
@@ -4229,9 +4192,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
         }
         else {
             try {
-                typeLoc =
-                        new TypeLocator(table.getCurrentScope(),
-                                myInstanceEnvironment);
+                typeLoc = new TypeLocator(table.getCurrentScope(), myInstanceEnvironment);
                 typeEntry = typeLoc.locateProgramType(typeId);
             }
             catch (SymbolSearchException ex) {
@@ -4250,8 +4211,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             if (mp instanceof ConstantParamDec) {
                 ConstantParamDec cp = (ConstantParamDec) mp;
                 NameTy nameTy = (NameTy) cp.getTy();
-                FacilityDec fDec =
-                        getFacility(nameTy.getQualifier(), nameTy.getName());
+                FacilityDec fDec = getFacility(nameTy.getQualifier(), nameTy.getName());
                 typeFuncBuf.append("\tpublic ");
                 typeFuncBuf.append(fDec.getConceptName());
                 typeFuncBuf.append(".");
@@ -4274,8 +4234,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
             if (mp instanceof ConstantParamDec) {
                 ConstantParamDec cp = (ConstantParamDec) mp;
                 NameTy nameTy = (NameTy) cp.getTy();
-                FacilityDec fDec =
-                        getFacility(nameTy.getQualifier(), nameTy.getName());
+                FacilityDec fDec = getFacility(nameTy.getQualifier(), nameTy.getName());
                 thisBuf.append("\n");
                 thisBuf.append("\tpublic ");
                 thisBuf.append(fDec.getConceptName());
@@ -4358,8 +4317,7 @@ public class PrettyJavaTranslator extends ResolveConceptualVisitor {
         String[] temp = inFile.split("\\.");
         String ext = temp[temp.length - 1];
         if (!onNoCompileList(file)) {
-            if (ext.equals("co") || ext.equals("rb") || ext.equals("en")
-                    || ext.equals("fa")) {
+            if (ext.equals("co") || ext.equals("rb") || ext.equals("en") || ext.equals("fa")) {
                 String javaName = modifyString(inFile, "\\." + ext, ".java");
                 File javaFile = new File(javaName);
                 //addFileToArchive(javaFile);

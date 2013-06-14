@@ -19,9 +19,8 @@ public class PLambda extends PExp {
     private final PExp myBody;
 
     public PLambda(ImmutableList<Parameter> parameters, PExp body) {
-        super(body.structureHash * 34, parameterHash(parameters),
-                new MTFunction(body.getType().getTypeGraph(), body.getType(),
-                        parameterTypes(parameters)), null);
+        super(body.structureHash * 34, parameterHash(parameters), new MTFunction(body.getType()
+                .getTypeGraph(), body.getType(), parameterTypes(parameters)), null);
 
         this.parameters = parameters;
         myBody = body;
@@ -70,14 +69,14 @@ public class PLambda extends PExp {
 
     @Override
     public PLambda withTypeReplaced(MTType t) {
-        throw new UnsupportedOperationException("Cannot set the type "
-                + "value on a " + this.getClass() + ".");
+        throw new UnsupportedOperationException("Cannot set the type " + "value on a " + this.getClass()
+                + ".");
     }
 
     @Override
     public PLambda withTypeValueReplaced(MTType t) {
-        throw new UnsupportedOperationException("Cannot set the type "
-                + "value on a " + this.getClass() + ".");
+        throw new UnsupportedOperationException("Cannot set the type " + "value on a " + this.getClass()
+                + ".");
     }
 
     @Override
@@ -120,8 +119,7 @@ public class PLambda extends PExp {
     }
 
     @Override
-    public void bindTo(PExp target, Map<PExp, PExp> accumulator)
-            throws BindingException {
+    public void bindTo(PExp target, Map<PExp, PExp> accumulator) throws BindingException {
 
         if (!(target instanceof PLambda) || !typeMatches(target)) {
             throw BINDING_EXCEPTION;
@@ -174,8 +172,7 @@ public class PLambda extends PExp {
 
     @Override
     public List<PExp> getFunctionApplicationsNoCache() {
-        List<PExp> bodyFunctions =
-                new LinkedList<PExp>(myBody.getFunctionApplications());
+        List<PExp> bodyFunctions = new LinkedList<PExp>(myBody.getFunctionApplications());
 
         bodyFunctions.add(new PSymbol(getType(), null, "lambda"));
 

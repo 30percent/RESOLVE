@@ -14,13 +14,11 @@ public class NaiveTransformationChooser extends AbstractTransformationChooser {
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> doSuggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d,
-            Iterable<VCTransformer> localTheorems) {
+    public Iterator<ProofPathSuggestion> doSuggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d, Iterable<VCTransformer> localTheorems) {
 
         return new LazyMappingIterator<VCTransformer, ProofPathSuggestion>(
-                getTransformerLibrary().iterator(),
-                new StaticProofDataSuggestionMapping(d));
+                getTransformerLibrary().iterator(), new StaticProofDataSuggestionMapping(d));
     }
 
 }

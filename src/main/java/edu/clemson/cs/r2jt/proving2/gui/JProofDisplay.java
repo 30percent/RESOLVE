@@ -62,8 +62,7 @@ public class JProofDisplay extends JPanel {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
-            if (!e.getValueIsAdjusting()
-                    && myStepList.getSelectedValue() != null) {
+            if (!e.getValueIsAdjusting() && myStepList.getSelectedValue() != null) {
 
                 int selectedIndex = myStepList.getSelectedIndex();
                 int numSteps = myModel.getProofSteps().size();

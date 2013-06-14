@@ -34,15 +34,13 @@ import java.util.Set;
  */
 public class StrengthenConsequent implements Transformation {
 
-    private final BindResultToApplication BIND_RESULT_TO_APPLICATION =
-            new BindResultToApplication();
+    private final BindResultToApplication BIND_RESULT_TO_APPLICATION = new BindResultToApplication();
 
     private final List<PExp> myAntecedents;
     private final List<PExp> myConsequents;
     private final Theorem myTheorem;
 
-    public StrengthenConsequent(Theorem t, List<PExp> tTheoremAntecedents,
-            List<PExp> tTheoremConsequent) {
+    public StrengthenConsequent(Theorem t, List<PExp> tTheoremAntecedents, List<PExp> tTheoremConsequent) {
 
         myTheorem = t;
         myAntecedents = tTheoremAntecedents;
@@ -51,14 +49,12 @@ public class StrengthenConsequent implements Transformation {
 
     @Override
     public Iterator<Application> getApplications(PerVCProverModel m) {
-        Set<PerVCProverModel.Binder> binders =
-                new HashSet<PerVCProverModel.Binder>();
+        Set<PerVCProverModel.Binder> binders = new HashSet<PerVCProverModel.Binder>();
         for (PExp c : myConsequents) {
             binders.add(new TopLevelConsequentBinder(c));
         }
 
-        return new LazyMappingIterator(m.bind(binders),
-                BIND_RESULT_TO_APPLICATION);
+        return new LazyMappingIterator(m.bind(binders), BIND_RESULT_TO_APPLICATION);
     }
 
     @Override
@@ -130,14 +126,11 @@ public class StrengthenConsequent implements Transformation {
         return Equivalence.STRONGER;
     }
 
-    private class BindResultToApplication
-            implements
-                Mapping<PerVCProverModel.BindResult, Application> {
+    private class BindResultToApplication implements Mapping<PerVCProverModel.BindResult, Application> {
 
         @Override
         public Application map(PerVCProverModel.BindResult input) {
-            return new StrengthenConsequentApplication(
-                    input.freeVariableBindings, input.bindSites.values());
+            return new StrengthenConsequentApplication(input.freeVariableBindings, input.bindSites.values());
         }
     }
 
@@ -161,8 +154,7 @@ public class StrengthenConsequent implements Transformation {
 
         private final Set<Conjunct> myOldConsequents = new HashSet<Conjunct>();
 
-        public StrengthenConsequentApplication(Map<PExp, PExp> bindings,
-                Collection<Site> bindSites) {
+        public StrengthenConsequentApplication(Map<PExp, PExp> bindings, Collection<Site> bindSites) {
             myBindings = bindings;
             myBindSites = bindSites;
 
@@ -173,8 +165,7 @@ public class StrengthenConsequent implements Transformation {
 
         @Override
         public String description() {
-            return "Strengthen to "
-                    + Utilities.conjunctListToString(myAntecedents);
+            return "Strengthen to " + Utilities.conjunctListToString(myAntecedents);
         }
 
         @Override
@@ -201,9 +192,8 @@ public class StrengthenConsequent implements Transformation {
                 myNewSites.add(c.toSite(m));
             }
 
-            m.addProofStep(new StrengthenConsequentStep(removedConjuncts,
-                    removedConjunctsIndex, myNewConsequents,
-                    StrengthenConsequent.this, this, myBindSites));
+            m.addProofStep(new StrengthenConsequentStep(removedConjuncts, removedConjunctsIndex,
+                    myNewConsequents, StrengthenConsequent.this, this, myBindSites));
         }
 
         @Override

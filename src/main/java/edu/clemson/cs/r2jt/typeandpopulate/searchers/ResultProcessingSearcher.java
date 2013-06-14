@@ -15,15 +15,14 @@ public class ResultProcessingSearcher<T extends SymbolTableEntry, R extends Symb
     private final TableSearcher<T> myBaseSearcher;
     private final Mapping<T, R> myMapping;
 
-    public ResultProcessingSearcher(TableSearcher<T> baseSearcher,
-            Mapping<T, R> processing) {
+    public ResultProcessingSearcher(TableSearcher<T> baseSearcher, Mapping<T, R> processing) {
         myBaseSearcher = baseSearcher;
         myMapping = processing;
     }
 
     @Override
-    public boolean addMatches(SymbolTable entries, List<R> matches,
-            SearchContext l) throws DuplicateSymbolException {
+    public boolean addMatches(SymbolTable entries, List<R> matches, SearchContext l)
+            throws DuplicateSymbolException {
 
         boolean result;
 

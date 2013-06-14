@@ -11,8 +11,7 @@ import edu.clemson.cs.r2jt.absyn.Exp;
 
 public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
 
-    protected List<MatchReplaceWithOriginalExp> myGlobalRules =
-            new LinkedList<MatchReplaceWithOriginalExp>();
+    protected List<MatchReplaceWithOriginalExp> myGlobalRules = new LinkedList<MatchReplaceWithOriginalExp>();
 
     protected List<EqualsExp> myExpCorrespondance = new LinkedList<EqualsExp>();
 
@@ -21,11 +20,9 @@ public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
     private final FitnessFunction<EqualsExp> myFitnessFunction;
     private final double myThreshold;
 
-    protected DirectReplaceWrapper myAntecedentWrapper =
-            new DirectReplaceWrapper();
+    protected DirectReplaceWrapper myAntecedentWrapper = new DirectReplaceWrapper();
 
-    public FitnessPriorityRuleChooser(FitnessFunction<EqualsExp> fitness,
-            double threshold) {
+    public FitnessPriorityRuleChooser(FitnessFunction<EqualsExp> fitness, double threshold) {
         myFitnessFunction = fitness;
         myThreshold = threshold;
     }
@@ -78,31 +75,25 @@ public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
             if (equivalency.getOperator() == EqualsExp.EQUAL) {
                 //Substitute left expression for right
                 record = new MatchReplaceWithOriginalExp();
-                record.matchReplace =
-                        new BindReplace(equivalency.getLeft(), equivalency
-                                .getRight());
+                record.matchReplace = new BindReplace(equivalency.getLeft(), equivalency.getRight());
                 record.originalExp = equivalency;
                 myGlobalRules.add(record);
                 myExpCorrespondance.add(equivalency);
 
                 //Substitute right expression for left
-                EqualsExp inverseEquivalency =
-                        (EqualsExp) Exp.copy(equivalency);
+                EqualsExp inverseEquivalency = (EqualsExp) Exp.copy(equivalency);
                 inverseEquivalency.setLeft(equivalency.getRight());
                 inverseEquivalency.setRight(equivalency.getLeft());
 
                 record = new MatchReplaceWithOriginalExp();
-                record.matchReplace =
-                        new BindReplace(equivalency.getRight(), equivalency
-                                .getLeft());
+                record.matchReplace = new BindReplace(equivalency.getRight(), equivalency.getLeft());
                 record.originalExp = inverseEquivalency;
                 myGlobalRules.add(record);
                 myExpCorrespondance.add(equivalency);
             }
         }
         else {
-            System.out.println("Prover.BlindIterativeRuleChooser.addRule --- "
-                    + "Non equals Theorem.");
+            System.out.println("Prover.BlindIterativeRuleChooser.addRule --- " + "Non equals Theorem.");
             System.out.println(rule.toString(0));
         }
     }
@@ -116,22 +107,19 @@ public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
         return myGlobalRules.size();
     }
 
-    public KnownSizeIterator<MatchReplace> consider(VerificationCondition vC,
-            int curLength, Metrics metrics,
+    public KnownSizeIterator<MatchReplace> consider(VerificationCondition vC, int curLength, Metrics metrics,
             Deque<VerificationCondition> pastStates) {
 
         //We only want those antecedents that are in the form of an 
         //equality, and for each of those we need it going both 
         //left-to-right and right-to-left
-        List<EqualsExp> antecedentTransforms =
-                buildFinalAntecedentList(vC.getAntecedents());
+        List<EqualsExp> antecedentTransforms = buildFinalAntecedentList(vC.getAntecedents());
 
-        List<EqualsExp> prioritizedAntecedents =
-                prioritizeAndFilter(antecedentTransforms, vC);
+        List<EqualsExp> prioritizedAntecedents = prioritizeAndFilter(antecedentTransforms, vC);
 
         Iterator<MatchReplace> antecedentIterator =
-                new LazyActionIterator<EqualsExp, MatchReplace>(
-                        antecedentTransforms.iterator(), myAntecedentWrapper);
+                new LazyActionIterator<EqualsExp, MatchReplace>(antecedentTransforms.iterator(),
+                        myAntecedentWrapper);
 
         /*//XXX : This just commented out to get rid of error for running purposes
         
@@ -146,8 +134,7 @@ public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
         return null;
     }
 
-    protected List<EqualsExp> buildFinalAntecedentList(
-            List<Exp> originalAntecedents) {
+    protected List<EqualsExp> buildFinalAntecedentList(List<Exp> originalAntecedents) {
         List<EqualsExp> antecedentTransforms = new LinkedList<EqualsExp>();
         for (Exp antecedent : originalAntecedents) {
             if (antecedent instanceof EqualsExp) {
@@ -157,10 +144,9 @@ public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
                     antecedentTransforms.add(antecedentAsEqualsExp);
 
                     EqualsExp flippedAntecedent =
-                            new EqualsExp(antecedentAsEqualsExp.getLocation(),
-                                    antecedentAsEqualsExp.getRight(),
-                                    antecedentAsEqualsExp.getOperator(),
-                                    antecedentAsEqualsExp.getLeft());
+                            new EqualsExp(antecedentAsEqualsExp.getLocation(), antecedentAsEqualsExp
+                                    .getRight(), antecedentAsEqualsExp.getOperator(), antecedentAsEqualsExp
+                                    .getLeft());
                     antecedentTransforms.add(flippedAntecedent);
                 }
             }
@@ -207,8 +193,7 @@ public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
         }
     }
 
-    private List<EqualsExp> prioritizeAndFilter(List<EqualsExp> original,
-            VerificationCondition vc) {
+    private List<EqualsExp> prioritizeAndFilter(List<EqualsExp> original, VerificationCondition vc) {
 
         List<PriorityAugmentedObject<EqualsExp>> originalWithPriorities =
                 new LinkedList<PriorityAugmentedObject<EqualsExp>>();
@@ -219,9 +204,7 @@ public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
             curFitness = myFitnessFunction.determineFitness(curEqualsExp, vc);
 
             if (curFitness >= myThreshold) {
-                originalWithPriorities
-                        .add(new PriorityAugmentedObject<EqualsExp>(
-                                curEqualsExp, curFitness));
+                originalWithPriorities.add(new PriorityAugmentedObject<EqualsExp>(curEqualsExp, curFitness));
             }
         }
 
@@ -237,8 +220,7 @@ public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
         return finalList;
     }
 
-    private List<MatchReplace> prioritizeAndFilterGlobalRules(
-            VerificationCondition vc) {
+    private List<MatchReplace> prioritizeAndFilterGlobalRules(VerificationCondition vc) {
 
         List<PriorityAugmentedObject<EqualsExp>> originalWithPriorities =
                 new LinkedList<PriorityAugmentedObject<EqualsExp>>();
@@ -254,9 +236,7 @@ public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
             curFitness = myFitnessFunction.determineFitness(curEqualsExp, vc);
 
             if (curFitness >= myThreshold) {
-                originalWithPriorities
-                        .add(new PriorityAugmentedObject<EqualsExp>(
-                                curEqualsExp, curFitness));
+                originalWithPriorities.add(new PriorityAugmentedObject<EqualsExp>(curEqualsExp, curFitness));
             }
         }
 
@@ -273,9 +253,7 @@ public class FitnessPriorityRuleChooser /* XXX : implements RuleProvider */{
         return null;
     }
 
-    private class DirectReplaceWrapper
-            implements
-                Transformer<EqualsExp, MatchReplace> {
+    private class DirectReplaceWrapper implements Transformer<EqualsExp, MatchReplace> {
 
         public DirectReplace transform(EqualsExp source) {
             return new DirectReplace(source.getLeft(), source.getRight());

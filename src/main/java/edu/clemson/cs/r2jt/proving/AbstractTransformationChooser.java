@@ -10,9 +10,7 @@ import edu.clemson.cs.r2jt.proving.absyn.PExp;
  * <p>Provides some skeleton code for implementing a 
  * <code>TransformationChooser</code> to simplify development.</p>
  */
-public abstract class AbstractTransformationChooser
-        implements
-            TransformationChooser {
+public abstract class AbstractTransformationChooser implements TransformationChooser {
 
     private final Iterable<VCTransformer> myTransformerLibrary;
 
@@ -49,8 +47,8 @@ public abstract class AbstractTransformationChooser
     }
 
     @Override
-    public final Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d) {
+    public final Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d) {
 
         myPerVCSubstitutions = new ChainingIterable<VCTransformer>();
         myPerVCSubstitutions.add(myTransformerLibrary);
@@ -66,14 +64,11 @@ public abstract class AbstractTransformationChooser
         }
 
         return new ChainingIterator<ProofPathSuggestion>(
-                new LazyMappingIterator<VCTransformer, ProofPathSuggestion>(
-                        localTheorems.iterator(),
-                        new StaticProofDataSuggestionMapping(d)),
-                doSuggestTransformations(vc, curLength, metrics, d,
-                        localTheorems));
+                new LazyMappingIterator<VCTransformer, ProofPathSuggestion>(localTheorems.iterator(),
+                        new StaticProofDataSuggestionMapping(d)), doSuggestTransformations(vc, curLength,
+                        metrics, d, localTheorems));
     }
 
-    protected abstract Iterator<ProofPathSuggestion> doSuggestTransformations(
-            VC vc, int curLength, Metrics metrics, ProofData d,
-            Iterable<VCTransformer> localTheorems);
+    protected abstract Iterator<ProofPathSuggestion> doSuggestTransformations(VC vc, int curLength,
+            Metrics metrics, ProofData d, Iterable<VCTransformer> localTheorems);
 }

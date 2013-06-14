@@ -79,8 +79,7 @@ public class ShortFacilityModuleDec extends ModuleDec {
 
     public ShortFacilityModuleDec() {};
 
-    public ShortFacilityModuleDec(PosSymbol name, FacilityDec dec,
-            List<UsesItem> usesItems) {
+    public ShortFacilityModuleDec(PosSymbol name, FacilityDec dec, List<UsesItem> usesItems) {
         this.name = name;
         this.dec = dec;
         this.usesItems = usesItems;

@@ -129,20 +129,15 @@ public class ImportScanner extends ResolveConceptualVisitor {
 
         if (!NO_DEFAULT_IMPORT_MODULES.contains(decName)) {
 
-            List<List<UsesItem>> listOfDependLists =
-                    myInstanceEnvironment.getStdUsesDepends();
+            List<List<UsesItem>> listOfDependLists = myInstanceEnvironment.getStdUsesDepends();
             // System.out.println("list: " + listOfDependLists.toString());
             for (int i = 0; i < stdUses.length; i++) {
-                if (decName.equals("Std_" + stdUses[i] + "_Fac")
-                        || decName.equals(stdUses[i] + "_Template")
+                if (decName.equals("Std_" + stdUses[i] + "_Fac") || decName.equals(stdUses[i] + "_Template")
                         || decName.equals(stdUses[i] + "_Theory")) {
-                    if (decName.equals(stdUses[i] + "_Template")
-                            || decName.equals(stdUses[i] + "_Theory")) {
+                    if (decName.equals(stdUses[i] + "_Template") || decName.equals(stdUses[i] + "_Theory")) {
                         // Set the dependencies
-                        listOfDependLists.get(i).addAllUnique(
-                                (dec.getUsesItems()));
-                        myInstanceEnvironment
-                                .setStdUsesDepends(listOfDependLists);
+                        listOfDependLists.get(i).addAllUnique((dec.getUsesItems()));
+                        myInstanceEnvironment.setStdUsesDepends(listOfDependLists);
                     }
                     dec.accept(this);
                     return;
@@ -154,8 +149,7 @@ public class ImportScanner extends ResolveConceptualVisitor {
                         if (dependencies != null) {
                             Iterator<UsesItem> it = dependencies.iterator();
                             while (it.hasNext()) {
-                                if (it.next().getName().getName().equals(
-                                        decName)) {
+                                if (it.next().getName().getName().equals(decName)) {
                                     // This is a dependency do NOT annex/add
                                     dec.accept(this);
                                     return;
@@ -164,16 +158,13 @@ public class ImportScanner extends ResolveConceptualVisitor {
                         }
                     }
                     // Update the dec's UsesItemList
-                    PosSymbol facSymbol =
-                            new PosSymbol(null, Symbol.symbol("Std_"
-                                    + stdUses[i] + "_Fac"));
+                    PosSymbol facSymbol = new PosSymbol(null, Symbol.symbol("Std_" + stdUses[i] + "_Fac"));
                     List<UsesItem> decUses = dec.getUsesItems();
                     if (decUses == null) {
                         decUses = new List<UsesItem>();
                     }
                     for (int j = 0; j < decUses.size(); j++) {
-                        if (decUses.get(j).getName().getName().equals(
-                                facSymbol.getName())) {
+                        if (decUses.get(j).getName().getName().equals(facSymbol.getName())) {
                             decUses.remove(j);
                         }
                     }
@@ -181,8 +172,7 @@ public class ImportScanner extends ResolveConceptualVisitor {
                     dec.setUsesItems(decUses);
 
                     // Add the StdDec to the ImportList by annexing
-                    annexUsesItem(new PosSymbol(null, Symbol.symbol("Std_"
-                            + stdUses[i] + "_Fac")));
+                    annexUsesItem(new PosSymbol(null, Symbol.symbol("Std_" + stdUses[i] + "_Fac")));
                 }
             }
         }
@@ -239,8 +229,7 @@ public class ImportScanner extends ResolveConceptualVisitor {
         visitModuleParameterList(dec.getParameters());
         annexEnhancementModule(dec.getEnhancementName(), dec.getConceptName());
         annexConceptModule(dec.getConceptName());
-        visitEnhancementBodyItemList(dec.getEnhancementBodies(), dec
-                .getConceptName());
+        visitEnhancementBodyItemList(dec.getEnhancementBodies(), dec.getConceptName());
         visitUsesItemList(dec.getUsesItems());
         if (dec.getFacilityInit() != null) {
             visitInitItem(dec.getFacilityInit());
@@ -348,8 +337,7 @@ public class ImportScanner extends ResolveConceptualVisitor {
         //if(dec.getProfileName() != null){
         //annexPerformanceProfile(dec.getProfileName());
         //}
-        visitEnhancementBodyItemList(dec.getEnhancementBodies(), dec
-                .getConceptName());
+        visitEnhancementBodyItemList(dec.getEnhancementBodies(), dec.getConceptName());
     }
 
     // -----------------------------------------------------------
@@ -386,8 +374,7 @@ public class ImportScanner extends ResolveConceptualVisitor {
         }
     }
 
-    private void visitEnhancementItemList(List<EnhancementItem> items,
-            PosSymbol cName) {
+    private void visitEnhancementItemList(List<EnhancementItem> items, PosSymbol cName) {
         Iterator<EnhancementItem> i = items.iterator();
         while (i.hasNext()) {
             EnhancementItem item = i.next();
@@ -395,8 +382,7 @@ public class ImportScanner extends ResolveConceptualVisitor {
         }
     }
 
-    private void visitEnhancementBodyItemList(List<EnhancementBodyItem> items,
-            PosSymbol cName) {
+    private void visitEnhancementBodyItemList(List<EnhancementBodyItem> items, PosSymbol cName) {
         Iterator<EnhancementBodyItem> i = items.iterator();
         while (i.hasNext()) {
             EnhancementBodyItem item = i.next();
@@ -405,8 +391,7 @@ public class ImportScanner extends ResolveConceptualVisitor {
             //annexPerformanceProfile(item.getProfileName());
             //}
             annexEnhancementModule(item.getName(), cName);
-            annexEnhancementBodyModule(item.getBodyName(), item.getName(),
-                    cName);
+            annexEnhancementBodyModule(item.getBodyName(), item.getName(), cName);
         }
     }
 
@@ -450,8 +435,7 @@ public class ImportScanner extends ResolveConceptualVisitor {
         imports.add(pid);
     }
 
-    private void annexEnhancementBodyModule(PosSymbol bName, PosSymbol eName,
-            PosSymbol cName) {
+    private void annexEnhancementBodyModule(PosSymbol bName, PosSymbol eName, PosSymbol cName) {
         ModuleID id = ModuleID.createEnhancementBodyID(bName, eName, cName);
         Import pid = new Import(bName.getLocation(), id);
         imports.add(pid);

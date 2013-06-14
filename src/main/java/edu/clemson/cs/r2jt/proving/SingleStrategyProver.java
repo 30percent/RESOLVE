@@ -54,23 +54,20 @@ class SingleStrategyProver implements VCProver {
 
     private final CompileEnvironment myInstanceEnvironment;
 
-    public SingleStrategyProver(RuleProvider ruleChooser,
-            boolean backtrackOnCycle, int minProofLength,
+    public SingleStrategyProver(RuleProvider ruleChooser, boolean backtrackOnCycle, int minProofLength,
             List<Implication> implications, CompileEnvironment e) {
 
         OPTION_BACKTRACK_ON_CYCLE = backtrackOnCycle;
         MIN_PROOF_LENGTH = minProofLength;
         myRuleProvider = ruleChooser;
-        myProofCountOrder =
-                BigInteger.valueOf(ruleChooser.getApproximateRuleSetSize());
+        myProofCountOrder = BigInteger.valueOf(ruleChooser.getApproximateRuleSetSize());
 
         IMPLICATIONS = implications;
 
         myInstanceEnvironment = e;
     }
 
-    public void prove(final VerificationCondition vC,
-            final ProverListener progressListener,
+    public void prove(final VerificationCondition vC, final ProverListener progressListener,
             ActionCanceller actionCanceller, long timeoutAt)
             throws VCInconsistentException,
                 VCProvedException,
@@ -98,14 +95,14 @@ class SingleStrategyProver implements VCProver {
 
         metrics.actionCanceller = actionCanceller;
 
-        continueProofFrom(vC, 0, metrics,
-                new ArrayDeque<VerificationCondition>(10), timeoutAt);
+        continueProofFrom(vC, 0, metrics, new ArrayDeque<VerificationCondition>(10), timeoutAt);
 
         throw new UnableToProveException(metrics);
     }
 
-    private void propagateTheorems(final VerificationCondition vC, Metrics m,
-            long timeoutAt) throws UnableToProveException, TimeoutException {
+    private void propagateTheorems(final VerificationCondition vC, Metrics m, long timeoutAt)
+            throws UnableToProveException,
+                TimeoutException {
 
         for (int j = 0; j < 5; j++) {
             for (Implication i : IMPLICATIONS) {
@@ -113,11 +110,8 @@ class SingleStrategyProver implements VCProver {
                     throw new UnableToProveException(m);
                 }
 
-                vC
-                        .setAntecedents(new Conjuncts(Utilities
-                                .applyImplicationToAssumptions(vC
-                                        .getAntecedents(), i.getAntecedent(), i
-                                        .getConsequent(), timeoutAt)));
+                vC.setAntecedents(new Conjuncts(Utilities.applyImplicationToAssumptions(vC.getAntecedents(),
+                        i.getAntecedent(), i.getConsequent(), timeoutAt)));
             }
 
             vC.propagateExpansionsInPlace();
@@ -166,9 +160,8 @@ class SingleStrategyProver implements VCProver {
      *                              <code>pastStates</code> is 
      *                              <code>null</code>.
      */
-    private void continueProofFrom(final VerificationCondition vC,
-            final int curLength, final Metrics metrics,
-            final Deque<VerificationCondition> pastStates, long timeoutAt)
+    private void continueProofFrom(final VerificationCondition vC, final int curLength,
+            final Metrics metrics, final Deque<VerificationCondition> pastStates, long timeoutAt)
             throws UnableToProveException,
                 VCProvedException,
                 VCInconsistentException {
@@ -196,8 +189,7 @@ class SingleStrategyProver implements VCProver {
         if (OPTION_BACKTRACK_ON_CYCLE && isRepeatState(vC, pastStates)) {
             //We've decided not to explore the tree from here down, so update
             //the count on the number of times we've usefully backtracked
-            metrics.numTimesBacktracked =
-                    metrics.numTimesBacktracked.add(BigInteger.ONE);
+            metrics.numTimesBacktracked = metrics.numTimesBacktracked.add(BigInteger.ONE);
         }
         else {
             pastStates.push(vC);
@@ -206,15 +198,13 @@ class SingleStrategyProver implements VCProver {
         }
     }
 
-    private void attemptStep(VerificationCondition vC, int curLength,
-            Metrics metrics, Deque<VerificationCondition> pastStates,
-            long timeoutAt)
+    private void attemptStep(VerificationCondition vC, int curLength, Metrics metrics,
+            Deque<VerificationCondition> pastStates, long timeoutAt)
             throws UnableToProveException,
                 VCProvedException,
                 VCInconsistentException {
 
-        KnownSizeIterator<MatchReplace> rules =
-                myRuleProvider.consider(vC, curLength, metrics, pastStates);
+        KnownSizeIterator<MatchReplace> rules = myRuleProvider.consider(vC, curLength, metrics, pastStates);
 
         if (curLength == 0) {
             metrics.ruleCount = rules.size();
@@ -227,8 +217,7 @@ class SingleStrategyProver implements VCProver {
         MatchReplace curRule;
         while (rules.hasNext()) {
             curRule = rules.next();
-            applyReplaceStep(curRule, vC, curLength, metrics, pastStates,
-                    timeoutAt);
+            applyReplaceStep(curRule, vC, curLength, metrics, pastStates, timeoutAt);
             incrementProgress(curLength, metrics);
         }
     }
@@ -251,8 +240,7 @@ class SingleStrategyProver implements VCProver {
             throw new UnsupportedOperationException("This code seems to be "
                     + "broken (or more likely there are serious issues with "
                     + "Exp.equivalent() throughout its concrete subclasses.)  "
-                    + "Until it is fixed, do not use the backtrack-on-cycle "
-                    + "option of the old prover.");
+                    + "Until it is fixed, do not use the backtrack-on-cycle " + "option of the old prover.");
         }
 
         boolean retval = false;
@@ -308,28 +296,20 @@ class SingleStrategyProver implements VCProver {
      *                              <code>matcher</code> is 
      *                              <code>null</code>.
      */
-    private void applyReplaceStep(final MatchReplace matcher,
-            final VerificationCondition vC, final int curLength,
-            Metrics metrics, final Deque<VerificationCondition> pastStates,
-            long timeoutAt)
-            throws UnableToProveException,
-                VCProvedException,
-                VCInconsistentException {
+    private void applyReplaceStep(final MatchReplace matcher, final VerificationCondition vC,
+            final int curLength, Metrics metrics, final Deque<VerificationCondition> pastStates,
+            long timeoutAt) throws UnableToProveException, VCProvedException, VCInconsistentException {
 
-        MatchApplicator replacement =
-                new MatchApplicator(vC.getConsequents(), matcher);
+        MatchApplicator replacement = new MatchApplicator(vC.getConsequents(), matcher);
 
         int curLengthPlusOne = curLength + 1;
         List<Exp> newConsequents = replacement.getNextApplication();
         while (newConsequents != null) {
             newConsequents = Utilities.splitIntoConjuncts(newConsequents);
             try {
-                VerificationCondition newVC =
-                        new VerificationCondition(vC.getAntecedents(),
-                                newConsequents);
+                VerificationCondition newVC = new VerificationCondition(vC.getAntecedents(), newConsequents);
 
-                continueProofFrom(newVC, curLengthPlusOne, metrics, pastStates,
-                        timeoutAt);
+                continueProofFrom(newVC, curLengthPlusOne, metrics, pastStates, timeoutAt);
             }
             catch (VCProvedException e) {
                 e.addStep(new ProofStep(matcher.toString(), newConsequents));
@@ -352,8 +332,7 @@ class SingleStrategyProver implements VCProver {
             metrics.rulesTried++;
 
             if (metrics.progressListener != null) {
-                double progress =
-                        ((double) metrics.rulesTried) / metrics.ruleCount;
+                double progress = ((double) metrics.rulesTried) / metrics.ruleCount;
                 metrics.progressListener.progressUpdate(progress);
             }
         }

@@ -88,8 +88,7 @@ public class VariableNameExp extends VariableExp {
         this(null, null, null);
     }
 
-    public VariableNameExp(Location location, PosSymbol qualifier,
-            PosSymbol name) {
+    public VariableNameExp(Location location, PosSymbol qualifier, PosSymbol name) {
         this.location = location;
         this.qualifier = qualifier;
         this.name = name;

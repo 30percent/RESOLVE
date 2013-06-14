@@ -48,8 +48,8 @@ public abstract class TransformerFitnessFunction {
             retval += functionCount(subexpression);
         }
 
-        if (e instanceof FunctionExp || e instanceof InfixExp
-                || e instanceof OutfixExp || e instanceof PrefixExp) {
+        if (e instanceof FunctionExp || e instanceof InfixExp || e instanceof OutfixExp
+                || e instanceof PrefixExp) {
 
             retval += 1;
         }
@@ -78,11 +78,9 @@ public abstract class TransformerFitnessFunction {
      */
     public abstract double calculateFitness(VCTransformer t, VC vc);
 
-    public final Iterable<VCTransformer> filter(
-            Iterable<VCTransformer> transformers, VC vc, double threshhold) {
+    public final Iterable<VCTransformer> filter(Iterable<VCTransformer> transformers, VC vc, double threshhold) {
 
-        List<VCTransformer> passedTransformers =
-                new LinkedList<VCTransformer>();
+        List<VCTransformer> passedTransformers = new LinkedList<VCTransformer>();
 
         for (VCTransformer t : transformers) {
             if (calculateFitness(t, vc) >= threshhold) {

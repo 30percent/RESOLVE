@@ -104,10 +104,9 @@ public class ProcedureDec extends Dec {
 
     public ProcedureDec() {};
 
-    public ProcedureDec(PosSymbol name, List<ParameterVarDec> parameters,
-            Ty returnTy, List<AffectsItem> stateVars, Exp decreasing,
-            List<FacilityDec> facilities, List<VarDec> variables,
-            List<AuxVarDec> aux_variables, List<Statement> statements) {
+    public ProcedureDec(PosSymbol name, List<ParameterVarDec> parameters, Ty returnTy,
+            List<AffectsItem> stateVars, Exp decreasing, List<FacilityDec> facilities,
+            List<VarDec> variables, List<AuxVarDec> aux_variables, List<Statement> statements) {
         this.name = name;
         this.parameters = parameters;
         this.returnTy = returnTy;
@@ -120,10 +119,9 @@ public class ProcedureDec extends Dec {
         this.recursive = false;
     }
 
-    public ProcedureDec(PosSymbol name, List<ParameterVarDec> parameters,
-            Ty returnTy, List<AffectsItem> stateVars, Exp decreasing,
-            List<FacilityDec> facilities, List<VarDec> variables,
-            List<AuxVarDec> aux_variables, List<Statement> statements,
+    public ProcedureDec(PosSymbol name, List<ParameterVarDec> parameters, Ty returnTy,
+            List<AffectsItem> stateVars, Exp decreasing, List<FacilityDec> facilities,
+            List<VarDec> variables, List<AuxVarDec> aux_variables, List<Statement> statements,
             boolean recursive) {
         this.name = name;
         this.parameters = parameters;

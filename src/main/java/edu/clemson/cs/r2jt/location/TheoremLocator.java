@@ -99,16 +99,14 @@ public class TheoremLocator {
     // Public Methods
     // ===========================================================
 
-    public TheoremEntry locateTheorem(PosSymbol name)
-            throws SymbolSearchException {
+    public TheoremEntry locateTheorem(PosSymbol name) throws SymbolSearchException {
         List<TheoremEntry> theorems = locateTheoremsInStack(name);
         if (theorems.size() == 0) {
             theorems = locateTheoremsInImports(name);
         }
         if (theorems.size() > 1) {
             List<Location> locs = getLocationList(theorems);
-            String msg =
-                    ambigTheoremRefMessage(name.toString(), locs.toString());
+            String msg = ambigTheoremRefMessage(name.toString(), locs.toString());
             err.error(name.getLocation(), msg);
             throw new SymbolSearchException();
         }
@@ -122,8 +120,7 @@ public class TheoremLocator {
         }
     }
 
-    public TheoremEntry locateTheorem(PosSymbol qual, PosSymbol name)
-            throws SymbolSearchException {
+    public TheoremEntry locateTheorem(PosSymbol qual, PosSymbol name) throws SymbolSearchException {
         if (qual == null) {
             return locateTheorem(name);
         }
@@ -135,9 +132,7 @@ public class TheoremLocator {
             return p;
         }
         else {
-            String msg =
-                    cantFindTheoremInModMessage(name.toString(), qual
-                            .toString());
+            String msg = cantFindTheoremInModMessage(name.toString(), qual.toString());
             err.error(qual.getLocation(), msg);
             throw new SymbolSearchException();
         }
@@ -147,8 +142,7 @@ public class TheoremLocator {
     // Private Methods
     // ===========================================================
 
-    private List<TheoremEntry> locateTheoremsInStack(PosSymbol name)
-            throws SymbolSearchException {
+    private List<TheoremEntry> locateTheoremsInStack(PosSymbol name) throws SymbolSearchException {
         List<TheoremEntry> theorems = new List<TheoremEntry>();
         Stack<Scope> stack = table.getStack();
         Stack<Scope> hold = new Stack<Scope>();
@@ -174,11 +168,9 @@ public class TheoremLocator {
         }
     }
 
-    private List<TheoremEntry> locateTheoremsInImports(PosSymbol name)
-            throws SymbolSearchException {
+    private List<TheoremEntry> locateTheoremsInImports(PosSymbol name) throws SymbolSearchException {
         List<TheoremEntry> theorems = new List<TheoremEntry>();
-        Iterator<ModuleScope> i =
-                table.getModuleScope().getMathVisibleModules();
+        Iterator<ModuleScope> i = table.getModuleScope().getMathVisibleModules();
         while (i.hasNext()) {
             ModuleScope iscope = i.next();
             if (iscope.containsTheorem(name.getSymbol())) {
@@ -203,8 +195,7 @@ public class TheoremLocator {
     // -----------------------------------------------------------
 
     private String cantFindTheoremInModMessage(String name, String module) {
-        return "Cannot find a theorem named " + name + " in module " + module
-                + ".";
+        return "Cannot find a theorem named " + name + " in module " + module + ".";
     }
 
     public String cantFindTheoremMessage(String name) {

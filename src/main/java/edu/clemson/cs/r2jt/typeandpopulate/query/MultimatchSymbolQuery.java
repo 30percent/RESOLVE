@@ -10,9 +10,7 @@ import java.util.List;
  * {@link searchFromContext(Scope, ScopeRepository) searchFromContext()} will
  * not throw a {@link DuplicateSymbolException DuplicateSymbolException}.</p>
  */
-public interface MultimatchSymbolQuery<E extends SymbolTableEntry>
-        extends
-            SymbolQuery<E> {
+public interface MultimatchSymbolQuery<E extends SymbolTableEntry> extends SymbolQuery<E> {
 
     /**
      * <p>Behaves just as 

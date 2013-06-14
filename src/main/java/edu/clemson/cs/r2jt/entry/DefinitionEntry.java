@@ -98,8 +98,7 @@ public class DefinitionEntry extends Entry {
     // Constructors
     // ===========================================================
 
-    public DefinitionEntry(Scope scope, PosSymbol name, List<VarEntry> params,
-            Type type) {
+    public DefinitionEntry(Scope scope, PosSymbol name, List<VarEntry> params, Type type) {
         this.scope = scope;
         this.name = name;
         this.params.addAll(params);
@@ -169,8 +168,7 @@ public class DefinitionEntry extends Entry {
             VarEntry entry = i.next();
             params2.add(entry.instantiate(sid, binding));
         }
-        return new DefinitionEntry(binding.getScope(), name, params2, type
-                .instantiate(sid, binding));
+        return new DefinitionEntry(binding.getScope(), name, params2, type.instantiate(sid, binding));
     }
 
     public String toString() {

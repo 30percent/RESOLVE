@@ -139,8 +139,8 @@ public class IsInExp extends AbstractFunctionExp {
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
         Exp retval =
-                new EqualsExp(location, substitute(left, substitutions),
-                        operator, substitute(right, substitutions));
+                new EqualsExp(location, substitute(left, substitutions), operator, substitute(right,
+                        substitutions));
 
         retval.setType(type);
 
@@ -159,8 +159,7 @@ public class IsInExp extends AbstractFunctionExp {
     }
 
     /** Returns the known type for this class. */
-    private Type getKnownType(TypeResolutionVisitor v)
-            throws TypeResolutionException {
+    private Type getKnownType(TypeResolutionVisitor v) throws TypeResolutionException {
 
         v.getMathExpType(this.getLeft());
 
@@ -176,8 +175,7 @@ public class IsInExp extends AbstractFunctionExp {
 
         // if t2 made using set_constructor
         if (t2 instanceof ConstructedType) {
-            if (((ConstructedType) t2).getName().getName().equalsIgnoreCase(
-                    "Set")
+            if (((ConstructedType) t2).getName().getName().equalsIgnoreCase("Set")
                     || ((ConstructedType) t2).getArgs().size() != 1) {
                 // Manually set the return type of is_in statement
                 Type b = retType;

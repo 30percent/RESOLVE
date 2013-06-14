@@ -90,8 +90,8 @@ public class RepresentationDec extends Dec {
 
     public RepresentationDec() {};
 
-    public RepresentationDec(PosSymbol name, Ty representation, Exp convention,
-            Exp correspondence, InitItem initialization, FinalItem finalization) {
+    public RepresentationDec(PosSymbol name, Ty representation, Exp convention, Exp correspondence,
+            InitItem initialization, FinalItem finalization) {
         this.name = name;
         this.representation = representation;
         this.convention = convention;

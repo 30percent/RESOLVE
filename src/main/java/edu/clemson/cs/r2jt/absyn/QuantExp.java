@@ -100,8 +100,7 @@ public class QuantExp extends Exp {
 
     public QuantExp() {};
 
-    public QuantExp(Location location, int operator, List<MathVarDec> vars,
-            Exp where, Exp body) {
+    public QuantExp(Location location, int operator, List<MathVarDec> vars, Exp where, Exp body) {
         this.location = location;
         this.operator = operator;
         this.vars = vars;
@@ -110,8 +109,8 @@ public class QuantExp extends Exp {
     }
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new QuantExp(location, operator, vars, substitute(where,
-                substitutions), substitute(body, substitutions));
+        return new QuantExp(location, operator, vars, substitute(where, substitutions), substitute(body,
+                substitutions));
     }
 
     // ===========================================================
@@ -331,15 +330,13 @@ public class QuantExp extends Exp {
                 // Not used anywhere below. - YS 
                 //String str = bdy.toString(0, 0);
             }
-            if (vars != null && old instanceof VarExp
-                    && replacement instanceof VarExp) {
+            if (vars != null && old instanceof VarExp && replacement instanceof VarExp) {
                 //What if Replacement isn't VarExp?
                 List<MathVarDec> newVars = new List<MathVarDec>();
                 Iterator<MathVarDec> i = vars.iterator();
                 while (i.hasNext()) {
                     MathVarDec tmp = i.next();
-                    if (tmp.getName().toString().equals(
-                            ((VarExp) old).getName().toString())) {
+                    if (tmp.getName().toString().equals(((VarExp) old).getName().toString())) {
                         tmp.setName(((VarExp) replacement).getName());
                     }
 
@@ -465,8 +462,7 @@ public class QuantExp extends Exp {
             newWhere = Exp.copy(where);
         }
         Exp newBody = Exp.copy(body);
-        Exp retval =
-                new QuantExp(null, newOperator, newVars, newWhere, newBody);
+        Exp retval = new QuantExp(null, newOperator, newVars, newWhere, newBody);
 
         retval.setType(type);
 

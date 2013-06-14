@@ -18,16 +18,13 @@ import java.util.Set;
  *
  * @author hamptos
  */
-public class AntecedentDeveloperFitnessFunction
-        implements
-            FitnessFunction<Transformation> {
+public class AntecedentDeveloperFitnessFunction implements FitnessFunction<Transformation> {
 
     private Set<String> myConsequentVariableNames = new HashSet<String>();
 
     public AntecedentDeveloperFitnessFunction(PerVCProverModel model) {
         for (Conjunct c : model.getConsequentList()) {
-            myConsequentVariableNames
-                    .addAll(c.getExpression().getSymbolNames());
+            myConsequentVariableNames.addAll(c.getExpression().getSymbolNames());
         }
     }
 
@@ -38,10 +35,8 @@ public class AntecedentDeveloperFitnessFunction
         if (t.couldAffectConsequent() || t.introducesQuantifiedVariables()) {
             result = -1;
         }
-        else if (AutomatedProver.H_DETECT_IDENTITY_EXPANSION
-                && t instanceof ExpandAntecedentBySubstitution) {
-            ExpandAntecedentBySubstitution tAsSIPIC =
-                    (ExpandAntecedentBySubstitution) t;
+        else if (AutomatedProver.H_DETECT_IDENTITY_EXPANSION && t instanceof ExpandAntecedentBySubstitution) {
+            ExpandAntecedentBySubstitution tAsSIPIC = (ExpandAntecedentBySubstitution) t;
 
             PExp pattern = tAsSIPIC.getMatchPattern();
             PExp replacement = tAsSIPIC.getTransformationTemplate();

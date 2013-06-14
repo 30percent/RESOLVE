@@ -30,8 +30,7 @@ public class OnlyBeforeChooser implements TransformationChooser {
         this(a, b, false);
     }
 
-    public OnlyBeforeChooser(TransformationChooser a, TransformationChooser b,
-            boolean bFirst) {
+    public OnlyBeforeChooser(TransformationChooser a, TransformationChooser b, boolean bFirst) {
 
         myA = a;
         myB = b;
@@ -40,9 +39,7 @@ public class OnlyBeforeChooser implements TransformationChooser {
 
     @Override
     public String toString() {
-        String retval =
-                "OnlyBefore(Steps from " + myA + " only before those from "
-                        + myB;
+        String retval = "OnlyBefore(Steps from " + myA + " only before those from " + myB;
 
         if (myBFirstFlag) {
             retval += ", but trying to avoid steps from the former.";
@@ -61,21 +58,18 @@ public class OnlyBeforeChooser implements TransformationChooser {
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d) {
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d) {
 
         Iterator<ProofPathSuggestion> retval;
 
-        Iterator<ProofPathSuggestion> bResults =
-                myB.suggestTransformations(vc, curLength, metrics, d);
+        Iterator<ProofPathSuggestion> bResults = myB.suggestTransformations(vc, curLength, metrics, d);
 
         if (d.attributeDefined(this, B_SUGGESTED)) {
             retval = bResults;
         }
         else {
-            bResults =
-                    new LazyMappingIterator<ProofPathSuggestion, ProofPathSuggestion>(
-                            bResults, AUGMENTER);
+            bResults = new LazyMappingIterator<ProofPathSuggestion, ProofPathSuggestion>(bResults, AUGMENTER);
 
             Iterator<ProofPathSuggestion> aResults, first, second;
 
@@ -96,9 +90,7 @@ public class OnlyBeforeChooser implements TransformationChooser {
         return retval;
     }
 
-    private static class ProofDataAugmenter
-            implements
-                Mapping<ProofPathSuggestion, ProofPathSuggestion> {
+    private static class ProofDataAugmenter implements Mapping<ProofPathSuggestion, ProofPathSuggestion> {
 
         private static final Object DUMMY = new Object();
         private final TransformationChooser myParent;
@@ -109,8 +101,7 @@ public class OnlyBeforeChooser implements TransformationChooser {
 
         @Override
         public ProofPathSuggestion map(ProofPathSuggestion i) {
-            return new ProofPathSuggestion(i.step, i.data.putAttribute(
-                    myParent, B_SUGGESTED, DUMMY));
+            return new ProofPathSuggestion(i.step, i.data.putAttribute(myParent, B_SUGGESTED, DUMMY));
         }
     }
 }

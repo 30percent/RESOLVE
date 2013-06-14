@@ -33,8 +33,7 @@ public class TaggedSites<T> {
      * <p>A mapping from each tagged <code>Site</code>s to the set of tagged
      * <code>Sites</code>s that represent subexpressions of it.</p>
      */
-    private Map<Site, Set<Site>> myIdentifiedNodes =
-            new HashMap<Site, Set<Site>>();
+    private Map<Site, Set<Site>> myIdentifiedNodes = new HashMap<Site, Set<Site>>();
 
     /**
      * <p>A map each tagged <code>Site</code> to the data associated with it.
@@ -54,8 +53,7 @@ public class TaggedSites<T> {
         List<Site> result = new LinkedList<Site>();
 
         try {
-            getSmallestIdentifiedAncestorIn(s, myTopLevelIdentifiedNodes,
-                    result);
+            getSmallestIdentifiedAncestorIn(s, myTopLevelIdentifiedNodes, result);
         }
         catch (NoSuchElementException e) {
             //That's ok--if it has no ancestors, return an empty list
@@ -65,8 +63,7 @@ public class TaggedSites<T> {
     }
 
     public Site getSmallestIdentifiedAncestor(Site s) {
-        return getSmallestIdentifiedAncestorIn(s, myTopLevelIdentifiedNodes,
-                null);
+        return getSmallestIdentifiedAncestorIn(s, myTopLevelIdentifiedNodes, null);
     }
 
     public void traverse(TaggedSiteVisitor<T> v) {
@@ -81,8 +78,7 @@ public class TaggedSites<T> {
         }
     }
 
-    private Site getSmallestIdentifiedAncestorIn(Site s,
-            Set<Site> possibleAncestors, List<Site> path) {
+    private Site getSmallestIdentifiedAncestorIn(Site s, Set<Site> possibleAncestors, List<Site> path) {
 
         Site result;
 
@@ -94,9 +90,7 @@ public class TaggedSites<T> {
                     path.add(containedIn);
                 }
 
-                result =
-                        getSmallestIdentifiedAncestorIn(s, myIdentifiedNodes
-                                .get(containedIn), path);
+                result = getSmallestIdentifiedAncestorIn(s, myIdentifiedNodes.get(containedIn), path);
             }
             catch (NoSuchElementException e) {
                 result = containedIn;
@@ -112,8 +106,7 @@ public class TaggedSites<T> {
     public void put(Site s, T data) {
         if (!s.root.equals(myRoot)) {
             throw new IllegalArgumentException("s' root is a Site "
-                    + "different from the one that is the root of this "
-                    + this.getClass() + ".");
+                    + "different from the one that is the root of this " + this.getClass() + ".");
         }
 
         if (myDataMap.containsKey(s)) {
@@ -123,9 +116,7 @@ public class TaggedSites<T> {
             Set<Site> nodeChildren = doTopLevelStuff(s, data);
             Set<Site> layer;
             try {
-                Site container =
-                        getSmallestIdentifiedAncestorIn(s,
-                                myTopLevelIdentifiedNodes, null);
+                Site container = getSmallestIdentifiedAncestorIn(s, myTopLevelIdentifiedNodes, null);
 
                 layer = myIdentifiedNodes.get(container);
             }
@@ -137,8 +128,7 @@ public class TaggedSites<T> {
         }
     }
 
-    private void addToLayer(Site newSite, Set<Site> newSiteChildren,
-            Set<Site> layer) {
+    private void addToLayer(Site newSite, Set<Site> newSiteChildren, Set<Site> layer) {
 
         Iterator<Site> layerIter = layer.iterator();
         Site sibling;

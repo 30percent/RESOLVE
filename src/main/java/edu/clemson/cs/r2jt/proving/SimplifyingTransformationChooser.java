@@ -31,8 +31,7 @@ public class SimplifyingTransformationChooser implements TransformationChooser {
      *                     suggested and after which simplification should be
      *                     woven in.
      */
-    public SimplifyingTransformationChooser(TransformationChooser original,
-            int minimumDepth) {
+    public SimplifyingTransformationChooser(TransformationChooser original, int minimumDepth) {
 
         mySourceChooser = original;
         myMinimumDepth = minimumDepth;
@@ -44,8 +43,8 @@ public class SimplifyingTransformationChooser implements TransformationChooser {
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d) {
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d) {
 
         Iterator<ProofPathSuggestion> retval;
 
@@ -60,18 +59,13 @@ public class SimplifyingTransformationChooser implements TransformationChooser {
                 childContributionCount = curLength;
             }
             else {
-                childContributionCount =
-                        ((curLength - myMinimumDepth + 1) / 2 + myMinimumDepth) - 1;
+                childContributionCount = ((curLength - myMinimumDepth + 1) / 2 + myMinimumDepth) - 1;
             }
 
-            retval =
-                    mySourceChooser.suggestTransformations(vc,
-                            childContributionCount, metrics, d);
+            retval = mySourceChooser.suggestTransformations(vc, childContributionCount, metrics, d);
         }
         else {
-            retval =
-                    new SingletonIterator<ProofPathSuggestion>(
-                            new ProofPathSuggestion(SIMPLIFY, d));
+            retval = new SingletonIterator<ProofPathSuggestion>(new ProofPathSuggestion(SIMPLIFY, d));
         }
 
         return retval;
@@ -79,7 +73,6 @@ public class SimplifyingTransformationChooser implements TransformationChooser {
 
     @Override
     public String toString() {
-        return "Simplifying(" + mySourceChooser + ", starting at depth "
-                + myMinimumDepth + ")";
+        return "Simplifying(" + mySourceChooser + ", starting at depth " + myMinimumDepth + ")";
     }
 }

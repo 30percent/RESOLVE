@@ -1,8 +1,6 @@
 package edu.clemson.cs.r2jt.proving;
 
-public class PriorityAugmentedObject<T>
-        implements
-            Comparable<PriorityAugmentedObject<T>> {
+public class PriorityAugmentedObject<T> implements Comparable<PriorityAugmentedObject<T>> {
 
     private T myObject;
     private double myPriority;

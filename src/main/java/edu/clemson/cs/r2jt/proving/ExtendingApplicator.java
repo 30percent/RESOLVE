@@ -32,8 +32,7 @@ public class ExtendingApplicator implements ReplacementApplicator {
      * @param conjuncts The expressions in which to make the single replacement.
      * @param matcher The matcher to govern what gets replaced and with what.
      */
-    public ExtendingApplicator(ImmutableConjuncts conjuncts,
-            NewMatchReplace matcher) {
+    public ExtendingApplicator(ImmutableConjuncts conjuncts, NewMatchReplace matcher) {
 
         myConjuncts = conjuncts;
 

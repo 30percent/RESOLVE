@@ -34,9 +34,8 @@ public class FlagManager {
     public FlagManager(String[] args) throws FlagDependencyException {
 
         if (!FlagDependencies.isSealed()) {
-            throw new IllegalStateException(
-                    "FlagDependencies must be sealed "
-                            + "with a call to seal() before arguments can be processed.");
+            throw new IllegalStateException("FlagDependencies must be sealed "
+                    + "with a call to seal() before arguments can be processed.");
         }
 
         myRemainingArgs = processArguments(args);
@@ -90,8 +89,7 @@ public class FlagManager {
         return myFlags.get(f).arguments.get(parameterName);
     }
 
-    private String[] processArguments(String[] args)
-            throws FlagDependencyException {
+    private String[] processArguments(String[] args) throws FlagDependencyException {
 
         List<String> unrecognized = new LinkedList<String>();
 
@@ -159,13 +157,11 @@ public class FlagManager {
             needToBeSet.clear();
 
             for (Map.Entry<Flag, FlagInfo> setFlag : myFlags.entrySet()) {
-                implications =
-                        FlagDependencies.getFlagImplications(setFlag.getKey());
+                implications = FlagDependencies.getFlagImplications(setFlag.getKey());
 
                 for (Flag implication : implications) {
                     if (!myFlags.containsKey(implication)) {
-                        needToBeSet.put(implication, new FlagInfo(setFlag
-                                .getValue().reason));
+                        needToBeSet.put(implication, new FlagInfo(setFlag.getValue().reason));
                     }
                 }
             }
@@ -176,8 +172,7 @@ public class FlagManager {
     }
 
     private void setFlagsWithDefaults() {
-        Set<Flag> flagsWithDefaults =
-                FlagDependencies.getFlagsWithDefaultArguments();
+        Set<Flag> flagsWithDefaults = FlagDependencies.getFlagsWithDefaultArguments();
 
         for (Flag f : flagsWithDefaults) {
             if (!myFlags.containsKey(f)) {
@@ -187,12 +182,10 @@ public class FlagManager {
     }
 
     void turnOnFlag(Flag f, Flag reason, Map<String, String> argumentMapping) {
-        myFlags.put(f, new FlagInfo(reason, new HashMap<String, String>(
-                argumentMapping)));
+        myFlags.put(f, new FlagInfo(reason, new HashMap<String, String>(argumentMapping)));
     }
 
-    private static int updateUnrecognized(String[] args, int startIndex,
-            List<String> unrecognized) {
+    private static int updateUnrecognized(String[] args, int startIndex, List<String> unrecognized) {
 
         unrecognized.add(args[startIndex]);
 

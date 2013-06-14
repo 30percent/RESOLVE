@@ -17,8 +17,7 @@ public class MTFunctionApplication extends MTAbstract<MTFunctionApplication> {
 
     private List<MTType> myComponents;
 
-    public MTFunctionApplication(TypeGraph g, MTFunction f, String name,
-            MTType... arguments) {
+    public MTFunctionApplication(TypeGraph g, MTFunction f, String name, MTType... arguments) {
         super(g);
 
         myFunction = f;
@@ -31,8 +30,7 @@ public class MTFunctionApplication extends MTAbstract<MTFunctionApplication> {
         setUpComponents();
     }
 
-    public MTFunctionApplication(TypeGraph g, MTFunction f, String name,
-            List<MTType> arguments) {
+    public MTFunctionApplication(TypeGraph g, MTFunction f, String name, List<MTType> arguments) {
         super(g);
 
         myFunction = f;
@@ -43,8 +41,7 @@ public class MTFunctionApplication extends MTAbstract<MTFunctionApplication> {
         setUpComponents();
     }
 
-    public MTFunctionApplication(TypeGraph g, MTFunction f,
-            List<MTType> arguments) {
+    public MTFunctionApplication(TypeGraph g, MTFunction f, List<MTType> arguments) {
         super(g);
 
         myFunction = f;
@@ -99,9 +96,7 @@ public class MTFunctionApplication extends MTAbstract<MTFunctionApplication> {
         while (arguments.hasNext()) {
             result &= arguments.next().isKnownToContainOnlyMTypes();
         }
-        return result
-                && myFunction
-                        .applicationResultsKnownToContainOnlyRestrictions();
+        return result && myFunction.applicationResultsKnownToContainOnlyRestrictions();
     }
 
     @Override
@@ -187,8 +182,7 @@ public class MTFunctionApplication extends MTAbstract<MTFunctionApplication> {
             newArguments.set(index - 1, newType);
         }
 
-        return new MTFunctionApplication(getTypeGraph(), newFunction, myName,
-                newArguments);
+        return new MTFunctionApplication(getTypeGraph(), newFunction, myName, newArguments);
     }
 
     @Override

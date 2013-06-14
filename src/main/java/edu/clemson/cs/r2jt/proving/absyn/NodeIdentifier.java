@@ -104,8 +104,7 @@ public class NodeIdentifier implements Iterable<Integer> {
     }
 
     public boolean equals(Object o) {
-        boolean result =
-                (o instanceof NodeIdentifier) && (myHash == o.hashCode());
+        boolean result = (o instanceof NodeIdentifier) && (myHash == o.hashCode());
 
         if (result) {
             NodeIdentifier oAsNID = (NodeIdentifier) o;

@@ -35,9 +35,7 @@ public abstract class AbstractImmutableList<E> implements ImmutableList<E> {
             retval = head(index);
         }
         else {
-            retval =
-                    new ImmutableListConcatenation<E>(head(index),
-                            tail(index + 1));
+            retval = new ImmutableListConcatenation<E>(head(index), tail(index + 1));
         }
 
         return retval;
@@ -58,8 +56,7 @@ public abstract class AbstractImmutableList<E> implements ImmutableList<E> {
             second = insertedList;
         }
         else {
-            first =
-                    new ImmutableListConcatenation<E>(head(index), insertedList);
+            first = new ImmutableListConcatenation<E>(head(index), insertedList);
             second = tail(index + 1);
         }
 

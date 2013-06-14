@@ -96,8 +96,7 @@ public class ScopeID {
     // Constructors
     // ===========================================================
 
-    private ScopeID(ModuleID mid, PosSymbol facility, PosSymbol operation,
-            int kind, int index) {
+    private ScopeID(ModuleID mid, PosSymbol facility, PosSymbol operation, int kind, int index) {
         this.mid = mid;
         this.facility = facility;
         if (facility != null) {
@@ -119,13 +118,11 @@ public class ScopeID {
         return new ScopeID(id, facility, null, FACILITY, 0);
     }
 
-    public static ScopeID createOperationScopeID(PosSymbol operation,
-            ModuleID id) {
+    public static ScopeID createOperationScopeID(PosSymbol operation, ModuleID id) {
         return new ScopeID(id, null, operation, OPERATION, 0);
     }
 
-    public static ScopeID createProcedureScopeID(PosSymbol operation,
-            ModuleID id) {
+    public static ScopeID createProcedureScopeID(PosSymbol operation, ModuleID id) {
         return new ScopeID(id, null, operation, PROCEDURE, 0);
     }
 
@@ -236,8 +233,8 @@ public class ScopeID {
             }
             switch (kind) {
             case FACILITY:
-                return (facility.getSymbol() == sid.facility.getSymbol() && facility
-                        .getPos().equals(sid.facility.getPos()));
+                return (facility.getSymbol() == sid.facility.getSymbol() && facility.getPos().equals(
+                        sid.facility.getPos()));
             case OPERATION:
             case PROCEDURE:
                 return (operation == sid.operation);

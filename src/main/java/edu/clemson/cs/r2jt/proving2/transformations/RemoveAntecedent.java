@@ -30,8 +30,7 @@ public class RemoveAntecedent implements Transformation {
 
     @Override
     public Iterator<Application> getApplications(PerVCProverModel m) {
-        return Collections.singletonList(
-                (Application) new RemoveAntecedentApplication()).iterator();
+        return Collections.singletonList((Application) new RemoveAntecedentApplication()).iterator();
     }
 
     @Override
@@ -46,8 +45,7 @@ public class RemoveAntecedent implements Transformation {
 
     @Override
     public int functionApplicationCountDelta() {
-        return myLocalTheorem.getExpression().getFunctionApplications().size()
-                * -1;
+        return myLocalTheorem.getExpression().getFunctionApplications().size() * -1;
     }
 
     @Override
@@ -72,17 +70,15 @@ public class RemoveAntecedent implements Transformation {
 
     @Override
     public String getKey() {
-        return mySourceModel.getConjunctIndex(myLocalTheorem) + " "
-                + this.getClass().getName();
+        return mySourceModel.getConjunctIndex(myLocalTheorem) + " " + this.getClass().getName();
     }
 
     private class RemoveAntecedentApplication implements Application {
 
         @Override
         public void apply(PerVCProverModel m) {
-            m.addProofStep(new RemoveAntecedentStep(myLocalTheorem, m
-                    .getConjunctIndex(myLocalTheorem), RemoveAntecedent.this,
-                    this, null));
+            m.addProofStep(new RemoveAntecedentStep(myLocalTheorem, m.getConjunctIndex(myLocalTheorem),
+                    RemoveAntecedent.this, this, null));
             m.removeLocalTheorem(myLocalTheorem);
         }
 

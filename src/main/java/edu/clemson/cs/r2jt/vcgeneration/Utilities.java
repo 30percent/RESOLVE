@@ -158,8 +158,7 @@ public class Utilities {
         List<String> typeParms = new List<String>();
 
         // Retrieve the ModuleDec for this Concept
-        ConceptModuleDec cDec =
-                (ConceptModuleDec) myInstanceEnvironment.getModuleDec(cid);
+        ConceptModuleDec cDec = (ConceptModuleDec) myInstanceEnvironment.getModuleDec(cid);
 
         // Iterate through and add all ConceptTypeParamDec
         Iterator<ModuleParameterDec> mpIt = cDec.getParameters().iterator();
@@ -168,8 +167,7 @@ public class Utilities {
             Dec mp = md.getWrappedDec();
             if (mp instanceof ConceptTypeParamDec) {
                 // Add all unique instances
-                typeParms.addUnique(((ConceptTypeParamDec) mp).getName()
-                        .toString());
+                typeParms.addUnique(((ConceptTypeParamDec) mp).getName().toString());
             }
         }
 
@@ -181,8 +179,7 @@ public class Utilities {
         List<String> concParms = new List<String>();
 
         // Retrieve the ModuleDec for this Concept
-        ConceptModuleDec cDec =
-                (ConceptModuleDec) myInstanceEnvironment.getModuleDec(cid);
+        ConceptModuleDec cDec = (ConceptModuleDec) myInstanceEnvironment.getModuleDec(cid);
 
         // Iterate through and add all ConceptParamDec
         Iterator<ModuleParameterDec> mpIt = cDec.getParameters().iterator();
@@ -191,8 +188,7 @@ public class Utilities {
             Dec mp = md.getWrappedDec();
             if (mp instanceof ConstantParamDec) {
                 // Add all unique instances
-                concParms.addUnique(((ConstantParamDec) mp).getName()
-                        .toString());
+                concParms.addUnique(((ConstantParamDec) mp).getName().toString());
             }
         }
 

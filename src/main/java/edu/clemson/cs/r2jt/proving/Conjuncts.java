@@ -58,8 +58,7 @@ public class Conjuncts extends List<Exp> {
         Iterator<Exp> iter = iterator();
         while (iter.hasNext()) {
             curExp = iter.next();
-            if (Utilities.isLiteralTrue(curExp)
-                    || Utilities.isSymmetricEquality(curExp)) {
+            if (Utilities.isLiteralTrue(curExp) || Utilities.isSymmetricEquality(curExp)) {
                 iter.remove();
             }
         }
@@ -85,8 +84,7 @@ public class Conjuncts extends List<Exp> {
 
             for (int compareIndex = curUniqueIndex + 1; compareIndex < size(); compareIndex++) {
 
-                while (compareIndex < size()
-                        && curExp.equivalent(get(compareIndex))) {
+                while (compareIndex < size() && curExp.equivalent(get(compareIndex))) {
                     remove(compareIndex);
                 }
             }

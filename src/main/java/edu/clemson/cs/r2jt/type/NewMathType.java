@@ -31,14 +31,12 @@ public class NewMathType extends Type {
 
     @Override
     public TypeName getProgramName() {
-        throw new UnsupportedOperationException(
-                "NewType doesn't support this operation.");
+        throw new UnsupportedOperationException("NewType doesn't support this operation.");
     }
 
     @Override
     public String getRelativeName(Location loc) {
-        throw new UnsupportedOperationException(
-                "NewType doesn't support this operation.");
+        throw new UnsupportedOperationException("NewType doesn't support this operation.");
     }
 
     @Override

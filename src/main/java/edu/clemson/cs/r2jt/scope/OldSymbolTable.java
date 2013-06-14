@@ -223,8 +223,7 @@ public class OldSymbolTable {
 
     /** Adds the specified variable to the current scope. */
     public void addVariableToScope(VarEntry entry) {
-        if (currentScope instanceof TypeScope
-                && entry.getMode() != Mode.EXEMPLAR) {
+        if (currentScope instanceof TypeScope && entry.getMode() != Mode.EXEMPLAR) {
             if (moduleScopeAddPermitted(entry.getName())) {
                 moduleScope.addVariable(entry);
             }
@@ -249,8 +248,7 @@ public class OldSymbolTable {
         while (!stack.isEmpty()) {
             Scope nextScope = stack.pop();
             stackRev.push(nextScope);
-            if (nextScope instanceof ProofScope
-                    || nextScope instanceof ModuleScope) {
+            if (nextScope instanceof ProofScope || nextScope instanceof ModuleScope) {
                 currentScope = nextScope;
                 break;
             }
@@ -263,8 +261,7 @@ public class OldSymbolTable {
     /** Adds the specified definition to the current scope. */
     public void addDefinitionToScope(DefinitionEntry entry) {
         Scope originalScope = currentScope;
-        if (!(currentScope instanceof ProofScope)
-                && !(currentScope instanceof ModuleScope)) {
+        if (!(currentScope instanceof ProofScope) && !(currentScope instanceof ModuleScope)) {
             setScopeForDefinition();
         }
         if (currentScope instanceof ProofScope) {
@@ -358,8 +355,7 @@ public class OldSymbolTable {
         int origSize = 1;
         int skip = 0;
         while (true) {
-            types.addAll(getTypeCorrespondencesFor(t, tm,
-                    equivTypes.iterator(), skip));
+            types.addAll(getTypeCorrespondencesFor(t, tm, equivTypes.iterator(), skip));
             if (types.size() == origSize) {
                 break;
             }
@@ -370,8 +366,7 @@ public class OldSymbolTable {
     }
 
     private List<TypeCorrespondence> getAllTypeCorrespondences() {
-        List<TypeCorrespondence> correspondences =
-                new List<TypeCorrespondence>();
+        List<TypeCorrespondence> correspondences = new List<TypeCorrespondence>();
         correspondences.addAll(moduleScope.getTypeCorrespondences());
         Iterator<ModuleScope> scopeIt = moduleScope.getMathVisibleModules();
         while (scopeIt.hasNext()) {
@@ -481,15 +476,13 @@ public class OldSymbolTable {
     public void createProcedureScope(PosSymbol name) {
         ModuleID mid = myInstanceEnvironment.getModuleID(name.getFile());
         ScopeID sid = ScopeID.createProcedureScopeID(name, mid);
-        ProcedureScope scope =
-                new ProcedureScope(moduleScope, sid, myInstanceEnvironment);
+        ProcedureScope scope = new ProcedureScope(moduleScope, sid, myInstanceEnvironment);
         createNewScope(scope);
     }
 
     public void createProofScope(PosSymbol name) {
         ScopeID sid = ScopeID.createProofScopeID(name);
-        ProofScope scope =
-                new ProofScope(moduleScope, sid, myInstanceEnvironment);
+        ProofScope scope = new ProofScope(moduleScope, sid, myInstanceEnvironment);
         createNewScope(scope);
     }
 
@@ -735,8 +728,7 @@ public class OldSymbolTable {
     public void createShortFacility(PosSymbol name) {
         assert moduleScope != null : "moduleScope is null";
         assert moduleScope.isProgramVisible(name.getSymbol());
-        ModuleScope facscope =
-                moduleScope.getProgramVisibleModule(name.getSymbol());
+        ModuleScope facscope = moduleScope.getProgramVisibleModule(name.getSymbol());
         moduleScope.removeFacilityFromVisible(name.getSymbol());
         facscope.simplifyNames(name);
         moduleScope.setFacbind(facscope.getBinding());
