@@ -22,8 +22,7 @@ public class PTRepresentation extends PTType {
     private final PTType myBaseType;
     private final ProgramTypeDefinitionEntry myFamily;
 
-    public PTRepresentation(TypeGraph g, PTType baseType,
-            ProgramTypeDefinitionEntry family) {
+    public PTRepresentation(TypeGraph g, PTType baseType, ProgramTypeDefinitionEntry family) {
         super(g);
 
         myBaseType = baseType;
@@ -44,12 +43,10 @@ public class PTRepresentation extends PTType {
     }
 
     @Override
-    public PTType instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public PTType instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
-        throw new UnsupportedOperationException(this.getClass() + " cannot "
-                + "be instantiated.");
+        throw new UnsupportedOperationException(this.getClass() + " cannot " + "be instantiated.");
     }
 
     @Override

@@ -80,8 +80,7 @@ public class ProofModuleDec extends AbstractParameterizedModuleDec {
     // Empty
     }
 
-    public ProofModuleDec(PosSymbol name,
-            List<ModuleParameterDec> moduleParams, List<UsesItem> usesItems,
+    public ProofModuleDec(PosSymbol name, List<ModuleParameterDec> moduleParams, List<UsesItem> usesItems,
             List<Dec> decs) {
         this.name = name;
         this.moduleParams = moduleParams;

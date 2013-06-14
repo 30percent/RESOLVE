@@ -13,9 +13,7 @@ import edu.clemson.cs.r2jt.typeandpopulate.Scope;
 import edu.clemson.cs.r2jt.typeandpopulate.ScopeRepository;
 import edu.clemson.cs.r2jt.utilities.SourceErrorException;
 
-public class MathFunctionNamedQuery
-        implements
-            MultimatchSymbolQuery<MathSymbolEntry> {
+public class MathFunctionNamedQuery implements MultimatchSymbolQuery<MathSymbolEntry> {
 
     private final SymbolQuery<SymbolTableEntry> myNameQuery;
 
@@ -26,8 +24,7 @@ public class MathFunctionNamedQuery
     }
 
     @Override
-    public List<MathSymbolEntry> searchFromContext(Scope source,
-            ScopeRepository repo) {
+    public List<MathSymbolEntry> searchFromContext(Scope source, ScopeRepository repo) {
 
         List<SymbolTableEntry> intermediateList;
         try {

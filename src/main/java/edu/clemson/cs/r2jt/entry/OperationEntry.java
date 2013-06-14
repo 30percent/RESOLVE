@@ -87,8 +87,7 @@ public class OperationEntry extends Entry {
     // Constructors
     // ===========================================================
 
-    public OperationEntry(Scope scope, PosSymbol name, List<VarEntry> params,
-            Type type) {
+    public OperationEntry(Scope scope, PosSymbol name, List<VarEntry> params, Type type) {
         this.scope = scope;
         this.name = name;
         this.params.addAll(params);
@@ -138,8 +137,7 @@ public class OperationEntry extends Entry {
             VarEntry entry = i.next();
             params2.add(entry.instantiate(sid, binding));
         }
-        return new OperationEntry(binding.getScope(), name, params2, type
-                .instantiate(sid, binding));
+        return new OperationEntry(binding.getScope(), name, params2, type.instantiate(sid, binding));
     }
 
     public String toString() {

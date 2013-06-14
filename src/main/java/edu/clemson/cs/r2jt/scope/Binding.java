@@ -87,11 +87,9 @@ public class Binding {
 
     private Map<TypeID, Type> mathTypes = new Map<TypeID, Type>();
 
-    private Map<TypeID, Location> mathTypeDefinitionLocations =
-            new Map<TypeID, Location>();
+    private Map<TypeID, Location> mathTypeDefinitionLocations = new Map<TypeID, Location>();
 
-    private Map<TypeID, Location> programTypeDefinitionLocations =
-            new Map<TypeID, Location>();
+    private Map<TypeID, Location> programTypeDefinitionLocations = new Map<TypeID, Location>();
 
     // ===========================================================
     // Constructors
@@ -268,8 +266,8 @@ public class Binding {
         }
     }
 
-    public Binding instantiate(PosSymbol facility, ModuleScope newscope,
-            Binding replBind, Map<Symbol, Type> typeMap) {
+    public Binding instantiate(PosSymbol facility, ModuleScope newscope, Binding replBind,
+            Map<Symbol, Type> typeMap) {
 
         Binding newbind = new Binding(newscope, myInstanceEnvironment);
         Iterator<TypeID> i = mathTypes.keyIterator();
@@ -298,8 +296,7 @@ public class Binding {
             if (mathTypes.get(tid) instanceof NameType) {
                 NameType nametype = (NameType) mathTypes.get(tid);
                 NameType newtype =
-                        new NameType(nametype.getModuleID(),
-                                nametype.getName(), nametype.getType());
+                        new NameType(nametype.getModuleID(), nametype.getName(), nametype.getType());
                 mathTypes.put(tid, newtype);
             }
         }
@@ -340,8 +337,7 @@ public class Binding {
                     mathTypes.put(curTypeID, type);
                 }
                 catch (SymbolSearchException ex) {
-                    err.error(programTypeDefinitionLocations.get(curTypeID), ex
-                            .getMessage());
+                    err.error(programTypeDefinitionLocations.get(curTypeID), ex.getMessage());
                 }
             }
             else { // type is math type
@@ -354,8 +350,7 @@ public class Binding {
                     //                   	System.out.println(tid.toString() + " (MATH)");
                     //                   	System.out.println(scope.getClass());
                     //                   	System.out.println(scope);
-                    err.error(mathTypeDefinitionLocations.get(curTypeID), ex
-                            .getMessage());
+                    err.error(mathTypeDefinitionLocations.get(curTypeID), ex.getMessage());
                 }
             }
         } // continue loop
@@ -403,11 +398,8 @@ public class Binding {
 
     private Type getNameType(Type type, PosSymbol facility) {
         //Environment env = Environment.getInstance();
-        ModuleID id =
-                myInstanceEnvironment.getModuleID(facility.getLocation()
-                        .getFile());
+        ModuleID id = myInstanceEnvironment.getModuleID(facility.getLocation().getFile());
         ConcType conctype = castToConcType(type);
-        return new NameType(id, facility, conctype.getName(), conctype
-                .getType());
+        return new NameType(id, facility, conctype.getName(), conctype.getType());
     }
 }

@@ -22,10 +22,9 @@ public class ProgramTypeDefinitionEntry extends ProgramTypeEntry {
 
     private final MathSymbolEntry myExemplar;
 
-    public ProgramTypeDefinitionEntry(TypeGraph g, String name,
-            ResolveConceptualElement definingElement,
-            ModuleIdentifier sourceModule, MTType modelType,
-            PTFamily programType, MathSymbolEntry exemplarEntry) {
+    public ProgramTypeDefinitionEntry(TypeGraph g, String name, ResolveConceptualElement definingElement,
+            ModuleIdentifier sourceModule, MTType modelType, PTFamily programType,
+            MathSymbolEntry exemplarEntry) {
         super(g, name, definingElement, sourceModule, modelType, programType);
 
         myExemplar = exemplarEntry;

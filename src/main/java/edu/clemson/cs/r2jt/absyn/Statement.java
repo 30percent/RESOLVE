@@ -58,9 +58,7 @@
 
 package edu.clemson.cs.r2jt.absyn;
 
-public abstract class Statement extends ResolveConceptualElement
-        implements
-            Cloneable {
+public abstract class Statement extends ResolveConceptualElement implements Cloneable {
 
     public abstract void accept(ResolveConceptualVisitor v);
 

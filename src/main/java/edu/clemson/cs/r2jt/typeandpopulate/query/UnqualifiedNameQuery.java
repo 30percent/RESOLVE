@@ -6,20 +6,16 @@ import edu.clemson.cs.r2jt.typeandpopulate.MathSymbolTable.ImportStrategy;
 import edu.clemson.cs.r2jt.typeandpopulate.searchers.NameSearcher;
 import edu.clemson.cs.r2jt.typeandpopulate.UnqualifiedPath;
 
-public class UnqualifiedNameQuery
-        extends
-            BaseMultimatchSymbolQuery<SymbolTableEntry> {
+public class UnqualifiedNameQuery extends BaseMultimatchSymbolQuery<SymbolTableEntry> {
 
-    public UnqualifiedNameQuery(String searchString,
-            ImportStrategy importStrategy, FacilityStrategy facilityStrategy,
-            boolean stopAfterFirst, boolean localPriority) {
+    public UnqualifiedNameQuery(String searchString, ImportStrategy importStrategy,
+            FacilityStrategy facilityStrategy, boolean stopAfterFirst, boolean localPriority) {
 
-        super(new UnqualifiedPath(importStrategy, facilityStrategy,
-                localPriority), new NameSearcher(searchString, stopAfterFirst));
+        super(new UnqualifiedPath(importStrategy, facilityStrategy, localPriority), new NameSearcher(
+                searchString, stopAfterFirst));
     }
 
     public UnqualifiedNameQuery(String searchString) {
-        this(searchString, ImportStrategy.IMPORT_NAMED,
-                FacilityStrategy.FACILITY_INSTANTIATE, true, true);
+        this(searchString, ImportStrategy.IMPORT_NAMED, FacilityStrategy.FACILITY_INSTANTIATE, true, true);
     }
 }

@@ -101,23 +101,17 @@ public class ModuleScope extends Scope {
     private List<ModuleID> specs = new List<ModuleID>();
     private List<ModuleID> associates = new List<ModuleID>();
 
-    private Map<Symbol, ModuleEntry> progModules =
-            new Map<Symbol, ModuleEntry>();
-    private Map<Symbol, ModuleEntry> mathModules =
-            new Map<Symbol, ModuleEntry>();
+    private Map<Symbol, ModuleEntry> progModules = new Map<Symbol, ModuleEntry>();
+    private Map<Symbol, ModuleEntry> mathModules = new Map<Symbol, ModuleEntry>();
 
-    private Map<Symbol, TheoremEntry> theorems =
-            new Map<Symbol, TheoremEntry>();
+    private Map<Symbol, TheoremEntry> theorems = new Map<Symbol, TheoremEntry>();
     private Map<Symbol, ProofEntry> proofs = new Map<Symbol, ProofEntry>();
-    private Map<Symbol, DefinitionEntry> definitions =
-            new Map<Symbol, DefinitionEntry>();
+    private Map<Symbol, DefinitionEntry> definitions = new Map<Symbol, DefinitionEntry>();
     private Map<Symbol, VarEntry> variables = new Map<Symbol, VarEntry>();
-    private Map<Symbol, OperationEntry> operations =
-            new Map<Symbol, OperationEntry>();
+    private Map<Symbol, OperationEntry> operations = new Map<Symbol, OperationEntry>();
     private Map<Symbol, TypeEntry> types = new Map<Symbol, TypeEntry>();
 
-    private List<TypeCorrespondence> typeCorrespondences =
-            new List<TypeCorrespondence>();
+    private List<TypeCorrespondence> typeCorrespondences = new List<TypeCorrespondence>();
 
     private List<MathVarDec> alternateVarTypes = new List<MathVarDec>();
 
@@ -148,8 +142,7 @@ public class ModuleScope extends Scope {
 
     public ModuleScope(FacilityDec dec, CompileEnvironment instanceEnvironment) {
         myInstanceEnvironment = instanceEnvironment;
-        ModuleID mid =
-                myInstanceEnvironment.getModuleID(dec.getName().getFile());
+        ModuleID mid = myInstanceEnvironment.getModuleID(dec.getName().getFile());
         sid = ScopeID.createFacilityScopeID(dec.getName(), mid);
         fdec = dec;
         this.err = myInstanceEnvironment.getErrorHandler();
@@ -331,18 +324,15 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = specs.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
-            if (scope.containsLocalVariable(sym)
-                    || scope.containsLocalNonConcType(sym)) {
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            if (scope.containsLocalVariable(sym) || scope.containsLocalNonConcType(sym)) {
                 return false;
             }
         }
         Iterator<ModuleID> j = associates.iterator();
         while (j.hasNext()) {
             ModuleID id = j.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocal(sym)) {
                 return false;
             }
@@ -360,8 +350,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = specs.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalNonConcType(sym)) {
                 return false;
             }
@@ -369,8 +358,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> j = associates.iterator();
         while (j.hasNext()) {
             ModuleID id = j.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalType(sym)) {
                 return false;
             }
@@ -388,18 +376,15 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = specs.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
-            if (scope.containsLocalVariable(sym)
-                    || scope.containsLocalNonConcType(sym)) {
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            if (scope.containsLocalVariable(sym) || scope.containsLocalNonConcType(sym)) {
                 return scope.getLocal(sym);
             }
         }
         Iterator<ModuleID> j = associates.iterator();
         while (j.hasNext()) {
             ModuleID id = j.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocal(sym)) {
                 return scope.getLocal(sym);
             }
@@ -461,8 +446,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = specs.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalVariable(sym)) {
                 return true;
             }
@@ -470,8 +454,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> j = associates.iterator();
         while (j.hasNext()) {
             ModuleID id = j.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalVariable(sym)) {
                 return true;
             }
@@ -486,8 +469,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = specs.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalVariable(sym)) {
                 return scope.getLocalVariable(sym);
             }
@@ -495,8 +477,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> j = associates.iterator();
         while (j.hasNext()) {
             ModuleID id = j.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalVariable(sym)) {
                 return scope.getLocalVariable(sym);
             }
@@ -512,8 +493,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = associates.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalTheorem(sym)) {
                 return true;
             }
@@ -528,8 +508,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = associates.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalTheorem(sym)) {
                 return scope.getLocalTheorem(sym);
             }
@@ -545,8 +524,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = associates.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalProof(sym)) {
                 return true;
             }
@@ -561,8 +539,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = associates.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalProof(sym)) {
                 return scope.getLocalProof(sym);
             }
@@ -578,8 +555,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = associates.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalDefinition(sym)) {
                 return true;
             }
@@ -594,8 +570,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = associates.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalDefinition(sym)) {
                 return scope.getLocalDefinition(sym);
             }
@@ -611,8 +586,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = associates.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalOperation(sym)) {
                 return true;
             }
@@ -627,8 +601,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = associates.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalOperation(sym)) {
                 return scope.getLocalOperation(sym);
             }
@@ -644,8 +617,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = specs.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalNonConcType(sym)) {
                 return true;
             }
@@ -653,8 +625,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> j = associates.iterator();
         while (j.hasNext()) {
             ModuleID id = j.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalType(sym)) {
                 return true;
             }
@@ -669,8 +640,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> i = associates.iterator();
         while (i.hasNext()) {
             ModuleID id = i.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalNonConcType(sym)) {
                 return scope.getLocalType(sym);
             }
@@ -678,8 +648,7 @@ public class ModuleScope extends Scope {
         Iterator<ModuleID> j = associates.iterator();
         while (j.hasNext()) {
             ModuleID id = j.next();
-            ModuleScope scope =
-                    myInstanceEnvironment.getSymbolTable(id).getModuleScope();
+            ModuleScope scope = myInstanceEnvironment.getSymbolTable(id).getModuleScope();
             if (scope.containsLocalType(sym)) {
                 return scope.getLocalType(sym);
             }
@@ -693,9 +662,8 @@ public class ModuleScope extends Scope {
     // -----------------------------------------------------------
 
     public boolean containsLocal(Symbol sym) {
-        return (theorems.containsKey(sym) || definitions.containsKey(sym)
-                || proofs.containsKey(sym) || variables.containsKey(sym)
-                || operations.containsKey(sym) || types.containsKey(sym));
+        return (theorems.containsKey(sym) || definitions.containsKey(sym) || proofs.containsKey(sym)
+                || variables.containsKey(sym) || operations.containsKey(sym) || types.containsKey(sym));
     }
 
     public Entry getLocal(Symbol sym) {
@@ -876,8 +844,7 @@ public class ModuleScope extends Scope {
         }
     }
 
-    public ModuleScope instantiate(FacilityDec fdec, Map<Symbol, Type> typeMap,
-            Binding replBind) {
+    public ModuleScope instantiate(FacilityDec fdec, Map<Symbol, Type> typeMap, Binding replBind) {
         PosSymbol facility = fdec.getName();
         ModuleScope newscope = new ModuleScope(fdec, myInstanceEnvironment);
         Iterator<Symbol> i = variables.keyIterator();
@@ -889,15 +856,13 @@ public class ModuleScope extends Scope {
         Iterator<Symbol> j = operations.keyIterator();
         while (j.hasNext()) {
             Symbol sym = j.next();
-            OperationEntry newentry =
-                    operations.get(sym).instantiate(sid, replBind);
+            OperationEntry newentry = operations.get(sym).instantiate(sid, replBind);
             newscope.operations.put(sym, newentry);
         }
         Iterator<Symbol> m = definitions.keyIterator();
         while (m.hasNext()) {
             Symbol sym = m.next();
-            DefinitionEntry newentry =
-                    definitions.get(sym).instantiate(sid, replBind);
+            DefinitionEntry newentry = definitions.get(sym).instantiate(sid, replBind);
             newscope.definitions.put(sym, newentry);
         }
         Iterator<Symbol> k = types.keyIterator();
@@ -911,13 +876,10 @@ public class ModuleScope extends Scope {
             if (type instanceof ConcType) {
                 newtype = getNameType(newtype, facility);
             }
-            TypeEntry newentry =
-                    new TypeEntry(replBind.getScope(),
-                            types.get(sym).getName(), newtype);
+            TypeEntry newentry = new TypeEntry(replBind.getScope(), types.get(sym).getName(), newtype);
             newscope.types.put(sym, newentry);
         }
-        newscope.binding =
-                binding.instantiate(facility, newscope, replBind, typeMap);
+        newscope.binding = binding.instantiate(facility, newscope, replBind, typeMap);
         return newscope;
     }
 
@@ -929,12 +891,9 @@ public class ModuleScope extends Scope {
             if (types.get(sym).getType() instanceof NameType) {
                 NameType nametype = (NameType) types.get(sym).getType();
                 NameType newtype =
-                        new NameType(nametype.getModuleID(),
-                                nametype.getName(), nametype.getType());
+                        new NameType(nametype.getModuleID(), nametype.getName(), nametype.getType());
 
-                TypeEntry newentry =
-                        new TypeEntry(binding.getScope(), types.get(sym)
-                                .getName(), newtype);
+                TypeEntry newentry = new TypeEntry(binding.getScope(), types.get(sym).getName(), newtype);
                 types.put(sym, newentry);
             }
         }
@@ -982,8 +941,7 @@ public class ModuleScope extends Scope {
     // Private Methods
     // ===========================================================
 
-    private void addVariablesFromScope(ModuleScope scope)
-            throws InstantiationException {
+    private void addVariablesFromScope(ModuleScope scope) throws InstantiationException {
         Iterator<Symbol> i = scope.variables.keyIterator();
         while (i.hasNext()) {
             Symbol sym = i.next();
@@ -1000,8 +958,7 @@ public class ModuleScope extends Scope {
         }
     }
 
-    private void addDefinitionsFromScope(ModuleScope scope)
-            throws InstantiationException {
+    private void addDefinitionsFromScope(ModuleScope scope) throws InstantiationException {
         Iterator<Symbol> i = scope.definitions.keyIterator();
         while (i.hasNext()) {
             Symbol sym = i.next();
@@ -1018,8 +975,7 @@ public class ModuleScope extends Scope {
         }
     }
 
-    private void addOperationsFromScope(ModuleScope scope)
-            throws InstantiationException {
+    private void addOperationsFromScope(ModuleScope scope) throws InstantiationException {
         Iterator<Symbol> i = scope.operations.keyIterator();
         while (i.hasNext()) {
             Symbol sym = i.next();
@@ -1036,8 +992,7 @@ public class ModuleScope extends Scope {
         }
     }
 
-    private void addTypesFromScope(ModuleScope scope)
-            throws InstantiationException {
+    private void addTypesFromScope(ModuleScope scope) throws InstantiationException {
         Iterator<Symbol> i = scope.types.keyIterator();
         while (i.hasNext()) {
             Symbol sym = i.next();
@@ -1072,12 +1027,9 @@ public class ModuleScope extends Scope {
 
     private Type getNameType(Type type, PosSymbol facility) {
         //Environment env = Environment.getInstance();
-        ModuleID id =
-                myInstanceEnvironment.getModuleID(facility.getLocation()
-                        .getFile());
+        ModuleID id = myInstanceEnvironment.getModuleID(facility.getLocation().getFile());
         ConcType conctype = castToConcType(type);
-        return new NameType(id, facility, conctype.getName(), conctype
-                .getType());
+        return new NameType(id, facility, conctype.getName(), conctype.getType());
     }
 
     private ConcType castToConcType(Type type) {
@@ -1085,9 +1037,8 @@ public class ModuleScope extends Scope {
         return (ConcType) type;
     }
 
-    private static String cantInstantiateMessage(String sym, String loc1,
-            String loc2) {
-        return "Can't instantiate generic - Symbol " + sym + " has "
-                + "duplicate definition at " + loc1 + " and " + loc2;
+    private static String cantInstantiateMessage(String sym, String loc1, String loc2) {
+        return "Can't instantiate generic - Symbol " + sym + " has " + "duplicate definition at " + loc1
+                + " and " + loc2;
     }
 }

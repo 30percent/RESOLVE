@@ -9,8 +9,7 @@ import edu.clemson.cs.r2jt.typeandpopulate.MTType;
 
 public class TypeModifyingVisitor extends MutatingVisitor {
 
-    private final Map<MTType, MTType> mySubstitutions =
-            new HashMap<MTType, MTType>();
+    private final Map<MTType, MTType> mySubstitutions = new HashMap<MTType, MTType>();
 
     public TypeModifyingVisitor(Map<MTType, MTType> substitutions) {
         mySubstitutions.putAll(substitutions);

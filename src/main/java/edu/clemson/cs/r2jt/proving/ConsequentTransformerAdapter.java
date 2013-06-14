@@ -16,8 +16,8 @@ public class ConsequentTransformerAdapter implements ConsequentTransformer {
     }
 
     public Iterator<Consequent> transform(Consequent original) {
-        return new LazyMappingIterator<ImmutableConjuncts, Consequent>(
-                myTransformer.transform(original), MAP_TO_CONSEQUENTS);
+        return new LazyMappingIterator<ImmutableConjuncts, Consequent>(myTransformer.transform(original),
+                MAP_TO_CONSEQUENTS);
     }
 
     public String toString() {

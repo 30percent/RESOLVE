@@ -78,16 +78,13 @@ public class BugReport {
     // Variables
     // ===========================================================
 
-    private static String contactPerson =
-            "Please contact: Reusable Software Research Group\n";
+    private static String contactPerson = "Please contact: Reusable Software Research Group\n";
 
     private static String emailAddress = "murali@cs.clemson.edu\n";
 
-    private static String institutionAddress1 =
-            "Developed at Department of Computer Science\n";
+    private static String institutionAddress1 = "Developed at Department of Computer Science\n";
 
-    private static String institutionAddress2 =
-            "Clemson University, Clemson SC USA 29634\n\n";
+    private static String institutionAddress2 = "Clemson University, Clemson SC USA 29634\n\n";
 
     private static String version = "Version 2011.1.18\n\n";
 
@@ -102,8 +99,8 @@ public class BugReport {
 
     public BugReport(String report) {
         this.report =
-                report + "\n\n" + contactPerson + emailAddress
-                        + institutionAddress1 + institutionAddress2 + version;
+                report + "\n\n" + contactPerson + emailAddress + institutionAddress1 + institutionAddress2
+                        + version;
     }
 
     // ===========================================================
@@ -117,8 +114,7 @@ public class BugReport {
 
     public static String abortProgram(Exception ex, CompileEnvironment env) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Currently compiling: " + env.getCurrentTargetFileName()
-                + "\n");
+        sb.append("Currently compiling: " + env.getCurrentTargetFileName() + "\n");
         sb.append("Current compile environment: " + env.toString() + "\n");
         sb.append("Unexpected exception: " + ex + "\n");
         String trace = getStackTraceString(ex);

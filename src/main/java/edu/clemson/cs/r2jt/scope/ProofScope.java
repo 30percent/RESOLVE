@@ -77,11 +77,9 @@ public class ProofScope extends Scope {
 
     private ModuleScope moduleScope = null;
 
-    private Map<Symbol, ModuleEntry> facilities =
-            new Map<Symbol, ModuleEntry>();
+    private Map<Symbol, ModuleEntry> facilities = new Map<Symbol, ModuleEntry>();
     private Map<Symbol, VarEntry> variables = new Map<Symbol, VarEntry>();
-    private Map<Symbol, DefinitionEntry> definitions =
-            new Map<Symbol, DefinitionEntry>();
+    private Map<Symbol, DefinitionEntry> definitions = new Map<Symbol, DefinitionEntry>();
     private Map<Symbol, TypeEntry> types = new Map<Symbol, TypeEntry>();
 
     private Binding binding = null;
@@ -90,8 +88,7 @@ public class ProofScope extends Scope {
     // Constructors
     // ===========================================================
 
-    public ProofScope(ModuleScope scope, ScopeID sid,
-            CompileEnvironment instanceEnvironment) {
+    public ProofScope(ModuleScope scope, ScopeID sid, CompileEnvironment instanceEnvironment) {
         this.sid = sid;
         this.moduleScope = scope;
         binding = new Binding(this, instanceEnvironment);
@@ -136,8 +133,7 @@ public class ProofScope extends Scope {
     // -----------------------------------------------------------
 
     public boolean addPermitted(Symbol sym) {
-        if (facilities.containsKey(sym) || variables.containsKey(sym)
-                || definitions.containsKey(sym)) {
+        if (facilities.containsKey(sym) || variables.containsKey(sym) || definitions.containsKey(sym)) {
             return false;
         }
         else {

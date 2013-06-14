@@ -12,8 +12,7 @@ import java.util.List;
  */
 public class SymmetricVisitor {
 
-    private static final ClassCastException CLASS_CAST_EXCEPTION =
-            new ClassCastException();
+    private static final ClassCastException CLASS_CAST_EXCEPTION = new ClassCastException();
 
     private final Multiplexer myMultiplexer = new Multiplexer();
     private final MidMultiplexer myMidMultiplexer = new MidMultiplexer();
@@ -49,9 +48,7 @@ public class SymmetricVisitor {
                             t1.acceptOpen(myMidMultiplexer);
                         }
 
-                        visitSiblings =
-                                visit(t1ComponentIter.next(), t2ComponentIter
-                                        .next());
+                        visitSiblings = visit(t1ComponentIter.next(), t2ComponentIter.next());
 
                         myMultiplexer.setOtherType(t2);
                         myMidMultiplexer.setOtherType(t2);
@@ -115,9 +112,7 @@ public class SymmetricVisitor {
         }
 
         public void beginMTFunctionApplication(MTFunctionApplication t) {
-            myReturn =
-                    beginMTFunctionApplication(t,
-                            (MTFunctionApplication) myOtherType);
+            myReturn = beginMTFunctionApplication(t, (MTFunctionApplication) myOtherType);
         }
 
         public void beginMTIntersect(MTIntersect t) {
@@ -125,9 +120,7 @@ public class SymmetricVisitor {
         }
 
         public void beginMTPowertypeApplication(MTPowertypeApplication t) {
-            myReturn =
-                    beginMTPowertypeApplication(t,
-                            (MTPowertypeApplication) myOtherType);
+            myReturn = beginMTPowertypeApplication(t, (MTPowertypeApplication) myOtherType);
         }
 
         public void beginMTProper(MTProper t) {
@@ -171,9 +164,7 @@ public class SymmetricVisitor {
         }
 
         public void endMTFunctionApplication(MTFunctionApplication t) {
-            myReturn =
-                    endMTFunctionApplication(t,
-                            (MTFunctionApplication) myOtherType);
+            myReturn = endMTFunctionApplication(t, (MTFunctionApplication) myOtherType);
         }
 
         public void endMTIntersect(MTIntersect t) {
@@ -181,9 +172,7 @@ public class SymmetricVisitor {
         }
 
         public void endMTPowertypeApplication(MTPowertypeApplication t) {
-            myReturn =
-                    endMTPowertypeApplication(t,
-                            (MTPowertypeApplication) myOtherType);
+            myReturn = endMTPowertypeApplication(t, (MTPowertypeApplication) myOtherType);
         }
 
         public void endMTProper(MTProper t) {
@@ -253,9 +242,7 @@ public class SymmetricVisitor {
         }
 
         public void beginMTFunctionApplication(MTFunctionApplication t) {
-            myReturn =
-                    midMTFunctionApplication(t,
-                            (MTFunctionApplication) myOtherType);
+            myReturn = midMTFunctionApplication(t, (MTFunctionApplication) myOtherType);
         }
 
         public void beginMTIntersect(MTIntersect t) {
@@ -263,9 +250,7 @@ public class SymmetricVisitor {
         }
 
         public void beginMTPowertypeApplication(MTPowertypeApplication t) {
-            myReturn =
-                    midMTPowertypeApplication(t,
-                            (MTPowertypeApplication) myOtherType);
+            myReturn = midMTPowertypeApplication(t, (MTPowertypeApplication) myOtherType);
         }
 
         public void beginMTProper(MTProper t) {
@@ -309,8 +294,7 @@ public class SymmetricVisitor {
         return true;
     }
 
-    public boolean beginMTFunctionApplication(MTFunctionApplication t1,
-            MTFunctionApplication t2) {
+    public boolean beginMTFunctionApplication(MTFunctionApplication t1, MTFunctionApplication t2) {
         return true;
     }
 
@@ -318,8 +302,7 @@ public class SymmetricVisitor {
         return true;
     }
 
-    public boolean beginMTPowertypeApplication(MTPowertypeApplication t1,
-            MTPowertypeApplication t2) {
+    public boolean beginMTPowertypeApplication(MTPowertypeApplication t1, MTPowertypeApplication t2) {
         return true;
     }
 
@@ -327,8 +310,7 @@ public class SymmetricVisitor {
         return true;
     }
 
-    public boolean beginMTSetRestriction(MTSetRestriction t1,
-            MTSetRestriction t2) {
+    public boolean beginMTSetRestriction(MTSetRestriction t1, MTSetRestriction t2) {
         return true;
     }
 
@@ -364,8 +346,7 @@ public class SymmetricVisitor {
         return true;
     }
 
-    public boolean midMTFunctionApplication(MTFunctionApplication t1,
-            MTFunctionApplication t2) {
+    public boolean midMTFunctionApplication(MTFunctionApplication t1, MTFunctionApplication t2) {
         return true;
     }
 
@@ -373,8 +354,7 @@ public class SymmetricVisitor {
         return true;
     }
 
-    public boolean midMTPowertypeApplication(MTPowertypeApplication t1,
-            MTPowertypeApplication t2) {
+    public boolean midMTPowertypeApplication(MTPowertypeApplication t1, MTPowertypeApplication t2) {
         return true;
     }
 
@@ -422,8 +402,7 @@ public class SymmetricVisitor {
         return true;
     }
 
-    public boolean endMTFunctionApplication(MTFunctionApplication t1,
-            MTFunctionApplication t2) {
+    public boolean endMTFunctionApplication(MTFunctionApplication t1, MTFunctionApplication t2) {
         return true;
     }
 
@@ -431,8 +410,7 @@ public class SymmetricVisitor {
         return true;
     }
 
-    public boolean endMTPowertypeApplication(MTPowertypeApplication t1,
-            MTPowertypeApplication t2) {
+    public boolean endMTPowertypeApplication(MTPowertypeApplication t1, MTPowertypeApplication t2) {
         return true;
     }
 

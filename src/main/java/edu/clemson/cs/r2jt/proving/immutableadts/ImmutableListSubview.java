@@ -9,8 +9,7 @@ public class ImmutableListSubview<E> extends AbstractImmutableList<E> {
     private final int mySubviewLength;
     private final int myFirstAfterIndex;
 
-    public ImmutableListSubview(ArrayBackedImmutableList<E> baseList,
-            int start, int length) {
+    public ImmutableListSubview(ArrayBackedImmutableList<E> baseList, int start, int length) {
 
         //TODO : These defensive checks can be taken out for efficiency once
         //       we're satisfied that ImmutableLists works correctly.
@@ -66,8 +65,8 @@ public class ImmutableListSubview<E> extends AbstractImmutableList<E> {
             throw new IndexOutOfBoundsException();
         }
 
-        return new ImmutableListSubview<E>(myBaseList, startIndex
-                + mySubviewStart, mySubviewLength - startIndex);
+        return new ImmutableListSubview<E>(myBaseList, startIndex + mySubviewStart, mySubviewLength
+                - startIndex);
     }
 
 }

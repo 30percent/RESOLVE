@@ -23,8 +23,7 @@ public class VerificationCondition {
         this(antecedent, consequent, null);
     }
 
-    public VerificationCondition(List<Exp> antecedents, List<Exp> consequents,
-            String name) {
+    public VerificationCondition(List<Exp> antecedents, List<Exp> consequents, String name) {
         myAntecedents = new Conjuncts(antecedents);
         myConsequents = new Conjuncts(consequents);
         myName = name;
@@ -96,16 +95,14 @@ public class VerificationCondition {
             VerificationCondition otherVC = (VerificationCondition) o;
             retval =
                     (otherVC.getAntecedents().equivalent(myAntecedents))
-                            && (otherVC.getConsequents()
-                                    .equivalent(myConsequents));
+                            && (otherVC.getConsequents().equivalent(myConsequents));
         }
 
         return retval;
     }
 
     public String toString() {
-        return myAntecedents + "===============================>\n"
-                + myConsequents;
+        return myAntecedents + "===============================>\n" + myConsequents;
     }
 
     /**
@@ -126,9 +123,7 @@ public class VerificationCondition {
 
         MatchReplace curMatcher;
         while (curExpansion != null) {
-            curMatcher =
-                    new DirectReplace(curExpansion.getLeft(), curExpansion
-                            .getRight());
+            curMatcher = new DirectReplace(curExpansion.getLeft(), curExpansion.getRight());
 
             MatchApplicator.applyAllInPlace(myAntecedents, curMatcher);
             MatchApplicator.applyAllInPlace(myConsequents, curMatcher);
@@ -160,8 +155,7 @@ public class VerificationCondition {
                 EqualsExp expAsEquals = (EqualsExp) curExp;
 
                 if (expAsEquals.getOperator() == EqualsExp.EQUAL) {
-                    if (expAsEquals.getLeft() instanceof VarExp
-                            || expAsEquals.getLeft() instanceof DotExp) {
+                    if (expAsEquals.getLeft() instanceof VarExp || expAsEquals.getLeft() instanceof DotExp) {
                         retval = expAsEquals;
                         iter.remove();
                     }

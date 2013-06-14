@@ -91,17 +91,17 @@ public class FacilityDec extends Dec {
     /** The enhancementBodies member. */
     private List<EnhancementBodyItem> enhancementBodies;
 
+    private boolean external;
+
     // ===========================================================
     // Constructors
     // ===========================================================
 
     public FacilityDec() {};
 
-    public FacilityDec(PosSymbol name, PosSymbol conceptName,
-            List<ModuleArgumentItem> conceptParams,
-            List<EnhancementItem> enhancements, PosSymbol bodyName,
-            PosSymbol profileName, List<ModuleArgumentItem> bodyParams,
-            List<EnhancementBodyItem> enhancementBodies) {
+    public FacilityDec(PosSymbol name, PosSymbol conceptName, List<ModuleArgumentItem> conceptParams,
+            List<EnhancementItem> enhancements, PosSymbol bodyName, PosSymbol profileName,
+            List<ModuleArgumentItem> bodyParams, List<EnhancementBodyItem> enhancementBodies) {
         this.name = name;
         this.conceptName = conceptName;
         this.conceptParams = conceptParams;
@@ -110,6 +110,22 @@ public class FacilityDec extends Dec {
         this.profileName = profileName;
         this.bodyParams = bodyParams;
         this.enhancementBodies = enhancementBodies;
+        this.external = false;
+    }
+
+    public FacilityDec(PosSymbol name, PosSymbol conceptName, List<ModuleArgumentItem> conceptParams,
+            List<EnhancementItem> enhancements, PosSymbol bodyName, PosSymbol profileName,
+            List<ModuleArgumentItem> bodyParams, List<EnhancementBodyItem> enhancementBodies,
+            boolean myExternal) {
+        this.name = name;
+        this.conceptName = conceptName;
+        this.conceptParams = conceptParams;
+        this.enhancements = enhancements;
+        this.bodyName = bodyName;
+        this.profileName = profileName;
+        this.bodyParams = bodyParams;
+        this.enhancementBodies = enhancementBodies;
+        this.external = myExternal;
     }
 
     // ===========================================================
@@ -246,9 +262,7 @@ public class FacilityDec extends Dec {
         }
 
         if (enhancementBodies != null) {
-            sb
-                    .append(enhancementBodies.asString(indent + increment,
-                            increment));
+            sb.append(enhancementBodies.asString(indent + increment, increment));
         }
 
         return sb.toString();

@@ -94,8 +94,7 @@ public class DefinitionLocator {
     // Constructors
     // ===========================================================
 
-    public DefinitionLocator(OldSymbolTable table, boolean err, TypeMatcher tm,
-            ErrorHandler eh) {
+    public DefinitionLocator(OldSymbolTable table, boolean err, TypeMatcher tm, ErrorHandler eh) {
         this.table = table;
         showErrors = err;
         this.tm = tm;
@@ -106,8 +105,7 @@ public class DefinitionLocator {
     // Public Methods
     // ===========================================================
 
-    public DefinitionEntry locateDefinition(PosSymbol name)
-            throws SymbolSearchException {
+    public DefinitionEntry locateDefinition(PosSymbol name) throws SymbolSearchException {
         List<DefinitionEntry> opers = locateDefinitionsInStack(name);
         if (opers.size() == 0) {
             opers = locateDefinitionsInImports(name);
@@ -115,8 +113,7 @@ public class DefinitionLocator {
         if (opers.size() > 1) {
             List<Location> locs = getLocationList(opers);
             if (showErrors) {
-                String msg =
-                        ambigDefRefMessage(name.toString(), locs.toString());
+                String msg = ambigDefRefMessage(name.toString(), locs.toString());
                 err.error(name.getLocation(), msg);
             }
             throw new SymbolSearchException();
@@ -133,8 +130,7 @@ public class DefinitionLocator {
         }
     }
 
-    public DefinitionEntry locateDefinition(PosSymbol name, List<Type> argtypes)
-            throws SymbolSearchException {
+    public DefinitionEntry locateDefinition(PosSymbol name, List<Type> argtypes) throws SymbolSearchException {
         List<DefinitionEntry> defs = locateDefinitionsInStack(name);
         if (defs.size() == 0) {
             defs = locateDefinitionsInImports(name);
@@ -156,8 +152,7 @@ public class DefinitionLocator {
      *         
      * @throw SymbolSearchException If such a definition cannot be found.
      */
-    public DefinitionEntry locateDefinition(PosSymbol qual, PosSymbol name)
-            throws SymbolSearchException {
+    public DefinitionEntry locateDefinition(PosSymbol qual, PosSymbol name) throws SymbolSearchException {
 
         if (qual == null) {
             return locateDefinition(name);
@@ -177,17 +172,15 @@ public class DefinitionLocator {
         }
         else {
             if (showErrors) {
-                String msg =
-                        cantFindDefInModMessage(name.toString(), qual
-                                .toString());
+                String msg = cantFindDefInModMessage(name.toString(), qual.toString());
                 err.error(qual.getLocation(), msg);
             }
             throw new SymbolSearchException();
         }
     }
 
-    public DefinitionEntry locateDefinition(PosSymbol qual, PosSymbol name,
-            List<Type> argtypes) throws SymbolSearchException {
+    public DefinitionEntry locateDefinition(PosSymbol qual, PosSymbol name, List<Type> argtypes)
+            throws SymbolSearchException {
         if (qual == null) {
             return locateDefinition(name, argtypes);
         }
@@ -206,9 +199,7 @@ public class DefinitionLocator {
         }
         else {
             if (showErrors) {
-                String msg =
-                        cantFindDefInModMessage(name.toString(), qual
-                                .toString());
+                String msg = cantFindDefInModMessage(name.toString(), qual.toString());
                 err.error(qual.getLocation(), msg);
             }
             throw new SymbolSearchException();
@@ -245,8 +236,7 @@ public class DefinitionLocator {
     // Private Methods
     // ===========================================================
 
-    private List<DefinitionEntry> locateDefinitionsInStack(PosSymbol name)
-            throws SymbolSearchException {
+    private List<DefinitionEntry> locateDefinitionsInStack(PosSymbol name) throws SymbolSearchException {
         List<DefinitionEntry> defs = new List<DefinitionEntry>();
         Stack<Scope> stack = table.getStack();
         Stack<Scope> hold = new Stack<Scope>();
@@ -255,15 +245,13 @@ public class DefinitionLocator {
                 Scope scope = stack.pop();
                 hold.push(scope);
                 if (scope instanceof ProcedureScope) {
-                    defs.addAll(locateDefinitionsInProc(name,
-                            (ProcedureScope) scope));
+                    defs.addAll(locateDefinitionsInProc(name, (ProcedureScope) scope));
                     if (defs.size() > 0) {
                         break;
                     }
                 }
                 else if (scope instanceof ProofScope) {
-                    defs.addAll(locateDefinitionsInProof(name,
-                            (ProofScope) scope));
+                    defs.addAll(locateDefinitionsInProof(name, (ProofScope) scope));
                     if (defs.size() > 0) {
                         break;
                     }
@@ -289,8 +277,8 @@ public class DefinitionLocator {
         }
     }
 
-    private List<DefinitionEntry> locateDefinitionsInProc(PosSymbol name,
-            ProcedureScope scope) throws SymbolSearchException {
+    private List<DefinitionEntry> locateDefinitionsInProc(PosSymbol name, ProcedureScope scope)
+            throws SymbolSearchException {
         List<DefinitionEntry> defs = new List<DefinitionEntry>();
         Iterator<ModuleScope> i = scope.getVisibleModules();
         while (i.hasNext()) {
@@ -302,8 +290,8 @@ public class DefinitionLocator {
         return defs;
     }
 
-    private List<DefinitionEntry> locateDefinitionsInProof(PosSymbol name,
-            ProofScope scope) throws SymbolSearchException {
+    private List<DefinitionEntry> locateDefinitionsInProof(PosSymbol name, ProofScope scope)
+            throws SymbolSearchException {
         List<DefinitionEntry> defs = new List<DefinitionEntry>();
         if (scope.containsDefinition(name.getSymbol())) {
             defs.add(scope.getDefinition(name.getSymbol()));
@@ -311,11 +299,9 @@ public class DefinitionLocator {
         return defs;
     }
 
-    private List<DefinitionEntry> locateDefinitionsInImports(PosSymbol name)
-            throws SymbolSearchException {
+    private List<DefinitionEntry> locateDefinitionsInImports(PosSymbol name) throws SymbolSearchException {
         List<DefinitionEntry> defs = new List<DefinitionEntry>();
-        Iterator<ModuleScope> i =
-                table.getModuleScope().getMathVisibleModules();
+        Iterator<ModuleScope> i = table.getModuleScope().getMathVisibleModules();
         while (i.hasNext()) {
             ModuleScope iscope = i.next();
             if (iscope.containsDefinition(name.getSymbol())) {
@@ -325,9 +311,8 @@ public class DefinitionLocator {
         return defs;
     }
 
-    private DefinitionEntry getUniqueDefinition(PosSymbol name,
-            List<Type> argtypes, List<DefinitionEntry> defs)
-            throws SymbolSearchException {
+    private DefinitionEntry getUniqueDefinition(PosSymbol name, List<Type> argtypes,
+            List<DefinitionEntry> defs) throws SymbolSearchException {
         if (defs.size() == 0) {
             if (showErrors) {
                 String msg = cantFindDefMessage(name.toString());
@@ -344,9 +329,8 @@ public class DefinitionLocator {
         }
     }
 
-    private DefinitionEntry disambiguateDefinitions(PosSymbol name,
-            List<Type> argtypes, List<DefinitionEntry> defs)
-            throws SymbolSearchException {
+    private DefinitionEntry disambiguateDefinitions(PosSymbol name, List<Type> argtypes,
+            List<DefinitionEntry> defs) throws SymbolSearchException {
         List<DefinitionEntry> newdefs = new List<DefinitionEntry>();
         Iterator<DefinitionEntry> i = defs.iterator();
         while (i.hasNext()) {
@@ -358,8 +342,7 @@ public class DefinitionLocator {
         if (newdefs.size() == 0) {
             List<Location> locs = getLocationList(defs);
             if (showErrors) {
-                String sig =
-                        getSignatureString(defs.get(0).getName(), argtypes);
+                String sig = getSignatureString(defs.get(0).getName(), argtypes);
                 String msg = cantFindDefMessage(sig, locs.toString());
                 err.error(name.getLocation(), msg);
             }
@@ -371,16 +354,15 @@ public class DefinitionLocator {
         else { // newdefs.size() > 1
             List<Location> locs = getLocationList(defs);
             if (showErrors) {
-                String msg =
-                        ambigDefRefMessage(name.toString(), locs.toString());
+                String msg = ambigDefRefMessage(name.toString(), locs.toString());
                 err.error(name.getLocation(), msg);
             }
             throw new SymbolSearchException();
         }
     }
 
-    private void checkDefinitionArguments(PosSymbol name, List<Type> argtypes,
-            DefinitionEntry def) throws SymbolSearchException {
+    private void checkDefinitionArguments(PosSymbol name, List<Type> argtypes, DefinitionEntry def)
+            throws SymbolSearchException {
         if (!argumentTypesMatch(def, argtypes)) {
             if (showErrors) {
                 String defsig = getSignatureString(def);
@@ -463,8 +445,7 @@ public class DefinitionLocator {
     // -----------------------------------------------------------
 
     private String cantFindDefInModMessage(String name, String module) {
-        return "Cannot find a definition named " + name + " in module "
-                + module + ".";
+        return "Cannot find a definition named " + name + " in module " + module + ".";
     }
 
     private String ambigDefRefMessage(String name, String mods) {
@@ -477,13 +458,12 @@ public class DefinitionLocator {
     }
 
     private String cantFindDefMessage(String sig, String mods) {
-        return "Cannot find the definition with signature " + sig
-                + ", but found definitions: " + mods + ".";
+        return "Cannot find the definition with signature " + sig + ", but found definitions: " + mods + ".";
     }
 
     private String argTypeMismatchMessage(String opersig, String targsig) {
-        return "Expected a definition with the signature " + targsig
-                + " but found one with the signature " + opersig + ".";
+        return "Expected a definition with the signature " + targsig + " but found one with the signature "
+                + opersig + ".";
     }
 
 }

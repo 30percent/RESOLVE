@@ -33,8 +33,7 @@ public abstract class ScopeRepository {
      * @throws NoSuchSymbolException If no scope has been opened for the named 
      *             module.
      */
-    public abstract ModuleScope getModuleScope(ModuleIdentifier module)
-            throws NoSuchSymbolException;
+    public abstract ModuleScope getModuleScope(ModuleIdentifier module) throws NoSuchSymbolException;
 
     /**
      * <p>Returns the {@link Scope Scope} introduced and bounded by the given

@@ -74,8 +74,7 @@ public class FlexibleVisitor<R, P> {
         return null;
     }
 
-    public R visitEnhancementBodyModuleDec(EnhancementBodyModuleDec data,
-            P parameter) {
+    public R visitEnhancementBodyModuleDec(EnhancementBodyModuleDec data, P parameter) {
         return null;
     }
 
@@ -331,8 +330,7 @@ public class FlexibleVisitor<R, P> {
         return null;
     }
 
-    public R visitShortFacilityModuleDec(ShortFacilityModuleDec data,
-            P parameter) {
+    public R visitShortFacilityModuleDec(ShortFacilityModuleDec data, P parameter) {
         return null;
     }
 
@@ -380,8 +378,7 @@ public class FlexibleVisitor<R, P> {
         return null;
     }
 
-    public R visitSuppositionDeductionExp(SuppositionDeductionExp data,
-            P parameter) {
+    public R visitSuppositionDeductionExp(SuppositionDeductionExp data, P parameter) {
         return null;
     }
 

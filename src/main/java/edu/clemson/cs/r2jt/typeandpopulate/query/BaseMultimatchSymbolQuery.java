@@ -14,12 +14,9 @@ import java.util.List;
  * and thus the search methods of this class are guaranteed not to throw a
  * {@link DuplicateSymbolException DuplicateSymbolException}.</p>
  */
-public class BaseMultimatchSymbolQuery<E extends SymbolTableEntry>
-        extends
-            BaseSymbolQuery<E> {
+public class BaseMultimatchSymbolQuery<E extends SymbolTableEntry> extends BaseSymbolQuery<E> {
 
-    public BaseMultimatchSymbolQuery(ScopeSearchPath path,
-            MultimatchTableSearcher<E> searcher) {
+    public BaseMultimatchSymbolQuery(ScopeSearchPath path, MultimatchTableSearcher<E> searcher) {
         super(path, searcher);
     }
 

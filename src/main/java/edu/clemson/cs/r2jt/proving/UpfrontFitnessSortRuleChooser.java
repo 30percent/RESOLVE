@@ -11,8 +11,7 @@ public class UpfrontFitnessSortRuleChooser extends BlindIterativeRuleChooser {
     private final FitnessFunction<EqualsExp> myFitnessFunction;
     private final double myThreshold;
 
-    public UpfrontFitnessSortRuleChooser(FitnessFunction<EqualsExp> fitness,
-            double threshold) {
+    public UpfrontFitnessSortRuleChooser(FitnessFunction<EqualsExp> fitness, double threshold) {
         super();
         myFitnessFunction = fitness;
         myThreshold = threshold;
@@ -37,11 +36,9 @@ public class UpfrontFitnessSortRuleChooser extends BlindIterativeRuleChooser {
             }
 
             if (curFitness >= myThreshold) {
-                curMatchReplace =
-                        new BindReplace(curRule.getLeft(), curRule.getRight());
+                curMatchReplace = new BindReplace(curRule.getLeft(), curRule.getRight());
 
-                priorityList.add(new PriorityAugmentedObject<MatchReplace>(
-                        curMatchReplace, curFitness));
+                priorityList.add(new PriorityAugmentedObject<MatchReplace>(curMatchReplace, curFitness));
             }
         }
 

@@ -130,8 +130,7 @@ public class AlternativeExp extends Exp {
             AlternativeExp eAsAlternativeExp = (AlternativeExp) e;
 
             Iterator<AltItemExp> thisAltItems = alternatives.iterator();
-            Iterator<AltItemExp> eAltItems =
-                    eAsAlternativeExp.alternatives.iterator();
+            Iterator<AltItemExp> eAltItems = eAsAlternativeExp.alternatives.iterator();
 
             while (result && thisAltItems.hasNext() && eAltItems.hasNext()) {
                 result &= thisAltItems.next().equivalent(eAltItems.next());

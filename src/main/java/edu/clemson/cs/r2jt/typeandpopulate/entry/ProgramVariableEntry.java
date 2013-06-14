@@ -12,8 +12,7 @@ public class ProgramVariableEntry extends SymbolTableEntry {
     private final PTType myType;
     private final MathSymbolEntry myMathSymbolAlterEgo;
 
-    public ProgramVariableEntry(String name,
-            ResolveConceptualElement definingElement,
+    public ProgramVariableEntry(String name, ResolveConceptualElement definingElement,
             ModuleIdentifier sourceModule, PTType type) {
         super(name, definingElement, sourceModule);
 
@@ -22,9 +21,8 @@ public class ProgramVariableEntry extends SymbolTableEntry {
         //TODO: Probably need to recajigger this to correctly account for any
         //      generics in the defining context
         myMathSymbolAlterEgo =
-                new MathSymbolEntry(type.getTypeGraph(), name,
-                        Quantification.NONE, definingElement, type.toMath(),
-                        null, null, null, sourceModule);
+                new MathSymbolEntry(type.getTypeGraph(), name, Quantification.NONE, definingElement, type
+                        .toMath(), null, null, null, sourceModule);
     }
 
     public PTType getProgramType() {
@@ -37,20 +35,17 @@ public class ProgramVariableEntry extends SymbolTableEntry {
     }
 
     @Override
-    public SymbolTableEntry instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public SymbolTableEntry instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
         SymbolTableEntry result;
 
-        PTType instantiatedType =
-                myType.instantiateGenerics(genericInstantiations,
-                        instantiatingFacility);
+        PTType instantiatedType = myType.instantiateGenerics(genericInstantiations, instantiatingFacility);
 
         if (instantiatedType != myType) {
             result =
-                    new ProgramVariableEntry(getName(), getDefiningElement(),
-                            getSourceModuleIdentifier(), instantiatedType);
+                    new ProgramVariableEntry(getName(), getDefiningElement(), getSourceModuleIdentifier(),
+                            instantiatedType);
         }
         else {
             result = this;

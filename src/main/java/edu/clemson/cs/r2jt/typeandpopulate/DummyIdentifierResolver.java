@@ -22,8 +22,7 @@ public class DummyIdentifierResolver extends AbstractScope {
     }
 
     @Override
-    public <E extends SymbolTableEntry> List<E> query(
-            MultimatchSymbolQuery<E> query) {
+    public <E extends SymbolTableEntry> List<E> query(MultimatchSymbolQuery<E> query) {
 
         return new LinkedList<E>();
     }
@@ -37,12 +36,9 @@ public class DummyIdentifierResolver extends AbstractScope {
     }
 
     @Override
-    public <E extends SymbolTableEntry> boolean addMatches(
-            TableSearcher<E> searcher, List<E> matches,
-            Set<Scope> searchedScopes,
-            Map<String, PTType> genericInstantiations,
-            FacilityEntry instantiatingFacility, SearchContext l)
-            throws DuplicateSymbolException {
+    public <E extends SymbolTableEntry> boolean addMatches(TableSearcher<E> searcher, List<E> matches,
+            Set<Scope> searchedScopes, Map<String, PTType> genericInstantiations,
+            FacilityEntry instantiatingFacility, SearchContext l) throws DuplicateSymbolException {
 
         return false;
     }

@@ -27,15 +27,12 @@ public class AntecedentDeveloper implements Automator {
     private final AddsSomethingNewPredicate myDevelopmentPredicate;
     private int myRemainingRounds;
 
-    public AntecedentDeveloper(PerVCProverModel model,
-            Set<String> variableSymbols,
+    public AntecedentDeveloper(PerVCProverModel model, Set<String> variableSymbols,
             Iterable<Transformation> transformations, int totalRounds) {
-        myDevelopmentPredicate =
-                new AddsSomethingNewPredicate(model, variableSymbols);
+        myDevelopmentPredicate = new AddsSomethingNewPredicate(model, variableSymbols);
         myRemainingRounds = totalRounds;
 
-        List<Transformation> finalTransformations =
-                new LinkedList<Transformation>();
+        List<Transformation> finalTransformations = new LinkedList<Transformation>();
         for (Transformation transformation : transformations) {
             if (transformation instanceof ExpandAntecedentByImplication
                     || transformation instanceof ExpandAntecedentBySubstitution) {
@@ -93,8 +90,7 @@ public class AntecedentDeveloper implements Automator {
                             || transformation instanceof ExpandAntecedentBySubstitution) {
 
                         if (!transformation.introducesQuantifiedVariables()) {
-                            tApplications =
-                                    transformation.getApplications(model);
+                            tApplications = transformation.getApplications(model);
                             while (tApplications.hasNext()) {
                                 applications.add(tApplications.next());
                             }
@@ -115,21 +111,16 @@ public class AntecedentDeveloper implements Automator {
 
         @Override
         public void step(Deque<Automator> stack, PerVCProverModel model) {
-            if (myDevelopmentCount < MAX_DEVELOPMENTS
-                    && myApplications.hasNext()) {
+            if (myDevelopmentCount < MAX_DEVELOPMENTS && myApplications.hasNext()) {
 
-                if (myProbationaryApplication != null
-                        && myProbationaryApplication.changeStuck()) {
+                if (myProbationaryApplication != null && myProbationaryApplication.changeStuck()) {
                     myDevelopmentCount++;
                 }
 
-                System.out
-                        .println("AntecedentDeveloperRound - adding development - "
-                                + myDevelopmentCount);
+                System.out.println("AntecedentDeveloperRound - adding development - " + myDevelopmentCount);
 
                 myProbationaryApplication =
-                        new ProbationaryApplication(myApplications.next(),
-                                myDevelopmentPredicate);
+                        new ProbationaryApplication(myApplications.next(), myDevelopmentPredicate);
                 stack.push(myProbationaryApplication);
             }
             else {

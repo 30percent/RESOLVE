@@ -109,21 +109,17 @@ public class Analyzer extends ResolveConceptualVisitor {
      * but this flag will cause it to be performed everywhere and turn off the
      * "best effort" part, generating errors when its not possible.</p>
      */
-    private final static String FLAG_DESC_TYPECHECK =
-            "Perform full mathematical typechecking.";
+    private final static String FLAG_DESC_TYPECHECK = "Perform full mathematical typechecking.";
 
     /**
      * <p>Turns on a number of sanity checks, including checking to make sure
      * that function calls use the correct number of arguments, and realizations
      * use appropriate parameter modes given their specifications.</p>
      */
-    private final static String FLAG_DESC_SANITYCHECK =
-            "Check for common errors.";
+    private final static String FLAG_DESC_SANITYCHECK = "Check for common errors.";
 
-    public static final Flag FLAG_TYPECHECK =
-            new Flag(SECTION_NAME, "typecheck", FLAG_DESC_TYPECHECK);
-    public static final Flag FLAG_SANITYCHECK =
-            new Flag(SECTION_NAME, "sanitycheck", FLAG_DESC_SANITYCHECK);
+    public static final Flag FLAG_TYPECHECK = new Flag(SECTION_NAME, "typecheck", FLAG_DESC_TYPECHECK);
+    public static final Flag FLAG_SANITYCHECK = new Flag(SECTION_NAME, "sanitycheck", FLAG_DESC_SANITYCHECK);
 
     // Variables 
 
@@ -240,8 +236,7 @@ public class Analyzer extends ResolveConceptualVisitor {
         visitModuleParameterList(dec.getParameters());
         if (myInstanceEnvironment.flags.isFlagSet(FLAG_TYPECHECK)
                 || myInstanceEnvironment.flags.isFlagSet(Prover.FLAG_PROVE)
-                || myInstanceEnvironment.flags
-                        .isFlagSet(Prover.FLAG_LEGACY_PROVE)) {
+                || myInstanceEnvironment.flags.isFlagSet(Prover.FLAG_LEGACY_PROVE)) {
 
             visitDecList(dec.getDecs());
         }
@@ -292,8 +287,7 @@ public class Analyzer extends ResolveConceptualVisitor {
         //variable.  Would like to do this functionally, but I don't want to
         //break things by changing public method type signatures.  -HwS
         ModuleID id = ModuleID.createConceptID(dec.getConceptName());
-        myAssociatedConceptSymbolTable =
-                myInstanceEnvironment.getSymbolTable(id);
+        myAssociatedConceptSymbolTable = myInstanceEnvironment.getSymbolTable(id);
 
         table.beginModuleScope();
         visitModuleParameterList(dec.getParameters());
@@ -319,11 +313,8 @@ public class Analyzer extends ResolveConceptualVisitor {
         //We're going to need this deeper in the tree, so save it to a global
         //variable.  Would like to do this functionally, but I don't want to
         //break things by changing public method type signatures.  -HwS
-        ModuleID id =
-                ModuleID.createEnhancementID(dec.getEnhancementName(), dec
-                        .getConceptName());
-        myAssociatedConceptSymbolTable =
-                myInstanceEnvironment.getSymbolTable(id);
+        ModuleID id = ModuleID.createEnhancementID(dec.getEnhancementName(), dec.getConceptName());
+        myAssociatedConceptSymbolTable = myInstanceEnvironment.getSymbolTable(id);
 
         table.beginModuleScope();
         // check instantiation of enhancement bodies
@@ -376,10 +367,8 @@ public class Analyzer extends ResolveConceptualVisitor {
         if (dec.getParameters() != null) {
             List<MathVarDec> params1 = dec.getParameters();
             Iterator<MathVarDec> i = params1.iterator();
-            if (!i.hasNext()
-                    && !(getMathType(dec.getReturnTy()) instanceof FunctionType)) {
-                if (dec.getDefinition() == null && dec.getBase() == null
-                        && dec.getHypothesis() == null) {
+            if (!i.hasNext() && !(getMathType(dec.getReturnTy()) instanceof FunctionType)) {
+                if (dec.getDefinition() == null && dec.getBase() == null && dec.getHypothesis() == null) {
                     return true;
                 }
             }
@@ -433,8 +422,7 @@ public class Analyzer extends ResolveConceptualVisitor {
                     && ((findReference(name, ((IfExp) newExp).getElseclause())));
         }
         else if (newExp instanceof AlternativeExp) {
-            Iterator<AltItemExp> it =
-                    ((AlternativeExp) newExp).getAlternatives().iterator();
+            Iterator<AltItemExp> it = ((AlternativeExp) newExp).getAlternatives().iterator();
             while (it.hasNext()) {
                 if (findReference(name, it.next().getAssignment()) == false)
                     return false;
@@ -475,8 +463,8 @@ public class Analyzer extends ResolveConceptualVisitor {
                 || (name.equals("<<_>>") && exp.getOperator() == OutfixExp.DBL_ANGLE)
                 || (name.equals("[_]") && exp.getOperator() == OutfixExp.SQUARE)
                 || (name.equals("[[_]]") && exp.getOperator() == OutfixExp.DBL_SQUARE)
-                || (name.equals("|_|") && exp.getOperator() == OutfixExp.BAR) || (name
-                .equals("||_||") && exp.getOperator() == OutfixExp.DBL_BAR));
+                || (name.equals("|_|") && exp.getOperator() == OutfixExp.BAR) || (name.equals("||_||") && exp
+                .getOperator() == OutfixExp.DBL_BAR));
     }
 
     private DefinitionEntry getDefinitionEntry(DefinitionDec d) {
@@ -504,8 +492,7 @@ public class Analyzer extends ResolveConceptualVisitor {
             try {
                 if (dec instanceof DefinitionDec) {
                     DefinitionDec dec1 = ((DefinitionDec) dec);
-                    DefinitionLocator locator =
-                            new DefinitionLocator(table, true, tm, err);
+                    DefinitionLocator locator = new DefinitionLocator(table, true, tm, err);
                     PosSymbol searchKey = dec1.getName();
                     msg = "definition " + searchKey;
                     DefinitionEntry entry = locator.locateDefinition(searchKey);
@@ -840,14 +827,12 @@ public class Analyzer extends ResolveConceptualVisitor {
                 if (!matcher.programMatches(vtype, atype)) {
                     Location loc = stmt.getAssign().getLocation();
                     String msg =
-                            expectedDiffTypeMessage(vtype.getRelativeName(loc),
-                                    atype.getRelativeName(loc));
+                            expectedDiffTypeMessage(vtype.getRelativeName(loc), atype.getRelativeName(loc));
                     err.error(loc, msg);
                     return;
                 }
             }
-            if (!myInstanceEnvironment.flags
-                    .isFlagSet(PrettyJavaTranslator.FLAG_TRANSLATE)) {
+            if (!myInstanceEnvironment.flags.isFlagSet(PrettyJavaTranslator.FLAG_TRANSLATE)) {
                 // Making sure that we do not have something of VariableExp on the right hand side
                 // in a function assignment. - YS
                 if (petr.isVariable(stmt.getAssign())) {
@@ -919,9 +904,7 @@ public class Analyzer extends ResolveConceptualVisitor {
                 if (!matcher.programMatches(vtype1, vtype2)) {
                     Location loc = stmt.getRight().getLocation();
                     String msg =
-                            expectedDiffTypeMessage(
-                                    vtype1.getRelativeName(loc), vtype2
-                                            .getRelativeName(loc));
+                            expectedDiffTypeMessage(vtype1.getRelativeName(loc), vtype2.getRelativeName(loc));
                     err.error(loc, msg);
                 }
             }
@@ -986,8 +969,7 @@ public class Analyzer extends ResolveConceptualVisitor {
      */
     private void doHypothesisStuff(DefinitionDec dec, Type definitionReturnType) {
         if (dec.getHypothesis() != null) {
-            if (!checkSelfReference(dec.getName().getName(), dec
-                    .getHypothesis())) {
+            if (!checkSelfReference(dec.getName().getName(), dec.getHypothesis())) {
 
                 String msg = noSelfReference();
                 err.error(dec.getHypothesis().getLocation(), msg);
@@ -1011,8 +993,7 @@ public class Analyzer extends ResolveConceptualVisitor {
     // -----------------------------------------------------------
     // Symbol Table searching methods
     // -----------------------------------------------------------
-    private DefinitionEntry getDefinitionByName(Symbol name)
-            throws NotFoundException {
+    private DefinitionEntry getDefinitionByName(Symbol name) throws NotFoundException {
         DefinitionEntry retval;
 
         ModuleScope curModuleScope = table.getModuleScope();
@@ -1230,12 +1211,11 @@ public class Analyzer extends ResolveConceptualVisitor {
      *
      * @return The error message.
      */
-    private String noSuchEnhancementRealization(String realizationName,
-            String enhancementName, String conceptName) {
+    private String noSuchEnhancementRealization(String realizationName, String enhancementName,
+            String conceptName) {
 
-        return "Cannot find a realization called " + realizationName
-                + " for enhancement " + enhancementName + " to concept "
-                + conceptName + ".";
+        return "Cannot find a realization called " + realizationName + " for enhancement " + enhancementName
+                + " to concept " + conceptName + ".";
     }
 
     /**
@@ -1247,11 +1227,9 @@ public class Analyzer extends ResolveConceptualVisitor {
      * 
      * @return The error message.
      */
-    private String noSuchEnhancementConcept(String enhancementName,
-            String conceptName) {
+    private String noSuchEnhancementConcept(String enhancementName, String conceptName) {
 
-        return "Cannot find an enhancement " + enhancementName + " to "
-                + " concept " + conceptName + ".";
+        return "Cannot find an enhancement " + enhancementName + " to " + " concept " + conceptName + ".";
     }
 
     private String expectedProcMessage() {
@@ -1297,12 +1275,10 @@ public class Analyzer extends ResolveConceptualVisitor {
      *                      
      * @return The error message.
      */
-    private String incompatibleParameterModes(Mode operationMode,
-            Mode procedureMode) {
+    private String incompatibleParameterModes(Mode operationMode, Mode procedureMode) {
 
-        return "Corresponding parameter in " + myCurrentModuleName
-                + " is in mode '" + operationMode + "'.  Here, this parameter "
-                + "is implemented with mode '" + procedureMode + "'.  This is "
+        return "Corresponding parameter in " + myCurrentModuleName + " is in mode '" + operationMode
+                + "'.  Here, this parameter " + "is implemented with mode '" + procedureMode + "'.  This is "
                 + "not allowed.";
     }
 
@@ -1320,13 +1296,10 @@ public class Analyzer extends ResolveConceptualVisitor {
      *                      
      * @return The error message.
      */
-    private String incompatibleParameterTypes(String iName, Type operationType,
-            Type procedureType) {
+    private String incompatibleParameterTypes(String iName, Type operationType, Type procedureType) {
 
-        return "Incorrect parameter type " + procedureType.toString()
-                + " in procedure, does not match " + "type "
-                + operationType.toString() + " in corresponding operation of "
-                + iName + ":";
+        return "Incorrect parameter type " + procedureType.toString() + " in procedure, does not match "
+                + "type " + operationType.toString() + " in corresponding operation of " + iName + ":";
         /*return "Corresponding parameter in " + myCurrentConceptName +
         	" is of type " + operationType + " and does not match the " +
         	"type used here (" + procedureType + ").";*/
@@ -1354,8 +1327,8 @@ public class Analyzer extends ResolveConceptualVisitor {
      * @return The error message.
      */
     private String noMatchingOperation(Symbol name) {
-        return "No operation named " + name + " to match this procedure in "
-                + "concept " + myCurrentModuleName + ".";
+        return "No operation named " + name + " to match this procedure in " + "concept "
+                + myCurrentModuleName + ".";
     }
 
     /**
@@ -1384,8 +1357,7 @@ public class Analyzer extends ResolveConceptualVisitor {
      * definition exists.
      */
     private String noSuchDefinition(Symbol name) {
-        return "This parameter expects a definition.  No definition found "
-                + "named '" + name + "'.";
+        return "This parameter expects a definition.  No definition found " + "named '" + name + "'.";
     }
 
     /**
@@ -1395,8 +1367,7 @@ public class Analyzer extends ResolveConceptualVisitor {
      * @return The error message.
      */
     private String noSuchVariableName(Symbol name) {
-        return "This parameter expects a variable.  No variable found "
-                + "named '" + name + "'.";
+        return "This parameter expects a variable.  No variable found " + "named '" + name + "'.";
     }
 
     /**
@@ -1406,8 +1377,8 @@ public class Analyzer extends ResolveConceptualVisitor {
      * @return The error message.
      */
     private String incompatibleDefinitionTypesMessage(Type expected, Type given) {
-        return "Expected a definition with type: " + expected + "\n"
-                + "Given a definition with type: " + given;
+        return "Expected a definition with type: " + expected + "\n" + "Given a definition with type: "
+                + given;
     }
 
     /** Returns a well-formatted error message indicating that an expression
@@ -1450,11 +1421,9 @@ public class Analyzer extends ResolveConceptualVisitor {
      * 
      * @return The full error message.
      */
-    private String problemWithProvidedOperationMessage(
-            int problemParameterIndex, String problem) {
+    private String problemWithProvidedOperationMessage(int problemParameterIndex, String problem) {
         return "Parameter " + problemParameterIndex + " (counting from 1) "
-                + "of provided operation caused the following error:\n"
-                + problem;
+                + "of provided operation caused the following error:\n" + problem;
     }
 
     /** 
@@ -1478,8 +1447,7 @@ public class Analyzer extends ResolveConceptualVisitor {
     }
 
     private String changeNotPermitted(String varName) {
-        return varName + " does no appear in the changing clause and "
-                + "therefore cannot be modified.";
+        return varName + " does no appear in the changing clause and " + "therefore cannot be modified.";
     }
 
     /*private String operationNotFoundMessage(String enhancementRealizationName) {
@@ -1496,8 +1464,7 @@ public class Analyzer extends ResolveConceptualVisitor {
      * @param syms List of missing procedures
      * @return
      */
-    private String foundMissingProceduresMessage(String name, String iName,
-            List<OperationEntry> syms) {
+    private String foundMissingProceduresMessage(String name, String iName, List<OperationEntry> syms) {
         String msg = "\n" + name;
         Boolean plural = (syms.size() != 1);
         if (!plural)
@@ -1512,9 +1479,7 @@ public class Analyzer extends ResolveConceptualVisitor {
         Iterator<OperationEntry> it = syms.iterator();
         while (it.hasNext()) {
             entry = it.next();
-            msg +=
-                    err.printErrorLine(entry.getLocation().getFile(), entry
-                            .getLocation().getPos());
+            msg += err.printErrorLine(entry.getLocation().getFile(), entry.getLocation().getPos());
         }
         return msg;
     }
@@ -1537,8 +1502,7 @@ public class Analyzer extends ResolveConceptualVisitor {
      *         element corresponds to the type of the first parameter in 
      *         <code>parameters</code>, the second to the second, and so forth.
      */
-    private List<Type> getParameterVarDecTypes(
-            Collection<ParameterVarDec> parameters) {
+    private List<Type> getParameterVarDecTypes(Collection<ParameterVarDec> parameters) {
 
         List<Type> parameterTypes = new List<Type>();
 
@@ -1562,8 +1526,7 @@ public class Analyzer extends ResolveConceptualVisitor {
      *         element corresponds to the mode of the first parameter in 
      *         <code>parameters</code>, the second to the second, and so forth.
      */
-    private List<Mode> getParameterVarDecModes(
-            Collection<ParameterVarDec> parameters) {
+    private List<Mode> getParameterVarDecModes(Collection<ParameterVarDec> parameters) {
 
         List<Mode> parameterModes = new List<Mode>();
 
@@ -1641,11 +1604,9 @@ public class Analyzer extends ResolveConceptualVisitor {
      * @throws SanityCheckException If an operation with the given name cannot
      *                              be found.
      */
-    private OperationEntry getConceptOperation(Symbol name)
-            throws SanityCheckException {
+    private OperationEntry getConceptOperation(Symbol name) throws SanityCheckException {
 
-        ModuleScope conceptModuleScope =
-                myAssociatedConceptSymbolTable.getModuleScope();
+        ModuleScope conceptModuleScope = myAssociatedConceptSymbolTable.getModuleScope();
 
         OperationEntry operation = null;
 

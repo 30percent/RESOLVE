@@ -88,8 +88,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
         //Ensure this is the first element of the dec
         if (this.getParent() == null) {
             //			 System.out.println("Resetting encounteredProcedures");
-            myCompileEnvironment.encounteredProcedures =
-                    new List<ProcedureDec>();
+            myCompileEnvironment.encounteredProcedures = new List<ProcedureDec>();
         }
     }
 
@@ -154,25 +153,19 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
         if (realizProfileName != null) {
             PosSymbol realizSym = dec.getBodyName();
             ModuleID realizID = ModuleID.createConceptBodyID(realizSym, conSym);
-            ConceptBodyModuleDec bodyDec =
-                    (ConceptBodyModuleDec) myCompileEnvironment
-                            .getModuleDec(realizID);
+            ConceptBodyModuleDec bodyDec = (ConceptBodyModuleDec) myCompileEnvironment.getModuleDec(realizID);
             sanityCheckPerformanceProfiles(realizProfileName, bodyDec);
         }
-        Iterator<EnhancementBodyItem> it =
-                dec.getEnhancementBodies().iterator();
+        Iterator<EnhancementBodyItem> it = dec.getEnhancementBodies().iterator();
         while (it.hasNext()) {
             EnhancementBodyItem itemDec = it.next();
             PosSymbol itemProfileName = itemDec.getProfileName();
             if (itemProfileName != null) {
                 PosSymbol enhSym = itemDec.getName();
                 PosSymbol enhRealizSym = itemDec.getBodyName();
-                ModuleID realizID =
-                        ModuleID.createEnhancementBodyID(enhRealizSym, enhSym,
-                                conSym);
+                ModuleID realizID = ModuleID.createEnhancementBodyID(enhRealizSym, enhSym, conSym);
                 EnhancementBodyModuleDec bodyDec =
-                        (EnhancementBodyModuleDec) myCompileEnvironment
-                                .getModuleDec(realizID);
+                        (EnhancementBodyModuleDec) myCompileEnvironment.getModuleDec(realizID);
                 sanityCheckPerformanceProfiles(itemProfileName, bodyDec);
             }
         }
@@ -181,13 +174,12 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
     @Override
     public void preConceptBodyModuleDec(ConceptBodyModuleDec dec) {
         ModuleID id = ModuleID.createConceptID(dec.getConceptName());
-        myAssociatedConceptSymbolTable =
-                myCompileEnvironment.getSymbolTable(id);
+        myAssociatedConceptSymbolTable = myCompileEnvironment.getSymbolTable(id);
         myCurrentConceptBodyModuleDec = dec;
 
         // Check to make sure realization implements the necessary procedures
-        sanityCheckImplementedProcedures(dec.getName().getName(), dec
-                .getLocalProcedureNames(), myAssociatedConceptSymbolTable);
+        sanityCheckImplementedProcedures(dec.getName().getName(), dec.getLocalProcedureNames(),
+                myAssociatedConceptSymbolTable);
     }
 
     @Override
@@ -197,15 +189,12 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
 
     @Override
     public void preEnhancementBodyModuleDec(EnhancementBodyModuleDec dec) {
-        ModuleID id =
-                ModuleID.createEnhancementID(dec.getEnhancementName(), dec
-                        .getConceptName());
-        myAssociatedConceptSymbolTable =
-                myCompileEnvironment.getSymbolTable(id);
+        ModuleID id = ModuleID.createEnhancementID(dec.getEnhancementName(), dec.getConceptName());
+        myAssociatedConceptSymbolTable = myCompileEnvironment.getSymbolTable(id);
 
         // Check to make sure realization implements the necessary procedures
-        sanityCheckImplementedProcedures(dec.getName().getName(), dec
-                .getLocalProcedureNames(), myAssociatedConceptSymbolTable);
+        sanityCheckImplementedProcedures(dec.getName().getName(), dec.getLocalProcedureNames(),
+                myAssociatedConceptSymbolTable);
     }
 
     @Override
@@ -231,8 +220,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
         OperationDec associatedOperationDec = null;
         ModuleID conceptModuleId = myAssociatedConceptSymbolTable.getModuleID();
         Dec conceptDec = myCompileEnvironment.getModuleDec(conceptModuleId);
-        if (conceptDec instanceof EnhancementModuleDec
-                || conceptDec instanceof ConceptModuleDec) {
+        if (conceptDec instanceof EnhancementModuleDec || conceptDec instanceof ConceptModuleDec) {
             List<Dec> decs;
             if (conceptDec instanceof EnhancementModuleDec) {
                 decs = ((EnhancementModuleDec) conceptDec).getDecs();
@@ -251,13 +239,11 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
                 }
             }
         }
-        if (associatedOperationDec != null
-                && associatedOperationDec.getEnsures() != null) {
+        if (associatedOperationDec != null && associatedOperationDec.getEnsures() != null) {
             //Check to make sure procedure has a decreasing if it is recursive
             if (dec.getRecursive() && dec.getDecreasing() == null) {
                 err
-                        .error(
-                                dec.getName().getLocation(),
+                        .error(dec.getName().getLocation(),
                                 "Cannot leave out the Decreasing clause of a recursive procedure when specified with an Ensures clause.");
             }
         }
@@ -286,30 +272,23 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
                 List<ParameterVarDec> procParam = dec.getParameters();
 
                 // Get the mode for each operation parameter
-                List<Mode> operationParameterModes =
-                        getParameterVarEntryModes(operation.getParameters());
+                List<Mode> operationParameterModes = getParameterVarEntryModes(operation.getParameters());
 
                 // Get the mode for each procedure parameter
-                List<Mode> procedureParameterModes =
-                        getParameterVarDecModes(dec.getParameters());
+                List<Mode> procedureParameterModes = getParameterVarDecModes(dec.getParameters());
 
                 // Make sure that the number of arguments is the same
                 correctNumberOfParameters = sizeOfOpParam == procParam.size();
 
                 if (correctNumberOfParameters) {
-                    sanityCheckProcedureParameterModes(operationParameterModes,
-                            procedureParameterModes, operation, dec);
+                    sanityCheckProcedureParameterModes(operationParameterModes, procedureParameterModes,
+                            operation, dec);
                 }
                 else {
                     // Parameter count mismatch
-                    String iName =
-                            myAssociatedConceptSymbolTable.getModuleID()
-                                    .getName().toString();
-                    err
-                            .error(
-                                    dec.getName().getLocation(),
-                                    operation.getName().getLocation(),
-                                    procedureParameterCountDoesNotMatchOperation(iName));
+                    String iName = myAssociatedConceptSymbolTable.getModuleID().getName().toString();
+                    err.error(dec.getName().getLocation(), operation.getName().getLocation(),
+                            procedureParameterCountDoesNotMatchOperation(iName));
                 }
             }
         }
@@ -381,8 +360,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
 
         //sanityCheckPrimaryOperation(stmt.getName().getSymbol(), stmt.getName()
         //.getLocation());
-        sanityCheckParamModeChanging(stmt.getName().getSymbol(), stmt
-                .getArguments());
+        sanityCheckParamModeChanging(stmt.getName().getSymbol(), stmt.getArguments());
 
     }
 
@@ -390,8 +368,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
 
     @Override
     public void preProgramParamExp(ProgramParamExp exp) {
-        sanityCheckParamModeChanging(exp.getName().getSymbol(), exp
-                .getArguments());
+        sanityCheckParamModeChanging(exp.getName().getSymbol(), exp.getArguments());
         //sanityCheckPrimaryOperation(exp.getName().getSymbol(), exp
         //.getLocation());
     }
@@ -447,8 +424,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
                     if (tempExp instanceof VariableExp) {
                         // Only if the arg will NOT be preserved, restored, or
                         // evaluated should we check for changing
-                        if (!Mode.equals(mode, Mode.PRESERVES)
-                                && !Mode.equals(mode, Mode.RESTORES)
+                        if (!Mode.equals(mode, Mode.PRESERVES) && !Mode.equals(mode, Mode.RESTORES)
                                 && !Mode.equals(mode, Mode.EVALUATES)) {
                             sanityCheckChanging((VariableExp) tempExp);
                         }
@@ -500,8 +476,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
         // This should be hit by If and While condition statements
         if (myCurrentConceptBodyModuleDec != null) {
             List<Symbol> operationList =
-                    myAssociatedConceptSymbolTable.getModuleScope()
-                            .getLocalOperationNames();
+                    myAssociatedConceptSymbolTable.getModuleScope().getLocalOperationNames();
 
             if (operationList.contains(sym)) {
                 // fails if an operation from a facility with the same name is used
@@ -527,8 +502,8 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      *            global variables given in the 'affects' clause of the
      *            operation for which <code>requires</code> is provided.
      */
-    private void sanityCheckRequires(Exp requires,
-            List<ParameterVarDec> parameters, List<AffectsItem> affectedItems) {
+    private void sanityCheckRequires(Exp requires, List<ParameterVarDec> parameters,
+            List<AffectsItem> affectedItems) {
 
         // If no requires clause was given, don't bother
         if (requires != null) {
@@ -543,8 +518,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
             // Referring to initial values in the requires clause is not
             // permitted, so output an error for every one in the list
             for (PosSymbol curVariable : initialVariables) {
-                err.error(curVariable.getLocation(),
-                        noOldVariablesInRequiresMessage());
+                err.error(curVariable.getLocation(), noOldVariablesInRequiresMessage());
             }
 
             // Make sure all the referrences to final values are kosher
@@ -564,8 +538,8 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      *            A <code>List</code> of the parameters to the operation
      *            corresponding to this requires clause.
      */
-    private void sanityCheckFinalRequiresVariables(
-            List<PosSymbol> finalVariables, List<ParameterVarDec> parameters) {
+    private void sanityCheckFinalRequiresVariables(List<PosSymbol> finalVariables,
+            List<ParameterVarDec> parameters) {
 
     //This logic is wrong.  In particular, just because a variable is not
     //introduced by a parameter does not mean it is global--it could have
@@ -606,28 +580,23 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      *            The 'affects' claus of the operation corresponding to this
      *            ensures clause.
      */
-    private void sanityCheckInitialEnsuresVariables(
-            List<PosSymbol> initialVariables, List<ParameterVarDec> parameters,
-            List<AffectsItem> affectedItems) {
+    private void sanityCheckInitialEnsuresVariables(List<PosSymbol> initialVariables,
+            List<ParameterVarDec> parameters, List<AffectsItem> affectedItems) {
         ParameterVarDec wrkParameter;
         Mode wrkMode;
         for (PosSymbol curVariable : initialVariables) {
-            wrkParameter =
-                    getParameterByName(parameters, curVariable.getSymbol());
+            wrkParameter = getParameterByName(parameters, curVariable.getSymbol());
 
             if (wrkParameter == null) {
                 // Globals must be listed in the affects clause
-                if (!affectedItemsIncludes(affectedItems, curVariable
-                        .getSymbol())) {
-                    err.error(curVariable.getLocation(),
-                            cannotChangeValueOfUnAffectedVariableMessage());
+                if (!affectedItemsIncludes(affectedItems, curVariable.getSymbol())) {
+                    err.error(curVariable.getLocation(), cannotChangeValueOfUnAffectedVariableMessage());
                 }
             }
             else {
                 wrkMode = wrkParameter.getMode();
                 if (!validInitialMode(wrkMode)) {
-                    err.error(curVariable.getLocation(),
-                            invalidModeForInitialEnsures(wrkMode));
+                    err.error(curVariable.getLocation(), invalidModeForInitialEnsures(wrkMode));
                 }
             }
         }
@@ -645,13 +614,12 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      *            A <code>List</code> of the parameters to the operation
      *            corresponding to this ensures clause.
      */
-    private void sanityCheckFinalEnsuresVariables(
-            List<PosSymbol> finalVariables, List<ParameterVarDec> parameters) {
+    private void sanityCheckFinalEnsuresVariables(List<PosSymbol> finalVariables,
+            List<ParameterVarDec> parameters) {
         ParameterVarDec wrkParameter;
         Mode wrkMode;
         for (PosSymbol curVariable : finalVariables) {
-            wrkParameter =
-                    getParameterByName(parameters, curVariable.getSymbol());
+            wrkParameter = getParameterByName(parameters, curVariable.getSymbol());
 
             if (wrkParameter == null) {
                 // If it wasn't a parameter, it must be a global. Currently,
@@ -660,8 +628,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
             else {
                 wrkMode = wrkParameter.getMode();
                 if (!validFinalMode(wrkMode)) {
-                    err.error(curVariable.getLocation(),
-                            invalidModeForFinalEnsures(wrkMode));
+                    err.error(curVariable.getLocation(), invalidModeForFinalEnsures(wrkMode));
                 }
             }
         }
@@ -684,8 +651,8 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      *            global variables given in the 'affects' clause of the
      *            operation for which <code>ensures</code> is provided.
      */
-    private void sanityCheckEnsures(Exp ensures,
-            List<ParameterVarDec> parameters, List<AffectsItem> affectedItems) {
+    private void sanityCheckEnsures(Exp ensures, List<ParameterVarDec> parameters,
+            List<AffectsItem> affectedItems) {
 
         // Don't bother if there's no ensures clause
         if (ensures != null) {
@@ -698,8 +665,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
             getContainedVariables(ensures, finalVariables, initialVariables);
 
             // Make sure all the referrences to old values are kosher
-            sanityCheckInitialEnsuresVariables(initialVariables, parameters,
-                    affectedItems);
+            sanityCheckInitialEnsuresVariables(initialVariables, parameters, affectedItems);
 
             // Make sure all the referrences to new values are kosher
             sanityCheckFinalEnsuresVariables(finalVariables, parameters);
@@ -721,12 +687,10 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      *            retrieve the list of operations required to be implemented)
      * @throw SanityCheckException Thrown if the missingList List is not empty
      */
-    private void sanityCheckImplementedProcedures(String name,
-            List<Symbol> procedureList, OldSymbolTable st) {
+    private void sanityCheckImplementedProcedures(String name, List<Symbol> procedureList, OldSymbolTable st) {
         boolean isMatch = false;
         List<OperationEntry> missingList = new List<OperationEntry>();
-        List<Symbol> operationList =
-                st.getModuleScope().getLocalOperationNames();
+        List<Symbol> operationList = st.getModuleScope().getLocalOperationNames();
         ModuleScope scope = st.getModuleScope();
         String iName = scope.getScopeID().getModuleID().getName().toString();
         try {
@@ -751,8 +715,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
                 isMatch = false;
             }
             if (missingList.size() != 0) {
-                throw new SanityCheckException(foundMissingProceduresMessage(
-                        name, iName, missingList));
+                throw new SanityCheckException(foundMissingProceduresMessage(name, iName, missingList));
             }
             /*
              * while(it.hasNext()){ Symbol operation = it.next();
@@ -779,28 +742,22 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      * @throws SanityCheckException If the <code>procedureMode</code> is not a
      * valid implementation of the <code>operationMode</code>.
      */
-    private void sanityCheckParameterModeStrength(Mode operationMode,
-            Mode procedureMode) throws SanityCheckException {
+    private void sanityCheckParameterModeStrength(Mode operationMode, Mode procedureMode)
+            throws SanityCheckException {
 
         if (!Mode.implementsCompatible(procedureMode, operationMode)) {
-            String iName =
-                    myAssociatedConceptSymbolTable.getModuleID().getName()
-                            .toString();
-            throw new SanityCheckException(incompatibleParameterModes(iName,
-                    operationMode, procedureMode));
+            String iName = myAssociatedConceptSymbolTable.getModuleID().getName().toString();
+            throw new SanityCheckException(incompatibleParameterModes(iName, operationMode, procedureMode));
             // incompatibleParameterModes(operationMode, procedureMode));
         }
     }
 
-    private void sanityCheckProcedureParameterModes(
-            List<Mode> operationParameterModes,
-            List<Mode> procedureParameterModes, OperationEntry operation,
-            ProcedureDec procedure) {
+    private void sanityCheckProcedureParameterModes(List<Mode> operationParameterModes,
+            List<Mode> procedureParameterModes, OperationEntry operation, ProcedureDec procedure) {
 
         // Check each parameter against its sister, report any errors
         Mode curOperationMode, curProcedureMode;
-        for (int curArgumentIndex = 0; curArgumentIndex < operationParameterModes
-                .size(); curArgumentIndex++) {
+        for (int curArgumentIndex = 0; curArgumentIndex < operationParameterModes.size(); curArgumentIndex++) {
 
             curOperationMode = operationParameterModes.get(curArgumentIndex);
             curProcedureMode = procedureParameterModes.get(curArgumentIndex);
@@ -808,24 +765,18 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
             try {
                 // sanityCheckParameterMode
                 // (curOperationMode, curProcedureMode, procedure);
-                sanityCheckParameterModeStrength(curOperationMode,
-                        curProcedureMode);
+                sanityCheckParameterModeStrength(curOperationMode, curProcedureMode);
             }
             catch (SanityCheckException e) {
                 // If we got here, the types did not match up correctly
-                String iName =
-                        myAssociatedConceptSymbolTable.getModuleID().getName()
-                                .toString();
-                Location l1 =
-                        procedure.getParameters().get(curArgumentIndex)
-                                .getName().getLocation();
+                String iName = myAssociatedConceptSymbolTable.getModuleID().getName().toString();
+                Location l1 = procedure.getParameters().get(curArgumentIndex).getName().getLocation();
                 Iterator<VarEntry> it = operation.getParameters();
                 for (int i = 0; i < curArgumentIndex; i++)
                     it.next();
                 Location l2 = it.next().getName().getLocation();
 
-                err.error(l1, l2, incompatibleParameterModes(iName,
-                        curOperationMode, curProcedureMode));
+                err.error(l1, l2, incompatibleParameterModes(iName, curOperationMode, curProcedureMode));
             }
         }
     }
@@ -843,21 +794,16 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      *            The expression that we're trying to change.
      */
     private void sanityCheckChanging(VariableExp varExp) {
-        List<VariableExp> changingExpressions =
-                myCurWhileStatement.getChanging();
+        List<VariableExp> changingExpressions = myCurWhileStatement.getChanging();
 
         VariableNameExp exp;
 
         if (varExp instanceof VariableDotExp) {
-            exp =
-                    (VariableNameExp) ((VariableDotExp) varExp).getSegments()
-                            .get(0);
+            exp = (VariableNameExp) ((VariableDotExp) varExp).getSegments().get(0);
         }
         else if (varExp instanceof VariableArrayExp) {
             VariableArrayExp arrayExp = (VariableArrayExp) varExp;
-            exp =
-                    new VariableNameExp(arrayExp.getLocation(), arrayExp
-                            .getQualifier(), arrayExp.getName());
+            exp = new VariableNameExp(arrayExp.getLocation(), arrayExp.getQualifier(), arrayExp.getName());
         }
         else {
             exp = (VariableNameExp) varExp;
@@ -867,17 +813,13 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
         VariableNameExp curChangingExpression;
 
         if (changingExpressions != null) {
-            Iterator<VariableExp> changingExpressionsIterator =
-                    changingExpressions.iterator();
+            Iterator<VariableExp> changingExpressionsIterator = changingExpressions.iterator();
             while (changingExpressionsIterator.hasNext() && !changeOk) {
 
                 try {
-                    curChangingExpression =
-                            (VariableNameExp) changingExpressionsIterator
-                                    .next();
+                    curChangingExpression = (VariableNameExp) changingExpressionsIterator.next();
 
-                    if (exp.getName().getSymbol() == curChangingExpression
-                            .getName().getSymbol()) {
+                    if (exp.getName().getSymbol() == curChangingExpression.getName().getSymbol()) {
 
                         changeOk = true;
                     }
@@ -908,8 +850,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
 
         VariableExp lhs = stmt.getLeft();
         VariableExp rhs = stmt.getRight();
-        if (!(lhs instanceof VariableArrayExp)
-                || !(rhs instanceof VariableArrayExp)) {
+        if (!(lhs instanceof VariableArrayExp) || !(rhs instanceof VariableArrayExp)) {
             if (lhs instanceof VariableArrayExp) {
 
             }
@@ -925,8 +866,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
             String lhsName = ((VariableArrayExp) lhs).getName().getName();
             String rhsName = ((VariableArrayExp) rhs).getName().getName();
             if (!lhsName.equals(rhsName)) {
-                err.error(rhs.getLocation(), errorArrayNamesMismatch(lhsName,
-                        rhsName));
+                err.error(rhs.getLocation(), errorArrayNamesMismatch(lhsName, rhsName));
             }
         }
 
@@ -954,12 +894,10 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
             realizName = ((EnhancementBodyModuleDec) dec).getName();
         }
         if (decProfile == null) {
-            err.error(profile.getLocation(), performanceProfileMismatch(
-                    profile, realizName));
+            err.error(profile.getLocation(), performanceProfileMismatch(profile, realizName));
         }
         else if (!decProfile.getName().equals(profile.getName())) {
-            err.error(profile.getLocation(), performanceProfileMismatch(
-                    profile, realizName));
+            err.error(profile.getLocation(), performanceProfileMismatch(profile, realizName));
         }
     }
 
@@ -978,8 +916,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      * @return True iff one of the <code>AffectsItem</code>s is named
      *         <code>name</code>.
      */
-    private boolean affectedItemsIncludes(List<AffectsItem> affectedItems,
-            Symbol name) {
+    private boolean affectedItemsIncludes(List<AffectsItem> affectedItems, Symbol name) {
 
         boolean retval = false;
 
@@ -1012,8 +949,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      * @return The parameter as a <code>ParameterVarDec</code>, or
      *         <code>null</code> if there is no such parameter.
      */
-    private ParameterVarDec getParameterByName(
-            List<ParameterVarDec> parameters, Symbol name) {
+    private ParameterVarDec getParameterByName(List<ParameterVarDec> parameters, Symbol name) {
 
         ParameterVarDec retval = null;
 
@@ -1059,9 +995,8 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      *         of a variable in the given mode.
      */
     private boolean validFinalMode(Mode m) {
-        return (m == Mode.UPDATES || m == Mode.REPLACES || m == Mode.PRESERVES
-                || m == Mode.RESTORES || m == Mode.EVALUATES
-                || m == Mode.CLEARS || m == Mode.REASSIGNS);
+        return (m == Mode.UPDATES || m == Mode.REPLACES || m == Mode.PRESERVES || m == Mode.RESTORES
+                || m == Mode.EVALUATES || m == Mode.CLEARS || m == Mode.REASSIGNS);
     }
 
     /**
@@ -1083,8 +1018,8 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      *            The <code>List</code> into which to accumulate variables that
      *            are referred to for their initial value.
      */
-    private void getContainedVariables(Exp expression, boolean initial,
-            List<PosSymbol> finalVariables, List<PosSymbol> initialVariables) {
+    private void getContainedVariables(Exp expression, boolean initial, List<PosSymbol> finalVariables,
+            List<PosSymbol> initialVariables) {
 
     //This logic is wrong.  In particular, an OldExp around a function
     //call should apply to the functio name and not the parameters.
@@ -1119,19 +1054,15 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      * <code>initial</code> to false as a default. See the comment for the
      * recursive method.
      */
-    private void getContainedVariables(Exp expression,
-            List<PosSymbol> finalVariables, List<PosSymbol> initialVariables) {
-        getContainedVariables(expression, false, finalVariables,
-                initialVariables);
+    private void getContainedVariables(Exp expression, List<PosSymbol> finalVariables,
+            List<PosSymbol> initialVariables) {
+        getContainedVariables(expression, false, finalVariables, initialVariables);
     }
 
-    private String incompatibleParameterModes(String iName, Mode operationMode,
-            Mode procedureMode) {
+    private String incompatibleParameterModes(String iName, Mode operationMode, Mode procedureMode) {
 
-        return "Incorrect parameter mode \"" + procedureMode.toString()
-                + "\" in procedure, is not " + "compatible with mode \""
-                + operationMode.toString() + "\" in operation of " + iName
-                + ":";
+        return "Incorrect parameter mode \"" + procedureMode.toString() + "\" in procedure, is not "
+                + "compatible with mode \"" + operationMode.toString() + "\" in operation of " + iName + ":";
     }
 
     /*
@@ -1149,14 +1080,11 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      * 
      * @return The error message.
      */
-    private String incompatibleParameterModes(Mode operationMode,
-            Mode procedureMode) {
+    private String incompatibleParameterModes(Mode operationMode, Mode procedureMode) {
 
-        return "Corresponding parameter in "
-                + myCurrentConceptBodyModuleDec.getConceptName().getName()
+        return "Corresponding parameter in " + myCurrentConceptBodyModuleDec.getConceptName().getName()
                 + " is in mode '" + operationMode + "'.  Here, this parameter "
-                + "is implemented with mode '" + procedureMode + "'.  This is "
-                + "not allowed.";
+                + "is implemented with mode '" + procedureMode + "'.  This is " + "not allowed.";
     }
 
     /*
@@ -1170,8 +1098,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      * element corresponds to the mode of the first parameter in
      * <code>parameters</code>, the second to the second, and so forth.
      */
-    private List<Mode> getParameterVarDecModes(
-            Collection<ParameterVarDec> parameters) {
+    private List<Mode> getParameterVarDecModes(Collection<ParameterVarDec> parameters) {
 
         List<Mode> parameterModes = new List<Mode>();
 
@@ -1222,11 +1149,9 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      * @throws SanityCheckException If an operation with the given name cannot
      * be found.
      */
-    private OperationEntry getConceptOperation(Symbol name)
-            throws SanityCheckException {
+    private OperationEntry getConceptOperation(Symbol name) throws SanityCheckException {
 
-        ModuleScope conceptModuleScope =
-                myAssociatedConceptSymbolTable.getModuleScope();
+        ModuleScope conceptModuleScope = myAssociatedConceptSymbolTable.getModuleScope();
 
         OperationEntry operation = null;
 
@@ -1252,8 +1177,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      */
     private String cannotChangeValueOfUnAffectedVariableMessage() {
         return "Referring to initial value of a global variable is not "
-                + "permitted when that variable is not listed in the 'affects' "
-                + "clause.";
+                + "permitted when that variable is not listed in the 'affects' " + "clause.";
     }
 
     /**
@@ -1267,8 +1191,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      * @return The error message.
      */
     private String invalidModeForInitialEnsures(Mode m) {
-        return "Ensures clause cannot use the old value of a variable in '" + m
-                + "' mode.";
+        return "Ensures clause cannot use the old value of a variable in '" + m + "' mode.";
     }
 
     /**
@@ -1282,8 +1205,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      * @return The error message.
      */
     private String invalidModeForFinalEnsures(Mode m) {
-        return "Ensures clause cannot use the final value of a variable in '"
-                + m + "' mode.";
+        return "Ensures clause cannot use the final value of a variable in '" + m + "' mode.";
     }
 
     /**
@@ -1294,8 +1216,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      * @return The error message.
      */
     private String noOldVariablesInRequiresMessage() {
-        return "References to old values are not permitted in a requires "
-                + "clause.";
+        return "References to old values are not permitted in a requires " + "clause.";
     }
 
     /**
@@ -1318,13 +1239,11 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
     }
 
     private String changeNotPermitted(String varName) {
-        return varName + " does not appear in the changing clause and "
-                + "therefore cannot be modified.";
+        return varName + " does not appear in the changing clause and " + "therefore cannot be modified.";
     }
 
     private String errorArrayNamesMismatch(String lhs, String rhs) {
-        return "Invalid swap operation, " + lhs + " and " + rhs + " are not "
-                + "the same array";
+        return "Invalid swap operation, " + lhs + " and " + rhs + " are not " + "the same array";
     }
 
     /**
@@ -1340,8 +1259,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
      *            List of missing procedures
      * @return
      */
-    private String foundMissingProceduresMessage(String name, String iName,
-            List<OperationEntry> syms) {
+    private String foundMissingProceduresMessage(String name, String iName, List<OperationEntry> syms) {
         String msg = "\n" + name;
         Boolean plural = (syms.size() != 1);
         if (!plural)
@@ -1356,9 +1274,7 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
         Iterator<OperationEntry> it = syms.iterator();
         while (it.hasNext()) {
             entry = it.next();
-            msg +=
-                    err.printErrorLine(entry.getLocation().getFile(), entry
-                            .getLocation().getPos());
+            msg += err.printErrorLine(entry.getLocation().getFile(), entry.getLocation().getPos());
         }
         return msg;
     }
@@ -1380,9 +1296,8 @@ public class VisitorSanityCheck extends TreeWalkerStackVisitor {
          */
     }
 
-    private String performanceProfileMismatch(PosSymbol profile,
-            PosSymbol realizName) {
-        return "The module " + realizName.getName() + " does not contain the "
-                + "performance profile " + profile.getName() + ":";
+    private String performanceProfileMismatch(PosSymbol profile, PosSymbol realizName) {
+        return "The module " + realizName.getName() + " does not contain the " + "performance profile "
+                + profile.getName() + ":";
     }
 }

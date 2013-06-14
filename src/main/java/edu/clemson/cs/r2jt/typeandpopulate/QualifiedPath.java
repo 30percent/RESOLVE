@@ -44,9 +44,8 @@ public class QualifiedPath implements ScopeSearchPath {
     }
 
     @Override
-    public <E extends SymbolTableEntry> List<E> searchFromContext(
-            TableSearcher<E> searcher, Scope source, ScopeRepository repo)
-            throws DuplicateSymbolException {
+    public <E extends SymbolTableEntry> List<E> searchFromContext(TableSearcher<E> searcher, Scope source,
+            ScopeRepository repo) throws DuplicateSymbolException {
 
         List<E> result;
 
@@ -54,16 +53,12 @@ public class QualifiedPath implements ScopeSearchPath {
             //Note that this will throw the appropriate SourceErrorException if
             //the returned symbol identifies anything other than a facility
             FacilityEntry facility =
-                    source.queryForOne(
-                            new UnqualifiedNameQuery(myQualifier.getName()))
-                            .toFacilityEntry(myQualifier.getLocation());
+                    source.queryForOne(new UnqualifiedNameQuery(myQualifier.getName())).toFacilityEntry(
+                            myQualifier.getLocation());
 
             Scope facilityScope =
-                    facility
-                            .getFacility()
-                            .getSpecification()
-                            .getScope(
-                                    myFacilityStrategy == FacilityStrategy.FACILITY_INSTANTIATE);
+                    facility.getFacility().getSpecification().getScope(
+                            myFacilityStrategy == FacilityStrategy.FACILITY_INSTANTIATE);
 
             result = facilityScope.getMatches(searcher, SearchContext.FACILITY);
         }
@@ -71,15 +66,12 @@ public class QualifiedPath implements ScopeSearchPath {
             //There's nothing by that name in local scope, so it must be the
             //name of a module
             try {
-                ModuleScope moduleScope =
-                        repo.getModuleScope(new ModuleIdentifier(myQualifier
-                                .getName()));
+                ModuleScope moduleScope = repo.getModuleScope(new ModuleIdentifier(myQualifier.getName()));
 
                 result = moduleScope.getMatches(searcher, SearchContext.IMPORT);
             }
             catch (NoSuchSymbolException nsse2) {
-                throw new SourceErrorException("No such facility or a module.",
-                        myQualifier.getLocation());
+                throw new SourceErrorException("No such facility or a module.", myQualifier.getLocation());
             }
         }
         catch (DuplicateSymbolException dse) {

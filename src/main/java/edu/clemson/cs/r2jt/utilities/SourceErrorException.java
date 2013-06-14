@@ -8,8 +8,7 @@ public class SourceErrorException extends RuntimeException {
     private static final long serialVersionUID = 1L;
     private final Location myErrorLocation;
 
-    public SourceErrorException(String message, PosSymbol symbol,
-            Throwable cause) {
+    public SourceErrorException(String message, PosSymbol symbol, Throwable cause) {
 
         this(message, symbol.getLocation(), cause);
     }
@@ -18,8 +17,7 @@ public class SourceErrorException extends RuntimeException {
         this(message, symbol.getLocation());
     }
 
-    public SourceErrorException(String message, Location location,
-            Throwable cause) {
+    public SourceErrorException(String message, Location location, Throwable cause) {
 
         super(message, cause);
         myErrorLocation = location;

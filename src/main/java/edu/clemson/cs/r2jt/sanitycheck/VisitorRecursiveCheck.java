@@ -29,8 +29,7 @@ public class VisitorRecursiveCheck extends TreeWalkerStackVisitor {
         myCheckedProcedureDecs = new List<ProcedureDec>();
     }
 
-    private VisitorRecursiveCheck(ProcedureDec dec,
-            List<ProcedureDec> checkedProcDec, CompileEnvironment env) {
+    private VisitorRecursiveCheck(ProcedureDec dec, List<ProcedureDec> checkedProcDec, CompileEnvironment env) {
         myInitialProcedureDec = dec;
         myCompileEnvironment = env;
         // System.out.println("Proc: " + dec.getName().getName());
@@ -70,17 +69,14 @@ public class VisitorRecursiveCheck extends TreeWalkerStackVisitor {
             isRecursive = true;
         }
         else {
-            Iterator<ProcedureDec> i =
-                    myCompileEnvironment.encounteredProcedures.iterator();
+            Iterator<ProcedureDec> i = myCompileEnvironment.encounteredProcedures.iterator();
             while (i.hasNext()) {
                 ProcedureDec dec = i.next();
                 if (!myCheckedProcedureDecs.contains(dec)) {
                     myCheckedProcedureDecs.add(dec);
                     if (name.equals(dec.getName().getName())) {
                         VisitorRecursiveCheck vrc =
-                                new VisitorRecursiveCheck(
-                                        myInitialProcedureDec,
-                                        myCheckedProcedureDecs,
+                                new VisitorRecursiveCheck(myInitialProcedureDec, myCheckedProcedureDecs,
                                         myCompileEnvironment);
                         TreeWalker tw = new TreeWalker(vrc);
                         tw.visit(dec);

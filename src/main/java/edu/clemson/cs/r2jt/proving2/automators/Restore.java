@@ -28,8 +28,7 @@ public class Restore implements Automator {
         myMainProofLevel.prepForRestore();
 
         int currentProofStepCount = model.getProofSteps().size();
-        int additionProofStepCount =
-                currentProofStepCount - myOriginalProofStepCount;
+        int additionProofStepCount = currentProofStepCount - myOriginalProofStepCount;
 
         for (int i = 0; i < additionProofStepCount; i++) {
             model.undoLastProofStep();

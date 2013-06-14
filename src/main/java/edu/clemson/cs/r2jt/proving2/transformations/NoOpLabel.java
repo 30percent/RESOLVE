@@ -30,8 +30,7 @@ public class NoOpLabel implements Transformation {
 
     @Override
     public Iterator<Application> getApplications(PerVCProverModel m) {
-        return Collections.singletonList(
-                (Application) new NoOpLabelApplication()).iterator();
+        return Collections.singletonList((Application) new NoOpLabelApplication()).iterator();
     }
 
     @Override

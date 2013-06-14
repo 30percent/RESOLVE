@@ -65,7 +65,6 @@ public class TypeTheoremDec extends Dec {
 
     public boolean hasBindingCondition() {
         return myAssertion instanceof InfixExp
-                && ((InfixExp) myAssertion).getOperatorAsString().equals(
-                        "implies");
+                && ((InfixExp) myAssertion).getOperatorAsString().equals("implies");
     }
 }

@@ -17,8 +17,7 @@ public class BoundVariableVisitor extends PExpVisitor {
     //then this class will need to be updated to keep track of universal 
     //variables introduced there
 
-    private Deque<Map<String, BindingInfo>> myBoundVariables =
-            new LinkedList<Map<String, BindingInfo>>();
+    private Deque<Map<String, BindingInfo>> myBoundVariables = new LinkedList<Map<String, BindingInfo>>();
 
     public final void beginMTBigUnion(MTBigUnion u) {
         myBoundVariables.push(toBindingInfoMap(u.getQuantifiedVariables()));

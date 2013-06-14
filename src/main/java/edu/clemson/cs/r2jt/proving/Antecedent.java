@@ -154,9 +154,8 @@ public class Antecedent extends ImmutableConjuncts {
      *                   replacements based on our binding.
      * @param accumulator A list to hold the result of our matching.
      */
-    public static Antecedent satisfy(ImmutableConjuncts assumptions,
-            ImmutableConjuncts antecedents, Map<PExp, PExp> bindings,
-            Consequent consequent) {
+    public static Antecedent satisfy(ImmutableConjuncts assumptions, ImmutableConjuncts antecedents,
+            Map<PExp, PExp> bindings, Consequent consequent) {
 
         Antecedent retval;
 
@@ -178,13 +177,11 @@ public class Antecedent extends ImmutableConjuncts {
                     subBinding = curAntecedent.bindTo(assumption);
 
                     if (subAntecedentList == null) {
-                        subAntecedentList =
-                                antecedents.subConjuncts(1, antecedents.size());
+                        subAntecedentList = antecedents.subConjuncts(1, antecedents.size());
                     }
 
                     Antecedent subAntecedent =
-                            satisfy(assumptions, subAntecedentList, subBinding,
-                                    consequent);
+                            satisfy(assumptions, subAntecedentList, subBinding, consequent);
 
                     retval = retval.appended(subAntecedent);
                 }

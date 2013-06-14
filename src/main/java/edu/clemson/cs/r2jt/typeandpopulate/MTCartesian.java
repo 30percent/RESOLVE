@@ -19,10 +19,8 @@ public class MTCartesian extends MTAbstract<MTCartesian> {
 
     private List<Element> myElements = new LinkedList<Element>();
     private List<MTType> myElementTypes = new LinkedList<MTType>();
-    private Map<String, Element> myTagsToElementsTable =
-            new HashMap<String, Element>();
-    private Map<Element, String> myElementsToTagsTable =
-            new HashMap<Element, String>();
+    private Map<String, Element> myTagsToElementsTable = new HashMap<String, Element>();
+    private Map<Element, String> myElementsToTagsTable = new HashMap<Element, String>();
 
     private final int mySize;
 
@@ -39,8 +37,7 @@ public class MTCartesian extends MTAbstract<MTCartesian> {
 
         if (elementCount < 2) {
             //We assert this isn't possible, but who knows?
-            throw new IllegalArgumentException(
-                    "Unexpected cartesian product size.");
+            throw new IllegalArgumentException("Unexpected cartesian product size.");
         }
 
         int workingSize = 0;
@@ -63,10 +60,8 @@ public class MTCartesian extends MTAbstract<MTCartesian> {
         Element second = new Element(elements[elementCount - 1]);
         workingSize += 1;
 
-        first.addTo(myElements, myElementTypes, myTagsToElementsTable,
-                myElementsToTagsTable);
-        second.addTo(myElements, myElementTypes, myTagsToElementsTable,
-                myElementsToTagsTable);
+        first.addTo(myElements, myElementTypes, myTagsToElementsTable, myElementsToTagsTable);
+        second.addTo(myElements, myElementTypes, myTagsToElementsTable, myElementsToTagsTable);
         mySize = workingSize;
         myElementTypes = Collections.unmodifiableList(myElementTypes);
     }
@@ -96,9 +91,7 @@ public class MTCartesian extends MTAbstract<MTCartesian> {
             }
             else {
                 //ASSERT: myElements.get(0) MUST be an instance of MTCartesian
-                result =
-                        ((MTCartesian) myElements.get(0).myElement)
-                                .getElement(index);
+                result = ((MTCartesian) myElements.get(0).myElement).getElement(index);
             }
         }
 
@@ -116,12 +109,10 @@ public class MTCartesian extends MTAbstract<MTCartesian> {
     public MTType getFactor(String tag) {
         MTType result;
 
-        if (myElements.get(0).myTag != null
-                && myElements.get(0).myTag.equals(tag)) {
+        if (myElements.get(0).myTag != null && myElements.get(0).myTag.equals(tag)) {
             result = myElements.get(0).myElement;
         }
-        else if (myElements.get(1).myTag != null
-                && myElements.get(1).myTag.equals(tag)) {
+        else if (myElements.get(1).myTag != null && myElements.get(1).myTag.equals(tag)) {
             result = myElements.get(1).myElement;
         }
         else if (myElements.get(0).myElement instanceof MTCartesian) {
@@ -197,8 +188,7 @@ public class MTCartesian extends MTAbstract<MTCartesian> {
     @Override
     public MTType withComponentReplaced(int index, MTType newType) {
         List<Element> newElements = new LinkedList<Element>(myElements);
-        newElements.set(index, new Element(newElements.get(index).myTag,
-                newType));
+        newElements.set(index, new Element(newElements.get(index).myTag, newType));
 
         return new MTCartesian(getTypeGraph(), newElements);
     }
@@ -218,8 +208,7 @@ public class MTCartesian extends MTAbstract<MTCartesian> {
 
         public Element(String tag, MTType element) {
             if (element == null) {
-                throw new IllegalArgumentException("Element \"" + tag + "\" "
-                        + "has null type.");
+                throw new IllegalArgumentException("Element \"" + tag + "\" " + "has null type.");
             }
 
             myElement = element;
@@ -238,8 +227,7 @@ public class MTCartesian extends MTAbstract<MTCartesian> {
         }
 
         private void addTo(List<Element> elements, List<MTType> elementTypes,
-                Map<String, Element> tagsToElements,
-                Map<Element, String> elementsToTags) {
+                Map<String, Element> tagsToElements, Map<Element, String> elementsToTags) {
 
             elements.add(this);
             elementTypes.add(myElement);
@@ -247,8 +235,7 @@ public class MTCartesian extends MTAbstract<MTCartesian> {
             if (myTag != null) {
 
                 if (tagsToElements.containsKey(myTag)) {
-                    throw new IllegalArgumentException("Duplicate tag: "
-                            + myTag);
+                    throw new IllegalArgumentException("Duplicate tag: " + myTag);
                 }
 
                 tagsToElements.put(myTag, this);

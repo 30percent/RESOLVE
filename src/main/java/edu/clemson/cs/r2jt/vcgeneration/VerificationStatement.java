@@ -33,8 +33,7 @@ public class VerificationStatement implements Cloneable {
     VerificationStatement(int type, Object assertion) {
         if (((type == ASSUME || type == CONFIRM) && (assertion instanceof Exp))
                 || ((type == CODE) && (assertion instanceof Statement))
-                || (type == VARIABLE && assertion instanceof VarDec)
-                || (type == CHANGE)) {
+                || (type == VARIABLE && assertion instanceof VarDec) || (type == CHANGE)) {
             this.type = type;
             this.assertion = assertion;
         }
@@ -51,25 +50,19 @@ public class VerificationStatement implements Cloneable {
             VerificationStatement clone = new VerificationStatement();
             if ((type == ASSUME) || (type == CONFIRM)) {
                 if (assertion instanceof Exp) {
-                    clone =
-                            new VerificationStatement(type, ((Exp) assertion)
-                                    .clone());
+                    clone = new VerificationStatement(type, ((Exp) assertion).clone());
                 }
                 return clone;
             }
             else if (type == CODE) {
                 if (assertion instanceof Statement) {
-                    clone =
-                            new VerificationStatement(type,
-                                    ((Statement) assertion).clone());
+                    clone = new VerificationStatement(type, ((Statement) assertion).clone());
                 }
                 return clone;
             }
             else if (type == VARIABLE) {
                 if (assertion instanceof VarDec) {
-                    clone =
-                            new VerificationStatement(type,
-                                    ((VarDec) assertion).clone());
+                    clone = new VerificationStatement(type, ((VarDec) assertion).clone());
                 }
                 return clone;
             }
@@ -79,9 +72,7 @@ public class VerificationStatement implements Cloneable {
             }
             else if (type == CHANGE) {
                 if (assertion instanceof List<?>) {
-                    clone =
-                            new VerificationStatement(type,
-                                    ((List<?>) assertion).clone());
+                    clone = new VerificationStatement(type, ((List<?>) assertion).clone());
                     return clone();
                 }
                 else {

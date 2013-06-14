@@ -9,8 +9,7 @@ import java.util.NoSuchElementException;
 
 public class BoundVariableVisitor extends TypeVisitor {
 
-    private Deque<Map<String, BindingInfo>> myBoundVariables =
-            new LinkedList<Map<String, BindingInfo>>();
+    private Deque<Map<String, BindingInfo>> myBoundVariables = new LinkedList<Map<String, BindingInfo>>();
 
     @Override
     public final void beginMTBigUnion(MTBigUnion u) {

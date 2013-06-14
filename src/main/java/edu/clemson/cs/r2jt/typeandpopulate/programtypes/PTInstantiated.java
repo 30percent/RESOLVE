@@ -33,8 +33,7 @@ public class PTInstantiated extends PTType {
      */
     private final MTType myModel;
 
-    public PTInstantiated(TypeGraph g, FacilityEntry facility,
-            String familyName, MTType model) {
+    public PTInstantiated(TypeGraph g, FacilityEntry facility, String familyName, MTType model) {
         super(g);
 
         mySourceFacility = facility;
@@ -56,8 +55,7 @@ public class PTInstantiated extends PTType {
     }
 
     @Override
-    public PTType instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public PTType instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
         //I'm already instantiated!
@@ -73,8 +71,7 @@ public class PTInstantiated extends PTType {
             PTInstantiated oAsPTInstantiated = (PTInstantiated) o;
 
             result =
-                    (mySourceFacility.equals(oAsPTInstantiated
-                            .getInstantiatingFacility()))
+                    (mySourceFacility.equals(oAsPTInstantiated.getInstantiatingFacility()))
                             && myName.equals(oAsPTInstantiated.getFamilyName());
         }
 

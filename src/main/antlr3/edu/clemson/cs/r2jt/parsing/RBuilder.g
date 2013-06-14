@@ -482,10 +482,12 @@ short_facility_section returns [FacilityDec dec = null]
         (eItem=facility_enhancement { eItems.add($eItem.item); })*
         bName=ident (bPars=module_argument_section)?
         (ebItem=facility_body_enhancement { ebItems.add($ebItem.item); })*
-        {   $dec = new FacilityDec(ps, $cName.ps,
+        {
+            $dec = new FacilityDec(ps, $cName.ps,
                                     $cPars.args!=null?$cPars.args:args, eItems,
                                     $bName.ps, null,
                                     $bPars.args!=null?$bPars.args:args, ebItems);
+            
         }
     ;
 
@@ -731,14 +733,23 @@ facility_declaration returns [FacilityDec dec = null]
     :   ^(  FACILITY ps=ident
             cName=ident (cPars=module_argument_section)?
             (eItem=facility_enhancement { eItems.add($eItem.item); })*
+            (id = EXTERNALLY)?
             REALIZED bName=ident (WITH_PROFILE prof=ident)? (bPars=module_argument_section)?
             (ebItem=facility_body_enhancement { ebItems.add($ebItem.item); })*
         )
-        {   $dec = new FacilityDec($ps.ps, $cName.ps,
+        {   if($id != null){
+                $dec = new FacilityDec($ps.ps, $cName.ps,
+                                    $cPars.args!=null?$cPars.args:args,
+                                    eItems, $bName.ps, $prof.ps,
+                                    $bPars.args!=null?$bPars.args:args,
+                                    ebItems, true);
+            } else {
+            $dec = new FacilityDec($ps.ps, $cName.ps,
                                     $cPars.args!=null?$cPars.args:args,
                                     eItems, $bName.ps, $prof.ps,
                                     $bPars.args!=null?$bPars.args:args,
                                     ebItems);
+            }
         }
     ;
 

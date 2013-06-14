@@ -21,8 +21,8 @@ public class RemoveConsequentStep extends AbstractProofStep {
     private final Consequent myConsequent;
     private final int myOriginalIndex;
 
-    public RemoveConsequentStep(Consequent consequent, int originalIndex,
-            Transformation t, Application a, Collection<Site> boundSites) {
+    public RemoveConsequentStep(Consequent consequent, int originalIndex, Transformation t, Application a,
+            Collection<Site> boundSites) {
         super(t, a, boundSites);
 
         myOriginalIndex = originalIndex;

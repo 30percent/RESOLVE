@@ -25,14 +25,12 @@ public class IntroduceLocalTheoremStep extends AbstractProofStep {
     private final LocalTheorem myIntroducedTheorem;
     private final Set<Theorem> myPrerequisiteTheorems;
 
-    public IntroduceLocalTheoremStep(LocalTheorem introducedTheorem,
-            Set<Theorem> prerequisiteTheorems, Transformation t, Application a,
-            Collection<Site> boundSites) {
+    public IntroduceLocalTheoremStep(LocalTheorem introducedTheorem, Set<Theorem> prerequisiteTheorems,
+            Transformation t, Application a, Collection<Site> boundSites) {
         super(t, a, boundSites);
 
         myIntroducedTheorem = introducedTheorem;
-        myPrerequisiteTheorems =
-                Collections.unmodifiableSet(prerequisiteTheorems);
+        myPrerequisiteTheorems = Collections.unmodifiableSet(prerequisiteTheorems);
     }
 
     public Set<Theorem> getPrerequisiteTheorems() {

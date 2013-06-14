@@ -15,13 +15,11 @@ public class ModuleScopeBuilder extends ScopeBuilder implements ModuleScope {
 
     private final MathSymbolTableBuilder myWorkingSymbolTable;
 
-    private final List<ModuleIdentifier> myImportedModules =
-            new LinkedList<ModuleIdentifier>();
+    private final List<ModuleIdentifier> myImportedModules = new LinkedList<ModuleIdentifier>();
 
     ModuleScopeBuilder(TypeGraph g, ModuleDec definingElement, Scope parent,
             MathSymbolTableBuilder symbolTable) {
-        super(symbolTable, g, definingElement, parent, new ModuleIdentifier(
-                definingElement));
+        super(symbolTable, g, definingElement, parent, new ModuleIdentifier(definingElement));
 
         myWorkingSymbolTable = symbolTable;
     }
@@ -62,7 +60,7 @@ public class ModuleScopeBuilder extends ScopeBuilder implements ModuleScope {
 
     @Override
     public FinalizedModuleScope seal(MathSymbolTable finalTable) {
-        return new FinalizedModuleScope(myRootModule, myDefiningElement,
-                myParent, myBindings, myImportedModules, finalTable);
+        return new FinalizedModuleScope(myRootModule, myDefiningElement, myParent, myBindings,
+                myImportedModules, finalTable);
     }
 }

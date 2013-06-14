@@ -92,8 +92,7 @@ public class PerformanceTypeDec extends Dec {
     public PerformanceTypeDec() {};
 
     public PerformanceTypeDec(PosSymbol name, Ty model, Exp constraint,
-            PerformanceInitItem perf_initialization,
-            PerformanceFinalItem perf_finalization) {
+            PerformanceInitItem perf_initialization, PerformanceFinalItem perf_finalization) {
         this.name = name;
         this.model = model;
         this.constraint = constraint;
@@ -193,14 +192,11 @@ public class PerformanceTypeDec extends Dec {
         }
 
         if (perf_initialization != null) {
-            sb.append(perf_initialization.asString(indent + increment,
-                    increment));
+            sb.append(perf_initialization.asString(indent + increment, increment));
         }
 
         if (perf_finalization != null) {
-            sb
-                    .append(perf_finalization.asString(indent + increment,
-                            increment));
+            sb.append(perf_finalization.asString(indent + increment, increment));
         }
 
         return sb.toString();

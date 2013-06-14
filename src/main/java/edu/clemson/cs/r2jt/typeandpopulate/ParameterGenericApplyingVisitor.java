@@ -2,9 +2,7 @@ package edu.clemson.cs.r2jt.typeandpopulate;
 
 import java.util.Map;
 
-public class ParameterGenericApplyingVisitor
-        extends
-            SymmetricBoundVariableVisitor {
+public class ParameterGenericApplyingVisitor extends SymmetricBoundVariableVisitor {
 
     private Map<String, MTType> myBindings;
 

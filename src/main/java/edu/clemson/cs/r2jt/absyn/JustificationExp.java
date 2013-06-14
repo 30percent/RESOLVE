@@ -98,8 +98,8 @@ public class JustificationExp extends Exp {
 
     public JustificationExp() {};
 
-    public JustificationExp(Location location, HypDesigExp hypDesig1,
-            HypDesigExp hypDesig2, PosSymbol rule, boolean isDef) {
+    public JustificationExp(Location location, HypDesigExp hypDesig1, HypDesigExp hypDesig2, PosSymbol rule,
+            boolean isDef) {
         this.location = location;
         this.hypDesig1 = hypDesig1;
         this.hypDesig2 = hypDesig2;
@@ -107,9 +107,8 @@ public class JustificationExp extends Exp {
         this.isDef = isDef;
     }
 
-    public JustificationExp(Location location, HypDesigExp hypDesig1,
-            HypDesigExp hypDesig2, PosSymbol rule, PosSymbol index,
-            PosSymbol sourceModule, boolean isDef) {
+    public JustificationExp(Location location, HypDesigExp hypDesig1, HypDesigExp hypDesig2, PosSymbol rule,
+            PosSymbol index, PosSymbol sourceModule, boolean isDef) {
         this.location = location;
         this.hypDesig1 = hypDesig1;
         this.hypDesig2 = hypDesig2;
@@ -122,9 +121,8 @@ public class JustificationExp extends Exp {
     }
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new JustificationExp(location, (HypDesigExp) substitute(
-                hypDesig1, substitutions), (HypDesigExp) substitute(hypDesig2,
-                substitutions), rule, index, sourceModule, isDef);
+        return new JustificationExp(location, (HypDesigExp) substitute(hypDesig1, substitutions),
+                (HypDesigExp) substitute(hypDesig2, substitutions), rule, index, sourceModule, isDef);
     }
 
     // ===========================================================
@@ -229,19 +227,16 @@ public class JustificationExp extends Exp {
 
         if (hypDesig1 != null) {
             printSpace(indent, sb);
-            sb.append("(hypDesig1:) \n"
-                    + hypDesig1.asString(indent + increment, increment));
+            sb.append("(hypDesig1:) \n" + hypDesig1.asString(indent + increment, increment));
         }
 
         if (hypDesig2 != null) {
             printSpace(indent, sb);
-            sb.append("(hypDesig2:) \n"
-                    + hypDesig2.asString(indent + increment, increment));
+            sb.append("(hypDesig2:) \n" + hypDesig2.asString(indent + increment, increment));
         }
 
         if (index != null) {
-            sb.append("(" + index.asString(indent + increment, increment)
-                    + ") of ");
+            sb.append("(" + index.asString(indent + increment, increment) + ") of ");
         }
 
         if (rule != null) {
@@ -249,8 +244,7 @@ public class JustificationExp extends Exp {
         }
 
         if (sourceModule != null) {
-            sb.append(" from "
-                    + sourceModule.asString(indent + increment, increment));
+            sb.append(" from " + sourceModule.asString(indent + increment, increment));
         }
 
         printSpace(indent, sb);
@@ -324,8 +318,8 @@ public class JustificationExp extends Exp {
         }
 
         boolean newIsDef = isDef;
-        return new JustificationExp(null, newHypDesig1, newHypDesig2, newRule,
-                newIndex, newSourceModule, newIsDef);
+        return new JustificationExp(null, newHypDesig1, newHypDesig2, newRule, newIndex, newSourceModule,
+                newIsDef);
     }
 
 }

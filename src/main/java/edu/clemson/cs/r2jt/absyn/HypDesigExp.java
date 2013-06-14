@@ -123,8 +123,7 @@ public class HypDesigExp extends Exp {
     // ===========================================================
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new HypDesigExp(location, (MathRefExp) substitute(mathExp,
-                substitutions));
+        return new HypDesigExp(location, (MathRefExp) substitute(mathExp, substitutions));
     }
 
     /** Accepts a ResolveConceptualVisitor. */

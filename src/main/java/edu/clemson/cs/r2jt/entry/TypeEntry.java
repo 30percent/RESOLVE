@@ -99,8 +99,7 @@ public class TypeEntry extends Entry {
         this.type = type;
     }
 
-    public TypeEntry(Scope scope, PosSymbol name, Type type, MathVarDec local,
-            Exp where, Exp obligation) {
+    public TypeEntry(Scope scope, PosSymbol name, Type type, MathVarDec local, Exp where, Exp obligation) {
         this.scope = scope;
         this.name = name;
         this.type = type;
@@ -178,8 +177,7 @@ public class TypeEntry extends Entry {
     // ===========================================================
 
     public TypeEntry instantiate(ScopeID sid, Binding binding) {
-        return new TypeEntry(binding.getScope(), name, type.instantiate(sid,
-                binding));
+        return new TypeEntry(binding.getScope(), name, type.instantiate(sid, binding));
     }
 
     public String toString() {

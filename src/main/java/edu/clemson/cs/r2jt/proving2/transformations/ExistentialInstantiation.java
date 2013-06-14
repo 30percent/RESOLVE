@@ -35,11 +35,9 @@ import java.util.Set;
  */
 public class ExistentialInstantiation implements Transformation {
 
-    public static final ExistentialInstantiation INSTANCE =
-            new ExistentialInstantiation();
+    public static final ExistentialInstantiation INSTANCE = new ExistentialInstantiation();
 
-    private static final BindingException BINDING_EXCEPTION =
-            new BindingException();
+    private static final BindingException BINDING_EXCEPTION = new BindingException();
 
     private ExistentialInstantiation() {
 
@@ -48,23 +46,17 @@ public class ExistentialInstantiation implements Transformation {
     @Override
     public Iterator<Application> getApplications(PerVCProverModel m) {
 
-        Iterator<BindResult> bindResults =
-                DummyIterator.<BindResult> getInstance();
+        Iterator<BindResult> bindResults = DummyIterator.<BindResult> getInstance();
 
         for (Consequent c : m.getConsequentList()) {
             if (c.getExpression().containsExistential()) {
                 bindResults =
-                        new ChainingIterator(
-                                bindResults,
-                                m
-                                        .bind(Collections
-                                                .singleton((Binder) new ConsequentBasedBinder(
-                                                        c))));
+                        new ChainingIterator(bindResults, m.bind(Collections
+                                .singleton((Binder) new ConsequentBasedBinder(c))));
             }
         }
 
-        return new LazyMappingIterator(bindResults,
-                new BindResultToApplication(m));
+        return new LazyMappingIterator(bindResults, new BindResultToApplication(m));
     }
 
     @Override
@@ -126,15 +118,12 @@ public class ExistentialInstantiation implements Transformation {
         }
 
         @Override
-        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m,
-                List<Site> boundSitesSoFar) {
+        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m, List<Site> boundSitesSoFar) {
             return m.topLevelAntecedentAndGlobalTheoremSiteIterator();
         }
     }
 
-    private class BindResultToApplication
-            implements
-                Mapping<BindResult, Application> {
+    private class BindResultToApplication implements Mapping<BindResult, Application> {
 
         private final PerVCProverModel myModel;
 
@@ -144,10 +133,8 @@ public class ExistentialInstantiation implements Transformation {
 
         @Override
         public Application map(BindResult input) {
-            return new ExistentialInstantiationApplication(myModel,
-                    ((ConsequentBasedBinder) input.bindSites.keySet()
-                            .iterator().next()).getConsequent(),
-                    input.bindSites.values().iterator().next(),
+            return new ExistentialInstantiationApplication(myModel, ((ConsequentBasedBinder) input.bindSites
+                    .keySet().iterator().next()).getConsequent(), input.bindSites.values().iterator().next(),
                     input.freeVariableBindings);
         }
     }
@@ -159,13 +146,11 @@ public class ExistentialInstantiation implements Transformation {
         private final Consequent myExistentialConsequent;
         private final Site myExistentialConsequentSite;
 
-        private final Set<Conjunct> myAffectedConsequents =
-                new HashSet<Conjunct>();
+        private final Set<Conjunct> myAffectedConsequents = new HashSet<Conjunct>();
         private final Set<Site> myAffectedSites = new HashSet<Site>();
 
-        public ExistentialInstantiationApplication(PerVCProverModel m,
-                Consequent existentialConsequent, Site bindSite,
-                Map<PExp, PExp> bindings) {
+        public ExistentialInstantiationApplication(PerVCProverModel m, Consequent existentialConsequent,
+                Site bindSite, Map<PExp, PExp> bindings) {
 
             myExistentialConsequent = existentialConsequent;
             myExistentialConsequentSite = existentialConsequent.toSite(m);
@@ -182,14 +167,11 @@ public class ExistentialInstantiation implements Transformation {
             for (Consequent c : m.getConsequentList()) {
                 myAffectedConsequents.add(c);
                 myAffectedSites.add(c.toSite(m));
-                originals.add(m.alterSite(c.toSite(m), c.getExpression()
-                        .substitute(myBindings)));
+                originals.add(m.alterSite(c.toSite(m), c.getExpression().substitute(myBindings)));
             }
 
-            m.addProofStep(new ExistentialInstantiationStep(
-                    ExistentialInstantiation.this, this,
-                    myExistentialConsequent, index, originals, Collections
-                            .singleton(myBindSite)));
+            m.addProofStep(new ExistentialInstantiationStep(ExistentialInstantiation.this, this,
+                    myExistentialConsequent, index, originals, Collections.singleton(myBindSite)));
         }
 
         @Override
@@ -227,12 +209,9 @@ public class ExistentialInstantiation implements Transformation {
         }
     }
 
-    private static class LocalTheoremCaster
-            implements
-                Mapping<LocalTheorem, Theorem> {
+    private static class LocalTheoremCaster implements Mapping<LocalTheorem, Theorem> {
 
-        public final static LocalTheoremCaster INSTANCE =
-                new LocalTheoremCaster();
+        public final static LocalTheoremCaster INSTANCE = new LocalTheoremCaster();
 
         @Override
         public Theorem map(LocalTheorem input) {

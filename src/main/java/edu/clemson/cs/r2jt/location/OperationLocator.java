@@ -104,8 +104,7 @@ public class OperationLocator {
     // Public Methods
     // ===========================================================
 
-    public OperationEntry locateOperation(PosSymbol name, List<Type> argtypes)
-            throws SymbolSearchException {
+    public OperationEntry locateOperation(PosSymbol name, List<Type> argtypes) throws SymbolSearchException {
         List<OperationEntry> opers = locateOperationsInStack(name);
         if (opers.size() == 0) {
             opers = locateOperationsInImports(name);
@@ -113,8 +112,8 @@ public class OperationLocator {
         return getUniqueOperation(name, argtypes, opers);
     }
 
-    public OperationEntry locateOperation(PosSymbol qual, PosSymbol name,
-            List<Type> argtypes) throws SymbolSearchException {
+    public OperationEntry locateOperation(PosSymbol qual, PosSymbol name, List<Type> argtypes)
+            throws SymbolSearchException {
         if (qual == null) {
             return locateOperation(name, argtypes);
         }
@@ -127,9 +126,7 @@ public class OperationLocator {
         }
         else {
             if (showErrors) {
-                String msg =
-                        cantFindOperInModMessage(name.toString(), qual
-                                .toString());
+                String msg = cantFindOperInModMessage(name.toString(), qual.toString());
                 err.error(qual.getLocation(), msg);
             }
             throw new SymbolSearchException();
@@ -140,8 +137,7 @@ public class OperationLocator {
     // Private Methods
     // ===========================================================
 
-    private List<OperationEntry> locateOperationsInStack(PosSymbol name)
-            throws SymbolSearchException {
+    private List<OperationEntry> locateOperationsInStack(PosSymbol name) throws SymbolSearchException {
         List<OperationEntry> opers = new List<OperationEntry>();
         Stack<Scope> stack = table.getStack();
         Stack<Scope> hold = new Stack<Scope>();
@@ -150,8 +146,7 @@ public class OperationLocator {
                 Scope scope = stack.pop();
                 hold.push(scope);
                 if (scope instanceof ProcedureScope) {
-                    opers.addAll(locateOperationsInProc(name,
-                            (ProcedureScope) scope));
+                    opers.addAll(locateOperationsInProc(name, (ProcedureScope) scope));
                     if (opers.size() > 0) {
                         break;
                     }
@@ -177,8 +172,8 @@ public class OperationLocator {
         }
     }
 
-    private List<OperationEntry> locateOperationsInProc(PosSymbol name,
-            ProcedureScope scope) throws SymbolSearchException {
+    private List<OperationEntry> locateOperationsInProc(PosSymbol name, ProcedureScope scope)
+            throws SymbolSearchException {
         List<OperationEntry> opers = new List<OperationEntry>();
         Iterator<ModuleScope> i = scope.getVisibleModules();
         while (i.hasNext()) {
@@ -190,11 +185,9 @@ public class OperationLocator {
         return opers;
     }
 
-    private List<OperationEntry> locateOperationsInImports(PosSymbol name)
-            throws SymbolSearchException {
+    private List<OperationEntry> locateOperationsInImports(PosSymbol name) throws SymbolSearchException {
         List<OperationEntry> opers = new List<OperationEntry>();
-        Iterator<ModuleScope> i =
-                table.getModuleScope().getProgramVisibleModules();
+        Iterator<ModuleScope> i = table.getModuleScope().getProgramVisibleModules();
         while (i.hasNext()) {
             ModuleScope iscope = i.next();
             if (iscope.containsOperation(name.getSymbol())) {
@@ -204,8 +197,7 @@ public class OperationLocator {
         return opers;
     }
 
-    private OperationEntry getUniqueOperation(PosSymbol name,
-            List<Type> argtypes, List<OperationEntry> opers)
+    private OperationEntry getUniqueOperation(PosSymbol name, List<Type> argtypes, List<OperationEntry> opers)
             throws SymbolSearchException {
         if (opers.size() == 0) {
             if (showErrors) {
@@ -223,9 +215,8 @@ public class OperationLocator {
         }
     }
 
-    private OperationEntry disambiguateOperations(PosSymbol name,
-            List<Type> argtypes, List<OperationEntry> opers)
-            throws SymbolSearchException {
+    private OperationEntry disambiguateOperations(PosSymbol name, List<Type> argtypes,
+            List<OperationEntry> opers) throws SymbolSearchException {
         List<OperationEntry> newopers = new List<OperationEntry>();
         Iterator<OperationEntry> i = opers.iterator();
         while (i.hasNext()) {
@@ -237,8 +228,7 @@ public class OperationLocator {
         if (newopers.size() == 0) {
             List<Location> locs = getLocationList(opers);
             if (showErrors) {
-                String sig =
-                        getSignatureString(opers.get(0).getName(), argtypes);
+                String sig = getSignatureString(opers.get(0).getName(), argtypes);
                 String msg = cantFindOperMessage(sig, locs.toString());
                 err.error(name.getLocation(), msg);
             }
@@ -250,16 +240,15 @@ public class OperationLocator {
         else { // newopers.size() > 1
             List<Location> locs = getLocationList(opers);
             if (showErrors) {
-                String msg =
-                        ambigOperRefMessage(name.toString(), locs.toString());
+                String msg = ambigOperRefMessage(name.toString(), locs.toString());
                 err.error(name.getLocation(), msg);
             }
             throw new SymbolSearchException();
         }
     }
 
-    private void checkOperationArguments(PosSymbol name, List<Type> argtypes,
-            OperationEntry oper) throws SymbolSearchException {
+    private void checkOperationArguments(PosSymbol name, List<Type> argtypes, OperationEntry oper)
+            throws SymbolSearchException {
         if (!argumentTypesMatch(oper, argtypes)) {
             if (showErrors) {
                 String opersig = getSignatureString(oper);
@@ -341,8 +330,7 @@ public class OperationLocator {
     // -----------------------------------------------------------
 
     private String cantFindOperInModMessage(String name, String module) {
-        return "Cannot find an operation named " + name + " in module "
-                + module + ".";
+        return "Cannot find an operation named " + name + " in module " + module + ".";
     }
 
     private String ambigOperRefMessage(String name, String mods) {
@@ -355,13 +343,12 @@ public class OperationLocator {
     }
 
     private String cantFindOperMessage(String sig, String mods) {
-        return "Cannot find the operation with signature " + sig
-                + ", but found operations: " + mods + ".";
+        return "Cannot find the operation with signature " + sig + ", but found operations: " + mods + ".";
     }
 
     private String argTypeMismatchMessage(String opersig, String targsig) {
-        return "Expected an operation with the signature " + targsig
-                + " but found one with the signature " + opersig + ".";
+        return "Expected an operation with the signature " + targsig + " but found one with the signature "
+                + opersig + ".";
     }
 
 }

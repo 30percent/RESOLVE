@@ -65,8 +65,7 @@ public abstract class VariableExp extends ProgramExp {
 
     public abstract void accept(ResolveConceptualVisitor v);
 
-    public abstract Type accept(TypeResolutionVisitor v)
-            throws TypeResolutionException;
+    public abstract Type accept(TypeResolutionVisitor v) throws TypeResolutionException;
 
     public abstract String asString(int indent, int increment);
 

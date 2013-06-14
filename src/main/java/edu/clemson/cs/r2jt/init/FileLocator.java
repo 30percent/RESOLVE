@@ -86,8 +86,7 @@ public class FileLocator {
      * exception is thrown, if more than one file is found, a
      * multi-files-found exception is thrown.
      */
-    public File locateFileInTree(String name, File dir)
-            throws FileLocatorException {
+    public File locateFileInTree(String name, File dir) throws FileLocatorException {
         List<File> files = recursivelyLocateFiles(name, dir);
         if (files.size() == 0) {
             String msg = noFileMessage(name, dir.getName());
@@ -97,8 +96,7 @@ public class FileLocator {
             return files.get(0);
         }
         else { // files.size() > 1
-            String msg =
-                    multiFilesMessage(name, dir.getName(), files.toString());
+            String msg = multiFilesMessage(name, dir.getName(), files.toString());
             throw new FileLocatorException(msg);
         }
     }
@@ -110,8 +108,8 @@ public class FileLocator {
      * file-not-found exception is thrown, if more than one file is
      * found, a multi-files-found exception is thrown.
      */
-    public File locateFileInTree(String name1, String name2, String name3,
-            File dir) throws FileLocatorException {
+    public File locateFileInTree(String name1, String name2, String name3, File dir)
+            throws FileLocatorException {
         List<File> files = new List<File>();
         files.addAll(recursivelyLocateFiles(name1, dir));
         files.addAll(recursivelyLocateFiles(name2, dir));
@@ -124,9 +122,7 @@ public class FileLocator {
             return files.get(0);
         }
         else { // files.size() > 1
-            String msg =
-                    multiFilesMessage3(name1, name2, name3, dir.getName(),
-                            files.toString());
+            String msg = multiFilesMessage3(name1, name2, name3, dir.getName(), files.toString());
             throw new FileLocatorException(msg);
         }
     }
@@ -136,8 +132,7 @@ public class FileLocator {
      * name and returns that file. If no file is found a
      * file-not-found exception is thrown.
      */
-    public File locateFileInDir(String name, File dir)
-            throws FileLocatorException {
+    public File locateFileInDir(String name, File dir) throws FileLocatorException {
         //System.out.println("locating: "+name+" : "+dir.getAbsolutePath());
         File resultFile = null;
         File[] fileArray = dir.listFiles();
@@ -195,41 +190,34 @@ public class FileLocator {
 
     private String noFileMessage(String name, String dir) {
         String msg =
-                "Could not find a file with name " + name
-                        + " in the directory " + dir
+                "Could not find a file with name " + name + " in the directory " + dir
                         + " or any of its subdirectories.";
         return msg;
     }
 
     private String multiFilesMessage(String name, String dir, String files) {
         String msg =
-                "Found multiple files with name " + name + " in the directory "
-                        + dir + " or its subdirectories: " + files;
+                "Found multiple files with name " + name + " in the directory " + dir
+                        + " or its subdirectories: " + files;
         return msg;
     }
 
     private String noFileInDirMessage(String name, String dir) {
-        String msg =
-                "Could not find a file with name " + name
-                        + " in the directory " + dir + ".";
+        String msg = "Could not find a file with name " + name + " in the directory " + dir + ".";
         return msg;
     }
 
-    private String noFileMessage3(String name1, String name2, String name3,
-            String dir) {
+    private String noFileMessage3(String name1, String name2, String name3, String dir) {
         String msg =
-                "Could not find a file with name " + name1 + " or " + name2
-                        + " or " + name3 + " in the directory " + dir
-                        + " or any of its subdirectories.";
+                "Could not find a file with name " + name1 + " or " + name2 + " or " + name3
+                        + " in the directory " + dir + " or any of its subdirectories.";
         return msg;
     }
 
-    private String multiFilesMessage3(String name1, String name2, String name3,
-            String dir, String files) {
+    private String multiFilesMessage3(String name1, String name2, String name3, String dir, String files) {
         String msg =
-                "Found multiple files with name " + name1 + " or " + name2
-                        + " or " + name3 + " in the directory " + dir
-                        + " or its subdirectories: " + files;
+                "Found multiple files with name " + name1 + " or " + name2 + " or " + name3
+                        + " in the directory " + dir + " or its subdirectories: " + files;
         return msg;
     }
 

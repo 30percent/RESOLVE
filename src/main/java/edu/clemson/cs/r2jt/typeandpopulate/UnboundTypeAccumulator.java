@@ -42,12 +42,8 @@ public class UnboundTypeAccumulator extends BoundVariableVisitor {
                 //would represent an error in the compiler code rather than the
                 //RESOLVE source: we're looking at math things here only
                 MathSymbolEntry entry =
-                        (MathSymbolEntry) myEnvironment
-                                .queryForOne(new UnqualifiedNameQuery(
-                                        namedType.name));
-                universal =
-                        entry.getQuantification().equals(
-                                MathSymbolEntry.Quantification.UNIVERSAL);
+                        (MathSymbolEntry) myEnvironment.queryForOne(new UnqualifiedNameQuery(namedType.name));
+                universal = entry.getQuantification().equals(MathSymbolEntry.Quantification.UNIVERSAL);
             }
             catch (NoSuchSymbolException nsse) {
                 //Shouldn't be possible--we'd have dealt with it by now

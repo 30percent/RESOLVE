@@ -39,8 +39,7 @@ public interface Scope {
      * 
      * @return A list of all symbols matching the given query.
      */
-    public <E extends SymbolTableEntry> List<E> query(
-            MultimatchSymbolQuery<E> query);
+    public <E extends SymbolTableEntry> List<E> query(MultimatchSymbolQuery<E> query);
 
     /**
      * <p>Searches for a symbol using the given query, using this 
@@ -117,12 +116,9 @@ public interface Scope {
      *         the search should continue, provided there are additional
      *         un-searched scopes.
      */
-    public <E extends SymbolTableEntry> boolean addMatches(
-            TableSearcher<E> searcher, List<E> matches,
-            Set<Scope> searchedScopes,
-            Map<String, PTType> genericInstantiations,
-            FacilityEntry instantiatingFacility, SearchContext l)
-            throws DuplicateSymbolException;
+    public <E extends SymbolTableEntry> boolean addMatches(TableSearcher<E> searcher, List<E> matches,
+            Set<Scope> searchedScopes, Map<String, PTType> genericInstantiations,
+            FacilityEntry instantiatingFacility, SearchContext l) throws DuplicateSymbolException;
 
     /**
      * <p>A simple variation on {@link #addMatches addMatches}() that creates
@@ -132,8 +128,7 @@ public interface Scope {
      * @param searcher
      * @return
      */
-    public <E extends SymbolTableEntry> List<E> getMatches(
-            TableSearcher<E> searcher, SearchContext l)
+    public <E extends SymbolTableEntry> List<E> getMatches(TableSearcher<E> searcher, SearchContext l)
             throws DuplicateSymbolException;
 
     /**

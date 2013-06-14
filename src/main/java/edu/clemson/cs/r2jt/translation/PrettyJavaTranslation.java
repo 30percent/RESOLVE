@@ -37,25 +37,21 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
     private static final String FLAG_SECTION_NAME = "Pretty Java Translation";
 
     private static final String FLAG_DESC_TRANSLATE =
-            "Translates into "
-                    + "a \"Pretty\" Java version following the line numbers of the "
+            "Translates into " + "a \"Pretty\" Java version following the line numbers of the "
                     + "RESOLVE Facility.";
     public static final Flag FLAG_PRETTY_JAVA_TRANSLATE =
-            new Flag(FLAG_SECTION_NAME, "prettyJavaTranslate",
-                    FLAG_DESC_TRANSLATE);
+            new Flag(FLAG_SECTION_NAME, "prettyJavaTranslate", FLAG_DESC_TRANSLATE);
 
     /*
      * End of Variable Declaration
      */
 
-    public PrettyJavaTranslation(CompileEnvironment env, OldSymbolTable table,
-            ModuleDec dec, ErrorHandler err) {
+    public PrettyJavaTranslation(CompileEnvironment env, OldSymbolTable table, ModuleDec dec, ErrorHandler err) {
         this.err = err;
         this.env = env;
         this.table = table;
         targetFileName = dec.getName().getFile().getName();
-        cInfo =
-                new PrettyJavaTranslationInfo(dec.getName().getFile().getName());
+        cInfo = new PrettyJavaTranslationInfo(dec.getName().getFile().getName());
         isMath = false;
     }
 
@@ -69,8 +65,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
         ResolveConceptualElement par = getAncestor(1);
         if (par instanceof FacilityOperationDec) {
             FacilityOperationDec parFac = (FacilityOperationDec) par;
-            if (exp.equals(parFac.getRequires())
-                    || exp.equals(parFac.getEnsures())) {
+            if (exp.equals(parFac.getRequires()) || exp.equals(parFac.getEnsures())) {
                 System.out.println("HERE");
             }
         }
@@ -111,29 +106,25 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
 
     // TODO : Fix this. Requires pre-post procedures for 'resolve verify' tests. 
     @Override
-    public void midFacilityOperationDec(FacilityOperationDec node,
-            ResolveConceptualElement prevChild,
+    public void midFacilityOperationDec(FacilityOperationDec node, ResolveConceptualElement prevChild,
             ResolveConceptualElement nextChild) {
         if (prevChild != null && nextChild != null) {
             if (!(prevChild.equals(node.getRequires()))) {
                 if (nextChild.equals(node.getRequires())) {
                     Exp req = (Exp) nextChild;
-                    cInfo.increaseLineStatementBuffer(req.getLocation()
-                            .getPos().getLine());
+                    cInfo.increaseLineStatementBuffer(req.getLocation().getPos().getLine());
                     cInfo.appendToStmt("/*requires");
                 }
                 else if (nextChild.equals(node.getEnsures())) {
                     Exp en = (Exp) nextChild;
-                    cInfo.increaseLineStatementBuffer(en.getLocation().getPos()
-                            .getLine());
+                    cInfo.increaseLineStatementBuffer(en.getLocation().getPos().getLine());
                     cInfo.appendToStmt("/*ensures");
                 }
             }
             else {
                 if (nextChild.equals(node.getEnsures())) {
                     Exp en = (Exp) nextChild;
-                    cInfo.increaseLineStatementBuffer(en.getLocation().getPos()
-                            .getLine());
+                    cInfo.increaseLineStatementBuffer(en.getLocation().getPos().getLine());
                     cInfo.appendToStmt("ensures");
                 }
                 else {
@@ -152,8 +143,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
     public void preParameterVarDec(ParameterVarDec dec) {
         StringBuilder parmSet = new StringBuilder();
         if (dec.getTy() instanceof NameTy) {
-            parmSet.append(cInfo.getCVarsWithLines(((NameTy) dec.getTy())
-                    .getName(), null));
+            parmSet.append(cInfo.getCVarsWithLines(((NameTy) dec.getTy()).getName(), null));
         }
         else {
             System.out.println("How did you reach here?");
@@ -167,8 +157,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
     public void preCallStmt(CallStmt stmt) {
         if (stmt.getName().getName().contains("Write")) {
             String out = "System.out.println(";
-            cInfo.increaseLineStatementBuffer(stmt.getName().getLocation()
-                    .getPos().getLine());
+            cInfo.increaseLineStatementBuffer(stmt.getName().getLocation().getPos().getLine());
             cInfo.appendToStmt(out);
         }
         else {
@@ -178,8 +167,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midCallStmtArguments(CallStmt node, ProgramExp previous,
-            ProgramExp next) {
+    public void midCallStmtArguments(CallStmt node, ProgramExp previous, ProgramExp next) {
         if (next != null && previous != null) {
             cInfo.appendToStmt(", ");
         }
@@ -197,9 +185,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
             NameTy ty = (NameTy) dec.getTy();
             String stTy = ty.getName().getName();
             String[] retTy = cInfo.getVarType(stTy);
-            cInfo.appendToFuncVarInit(cInfo.stringFromSym(dec.getName(),
-                    retTy[0])
-                    + retTy[1]);
+            cInfo.appendToFuncVarInit(cInfo.stringFromSym(dec.getName(), retTy[0]) + retTy[1]);
         }
     }
 
@@ -207,8 +193,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
     public void preFuncAssignStmt(FuncAssignStmt stmt) {}
 
     @Override
-    public void midFuncAssignStmt(FuncAssignStmt stmt,
-            ResolveConceptualElement prevChild,
+    public void midFuncAssignStmt(FuncAssignStmt stmt, ResolveConceptualElement prevChild,
             ResolveConceptualElement nextChild) {
         if (prevChild != null && nextChild != null) {
             cInfo.appendToStmt(" = ");
@@ -249,8 +234,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
     // preProgramParamExpArguments
     // disregard.
     @Override
-    public void midProgramParamExpArguments(ProgramParamExp node,
-            ProgramExp previous, ProgramExp next) {
+    public void midProgramParamExpArguments(ProgramParamExp node, ProgramExp previous, ProgramExp next) {
         if (next != null && previous != null) {
             cInfo.appendToStmt(", ");
         }
@@ -262,8 +246,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midProgramParamExp(ProgramParamExp exp,
-            ResolveConceptualElement prevChild,
+    public void midProgramParamExp(ProgramParamExp exp, ResolveConceptualElement prevChild,
             ResolveConceptualElement nextChild) {
         //Used for debug breakpoints
         System.out.println();
@@ -295,8 +278,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midIfStmt(IfStmt stmt, ResolveConceptualElement prevChild,
-            ResolveConceptualElement nextChild) {
+    public void midIfStmt(IfStmt stmt, ResolveConceptualElement prevChild, ResolveConceptualElement nextChild) {
 
     }
 
@@ -332,8 +314,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
 
     @Override
     public void preWhileStmtStatements(WhileStmt stmt) {
-        if ((stmt.getChanging().size() < 1) || stmt.getDecreasing() != null
-                || stmt.getMaintaining() != null) {
+        if ((stmt.getChanging().size() < 1) || stmt.getDecreasing() != null || stmt.getMaintaining() != null) {
             cInfo.appendToStmt("){");
         }
         else {
@@ -355,8 +336,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midWhileStmt(WhileStmt node,
-            ResolveConceptualElement prevChild,
+    public void midWhileStmt(WhileStmt node, ResolveConceptualElement prevChild,
             ResolveConceptualElement nextChild) {
         if (node.getMaintaining().equals(nextChild)) {
             Exp main = (Exp) nextChild;
@@ -387,8 +367,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
 
     public void outputCode(File outputFile) {
         //Assume files have already been translated
-        if (!env.flags.isFlagSet(ResolveCompiler.FLAG_WEB)
-                || env.flags.isFlagSet(Archiver.FLAG_ARCHIVE)) {
+        if (!env.flags.isFlagSet(ResolveCompiler.FLAG_WEB) || env.flags.isFlagSet(Archiver.FLAG_ARCHIVE)) {
             //outputAsFile(targetFileName, getMainBuffer());
             //outputAsFile(outputFile.getAbsolutePath(), getMainBuffer());
             System.out.println(output());
@@ -406,8 +385,7 @@ public class PrettyJavaTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void midProgramOpExp(ProgramOpExp exp,
-            ResolveConceptualElement prevChild,
+    public void midProgramOpExp(ProgramOpExp exp, ResolveConceptualElement prevChild,
             ResolveConceptualElement nextChild) {
         if (prevChild != null && nextChild != null) {
             System.out.println("here");

@@ -27,8 +27,7 @@ public class IdentifiedNodes<T> {
      * <code>PExp</code>s nest, the elements in this set are therefore disjoint.
      * </p>
      */
-    private Set<NodeIdentifier> myTopLevelIdentifiedNodes =
-            new HashSet<NodeIdentifier>();
+    private Set<NodeIdentifier> myTopLevelIdentifiedNodes = new HashSet<NodeIdentifier>();
 
     /**
      * <p>A mapping from <code>PExp</code>s with associated data, to the set of
@@ -55,8 +54,7 @@ public class IdentifiedNodes<T> {
         List<NodeIdentifier> result = new LinkedList<NodeIdentifier>();
 
         try {
-            getSmallestIdentifiedAncestorIn(id, myTopLevelIdentifiedNodes,
-                    result);
+            getSmallestIdentifiedAncestorIn(id, myTopLevelIdentifiedNodes, result);
         }
         catch (NoSuchElementException e) {
             //That's ok--if it has no ancestors, return an empty list
@@ -66,16 +64,14 @@ public class IdentifiedNodes<T> {
     }
 
     public NodeIdentifier getSmallestIdentifiedAncestor(NodeIdentifier id) {
-        return getSmallestIdentifiedAncestorIn(id, myTopLevelIdentifiedNodes,
-                null);
+        return getSmallestIdentifiedAncestorIn(id, myTopLevelIdentifiedNodes, null);
     }
 
     public void traverse(IdentifiedNodesVisitor<T> v) {
         traverseAndMap(myTopLevelIdentifiedNodes, v);
     }
 
-    private void traverseAndMap(Set<NodeIdentifier> s,
-            IdentifiedNodesVisitor<T> m) {
+    private void traverseAndMap(Set<NodeIdentifier> s, IdentifiedNodesVisitor<T> m) {
 
         for (NodeIdentifier i : s) {
             m.visit(i, myDataMap.get(i));
@@ -96,9 +92,7 @@ public class IdentifiedNodes<T> {
                     path.add(containedIn);
                 }
 
-                result =
-                        getSmallestIdentifiedAncestorIn(id, myIdentifiedNodes
-                                .get(containedIn), path);
+                result = getSmallestIdentifiedAncestorIn(id, myIdentifiedNodes.get(containedIn), path);
             }
             catch (NoSuchElementException e) {
                 result = containedIn;
@@ -114,8 +108,7 @@ public class IdentifiedNodes<T> {
     public void put(NodeIdentifier id, T data) {
         if (id.getRoot() != myRoot) {
             throw new IllegalArgumentException("id belongs to a PExp "
-                    + "different from the one that is the root of this "
-                    + this.getClass() + ".");
+                    + "different from the one that is the root of this " + this.getClass() + ".");
         }
 
         if (!myDataMap.containsKey(id)) {
@@ -123,8 +116,7 @@ public class IdentifiedNodes<T> {
             Set<NodeIdentifier> layer;
             try {
                 NodeIdentifier container =
-                        getSmallestIdentifiedAncestorIn(id,
-                                myTopLevelIdentifiedNodes, null);
+                        getSmallestIdentifiedAncestorIn(id, myTopLevelIdentifiedNodes, null);
 
                 layer = myIdentifiedNodes.get(container);
             }
@@ -136,8 +128,7 @@ public class IdentifiedNodes<T> {
         }
     }
 
-    private void addToLayer(NodeIdentifier newID,
-            Set<NodeIdentifier> newIDChildren, Set<NodeIdentifier> layer) {
+    private void addToLayer(NodeIdentifier newID, Set<NodeIdentifier> newIDChildren, Set<NodeIdentifier> layer) {
 
         Iterator<NodeIdentifier> layerIter = layer.iterator();
         NodeIdentifier sibling;
@@ -169,8 +160,7 @@ public class IdentifiedNodes<T> {
         return result;
     }
 
-    private NodeIdentifier getContainer(NodeIdentifier id,
-            Set<NodeIdentifier> setToSearch) {
+    private NodeIdentifier getContainer(NodeIdentifier id, Set<NodeIdentifier> setToSearch) {
 
         NodeIdentifier containedIn = null;
 

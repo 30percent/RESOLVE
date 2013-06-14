@@ -7,9 +7,7 @@ import edu.clemson.cs.r2jt.typeandpopulate.entry.SymbolTableEntry;
 import java.util.Iterator;
 import java.util.List;
 
-public class EntryTypeSearcher<E extends SymbolTableEntry>
-        implements
-            MultimatchTableSearcher<E> {
+public class EntryTypeSearcher<E extends SymbolTableEntry> implements MultimatchTableSearcher<E> {
 
     public static final EntryTypeSearcher<FacilityEntry> FACILITY_SEARCHER =
             new EntryTypeSearcher<FacilityEntry>(FacilityEntry.class);
@@ -21,8 +19,7 @@ public class EntryTypeSearcher<E extends SymbolTableEntry>
     }
 
     @Override
-    public boolean addMatches(SymbolTable entries, List<E> matches,
-            SearchContext l) {
+    public boolean addMatches(SymbolTable entries, List<E> matches, SearchContext l) {
         Iterator<E> matchesIter = entries.iterateByType(myTargetClass);
 
         while (matchesIter.hasNext()) {

@@ -28,15 +28,12 @@ public class OperationSearcher implements TableSearcher<OperationEntry> {
     }
 
     @Override
-    public boolean addMatches(SymbolTable entries,
-            List<OperationEntry> matches, SearchContext l)
+    public boolean addMatches(SymbolTable entries, List<OperationEntry> matches, SearchContext l)
             throws DuplicateSymbolException {
 
         if (entries.containsKey(myQueryName)) {
             try {
-                OperationEntry operation =
-                        entries.get(myQueryName).toOperationEntry(
-                                myQueryLocation);
+                OperationEntry operation = entries.get(myQueryName).toOperationEntry(myQueryLocation);
 
                 if (argumentsMatch(operation.getParameters())) {
                     //We have a match at this point
@@ -55,23 +52,18 @@ public class OperationSearcher implements TableSearcher<OperationEntry> {
         return false;
     }
 
-    private boolean argumentsMatch(
-            ImmutableList<ProgramParameterEntry> formalParameters) {
+    private boolean argumentsMatch(ImmutableList<ProgramParameterEntry> formalParameters) {
 
-        boolean result =
-                (formalParameters.size() == myActualArgumentTypes.size());
+        boolean result = (formalParameters.size() == myActualArgumentTypes.size());
 
         if (result) {
-            Iterator<ProgramParameterEntry> formalParametersIter =
-                    formalParameters.iterator();
-            Iterator<PTType> actualArgumentTypeIter =
-                    myActualArgumentTypes.iterator();
+            Iterator<ProgramParameterEntry> formalParametersIter = formalParameters.iterator();
+            Iterator<PTType> actualArgumentTypeIter = myActualArgumentTypes.iterator();
 
             PTType actualArgumentType, formalParameterType;
             while (result && formalParametersIter.hasNext()) {
                 actualArgumentType = actualArgumentTypeIter.next();
-                formalParameterType =
-                        formalParametersIter.next().getDeclaredType();
+                formalParameterType = formalParametersIter.next().getDeclaredType();
 
                 result = actualArgumentType.acceptableFor(formalParameterType);
             }

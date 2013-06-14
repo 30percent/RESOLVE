@@ -84,8 +84,7 @@ public class MultiStrategyProver implements VCProver {
             myNoOrderEstimateCount++;
         }
         else {
-            myProofCountOrder =
-                    myProofCountOrder.add(strategy.getProofCountOrder());
+            myProofCountOrder = myProofCountOrder.add(strategy.getProofCountOrder());
         }
 
         updateProgressWeights();
@@ -110,8 +109,7 @@ public class MultiStrategyProver implements VCProver {
         //represent estimatable orders so we can scale down their weights to
         //leave room for the "average" weights
         final double averageWeight = (1 / (double) myStrategyCount);
-        final double estimatablePercent =
-                1 - (myNoOrderEstimateCount / (double) myStrategyCount);
+        final double estimatablePercent = 1 - (myNoOrderEstimateCount / (double) myStrategyCount);
 
         double sanityCheckTotal = 0;
         BigInteger curOrder;
@@ -124,8 +122,7 @@ public class MultiStrategyProver implements VCProver {
             }
             else {
                 myStrategyProgressWeights[curStrategyIndex] =
-                        divide(curOrder, myProofCountOrder, 5)
-                                * estimatablePercent;
+                        divide(curOrder, myProofCountOrder, 5) * estimatablePercent;
             }
 
             sanityCheckTotal += myStrategyProgressWeights[curStrategyIndex];
@@ -133,8 +130,7 @@ public class MultiStrategyProver implements VCProver {
 
         if (Math.abs(1 - sanityCheckTotal) > 0.0001) {
             System.out.println("MultiStrategyProver.updateProgressWeights "
-                    + "reports weights do not sum to 100%.  Total is: "
-                    + (sanityCheckTotal * 100) + "%.");
+                    + "reports weights do not sum to 100%.  Total is: " + (sanityCheckTotal * 100) + "%.");
         }
     }
 
@@ -149,19 +145,15 @@ public class MultiStrategyProver implements VCProver {
      * 
      * @return The result approximated to the given number of decimal places.
      */
-    private static double divide(final BigInteger numerator,
-            final BigInteger denominator, final int precision) {
+    private static double divide(final BigInteger numerator, final BigInteger denominator, final int precision) {
 
         int factor = (int) Math.pow(10, precision);
 
-        return numerator.multiply(BigInteger.valueOf(factor)).divide(
-                denominator).doubleValue()
-                / factor;
+        return numerator.multiply(BigInteger.valueOf(factor)).divide(denominator).doubleValue() / factor;
     }
 
-    public void prove(final VerificationCondition vC,
-            ProverListener progressListener, ActionCanceller actionCanceller,
-            long timeoutAt)
+    public void prove(final VerificationCondition vC, ProverListener progressListener,
+            ActionCanceller actionCanceller, long timeoutAt)
             throws VCInconsistentException,
                 VCProvedException,
                 UnableToProveException {
@@ -201,12 +193,10 @@ public class MultiStrategyProver implements VCProver {
 
     public BigInteger getProofCountOrder() {
         BigInteger averageOrder =
-                myProofCountOrder.divide(BigInteger
-                        .valueOf((myStrategyCount - myNoOrderEstimateCount)));
+                myProofCountOrder.divide(BigInteger.valueOf((myStrategyCount - myNoOrderEstimateCount)));
 
         BigInteger totalOrder =
-                myProofCountOrder.add(averageOrder.multiply(BigInteger
-                        .valueOf(myNoOrderEstimateCount)));
+                myProofCountOrder.add(averageOrder.multiply(BigInteger.valueOf(myNoOrderEstimateCount)));
 
         return totalOrder;
     }
@@ -245,16 +235,14 @@ public class MultiStrategyProver implements VCProver {
          *
          */
         public void startingNextStrategy() {
-            myAccumulatedProgress +=
-                    myStrategyProgressWeights[myCurrentStrategyIndex];
+            myAccumulatedProgress += myStrategyProgressWeights[myCurrentStrategyIndex];
             myCurrentStrategyIndex++;
         }
 
         public void progressUpdate(double progress) {
             if (myParent != null) {
-                myParent
-                        .progressUpdate(myAccumulatedProgress
-                                + (myStrategyProgressWeights[myCurrentStrategyIndex] * progress));
+                myParent.progressUpdate(myAccumulatedProgress
+                        + (myStrategyProgressWeights[myCurrentStrategyIndex] * progress));
             }
         }
     }

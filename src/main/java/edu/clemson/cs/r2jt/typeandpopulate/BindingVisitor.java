@@ -53,8 +53,7 @@ public class BindingVisitor extends SymmetricBoundVariableVisitor {
         }
 
         //Fine if the declared type of t1 restricts the declared type of t2
-        myMatchSoFarFlag &=
-                myTypeGraph.isSubtype(t1DeclaredType, t2DeclaredType);
+        myMatchSoFarFlag &= myTypeGraph.isSubtype(t1DeclaredType, t2DeclaredType);
 
         if (!myBindings.containsKey(t2.name) && myMatchSoFarFlag) {
             myBindings.put(t2.name, t1);
@@ -86,8 +85,7 @@ public class BindingVisitor extends SymmetricBoundVariableVisitor {
 
             myMatchSoFarFlag &= myTypeGraph.isSubtype(t1, t2DeclaredType);
 
-            if (!myBindings.containsKey(((MTNamed) t2).name)
-                    && myMatchSoFarFlag) {
+            if (!myBindings.containsKey(((MTNamed) t2).name) && myMatchSoFarFlag) {
                 myBindings.put(t2Name, t1);
             }
         }

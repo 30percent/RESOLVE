@@ -117,16 +117,15 @@ public class MathRefExp extends Exp {
         this.params = null;
     }
 
-    public MathRefExp(Location location, int kind, PosSymbol id,
-            List<VarExp> params) {
+    public MathRefExp(Location location, int kind, PosSymbol id, List<VarExp> params) {
         this.location = location;
         this.kind = kind;
         this.id = id;
         this.params = params;
     }
 
-    public MathRefExp(Location location, int kind, PosSymbol id,
-            PosSymbol index, PosSymbol sourceModule, List<VarExp> params) {
+    public MathRefExp(Location location, int kind, PosSymbol id, PosSymbol index, PosSymbol sourceModule,
+            List<VarExp> params) {
         this.location = location;
         this.kind = kind;
         this.id = id;
@@ -141,8 +140,7 @@ public class MathRefExp extends Exp {
             newParams.add((VarExp) substitute(v, substitutions));
         }
 
-        return new MathRefExp(location, kind, id, index, sourceModule,
-                newParams);
+        return new MathRefExp(location, kind, id, index, sourceModule, newParams);
     }
 
     // ===========================================================
@@ -344,8 +342,7 @@ public class MathRefExp extends Exp {
         while (paramsIt.hasNext()) {
             newParams.add((VarExp) (Exp.copy(paramsIt.next())));
         }
-        return new MathRefExp(null, newKind, newId, newIndex, newSourceModule,
-                newParams);
+        return new MathRefExp(null, newKind, newId, newIndex, newSourceModule, newParams);
     }
 
 }

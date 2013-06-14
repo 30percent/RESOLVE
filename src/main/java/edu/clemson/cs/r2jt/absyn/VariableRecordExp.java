@@ -89,8 +89,7 @@ public class VariableRecordExp extends VariableExp {
 
     public VariableRecordExp() {};
 
-    public VariableRecordExp(Location location, PosSymbol qualifier,
-            PosSymbol name, List<VariableExp> fields) {
+    public VariableRecordExp(Location location, PosSymbol qualifier, PosSymbol name, List<VariableExp> fields) {
         this.location = location;
         this.qualifier = qualifier;
         this.name = name;

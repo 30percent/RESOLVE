@@ -85,8 +85,7 @@ public class ConstructedType extends Type {
     // Constructors
     // ===========================================================
 
-    public ConstructedType(PosSymbol qualifier, PosSymbol name,
-            List<Type> args, Binding binding) {
+    public ConstructedType(PosSymbol qualifier, PosSymbol name, List<Type> args, Binding binding) {
         this.qualifier = qualifier;
         this.name = name;
         this.args.addAll(args);
@@ -147,9 +146,7 @@ public class ConstructedType extends Type {
     public ConstructedType toMath() {
         if (qualifier == null) {
             if (binding.getQualifier(name, args.size()) != null) {
-                qualifier =
-                        new PosSymbol(name.getLocation(), binding.getQualifier(
-                                name, args.size()));
+                qualifier = new PosSymbol(name.getLocation(), binding.getQualifier(name, args.size()));
             }
         }
         List<Type> args2 = new List<Type>();

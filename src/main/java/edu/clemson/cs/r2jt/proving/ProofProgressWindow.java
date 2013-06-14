@@ -11,10 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
-class ProofProgressWindow extends JFrame
-        implements
-            ActionListener,
-            ProverListener {
+class ProofProgressWindow extends JFrame implements ActionListener, ProverListener {
 
     private static final long serialVersionUID = 5289008712520472101L;
 
@@ -22,8 +19,7 @@ class ProofProgressWindow extends JFrame
 
     private ActionCanceller myCanceller;
 
-    public ProofProgressWindow(final String name,
-            final ActionCanceller canceller) {
+    public ProofProgressWindow(final String name, final ActionCanceller canceller) {
 
         myCanceller = canceller;
 

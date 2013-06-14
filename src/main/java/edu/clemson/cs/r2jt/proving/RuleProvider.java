@@ -42,9 +42,8 @@ public abstract class RuleProvider {
      * @throws NullPointerException If any object parameter is 
      * 		<code>null</code>.
      */
-    public abstract KnownSizeIterator<MatchReplace> consider(
-            VerificationCondition vC, int curLength, Metrics metrics,
-            Deque<VerificationCondition> pastStates);
+    public abstract KnownSizeIterator<MatchReplace> consider(VerificationCondition vC, int curLength,
+            Metrics metrics, Deque<VerificationCondition> pastStates);
 
     /**
      * <p>This should eventually supersede the above.</p>
@@ -55,16 +54,13 @@ public abstract class RuleProvider {
      * @param pastStates
      * @return
      */
-    public KnownSizeIterator<MatchReplace> consider(VC vc, int curLength,
-            Metrics metrics, Deque<VC> pastStates) {
+    public KnownSizeIterator<MatchReplace> consider(VC vc, int curLength, Metrics metrics,
+            Deque<VC> pastStates) {
 
         //This insanity brought to you by edu.clemson.cs.r2jt.collections.List
-        return consider(new VerificationCondition(
-                new edu.clemson.cs.r2jt.collections.List(vc.getAntecedent()
-                        .getMutableCopy()),
-                new edu.clemson.cs.r2jt.collections.List(vc.getConsequent()
-                        .getMutableCopy()), (String) null), curLength, metrics,
-                null);
+        return consider(new VerificationCondition(new edu.clemson.cs.r2jt.collections.List(vc.getAntecedent()
+                .getMutableCopy()), new edu.clemson.cs.r2jt.collections.List(vc.getConsequent()
+                .getMutableCopy()), (String) null), curLength, metrics, null);
     }
 
     /**

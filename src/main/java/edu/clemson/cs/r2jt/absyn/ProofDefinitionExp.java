@@ -84,8 +84,7 @@ public class ProofDefinitionExp extends LineNumberedExp {
         super(null);
     }
 
-    public ProofDefinitionExp(Location location, PosSymbol lineNum,
-            DefinitionDec exp) {
+    public ProofDefinitionExp(Location location, PosSymbol lineNum, DefinitionDec exp) {
         super(lineNum);
         this.location = location;
         this.exp = exp;
@@ -174,8 +173,7 @@ public class ProofDefinitionExp extends LineNumberedExp {
     }
 
     public void setSubExpression(int index, Exp e) {
-        throw new UnsupportedOperationException(
-                "Proof definition expression is immutable.");
+        throw new UnsupportedOperationException("Proof definition expression is immutable.");
         /*switch (index) {
         case 0:
         	exp.setBase(e);

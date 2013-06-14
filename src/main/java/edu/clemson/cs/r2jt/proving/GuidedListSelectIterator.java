@@ -32,8 +32,7 @@ public class GuidedListSelectIterator<T> extends JDialog implements Iterator<T> 
 
     private boolean myNextReturnedFlag = true, myFinishedFlag = false;
 
-    public GuidedListSelectIterator(String title, String text,
-            Iterator<T> options) {
+    public GuidedListSelectIterator(String title, String text, Iterator<T> options) {
         super(modalParent, true);
 
         setTitle(title);

@@ -13,9 +13,7 @@ import java.util.List;
  *
  * @author hamptos
  */
-public class NameAndEntryTypeSearcher<E extends SymbolTableEntry>
-        implements
-            MultimatchTableSearcher<E> {
+public class NameAndEntryTypeSearcher<E extends SymbolTableEntry> implements MultimatchTableSearcher<E> {
 
     public static final EntryTypeSearcher<FacilityEntry> FACILITY_SEARCHER =
             new EntryTypeSearcher<FacilityEntry>(FacilityEntry.class);
@@ -24,8 +22,7 @@ public class NameAndEntryTypeSearcher<E extends SymbolTableEntry>
     private final String myTargetName;
     private final boolean myStopAfterFirstFlag;
 
-    public NameAndEntryTypeSearcher(String name, Class<E> targetClass,
-            boolean stopAfterFirst) {
+    public NameAndEntryTypeSearcher(String name, Class<E> targetClass, boolean stopAfterFirst) {
 
         myTargetClass = targetClass;
         myTargetName = name;
@@ -33,13 +30,10 @@ public class NameAndEntryTypeSearcher<E extends SymbolTableEntry>
     }
 
     @Override
-    public boolean addMatches(SymbolTable entries, List<E> matches,
-            SearchContext l) {
+    public boolean addMatches(SymbolTable entries, List<E> matches, SearchContext l) {
         SymbolTableEntry match = entries.get(myTargetName);
 
-        boolean foundOne =
-                (match != null)
-                        && myTargetClass.isAssignableFrom(match.getClass());
+        boolean foundOne = (match != null) && myTargetClass.isAssignableFrom(match.getClass());
 
         if (foundOne) {
             matches.add((E) match);

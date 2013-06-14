@@ -19,8 +19,7 @@ import edu.clemson.cs.r2jt.utilities.Mapping;
  */
 public class NoBacktrackChooser implements TransformationChooser {
 
-    private static final NoBacktrackWrappingMapping NO_BACKTRACK_MAP =
-            new NoBacktrackWrappingMapping();
+    private static final NoBacktrackWrappingMapping NO_BACKTRACK_MAP = new NoBacktrackWrappingMapping();
 
     private final TransformationChooser myBaseChooser;
 
@@ -34,13 +33,11 @@ public class NoBacktrackChooser implements TransformationChooser {
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d) {
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d) {
 
-        return new ZeroOrOneIterator(
-                new LazyMappingIterator<ProofPathSuggestion, ProofPathSuggestion>(
-                        myBaseChooser.suggestTransformations(vc, curLength,
-                                metrics, d), NO_BACKTRACK_MAP));
+        return new ZeroOrOneIterator(new LazyMappingIterator<ProofPathSuggestion, ProofPathSuggestion>(
+                myBaseChooser.suggestTransformations(vc, curLength, metrics, d), NO_BACKTRACK_MAP));
     }
 
     @Override
@@ -48,9 +45,7 @@ public class NoBacktrackChooser implements TransformationChooser {
         return "" + myBaseChooser;
     }
 
-    private static class ZeroOrOneIterator
-            implements
-                Iterator<ProofPathSuggestion> {
+    private static class ZeroOrOneIterator implements Iterator<ProofPathSuggestion> {
 
         private final Iterator<ProofPathSuggestion> myBaseIterator;
         private ProofPathSuggestion myLastSuggestion;
@@ -64,9 +59,7 @@ public class NoBacktrackChooser implements TransformationChooser {
             boolean retval = true;
 
             if (myLastSuggestion != null) {
-                retval =
-                        !((NoBacktrackTransformer) myLastSuggestion.step)
-                                .hasReturned();
+                retval = !((NoBacktrackTransformer) myLastSuggestion.step).hasReturned();
             }
 
             retval &= myBaseIterator.hasNext();
@@ -76,9 +69,7 @@ public class NoBacktrackChooser implements TransformationChooser {
 
         @Override
         public ProofPathSuggestion next() {
-            if (myLastSuggestion != null
-                    && ((NoBacktrackTransformer) myLastSuggestion.step)
-                            .hasReturned()) {
+            if (myLastSuggestion != null && ((NoBacktrackTransformer) myLastSuggestion.step).hasReturned()) {
                 throw new NoSuchElementException();
             }
 
@@ -99,8 +90,7 @@ public class NoBacktrackChooser implements TransformationChooser {
 
         @Override
         public ProofPathSuggestion map(ProofPathSuggestion i) {
-            return new ProofPathSuggestion(new NoBacktrackTransformer(i.step),
-                    i.data);
+            return new ProofPathSuggestion(new NoBacktrackTransformer(i.step), i.data);
         }
     }
 

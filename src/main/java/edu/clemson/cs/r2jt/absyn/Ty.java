@@ -79,8 +79,7 @@ public abstract class Ty extends ResolveConceptualElement implements Cloneable {
 
     public abstract void accept(ResolveConceptualVisitor v);
 
-    public abstract Type accept(TypeResolutionVisitor v)
-            throws TypeResolutionException;
+    public abstract Type accept(TypeResolutionVisitor v) throws TypeResolutionException;
 
     public abstract String asString(int indent, int increment);
 
@@ -121,8 +120,7 @@ public abstract class Ty extends ResolveConceptualElement implements Cloneable {
     }
 
     protected Ty copy() {
-        throw new RuntimeException("Shouldn't be calling Ty.copy()!  Type: "
-                + this.getClass());
+        throw new RuntimeException("Shouldn't be calling Ty.copy()!  Type: " + this.getClass());
     }
 
     public void prettyPrint() {

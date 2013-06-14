@@ -30,8 +30,7 @@ public class AntecedentSimplifier implements AntecedentTransformer {
 
         @Override
         public Antecedent next() {
-            return myBaseIterator.next().eliminateObviousConjuncts()
-                    .eliminateRedundantConjuncts();
+            return myBaseIterator.next().eliminateObviousConjuncts().eliminateRedundantConjuncts();
         }
 
         @Override

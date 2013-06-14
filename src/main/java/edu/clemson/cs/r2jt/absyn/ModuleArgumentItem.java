@@ -99,8 +99,7 @@ public class ModuleArgumentItem extends ResolveConceptualElement {
 
     public ModuleArgumentItem() {};
 
-    public ModuleArgumentItem(PosSymbol qualifier, PosSymbol name,
-            ProgramExp evalExp) {
+    public ModuleArgumentItem(PosSymbol qualifier, PosSymbol name, ProgramExp evalExp) {
         this.qualifier = qualifier;
         this.name = name;
         this.evalExp = evalExp;

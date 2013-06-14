@@ -8,24 +8,20 @@ public class LengthLimitedProvider extends RuleProvider {
     private RuleProvider mySourceProvider;
     private int myMaxLength;
     private KnownSizeIterator<MatchReplace> dummyIterator =
-            new SizedIterator<MatchReplace>(new LinkedList<MatchReplace>()
-                    .iterator(), 0);
+            new SizedIterator<MatchReplace>(new LinkedList<MatchReplace>().iterator(), 0);
 
     public LengthLimitedProvider(RuleProvider sourceProvider, int maxLength) {
         mySourceProvider = sourceProvider;
         myMaxLength = maxLength;
     }
 
-    public KnownSizeIterator<MatchReplace> consider(VerificationCondition vC,
-            int curLength, Metrics metrics,
+    public KnownSizeIterator<MatchReplace> consider(VerificationCondition vC, int curLength, Metrics metrics,
             Deque<VerificationCondition> pastStates) {
 
         KnownSizeIterator<MatchReplace> retval;
 
         if (curLength <= myMaxLength) {
-            retval =
-                    mySourceProvider.consider(vC, curLength, metrics,
-                            pastStates);
+            retval = mySourceProvider.consider(vC, curLength, metrics, pastStates);
         }
         else {
             retval = dummyIterator;

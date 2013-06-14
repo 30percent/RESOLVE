@@ -24,8 +24,7 @@ public interface VCProver {
      *                              or <code>metrics</code> is 
      *                              <code>null</code>.
      */
-    public ProofResult prove(VC vC, ProverListener progressListener,
-            ActionCanceller actionCanceller);
+    public ProofResult prove(VC vC, ProverListener progressListener, ActionCanceller actionCanceller);
 
     /**
      * <p>Returns an approximation of the number of proofs this prover will

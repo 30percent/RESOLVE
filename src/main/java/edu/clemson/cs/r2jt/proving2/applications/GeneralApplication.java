@@ -39,8 +39,7 @@ public class GeneralApplication implements Application {
     private List<Conjunct> myRemovedConjuncts = new LinkedList<Conjunct>();
     private List<Integer> myRemovedConjunctsIndecis = new LinkedList<Integer>();
 
-    private Map<Conjunct, PExp> myOriginalConjunctValues =
-            new HashMap<Conjunct, PExp>();
+    private Map<Conjunct, PExp> myOriginalConjunctValues = new HashMap<Conjunct, PExp>();
     private Set<Conjunct> myAddedConjuncts = new HashSet<Conjunct>();
 
     private Set<Site> myAffectedSites = new HashSet<Site>();
@@ -48,9 +47,8 @@ public class GeneralApplication implements Application {
     private final Transformation myTransformation;
     private final Theorem myTheorem;
 
-    public GeneralApplication(Collection<Site> involvedSubExpressions,
-            Map<Conjunct, PExp> updateConjuncts, List<PExp> addLocalTheorems,
-            List<Integer> addLocalTheoremsIndecis, Transformation t,
+    public GeneralApplication(Collection<Site> involvedSubExpressions, Map<Conjunct, PExp> updateConjuncts,
+            List<PExp> addLocalTheorems, List<Integer> addLocalTheoremsIndecis, Transformation t,
             Theorem theorem) {
 
         if (addLocalTheorems.size() != addLocalTheoremsIndecis.size()) {
@@ -87,8 +85,7 @@ public class GeneralApplication implements Application {
         LocalTheorem addedTheorem;
 
         Iterator<PExp> newTheoremIter = myLocalTheoremsToAdd.iterator();
-        Iterator<Integer> newTheoremIndexIter =
-                myLocalTheoremsToAddIndecis.iterator();
+        Iterator<Integer> newTheoremIndexIter = myLocalTheoremsToAddIndecis.iterator();
         while (newTheoremIter.hasNext()) {
 
             Integer index = newTheoremIndexIter.next();
@@ -97,8 +94,7 @@ public class GeneralApplication implements Application {
             }
 
             addedTheorem =
-                    m.addLocalTheorem(newTheoremIter.next(),
-                            new TheoremApplication(myTransformation), false,
+                    m.addLocalTheorem(newTheoremIter.next(), new TheoremApplication(myTransformation), false,
                             index);
             myAddedConjuncts.add(addedTheorem);
             myAffectedSites.add(addedTheorem.toSite(m));
@@ -107,8 +103,7 @@ public class GeneralApplication implements Application {
         //Now, make any changes and removals
         Set<Conjunct> removed = new HashSet<Conjunct>();
         int removedIndex;
-        for (Map.Entry<Conjunct, PExp> toUpdate : myConjunctsToUpdate
-                .entrySet()) {
+        for (Map.Entry<Conjunct, PExp> toUpdate : myConjunctsToUpdate.entrySet()) {
 
             Conjunct key = toUpdate.getKey();
             PExp value = toUpdate.getValue();
@@ -129,10 +124,10 @@ public class GeneralApplication implements Application {
         }
 
         //Finally, add a proof step that represents this application
-        m.addProofStep(new GeneralStep(myRemovedConjuncts,
-                myRemovedConjunctsIndecis, myOriginalConjunctValues,
-                myAddedConjuncts, myTransformation, this,
-                myInvolvedSubExpressions));
+        m
+                .addProofStep(new GeneralStep(myRemovedConjuncts, myRemovedConjunctsIndecis,
+                        myOriginalConjunctValues, myAddedConjuncts, myTransformation, this,
+                        myInvolvedSubExpressions));
     }
 
     @Override

@@ -39,8 +39,7 @@ public class VirtualListNode extends ResolveConceptualElement {
 
     @Override
     public List<ResolveConceptualElement> getChildren() {
-        List<ResolveConceptualElement> children =
-                new LinkedList<ResolveConceptualElement>();
+        List<ResolveConceptualElement> children = new LinkedList<ResolveConceptualElement>();
         Iterator<ResolveConceptualElement> iter = myList.iterator();
         while (iter.hasNext()) {
             children.add(ResolveConceptualElement.class.cast(iter.next()));
@@ -71,7 +70,6 @@ public class VirtualListNode extends ResolveConceptualElement {
 
     @Override
     public Location getLocation() {
-        throw new UnsupportedOperationException(this.getClass()
-                + " has no location by definition.");
+        throw new UnsupportedOperationException(this.getClass() + " has no location by definition.");
     }
 }

@@ -40,8 +40,7 @@ public class VC {
         this(name, antecedent, consequent, false);
     }
 
-    public VC(String name, Antecedent antecedent, Consequent consequent,
-            boolean derived) {
+    public VC(String name, Antecedent antecedent, Consequent consequent, boolean derived) {
 
         myName = name;
         myAntecedent = antecedent;
@@ -74,9 +73,7 @@ public class VC {
     @Override
     public String toString() {
 
-        String retval =
-                "========== " + getName() + " ==========\n" + myAntecedent
-                        + "  -->\n" + myConsequent;
+        String retval = "========== " + getName() + " ==========\n" + myAntecedent + "  -->\n" + myConsequent;
 
         return retval;
     }

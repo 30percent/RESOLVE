@@ -73,8 +73,7 @@ public class ArrayBackedImmutableList<E> extends AbstractImmutableList<E> {
 
     @Override
     public ImmutableList<E> tail(int startIndex) {
-        return new ImmutableListSubview<E>(this, startIndex, myElementsLength
-                - startIndex);
+        return new ImmutableListSubview<E>(this, startIndex, myElementsLength - startIndex);
     }
 
     @Override

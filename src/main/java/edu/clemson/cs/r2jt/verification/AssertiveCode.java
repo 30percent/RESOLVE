@@ -67,8 +67,7 @@ public class AssertiveCode implements Cloneable {
     private ModuleID mySourceModule;
     private ErrorHandler err;
 
-    List<VerificationStatement> assertive_code =
-            new List<VerificationStatement>();
+    List<VerificationStatement> assertive_code = new List<VerificationStatement>();
     Exp confirm;
     List<ConcType> freeVars2 = new List<ConcType>();
     Iterator<VerificationStatement> iter = assertive_code.iterator();
@@ -80,8 +79,7 @@ public class AssertiveCode implements Cloneable {
     static private boolean provePart = false;
 
     static public List<ConcType> currVars;
-    static public Hashtable<String, Boolean> currVarHash =
-            new Hashtable<String, Boolean>();
+    static public Hashtable<String, Boolean> currVarHash = new Hashtable<String, Boolean>();
 
     public AssertiveCode(CompileEnvironment env) {
         this.env = env;
@@ -146,20 +144,16 @@ public class AssertiveCode implements Cloneable {
                 clone.addConfirm(Exp.copy(((Exp) tmp.getAssertion())));
             }
             else if (tmp.getType() == VerificationStatement.CODE) {
-                clone.addCode((Statement) ((Statement) tmp.getAssertion())
-                        .clone());
+                clone.addCode((Statement) ((Statement) tmp.getAssertion()).clone());
             }
             else if (tmp.getType() == VerificationStatement.VARIABLE) {
-                clone.addVariableDec((VarDec) ((VarDec) tmp.getAssertion())
-                        .clone());
+                clone.addVariableDec((VarDec) ((VarDec) tmp.getAssertion()).clone());
             }
             else if (tmp.getType() == VerificationStatement.REMEMBER) {
                 clone.addRemember();
             }
-            else if (tmp.getType() == VerificationStatement.CHANGE
-                    && tmp.getAssertion() instanceof List<?>) {
-                clone.addChange((List<?>) (((List<?>) tmp.getAssertion())
-                        .clone()));
+            else if (tmp.getType() == VerificationStatement.CHANGE && tmp.getAssertion() instanceof List<?>) {
+                clone.addChange((List<?>) (((List<?>) tmp.getAssertion()).clone()));
             }
         }
 
@@ -218,8 +212,7 @@ public class AssertiveCode implements Cloneable {
         while (k.hasNext()) {
             ConcType tmp = k.next();
             if (tmp.getName().toString().equals(name.toString())) {
-                if (currVarHash.get(name.toString()) == null
-                        || currVarHash.get(name.toString()) == false) {
+                if (currVarHash.get(name.toString()) == null || currVarHash.get(name.toString()) == false) {
                     currVarHash.put(name.toString(), true);
                     return tmp;
                 }
@@ -230,24 +223,20 @@ public class AssertiveCode implements Cloneable {
     }
 
     public void addVariableDec(VarDec variables) {
-        assertive_code.add(new VerificationStatement(
-                VerificationStatement.VARIABLE, variables));
+        assertive_code.add(new VerificationStatement(VerificationStatement.VARIABLE, variables));
 
     }
 
     public void insertVariableDec(VarDec variables) {
-        assertive_code.add(0, new VerificationStatement(
-                VerificationStatement.VARIABLE, variables));
+        assertive_code.add(0, new VerificationStatement(VerificationStatement.VARIABLE, variables));
 
     }
 
     public VarDec getVariableDec(String name) {
         for (VerificationStatement stmt : assertive_code) {
             if (stmt.getType() == VerificationStatement.getVariableType()) {
-                if (((VarDec) ((VerificationStatement) stmt).getAssertion())
-                        .getName().getName().equals(name)) {
-                    return ((VarDec) ((VerificationStatement) stmt)
-                            .getAssertion());
+                if (((VarDec) ((VerificationStatement) stmt).getAssertion()).getName().getName().equals(name)) {
+                    return ((VarDec) ((VerificationStatement) stmt).getAssertion());
                 }
             }
         }
@@ -256,8 +245,7 @@ public class AssertiveCode implements Cloneable {
     }
 
     public void addChange(List<?> list) {
-        assertive_code.add(new VerificationStatement(
-                VerificationStatement.CHANGE, list));
+        assertive_code.add(new VerificationStatement(VerificationStatement.CHANGE, list));
 
     }
 
@@ -269,15 +257,13 @@ public class AssertiveCode implements Cloneable {
     }
 
     public void addCode(Statement stmt) {
-        assertive_code.add(new VerificationStatement(VerificationStatement
-                .getCodeType(), stmt));
+        assertive_code.add(new VerificationStatement(VerificationStatement.getCodeType(), stmt));
     }
 
     public void addStatements(List<Statement> statements) {
         Iterator<Statement> i = statements.iterator();
         while (i.hasNext()) {
-            assertive_code.add(new VerificationStatement(VerificationStatement
-                    .getCodeType(), i.next()));
+            assertive_code.add(new VerificationStatement(VerificationStatement.getCodeType(), i.next()));
         }
     }
 
@@ -311,8 +297,7 @@ public class AssertiveCode implements Cloneable {
     }
 
     public void addRemember() {
-        assertive_code.add(new VerificationStatement(VerificationStatement
-                .getRememberType()));
+        assertive_code.add(new VerificationStatement(VerificationStatement.getRememberType()));
     }
 
     private String splitAssertionToString() {
@@ -346,37 +331,28 @@ public class AssertiveCode implements Cloneable {
 
             // encode for web interface if XMLout flag is set
             if (env.flags.isFlagSet(ResolveCompiler.FLAG_XML_OUT)) {
-                str =
-                        "{\"freeVars\":\"" + ResolveCompiler.webEncode(str)
-                                + "\"},";
+                str = "{\"freeVars\":\"" + ResolveCompiler.webEncode(str) + "\"},";
             }
         }
         while (i.hasNext()) {
             VerificationStatement cur = i.next();
             if (cur.getType() == VerificationStatement.getAssumeType()) {
-                str =
-                        str.concat("Assume "
-                                + expToString((Exp) cur.getAssertion()));
+                str = str.concat("Assume " + expToString((Exp) cur.getAssertion()));
             }
             else if (cur.getType() == VerificationStatement.getConfirmType())
-                str =
-                        str.concat("Confirm "
-                                + expToString((Exp) cur.getAssertion()));
+                str = str.concat("Confirm " + expToString((Exp) cur.getAssertion()));
             else if (cur.getType() == VerificationStatement.getCodeType())
                 str = str.concat(stmtToString((Statement) cur.getAssertion()));
             else if (cur.getType() == VerificationStatement.getRememberType())
                 str = str.concat("Remember");
             else if (cur.getType() == VerificationStatement.getVariableType())
-                str =
-                        str.concat("\t"
-                                + varDecToString((VarDec) cur.getAssertion()));
+                str = str.concat("\t" + varDecToString((VarDec) cur.getAssertion()));
             else if (cur.getType() == VerificationStatement.CHANGE) {
 
                 str = str.concat("Change ");
 
                 Iterator<ConcType> j =
-                        (Iterator<ConcType>) (((List<ConcType>) cur
-                                .getAssertion()).iterator());
+                        (Iterator<ConcType>) (((List<ConcType>) cur.getAssertion()).iterator());
 
                 while (j.hasNext()) {
                     str = str.concat(concTypeToString(j.next()));
@@ -440,22 +416,16 @@ public class AssertiveCode implements Cloneable {
         while (i.hasNext()) {
             VerificationStatement cur = i.next();
             if (cur.getType() == VerificationStatement.getAssumeType()) {
-                str =
-                        str.concat("Assume "
-                                + expToString((Exp) cur.getAssertion()));
+                str = str.concat("Assume " + expToString((Exp) cur.getAssertion()));
             }
             else if (cur.getType() == VerificationStatement.getConfirmType())
-                str =
-                        str.concat("Confirm "
-                                + expToString((Exp) cur.getAssertion()));
+                str = str.concat("Confirm " + expToString((Exp) cur.getAssertion()));
             else if (cur.getType() == VerificationStatement.getCodeType())
                 str = str.concat(stmtToString((Statement) cur.getAssertion()));
             else if (cur.getType() == VerificationStatement.getRememberType())
                 str = str.concat("Remember");
             else if (cur.getType() == VerificationStatement.getVariableType())
-                str =
-                        str.concat("\t"
-                                + varDecToString((VarDec) cur.getAssertion()));
+                str = str.concat("\t" + varDecToString((VarDec) cur.getAssertion()));
             else if (cur.getType() == VerificationStatement.CHANGE) {
 
                 str = str.concat("Change ");
@@ -525,8 +495,7 @@ public class AssertiveCode implements Cloneable {
         List<InfixExp> tmp2 = new List<InfixExp>();
         while (it2.hasNext()) {
             Exp tmpExp = it2.next();//.simplify();
-            if (!tmpExp.equals(VarExp.getTrueVarExp())
-                    && tmpExp instanceof InfixExp) {
+            if (!tmpExp.equals(VarExp.getTrueVarExp()) && tmpExp instanceof InfixExp) {
                 tmp2.add((InfixExp) tmpExp);
             }
 
@@ -549,17 +518,13 @@ public class AssertiveCode implements Cloneable {
                 PrintAssertions printer = new PrintAssertions(env);
                 updateTheCount();
                 // This will be replaced by code below
-                sb
-                        .append("lemma " + name + "_" + section + "_" + count
-                                + ":\n");
+                sb.append("lemma " + name + "_" + section + "_" + count + ":\n");
                 if (tmpInf.getLeft() == null) {
                     sb.append("\"[| \n" + " \n|] ");
 
                 }
                 else {
-                    sb.append("\"[| \n"
-                            + printer.clearAndVisitAssertion(tmpInf.getLeft())
-                            + " \n|] ");
+                    sb.append("\"[| \n" + printer.clearAndVisitAssertion(tmpInf.getLeft()) + " \n|] ");
                 }
                 sb.append("\n==> \n");
                 provePart = true;
@@ -592,11 +557,8 @@ public class AssertiveCode implements Cloneable {
                         loc = tmpInf.getLocation();
                     }
                     sb.append("{\"vc\":\"" + section + "_" + count + "\",");
-                    sb.append("\"sourceFile\":\""
-                            + ((loc != null) ? loc.getFilename() : "") + "\",");
-                    sb.append("\"lineNum\":\""
-                            + ((loc != null) ? loc.getPos().getLine() : 0)
-                            + "\",");
+                    sb.append("\"sourceFile\":\"" + ((loc != null) ? loc.getFilename() : "") + "\",");
+                    sb.append("\"lineNum\":\"" + ((loc != null) ? loc.getPos().getLine() : 0) + "\",");
                     sb.append("\"vcInfo\":\"");
                 }
 
@@ -655,13 +617,11 @@ public class AssertiveCode implements Cloneable {
 
                 }
                 else if (tmpInf.getLeft() instanceof InfixExp
-                        && ((InfixExp) tmpInf.getLeft()).getOpName().equals(
-                                "and")) {
+                        && ((InfixExp) tmpInf.getLeft()).getOpName().equals("and")) {
                     tb.append(printer.clearAndVisitAssertion(tmpInf.getLeft()));
                 }
                 else {
-                    tb.append("\n1: "
-                            + printer.clearAndVisitAssertion(tmpInf.getLeft()));
+                    tb.append("\n1: " + printer.clearAndVisitAssertion(tmpInf.getLeft()));
                 }
                 /* end given stuff */
 
@@ -678,8 +638,7 @@ public class AssertiveCode implements Cloneable {
                 if (XMLfile)
                     sb.append("\"");
 
-                if (finalAssertion
-                        && env.flags.isFlagSet(Verifier.FLAG_REASON_FOR_GIVEN)) {
+                if (finalAssertion && env.flags.isFlagSet(Verifier.FLAG_REASON_FOR_GIVEN)) {
                     //if(XMLfile) sb.append("<vcReasons>");
                     if (XMLfile)
                         sb.append(",\"vcReasons\":\"");
@@ -692,15 +651,11 @@ public class AssertiveCode implements Cloneable {
                         tb.append("\nNo Assumptions for this VC");
                     }
                     else if (tmpInf.getLeft() instanceof InfixExp
-                            && ((InfixExp) tmpInf.getLeft()).getOpName()
-                                    .equals("and")) {
-                        tb.append(""
-                                + ((InfixExp) tmpInf.getLeft())
-                                        .printLocation(new AtomicInteger(0)));
+                            && ((InfixExp) tmpInf.getLeft()).getOpName().equals("and")) {
+                        tb.append("" + ((InfixExp) tmpInf.getLeft()).printLocation(new AtomicInteger(0)));
                     }
                     else if (tmpInf.getLeft().getLocation() != null) {
-                        tb.append("\n1: " + tmpInf.getLeft().getLocation()
-                                + ": "
+                        tb.append("\n1: " + tmpInf.getLeft().getLocation() + ": "
                                 + tmpInf.getLeft().getLocation().getDetails());
                     }
                     /* end reasons stuff */

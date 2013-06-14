@@ -106,9 +106,8 @@ public abstract class AbstractFunctionExp extends Exp {
 
     public void setQuantification(SymbolTableEntry.Quantification q) {
         if (!q.equals(SymbolTableEntry.Quantification.NONE)) {
-            throw new UnsupportedOperationException("The function "
-                    + getOperatorAsString() + " does not support "
-                    + "quantification.");
+            throw new UnsupportedOperationException("The function " + getOperatorAsString()
+                    + " does not support " + "quantification.");
         }
     }
 

@@ -16,8 +16,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preConstructedTy(ConstructedTy data) {}
 
-    public void midConstructedTy(ConstructedTy node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midConstructedTy(ConstructedTy node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postConstructedTy(ConstructedTy data) {}
 
@@ -39,8 +39,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFunctionValueExp(FunctionValueExp data) {}
 
-    public void midFunctionValueExp(FunctionValueExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midFunctionValueExp(FunctionValueExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postFunctionValueExp(FunctionValueExp data) {}
 
@@ -51,8 +51,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preEnhancementBodyItem(EnhancementBodyItem data) {}
 
-    public void midEnhancementBodyItem(EnhancementBodyItem node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midEnhancementBodyItem(EnhancementBodyItem node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postEnhancementBodyItem(EnhancementBodyItem data) {}
 
@@ -63,8 +63,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preEnhancementBodyItemParams(EnhancementBodyItem data) {}
 
-    public void midEnhancementBodyItemParams(EnhancementBodyItem node,
-            ModuleArgumentItem previous, ModuleArgumentItem next) {}
+    public void midEnhancementBodyItemParams(EnhancementBodyItem node, ModuleArgumentItem previous,
+            ModuleArgumentItem next) {}
 
     public void postEnhancementBodyItemParams(EnhancementBodyItem data) {}
 
@@ -75,8 +75,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preEnhancementBodyItemBodyParams(EnhancementBodyItem data) {}
 
-    public void midEnhancementBodyItemBodyParams(EnhancementBodyItem node,
-            ModuleArgumentItem previous, ModuleArgumentItem next) {}
+    public void midEnhancementBodyItemBodyParams(EnhancementBodyItem node, ModuleArgumentItem previous,
+            ModuleArgumentItem next) {}
 
     public void postEnhancementBodyItemBodyParams(EnhancementBodyItem data) {}
 
@@ -87,8 +87,8 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceFinalItem(PerformanceFinalItem data) {}
 
-    public void midPerformanceFinalItem(PerformanceFinalItem node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midPerformanceFinalItem(PerformanceFinalItem node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postPerformanceFinalItem(PerformanceFinalItem data) {}
 
@@ -99,8 +99,8 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceFinalItemStateVars(PerformanceFinalItem data) {}
 
-    public void midPerformanceFinalItemStateVars(PerformanceFinalItem node,
-            AffectsItem previous, AffectsItem next) {}
+    public void midPerformanceFinalItemStateVars(PerformanceFinalItem node, AffectsItem previous,
+            AffectsItem next) {}
 
     public void postPerformanceFinalItemStateVars(PerformanceFinalItem data) {}
 
@@ -111,8 +111,8 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceFinalItemFacilities(PerformanceFinalItem data) {}
 
-    public void midPerformanceFinalItemFacilities(PerformanceFinalItem node,
-            FacilityDec previous, FacilityDec next) {}
+    public void midPerformanceFinalItemFacilities(PerformanceFinalItem node, FacilityDec previous,
+            FacilityDec next) {}
 
     public void postPerformanceFinalItemFacilities(PerformanceFinalItem data) {}
 
@@ -123,21 +123,19 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceFinalItemVariables(PerformanceFinalItem data) {}
 
-    public void midPerformanceFinalItemVariables(PerformanceFinalItem node,
-            VarDec previous, VarDec next) {}
+    public void midPerformanceFinalItemVariables(PerformanceFinalItem node, VarDec previous, VarDec next) {}
 
     public void postPerformanceFinalItemVariables(PerformanceFinalItem data) {}
 
     // PerformanceFinalItemAuxVariables
-    public boolean walkPerformanceFinalItemAuxVariables(
-            PerformanceFinalItem data) {
+    public boolean walkPerformanceFinalItemAuxVariables(PerformanceFinalItem data) {
         return false;
     }
 
     public void prePerformanceFinalItemAuxVariables(PerformanceFinalItem data) {}
 
-    public void midPerformanceFinalItemAuxVariables(PerformanceFinalItem node,
-            AuxVarDec previous, AuxVarDec next) {}
+    public void midPerformanceFinalItemAuxVariables(PerformanceFinalItem node, AuxVarDec previous,
+            AuxVarDec next) {}
 
     public void postPerformanceFinalItemAuxVariables(PerformanceFinalItem data) {}
 
@@ -148,8 +146,8 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceFinalItemStatements(PerformanceFinalItem data) {}
 
-    public void midPerformanceFinalItemStatements(PerformanceFinalItem node,
-            Statement previous, Statement next) {}
+    public void midPerformanceFinalItemStatements(PerformanceFinalItem node, Statement previous,
+            Statement next) {}
 
     public void postPerformanceFinalItemStatements(PerformanceFinalItem data) {}
 
@@ -160,8 +158,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preStatement(Statement data) {}
 
-    public void midStatement(Statement node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midStatement(Statement node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postStatement(Statement data) {}
 
@@ -172,8 +169,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preParameterVarDec(ParameterVarDec data) {}
 
-    public void midParameterVarDec(ParameterVarDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midParameterVarDec(ParameterVarDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postParameterVarDec(ParameterVarDec data) {}
 
@@ -184,26 +181,22 @@ public abstract class TreeWalkerVisitor {
 
     public void preCategoricalDefinitionDec(CategoricalDefinitionDec data) {}
 
-    public void midCategoricalDefinitionDec(CategoricalDefinitionDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midCategoricalDefinitionDec(CategoricalDefinitionDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postCategoricalDefinitionDec(CategoricalDefinitionDec data) {}
 
     // CategoricalDefinitionDecDefinitions
-    public boolean walkCategoricalDefinitionDecDefinitions(
-            CategoricalDefinitionDec data) {
+    public boolean walkCategoricalDefinitionDecDefinitions(CategoricalDefinitionDec data) {
         return false;
     }
 
-    public void preCategoricalDefinitionDecDefinitions(
-            CategoricalDefinitionDec data) {}
+    public void preCategoricalDefinitionDecDefinitions(CategoricalDefinitionDec data) {}
 
-    public void midCategoricalDefinitionDecDefinitions(
-            CategoricalDefinitionDec node, DefinitionDec previous,
+    public void midCategoricalDefinitionDecDefinitions(CategoricalDefinitionDec node, DefinitionDec previous,
             DefinitionDec next) {}
 
-    public void postCategoricalDefinitionDecDefinitions(
-            CategoricalDefinitionDec data) {}
+    public void postCategoricalDefinitionDecDefinitions(CategoricalDefinitionDec data) {}
 
     // VariableDotExp
     public boolean walkVariableDotExp(VariableDotExp data) {
@@ -212,8 +205,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preVariableDotExp(VariableDotExp data) {}
 
-    public void midVariableDotExp(VariableDotExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midVariableDotExp(VariableDotExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postVariableDotExp(VariableDotExp data) {}
 
@@ -224,8 +217,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preVariableDotExpSegments(VariableDotExp data) {}
 
-    public void midVariableDotExpSegments(VariableDotExp node,
-            VariableExp previous, VariableExp next) {}
+    public void midVariableDotExpSegments(VariableDotExp node, VariableExp previous, VariableExp next) {}
 
     public void postVariableDotExpSegments(VariableDotExp data) {}
 
@@ -236,8 +228,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preMemoryStmt(MemoryStmt data) {}
 
-    public void midMemoryStmt(MemoryStmt node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midMemoryStmt(MemoryStmt node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postMemoryStmt(MemoryStmt data) {}
 
@@ -248,8 +240,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preAlternativeExp(AlternativeExp data) {}
 
-    public void midAlternativeExp(AlternativeExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midAlternativeExp(AlternativeExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postAlternativeExp(AlternativeExp data) {}
 
@@ -260,8 +252,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preAlternativeExpAlternatives(AlternativeExp data) {}
 
-    public void midAlternativeExpAlternatives(AlternativeExp node,
-            AltItemExp previous, AltItemExp next) {}
+    public void midAlternativeExpAlternatives(AlternativeExp node, AltItemExp previous, AltItemExp next) {}
 
     public void postAlternativeExpAlternatives(AlternativeExp data) {}
 
@@ -272,8 +263,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preOutfixExp(OutfixExp data) {}
 
-    public void midOutfixExp(OutfixExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midOutfixExp(OutfixExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postOutfixExp(OutfixExp data) {}
 
@@ -284,8 +274,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preTypeFunctionExp(TypeFunctionExp data) {}
 
-    public void midTypeFunctionExp(TypeFunctionExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midTypeFunctionExp(TypeFunctionExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postTypeFunctionExp(TypeFunctionExp data) {}
 
@@ -296,8 +286,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preTypeFunctionExpParams(TypeFunctionExp data) {}
 
-    public void midTypeFunctionExpParams(TypeFunctionExp node, Exp previous,
-            Exp next) {}
+    public void midTypeFunctionExpParams(TypeFunctionExp node, Exp previous, Exp next) {}
 
     public void postTypeFunctionExpParams(TypeFunctionExp data) {}
 
@@ -308,8 +297,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preTypeAssertionExp(TypeAssertionExp data) {}
 
-    public void midTypeAssertionExp(TypeAssertionExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midTypeAssertionExp(TypeAssertionExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postTypeAssertionExp(TypeAssertionExp data) {}
 
@@ -320,8 +309,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preGoalExp(GoalExp data) {}
 
-    public void midGoalExp(GoalExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midGoalExp(GoalExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postGoalExp(GoalExp data) {}
 
@@ -332,8 +320,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preConfirmStmt(ConfirmStmt data) {}
 
-    public void midConfirmStmt(ConfirmStmt node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midConfirmStmt(ConfirmStmt node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postConfirmStmt(ConfirmStmt data) {}
 
@@ -344,8 +332,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preStructureExp(StructureExp data) {}
 
-    public void midStructureExp(StructureExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midStructureExp(StructureExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postStructureExp(StructureExp data) {}
 
@@ -356,65 +344,53 @@ public abstract class TreeWalkerVisitor {
 
     public void preEnhancementBodyModuleDec(EnhancementBodyModuleDec data) {}
 
-    public void midEnhancementBodyModuleDec(EnhancementBodyModuleDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midEnhancementBodyModuleDec(EnhancementBodyModuleDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postEnhancementBodyModuleDec(EnhancementBodyModuleDec data) {}
 
     // EnhancementBodyModuleDecEnhancementBodies
-    public boolean walkEnhancementBodyModuleDecEnhancementBodies(
-            EnhancementBodyModuleDec data) {
+    public boolean walkEnhancementBodyModuleDecEnhancementBodies(EnhancementBodyModuleDec data) {
         return false;
     }
 
-    public void preEnhancementBodyModuleDecEnhancementBodies(
-            EnhancementBodyModuleDec data) {}
+    public void preEnhancementBodyModuleDecEnhancementBodies(EnhancementBodyModuleDec data) {}
 
-    public void midEnhancementBodyModuleDecEnhancementBodies(
-            EnhancementBodyModuleDec node, EnhancementBodyItem previous,
-            EnhancementBodyItem next) {}
+    public void midEnhancementBodyModuleDecEnhancementBodies(EnhancementBodyModuleDec node,
+            EnhancementBodyItem previous, EnhancementBodyItem next) {}
 
-    public void postEnhancementBodyModuleDecEnhancementBodies(
-            EnhancementBodyModuleDec data) {}
+    public void postEnhancementBodyModuleDecEnhancementBodies(EnhancementBodyModuleDec data) {}
 
     // EnhancementBodyModuleDecConventions
-    public boolean walkEnhancementBodyModuleDecConventions(
-            EnhancementBodyModuleDec data) {
+    public boolean walkEnhancementBodyModuleDecConventions(EnhancementBodyModuleDec data) {
         return false;
     }
 
-    public void preEnhancementBodyModuleDecConventions(
-            EnhancementBodyModuleDec data) {}
+    public void preEnhancementBodyModuleDecConventions(EnhancementBodyModuleDec data) {}
 
-    public void midEnhancementBodyModuleDecConventions(
-            EnhancementBodyModuleDec node, Exp previous, Exp next) {}
+    public void midEnhancementBodyModuleDecConventions(EnhancementBodyModuleDec node, Exp previous, Exp next) {}
 
-    public void postEnhancementBodyModuleDecConventions(
-            EnhancementBodyModuleDec data) {}
+    public void postEnhancementBodyModuleDecConventions(EnhancementBodyModuleDec data) {}
 
     // EnhancementBodyModuleDecCorrs
-    public boolean walkEnhancementBodyModuleDecCorrs(
-            EnhancementBodyModuleDec data) {
+    public boolean walkEnhancementBodyModuleDecCorrs(EnhancementBodyModuleDec data) {
         return false;
     }
 
     public void preEnhancementBodyModuleDecCorrs(EnhancementBodyModuleDec data) {}
 
-    public void midEnhancementBodyModuleDecCorrs(EnhancementBodyModuleDec node,
-            Exp previous, Exp next) {}
+    public void midEnhancementBodyModuleDecCorrs(EnhancementBodyModuleDec node, Exp previous, Exp next) {}
 
     public void postEnhancementBodyModuleDecCorrs(EnhancementBodyModuleDec data) {}
 
     // EnhancementBodyModuleDecDecs
-    public boolean walkEnhancementBodyModuleDecDecs(
-            EnhancementBodyModuleDec data) {
+    public boolean walkEnhancementBodyModuleDecDecs(EnhancementBodyModuleDec data) {
         return false;
     }
 
     public void preEnhancementBodyModuleDecDecs(EnhancementBodyModuleDec data) {}
 
-    public void midEnhancementBodyModuleDecDecs(EnhancementBodyModuleDec node,
-            Dec previous, Dec next) {}
+    public void midEnhancementBodyModuleDecDecs(EnhancementBodyModuleDec node, Dec previous, Dec next) {}
 
     public void postEnhancementBodyModuleDecDecs(EnhancementBodyModuleDec data) {}
 
@@ -425,8 +401,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preLambdaExp(LambdaExp data) {}
 
-    public void midLambdaExp(LambdaExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midLambdaExp(LambdaExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postLambdaExp(LambdaExp data) {}
 
@@ -437,8 +412,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preLambdaExpParameters(LambdaExp data) {}
 
-    public void midLambdaExpParameters(LambdaExp node, MathVarDec previous,
-            MathVarDec next) {}
+    public void midLambdaExpParameters(LambdaExp node, MathVarDec previous, MathVarDec next) {}
 
     public void postLambdaExpParameters(LambdaExp data) {}
 
@@ -449,8 +423,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProofModuleDec(ProofModuleDec data) {}
 
-    public void midProofModuleDec(ProofModuleDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProofModuleDec(ProofModuleDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProofModuleDec(ProofModuleDec data) {}
 
@@ -461,8 +435,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProofModuleDecModuleParams(ProofModuleDec data) {}
 
-    public void midProofModuleDecModuleParams(ProofModuleDec node,
-            ModuleParameterDec previous, ModuleParameterDec next) {}
+    public void midProofModuleDecModuleParams(ProofModuleDec node, ModuleParameterDec previous,
+            ModuleParameterDec next) {}
 
     public void postProofModuleDecModuleParams(ProofModuleDec data) {}
 
@@ -473,8 +447,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProofModuleDecDecs(ProofModuleDec data) {}
 
-    public void midProofModuleDecDecs(ProofModuleDec node, Dec previous,
-            Dec next) {}
+    public void midProofModuleDecDecs(ProofModuleDec node, Dec previous, Dec next) {}
 
     public void postProofModuleDecDecs(ProofModuleDec data) {}
 
@@ -485,8 +458,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preInfixExp(InfixExp data) {}
 
-    public void midInfixExp(InfixExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midInfixExp(InfixExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postInfixExp(InfixExp data) {}
 
@@ -497,8 +469,8 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceInitItem(PerformanceInitItem data) {}
 
-    public void midPerformanceInitItem(PerformanceInitItem node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midPerformanceInitItem(PerformanceInitItem node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postPerformanceInitItem(PerformanceInitItem data) {}
 
@@ -509,8 +481,8 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceInitItemStateVars(PerformanceInitItem data) {}
 
-    public void midPerformanceInitItemStateVars(PerformanceInitItem node,
-            AffectsItem previous, AffectsItem next) {}
+    public void midPerformanceInitItemStateVars(PerformanceInitItem node, AffectsItem previous,
+            AffectsItem next) {}
 
     public void postPerformanceInitItemStateVars(PerformanceInitItem data) {}
 
@@ -521,8 +493,8 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceInitItemFacilities(PerformanceInitItem data) {}
 
-    public void midPerformanceInitItemFacilities(PerformanceInitItem node,
-            FacilityDec previous, FacilityDec next) {}
+    public void midPerformanceInitItemFacilities(PerformanceInitItem node, FacilityDec previous,
+            FacilityDec next) {}
 
     public void postPerformanceInitItemFacilities(PerformanceInitItem data) {}
 
@@ -533,8 +505,7 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceInitItemVariables(PerformanceInitItem data) {}
 
-    public void midPerformanceInitItemVariables(PerformanceInitItem node,
-            VarDec previous, VarDec next) {}
+    public void midPerformanceInitItemVariables(PerformanceInitItem node, VarDec previous, VarDec next) {}
 
     public void postPerformanceInitItemVariables(PerformanceInitItem data) {}
 
@@ -545,8 +516,8 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceInitItemAuxVariables(PerformanceInitItem data) {}
 
-    public void midPerformanceInitItemAuxVariables(PerformanceInitItem node,
-            AuxVarDec previous, AuxVarDec next) {}
+    public void midPerformanceInitItemAuxVariables(PerformanceInitItem node, AuxVarDec previous,
+            AuxVarDec next) {}
 
     public void postPerformanceInitItemAuxVariables(PerformanceInitItem data) {}
 
@@ -557,8 +528,7 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceInitItemStatements(PerformanceInitItem data) {}
 
-    public void midPerformanceInitItemStatements(PerformanceInitItem node,
-            Statement previous, Statement next) {}
+    public void midPerformanceInitItemStatements(PerformanceInitItem node, Statement previous, Statement next) {}
 
     public void postPerformanceInitItemStatements(PerformanceInitItem data) {}
 
@@ -569,8 +539,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preMathRefExp(MathRefExp data) {}
 
-    public void midMathRefExp(MathRefExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midMathRefExp(MathRefExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postMathRefExp(MathRefExp data) {}
 
@@ -581,8 +551,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preMathRefExpParams(MathRefExp data) {}
 
-    public void midMathRefExpParams(MathRefExp node, VarExp previous,
-            VarExp next) {}
+    public void midMathRefExpParams(MathRefExp node, VarExp previous, VarExp next) {}
 
     public void postMathRefExpParams(MathRefExp data) {}
 
@@ -593,8 +562,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preOperationDec(OperationDec data) {}
 
-    public void midOperationDec(OperationDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midOperationDec(OperationDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postOperationDec(OperationDec data) {}
 
@@ -605,8 +574,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preOperationDecParameters(OperationDec data) {}
 
-    public void midOperationDecParameters(OperationDec node,
-            ParameterVarDec previous, ParameterVarDec next) {}
+    public void midOperationDecParameters(OperationDec node, ParameterVarDec previous, ParameterVarDec next) {}
 
     public void postOperationDecParameters(OperationDec data) {}
 
@@ -617,8 +585,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preOperationDecStateVars(OperationDec data) {}
 
-    public void midOperationDecStateVars(OperationDec node,
-            AffectsItem previous, AffectsItem next) {}
+    public void midOperationDecStateVars(OperationDec node, AffectsItem previous, AffectsItem next) {}
 
     public void postOperationDecStateVars(OperationDec data) {}
 
@@ -629,8 +596,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preDoubleExp(DoubleExp data) {}
 
-    public void midDoubleExp(DoubleExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midDoubleExp(DoubleExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postDoubleExp(DoubleExp data) {}
 
@@ -641,8 +607,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preSwapStmt(SwapStmt data) {}
 
-    public void midSwapStmt(SwapStmt node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midSwapStmt(SwapStmt node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postSwapStmt(SwapStmt data) {}
 
@@ -653,8 +618,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preCharExp(CharExp data) {}
 
-    public void midCharExp(CharExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midCharExp(CharExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postCharExp(CharExp data) {}
 
@@ -665,8 +629,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preHypDesigExp(HypDesigExp data) {}
 
-    public void midHypDesigExp(HypDesigExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midHypDesigExp(HypDesigExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postHypDesigExp(HypDesigExp data) {}
 
@@ -677,8 +641,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preRenamingItem(RenamingItem data) {}
 
-    public void midRenamingItem(RenamingItem node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midRenamingItem(RenamingItem node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postRenamingItem(RenamingItem data) {}
 
@@ -689,8 +653,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preShortFacilityModuleDec(ShortFacilityModuleDec data) {}
 
-    public void midShortFacilityModuleDec(ShortFacilityModuleDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midShortFacilityModuleDec(ShortFacilityModuleDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postShortFacilityModuleDec(ShortFacilityModuleDec data) {}
 
@@ -701,8 +665,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preEqualsExp(EqualsExp data) {}
 
-    public void midEqualsExp(EqualsExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midEqualsExp(EqualsExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postEqualsExp(EqualsExp data) {}
 
@@ -713,8 +676,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityOperationDec(FacilityOperationDec data) {}
 
-    public void midFacilityOperationDec(FacilityOperationDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midFacilityOperationDec(FacilityOperationDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postFacilityOperationDec(FacilityOperationDec data) {}
 
@@ -725,8 +688,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityOperationDecParameters(FacilityOperationDec data) {}
 
-    public void midFacilityOperationDecParameters(FacilityOperationDec node,
-            ParameterVarDec previous, ParameterVarDec next) {}
+    public void midFacilityOperationDecParameters(FacilityOperationDec node, ParameterVarDec previous,
+            ParameterVarDec next) {}
 
     public void postFacilityOperationDecParameters(FacilityOperationDec data) {}
 
@@ -737,8 +700,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityOperationDecStateVars(FacilityOperationDec data) {}
 
-    public void midFacilityOperationDecStateVars(FacilityOperationDec node,
-            AffectsItem previous, AffectsItem next) {}
+    public void midFacilityOperationDecStateVars(FacilityOperationDec node, AffectsItem previous,
+            AffectsItem next) {}
 
     public void postFacilityOperationDecStateVars(FacilityOperationDec data) {}
 
@@ -749,8 +712,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityOperationDecFacilities(FacilityOperationDec data) {}
 
-    public void midFacilityOperationDecFacilities(FacilityOperationDec node,
-            FacilityDec previous, FacilityDec next) {}
+    public void midFacilityOperationDecFacilities(FacilityOperationDec node, FacilityDec previous,
+            FacilityDec next) {}
 
     public void postFacilityOperationDecFacilities(FacilityOperationDec data) {}
 
@@ -761,21 +724,19 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityOperationDecVariables(FacilityOperationDec data) {}
 
-    public void midFacilityOperationDecVariables(FacilityOperationDec node,
-            VarDec previous, VarDec next) {}
+    public void midFacilityOperationDecVariables(FacilityOperationDec node, VarDec previous, VarDec next) {}
 
     public void postFacilityOperationDecVariables(FacilityOperationDec data) {}
 
     // FacilityOperationDecAuxVariables
-    public boolean walkFacilityOperationDecAuxVariables(
-            FacilityOperationDec data) {
+    public boolean walkFacilityOperationDecAuxVariables(FacilityOperationDec data) {
         return false;
     }
 
     public void preFacilityOperationDecAuxVariables(FacilityOperationDec data) {}
 
-    public void midFacilityOperationDecAuxVariables(FacilityOperationDec node,
-            AuxVarDec previous, AuxVarDec next) {}
+    public void midFacilityOperationDecAuxVariables(FacilityOperationDec node, AuxVarDec previous,
+            AuxVarDec next) {}
 
     public void postFacilityOperationDecAuxVariables(FacilityOperationDec data) {}
 
@@ -786,8 +747,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityOperationDecStatements(FacilityOperationDec data) {}
 
-    public void midFacilityOperationDecStatements(FacilityOperationDec node,
-            Statement previous, Statement next) {}
+    public void midFacilityOperationDecStatements(FacilityOperationDec node, Statement previous,
+            Statement next) {}
 
     public void postFacilityOperationDecStatements(FacilityOperationDec data) {}
 
@@ -798,8 +759,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preModuleDec(ModuleDec data) {}
 
-    public void midModuleDec(ModuleDec node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midModuleDec(ModuleDec node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postModuleDec(ModuleDec data) {}
 
@@ -810,8 +770,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preModuleDecUsesItems(ModuleDec data) {}
 
-    public void midModuleDecUsesItems(ModuleDec node, UsesItem previous,
-            UsesItem next) {}
+    public void midModuleDecUsesItems(ModuleDec node, UsesItem previous, UsesItem next) {}
 
     public void postModuleDecUsesItems(ModuleDec data) {}
 
@@ -822,8 +781,8 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceModuleDec(PerformanceModuleDec data) {}
 
-    public void midPerformanceModuleDec(PerformanceModuleDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midPerformanceModuleDec(PerformanceModuleDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postPerformanceModuleDec(PerformanceModuleDec data) {}
 
@@ -834,8 +793,7 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceModuleDecConstraints(PerformanceModuleDec data) {}
 
-    public void midPerformanceModuleDecConstraints(PerformanceModuleDec node,
-            Exp previous, Exp next) {}
+    public void midPerformanceModuleDecConstraints(PerformanceModuleDec node, Exp previous, Exp next) {}
 
     public void postPerformanceModuleDecConstraints(PerformanceModuleDec data) {}
 
@@ -846,8 +804,7 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceModuleDecDecs(PerformanceModuleDec data) {}
 
-    public void midPerformanceModuleDecDecs(PerformanceModuleDec node,
-            Dec previous, Dec next) {}
+    public void midPerformanceModuleDecDecs(PerformanceModuleDec node, Dec previous, Dec next) {}
 
     public void postPerformanceModuleDecDecs(PerformanceModuleDec data) {}
 
@@ -858,8 +815,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preExp(Exp data) {}
 
-    public void midExp(Exp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midExp(Exp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postExp(Exp data) {}
 
@@ -870,8 +826,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramDotExp(ProgramDotExp data) {}
 
-    public void midProgramDotExp(ProgramDotExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProgramDotExp(ProgramDotExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProgramDotExp(ProgramDotExp data) {}
 
@@ -882,8 +838,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramDotExpSegments(ProgramDotExp data) {}
 
-    public void midProgramDotExpSegments(ProgramDotExp node,
-            ProgramExp previous, ProgramExp next) {}
+    public void midProgramDotExpSegments(ProgramDotExp node, ProgramExp previous, ProgramExp next) {}
 
     public void postProgramDotExpSegments(ProgramDotExp data) {}
 
@@ -894,8 +849,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preConstantParamDec(ConstantParamDec data) {}
 
-    public void midConstantParamDec(ConstantParamDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midConstantParamDec(ConstantParamDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postConstantParamDec(ConstantParamDec data) {}
 
@@ -906,8 +861,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preBetweenExp(BetweenExp data) {}
 
-    public void midBetweenExp(BetweenExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midBetweenExp(BetweenExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postBetweenExp(BetweenExp data) {}
 
@@ -929,8 +884,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preAuxVarDec(AuxVarDec data) {}
 
-    public void midAuxVarDec(AuxVarDec node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midAuxVarDec(AuxVarDec node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postAuxVarDec(AuxVarDec data) {}
 
@@ -941,8 +895,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramCharExp(ProgramCharExp data) {}
 
-    public void midProgramCharExp(ProgramCharExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProgramCharExp(ProgramCharExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProgramCharExp(ProgramCharExp data) {}
 
@@ -953,8 +907,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preJustifiedExp(JustifiedExp data) {}
 
-    public void midJustifiedExp(JustifiedExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midJustifiedExp(JustifiedExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postJustifiedExp(JustifiedExp data) {}
 
@@ -965,8 +919,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preWhileStmt(WhileStmt data) {}
 
-    public void midWhileStmt(WhileStmt node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midWhileStmt(WhileStmt node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postWhileStmt(WhileStmt data) {}
 
@@ -977,8 +930,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preWhileStmtChanging(WhileStmt data) {}
 
-    public void midWhileStmtChanging(WhileStmt node, VariableExp previous,
-            VariableExp next) {}
+    public void midWhileStmtChanging(WhileStmt node, VariableExp previous, VariableExp next) {}
 
     public void postWhileStmtChanging(WhileStmt data) {}
 
@@ -989,8 +941,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preWhileStmtStatements(WhileStmt data) {}
 
-    public void midWhileStmtStatements(WhileStmt node, Statement previous,
-            Statement next) {}
+    public void midWhileStmtStatements(WhileStmt node, Statement previous, Statement next) {}
 
     public void postWhileStmtStatements(WhileStmt data) {}
 
@@ -1001,8 +952,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preConceptTypeParamDec(ConceptTypeParamDec data) {}
 
-    public void midConceptTypeParamDec(ConceptTypeParamDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midConceptTypeParamDec(ConceptTypeParamDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postConceptTypeParamDec(ConceptTypeParamDec data) {}
 
@@ -1013,8 +964,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preIfExp(IfExp data) {}
 
-    public void midIfExp(IfExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midIfExp(IfExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postIfExp(IfExp data) {}
 
@@ -1025,8 +975,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preDec(Dec data) {}
 
-    public void midDec(Dec node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midDec(Dec node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postDec(Dec data) {}
 
@@ -1037,8 +986,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preAbstractFunctionExp(AbstractFunctionExp data) {}
 
-    public void midAbstractFunctionExp(AbstractFunctionExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midAbstractFunctionExp(AbstractFunctionExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postAbstractFunctionExp(AbstractFunctionExp data) {}
 
@@ -1049,8 +998,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preAssumeStmt(AssumeStmt data) {}
 
-    public void midAssumeStmt(AssumeStmt node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midAssumeStmt(AssumeStmt node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postAssumeStmt(AssumeStmt data) {}
 
@@ -1061,8 +1010,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preIfStmt(IfStmt data) {}
 
-    public void midIfStmt(IfStmt node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midIfStmt(IfStmt node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postIfStmt(IfStmt data) {}
 
@@ -1073,8 +1021,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preIfStmtThenclause(IfStmt data) {}
 
-    public void midIfStmtThenclause(IfStmt node, Statement previous,
-            Statement next) {}
+    public void midIfStmtThenclause(IfStmt node, Statement previous, Statement next) {}
 
     public void postIfStmtThenclause(IfStmt data) {}
 
@@ -1085,8 +1032,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preIfStmtElseifpairs(IfStmt data) {}
 
-    public void midIfStmtElseifpairs(IfStmt node, ConditionItem previous,
-            ConditionItem next) {}
+    public void midIfStmtElseifpairs(IfStmt node, ConditionItem previous, ConditionItem next) {}
 
     public void postIfStmtElseifpairs(IfStmt data) {}
 
@@ -1097,8 +1043,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preIfStmtElseclause(IfStmt data) {}
 
-    public void midIfStmtElseclause(IfStmt node, Statement previous,
-            Statement next) {}
+    public void midIfStmtElseclause(IfStmt node, Statement previous, Statement next) {}
 
     public void postIfStmtElseclause(IfStmt data) {}
 
@@ -1109,8 +1054,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preDotExp(DotExp data) {}
 
-    public void midDotExp(DotExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midDotExp(DotExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postDotExp(DotExp data) {}
 
@@ -1132,8 +1076,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preRealizationParamDec(RealizationParamDec data) {}
 
-    public void midRealizationParamDec(RealizationParamDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midRealizationParamDec(RealizationParamDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postRealizationParamDec(RealizationParamDec data) {}
 
@@ -1144,8 +1088,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preMathVarDec(MathVarDec data) {}
 
-    public void midMathVarDec(MathVarDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midMathVarDec(MathVarDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postMathVarDec(MathVarDec data) {}
 
@@ -1156,8 +1100,8 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceTypeDec(PerformanceTypeDec data) {}
 
-    public void midPerformanceTypeDec(PerformanceTypeDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midPerformanceTypeDec(PerformanceTypeDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postPerformanceTypeDec(PerformanceTypeDec data) {}
 
@@ -1168,8 +1112,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preSelectionStmt(SelectionStmt data) {}
 
-    public void midSelectionStmt(SelectionStmt node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midSelectionStmt(SelectionStmt node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postSelectionStmt(SelectionStmt data) {}
 
@@ -1180,8 +1124,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preSelectionStmtWhenpairs(SelectionStmt data) {}
 
-    public void midSelectionStmtWhenpairs(SelectionStmt node,
-            ChoiceItem previous, ChoiceItem next) {}
+    public void midSelectionStmtWhenpairs(SelectionStmt node, ChoiceItem previous, ChoiceItem next) {}
 
     public void postSelectionStmtWhenpairs(SelectionStmt data) {}
 
@@ -1192,8 +1135,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preSelectionStmtDefaultclause(SelectionStmt data) {}
 
-    public void midSelectionStmtDefaultclause(SelectionStmt node,
-            Statement previous, Statement next) {}
+    public void midSelectionStmtDefaultclause(SelectionStmt node, Statement previous, Statement next) {}
 
     public void postSelectionStmtDefaultclause(SelectionStmt data) {}
 
@@ -1204,8 +1146,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preDefinitionDec(DefinitionDec data) {}
 
-    public void midDefinitionDec(DefinitionDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midDefinitionDec(DefinitionDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postDefinitionDec(DefinitionDec data) {}
 
@@ -1216,8 +1158,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preDefinitionDecParameters(DefinitionDec data) {}
 
-    public void midDefinitionDecParameters(DefinitionDec node,
-            MathVarDec previous, MathVarDec next) {}
+    public void midDefinitionDecParameters(DefinitionDec node, MathVarDec previous, MathVarDec next) {}
 
     public void postDefinitionDecParameters(DefinitionDec data) {}
 
@@ -1228,8 +1169,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFuncAssignStmt(FuncAssignStmt data) {}
 
-    public void midFuncAssignStmt(FuncAssignStmt node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midFuncAssignStmt(FuncAssignStmt node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postFuncAssignStmt(FuncAssignStmt data) {}
 
@@ -1240,8 +1181,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preLineNumberedExp(LineNumberedExp data) {}
 
-    public void midLineNumberedExp(LineNumberedExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midLineNumberedExp(LineNumberedExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postLineNumberedExp(LineNumberedExp data) {}
 
@@ -1252,42 +1193,34 @@ public abstract class TreeWalkerVisitor {
 
     public void preVariableExp(VariableExp data) {}
 
-    public void midVariableExp(VariableExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midVariableExp(VariableExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postVariableExp(VariableExp data) {}
 
     // AbstractParameterizedModuleDec
-    public boolean walkAbstractParameterizedModuleDec(
-            AbstractParameterizedModuleDec data) {
+    public boolean walkAbstractParameterizedModuleDec(AbstractParameterizedModuleDec data) {
         return false;
     }
 
-    public void preAbstractParameterizedModuleDec(
-            AbstractParameterizedModuleDec data) {}
+    public void preAbstractParameterizedModuleDec(AbstractParameterizedModuleDec data) {}
 
-    public void midAbstractParameterizedModuleDec(
-            AbstractParameterizedModuleDec node,
+    public void midAbstractParameterizedModuleDec(AbstractParameterizedModuleDec node,
             ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
-    public void postAbstractParameterizedModuleDec(
-            AbstractParameterizedModuleDec data) {}
+    public void postAbstractParameterizedModuleDec(AbstractParameterizedModuleDec data) {}
 
     // AbstractParameterizedModuleDecParameters
-    public boolean walkAbstractParameterizedModuleDecParameters(
-            AbstractParameterizedModuleDec data) {
+    public boolean walkAbstractParameterizedModuleDecParameters(AbstractParameterizedModuleDec data) {
         return false;
     }
 
-    public void preAbstractParameterizedModuleDecParameters(
-            AbstractParameterizedModuleDec data) {}
+    public void preAbstractParameterizedModuleDecParameters(AbstractParameterizedModuleDec data) {}
 
-    public void midAbstractParameterizedModuleDecParameters(
-            AbstractParameterizedModuleDec node, ModuleParameterDec previous,
-            ModuleParameterDec next) {}
+    public void midAbstractParameterizedModuleDecParameters(AbstractParameterizedModuleDec node,
+            ModuleParameterDec previous, ModuleParameterDec next) {}
 
-    public void postAbstractParameterizedModuleDecParameters(
-            AbstractParameterizedModuleDec data) {}
+    public void postAbstractParameterizedModuleDecParameters(AbstractParameterizedModuleDec data) {}
 
     // MathModuleDec
     public boolean walkMathModuleDec(MathModuleDec data) {
@@ -1296,8 +1229,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preMathModuleDec(MathModuleDec data) {}
 
-    public void midMathModuleDec(MathModuleDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midMathModuleDec(MathModuleDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postMathModuleDec(MathModuleDec data) {}
 
@@ -1319,8 +1252,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preInitItem(InitItem data) {}
 
-    public void midInitItem(InitItem node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midInitItem(InitItem node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postInitItem(InitItem data) {}
 
@@ -1331,8 +1263,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preInitItemStateVars(InitItem data) {}
 
-    public void midInitItemStateVars(InitItem node, AffectsItem previous,
-            AffectsItem next) {}
+    public void midInitItemStateVars(InitItem node, AffectsItem previous, AffectsItem next) {}
 
     public void postInitItemStateVars(InitItem data) {}
 
@@ -1343,8 +1274,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preInitItemFacilities(InitItem data) {}
 
-    public void midInitItemFacilities(InitItem node, FacilityDec previous,
-            FacilityDec next) {}
+    public void midInitItemFacilities(InitItem node, FacilityDec previous, FacilityDec next) {}
 
     public void postInitItemFacilities(InitItem data) {}
 
@@ -1366,8 +1296,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preInitItemAuxVariables(InitItem data) {}
 
-    public void midInitItemAuxVariables(InitItem node, AuxVarDec previous,
-            AuxVarDec next) {}
+    public void midInitItemAuxVariables(InitItem node, AuxVarDec previous, AuxVarDec next) {}
 
     public void postInitItemAuxVariables(InitItem data) {}
 
@@ -1378,8 +1307,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preInitItemStatements(InitItem data) {}
 
-    public void midInitItemStatements(InitItem node, Statement previous,
-            Statement next) {}
+    public void midInitItemStatements(InitItem node, Statement previous, Statement next) {}
 
     public void postInitItemStatements(InitItem data) {}
 
@@ -1390,8 +1318,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preVariableRecordExp(VariableRecordExp data) {}
 
-    public void midVariableRecordExp(VariableRecordExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midVariableRecordExp(VariableRecordExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postVariableRecordExp(VariableRecordExp data) {}
 
@@ -1402,8 +1330,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preVariableRecordExpFields(VariableRecordExp data) {}
 
-    public void midVariableRecordExpFields(VariableRecordExp node,
-            VariableExp previous, VariableExp next) {}
+    public void midVariableRecordExpFields(VariableRecordExp node, VariableExp previous, VariableExp next) {}
 
     public void postVariableRecordExpFields(VariableRecordExp data) {}
 
@@ -1414,8 +1341,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramFunctionExp(ProgramFunctionExp data) {}
 
-    public void midProgramFunctionExp(ProgramFunctionExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProgramFunctionExp(ProgramFunctionExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProgramFunctionExp(ProgramFunctionExp data) {}
 
@@ -1426,8 +1353,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramFunctionExpArguments(ProgramFunctionExp data) {}
 
-    public void midProgramFunctionExpArguments(ProgramFunctionExp node,
-            ProgramExp previous, ProgramExp next) {}
+    public void midProgramFunctionExpArguments(ProgramFunctionExp node, ProgramExp previous, ProgramExp next) {}
 
     public void postProgramFunctionExpArguments(ProgramFunctionExp data) {}
 
@@ -1438,8 +1364,7 @@ public abstract class TreeWalkerVisitor {
 
     public void prePrefixExp(PrefixExp data) {}
 
-    public void midPrefixExp(PrefixExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midPrefixExp(PrefixExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postPrefixExp(PrefixExp data) {}
 
@@ -1450,8 +1375,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preTupleExp(TupleExp data) {}
 
-    public void midTupleExp(TupleExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midTupleExp(TupleExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postTupleExp(TupleExp data) {}
 
@@ -1473,8 +1397,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preCrossTypeExpression(CrossTypeExpression data) {}
 
-    public void midCrossTypeExpression(CrossTypeExpression node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midCrossTypeExpression(CrossTypeExpression node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postCrossTypeExpression(CrossTypeExpression data) {}
 
@@ -1485,8 +1409,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preOldExp(OldExp data) {}
 
-    public void midOldExp(OldExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midOldExp(OldExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postOldExp(OldExp data) {}
 
@@ -1497,8 +1420,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preChoiceItem(ChoiceItem data) {}
 
-    public void midChoiceItem(ChoiceItem node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midChoiceItem(ChoiceItem node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postChoiceItem(ChoiceItem data) {}
 
@@ -1509,8 +1432,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preChoiceItemTest(ChoiceItem data) {}
 
-    public void midChoiceItemTest(ChoiceItem node, ProgramExp previous,
-            ProgramExp next) {}
+    public void midChoiceItemTest(ChoiceItem node, ProgramExp previous, ProgramExp next) {}
 
     public void postChoiceItemTest(ChoiceItem data) {}
 
@@ -1521,8 +1443,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preChoiceItemThenclause(ChoiceItem data) {}
 
-    public void midChoiceItemThenclause(ChoiceItem node, Statement previous,
-            Statement next) {}
+    public void midChoiceItemThenclause(ChoiceItem node, Statement previous, Statement next) {}
 
     public void postChoiceItemThenclause(ChoiceItem data) {}
 
@@ -1533,8 +1454,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preTupleTy(TupleTy data) {}
 
-    public void midTupleTy(TupleTy node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midTupleTy(TupleTy node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postTupleTy(TupleTy data) {}
 
@@ -1556,8 +1476,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preRecordTy(RecordTy data) {}
 
-    public void midRecordTy(RecordTy node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midRecordTy(RecordTy node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postRecordTy(RecordTy data) {}
 
@@ -1579,8 +1498,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preResolveConceptualElement(ResolveConceptualElement data) {}
 
-    public void midResolveConceptualElement(ResolveConceptualElement node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midResolveConceptualElement(ResolveConceptualElement node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postResolveConceptualElement(ResolveConceptualElement data) {}
 
@@ -1591,8 +1510,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFinalItem(FinalItem data) {}
 
-    public void midFinalItem(FinalItem node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midFinalItem(FinalItem node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postFinalItem(FinalItem data) {}
 
@@ -1603,8 +1521,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFinalItemStateVars(FinalItem data) {}
 
-    public void midFinalItemStateVars(FinalItem node, AffectsItem previous,
-            AffectsItem next) {}
+    public void midFinalItemStateVars(FinalItem node, AffectsItem previous, AffectsItem next) {}
 
     public void postFinalItemStateVars(FinalItem data) {}
 
@@ -1615,8 +1532,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFinalItemFacilities(FinalItem data) {}
 
-    public void midFinalItemFacilities(FinalItem node, FacilityDec previous,
-            FacilityDec next) {}
+    public void midFinalItemFacilities(FinalItem node, FacilityDec previous, FacilityDec next) {}
 
     public void postFinalItemFacilities(FinalItem data) {}
 
@@ -1627,8 +1543,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFinalItemVariables(FinalItem data) {}
 
-    public void midFinalItemVariables(FinalItem node, VarDec previous,
-            VarDec next) {}
+    public void midFinalItemVariables(FinalItem node, VarDec previous, VarDec next) {}
 
     public void postFinalItemVariables(FinalItem data) {}
 
@@ -1639,8 +1554,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFinalItemAuxVariables(FinalItem data) {}
 
-    public void midFinalItemAuxVariables(FinalItem node, AuxVarDec previous,
-            AuxVarDec next) {}
+    public void midFinalItemAuxVariables(FinalItem node, AuxVarDec previous, AuxVarDec next) {}
 
     public void postFinalItemAuxVariables(FinalItem data) {}
 
@@ -1651,8 +1565,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFinalItemStatements(FinalItem data) {}
 
-    public void midFinalItemStatements(FinalItem node, Statement previous,
-            Statement next) {}
+    public void midFinalItemStatements(FinalItem node, Statement previous, Statement next) {}
 
     public void postFinalItemStatements(FinalItem data) {}
 
@@ -1663,8 +1576,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityTypeDec(FacilityTypeDec data) {}
 
-    public void midFacilityTypeDec(FacilityTypeDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midFacilityTypeDec(FacilityTypeDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postFacilityTypeDec(FacilityTypeDec data) {}
 
@@ -1675,8 +1588,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preCallStmt(CallStmt data) {}
 
-    public void midCallStmt(CallStmt node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midCallStmt(CallStmt node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postCallStmt(CallStmt data) {}
 
@@ -1687,8 +1599,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preCallStmtArguments(CallStmt data) {}
 
-    public void midCallStmtArguments(CallStmt node, ProgramExp previous,
-            ProgramExp next) {}
+    public void midCallStmtArguments(CallStmt node, ProgramExp previous, ProgramExp next) {}
 
     public void postCallStmtArguments(CallStmt data) {}
 
@@ -1699,8 +1610,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramParamExp(ProgramParamExp data) {}
 
-    public void midProgramParamExp(ProgramParamExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProgramParamExp(ProgramParamExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProgramParamExp(ProgramParamExp data) {}
 
@@ -1711,8 +1622,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramParamExpArguments(ProgramParamExp data) {}
 
-    public void midProgramParamExpArguments(ProgramParamExp node,
-            ProgramExp previous, ProgramExp next) {}
+    public void midProgramParamExpArguments(ProgramParamExp node, ProgramExp previous, ProgramExp next) {}
 
     public void postProgramParamExpArguments(ProgramParamExp data) {}
 
@@ -1723,8 +1633,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preTypeTheoremDec(TypeTheoremDec data) {}
 
-    public void midTypeTheoremDec(TypeTheoremDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midTypeTheoremDec(TypeTheoremDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postTypeTheoremDec(TypeTheoremDec data) {}
 
@@ -1735,8 +1645,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preTypeTheoremDecMyUniversalVars(TypeTheoremDec data) {}
 
-    public void midTypeTheoremDecMyUniversalVars(TypeTheoremDec node,
-            MathVarDec previous, MathVarDec next) {}
+    public void midTypeTheoremDecMyUniversalVars(TypeTheoremDec node, MathVarDec previous, MathVarDec next) {}
 
     public void postTypeTheoremDecMyUniversalVars(TypeTheoremDec data) {}
 
@@ -1747,8 +1656,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProcedureDec(ProcedureDec data) {}
 
-    public void midProcedureDec(ProcedureDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProcedureDec(ProcedureDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProcedureDec(ProcedureDec data) {}
 
@@ -1759,8 +1668,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProcedureDecParameters(ProcedureDec data) {}
 
-    public void midProcedureDecParameters(ProcedureDec node,
-            ParameterVarDec previous, ParameterVarDec next) {}
+    public void midProcedureDecParameters(ProcedureDec node, ParameterVarDec previous, ParameterVarDec next) {}
 
     public void postProcedureDecParameters(ProcedureDec data) {}
 
@@ -1771,8 +1679,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProcedureDecStateVars(ProcedureDec data) {}
 
-    public void midProcedureDecStateVars(ProcedureDec node,
-            AffectsItem previous, AffectsItem next) {}
+    public void midProcedureDecStateVars(ProcedureDec node, AffectsItem previous, AffectsItem next) {}
 
     public void postProcedureDecStateVars(ProcedureDec data) {}
 
@@ -1783,8 +1690,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProcedureDecFacilities(ProcedureDec data) {}
 
-    public void midProcedureDecFacilities(ProcedureDec node,
-            FacilityDec previous, FacilityDec next) {}
+    public void midProcedureDecFacilities(ProcedureDec node, FacilityDec previous, FacilityDec next) {}
 
     public void postProcedureDecFacilities(ProcedureDec data) {}
 
@@ -1795,8 +1701,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProcedureDecVariables(ProcedureDec data) {}
 
-    public void midProcedureDecVariables(ProcedureDec node, VarDec previous,
-            VarDec next) {}
+    public void midProcedureDecVariables(ProcedureDec node, VarDec previous, VarDec next) {}
 
     public void postProcedureDecVariables(ProcedureDec data) {}
 
@@ -1807,8 +1712,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProcedureDecAuxVariables(ProcedureDec data) {}
 
-    public void midProcedureDecAuxVariables(ProcedureDec node,
-            AuxVarDec previous, AuxVarDec next) {}
+    public void midProcedureDecAuxVariables(ProcedureDec node, AuxVarDec previous, AuxVarDec next) {}
 
     public void postProcedureDecAuxVariables(ProcedureDec data) {}
 
@@ -1819,8 +1723,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProcedureDecStatements(ProcedureDec data) {}
 
-    public void midProcedureDecStatements(ProcedureDec node,
-            Statement previous, Statement next) {}
+    public void midProcedureDecStatements(ProcedureDec node, Statement previous, Statement next) {}
 
     public void postProcedureDecStatements(ProcedureDec data) {}
 
@@ -1831,8 +1734,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preMathTypeDec(MathTypeDec data) {}
 
-    public void midMathTypeDec(MathTypeDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midMathTypeDec(MathTypeDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postMathTypeDec(MathTypeDec data) {}
 
@@ -1843,8 +1746,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityModuleDec(FacilityModuleDec data) {}
 
-    public void midFacilityModuleDec(FacilityModuleDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midFacilityModuleDec(FacilityModuleDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postFacilityModuleDec(FacilityModuleDec data) {}
 
@@ -1855,8 +1758,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityModuleDecDecs(FacilityModuleDec data) {}
 
-    public void midFacilityModuleDecDecs(FacilityModuleDec node, Dec previous,
-            Dec next) {}
+    public void midFacilityModuleDecDecs(FacilityModuleDec node, Dec previous, Dec next) {}
 
     public void postFacilityModuleDecDecs(FacilityModuleDec data) {}
 
@@ -1867,8 +1769,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preVarExp(VarExp data) {}
 
-    public void midVarExp(VarExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midVarExp(VarExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postVarExp(VarExp data) {}
 
@@ -1879,8 +1780,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramExp(ProgramExp data) {}
 
-    public void midProgramExp(ProgramExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProgramExp(ProgramExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProgramExp(ProgramExp data) {}
 
@@ -1891,8 +1792,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramIntegerExp(ProgramIntegerExp data) {}
 
-    public void midProgramIntegerExp(ProgramIntegerExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProgramIntegerExp(ProgramIntegerExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProgramIntegerExp(ProgramIntegerExp data) {}
 
@@ -1903,8 +1804,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preStringExp(StringExp data) {}
 
-    public void midStringExp(StringExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midStringExp(StringExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postStringExp(StringExp data) {}
 
@@ -1915,8 +1815,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preUsesItem(UsesItem data) {}
 
-    public void midUsesItem(UsesItem node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midUsesItem(UsesItem node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postUsesItem(UsesItem data) {}
 
@@ -1927,8 +1826,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preDeductionExp(DeductionExp data) {}
 
-    public void midDeductionExp(DeductionExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midDeductionExp(DeductionExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postDeductionExp(DeductionExp data) {}
 
@@ -1939,8 +1838,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preSubtypeDec(SubtypeDec data) {}
 
-    public void midSubtypeDec(SubtypeDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midSubtypeDec(SubtypeDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postSubtypeDec(SubtypeDec data) {}
 
@@ -1951,8 +1850,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preIsInExp(IsInExp data) {}
 
-    public void midIsInExp(IsInExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midIsInExp(IsInExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postIsInExp(IsInExp data) {}
 
@@ -1963,11 +1861,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramOpExp(ProgramOpExp data) {}
 
-    public void midProgramOpExp(ProgramOpExp data,
-            ResolveConceptualElement prevChild,
-            ResolveConceptualElement nextChild) {
-
-    }
+    public void midProgramOpExp(ProgramOpExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProgramOpExp(ProgramOpExp data) {}
 
@@ -1978,8 +1873,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFunctionExp(FunctionExp data) {}
 
-    public void midFunctionExp(FunctionExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midFunctionExp(FunctionExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postFunctionExp(FunctionExp data) {}
 
@@ -1990,8 +1885,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFunctionExpParamList(FunctionExp data) {}
 
-    public void midFunctionExpParamList(FunctionExp node,
-            FunctionArgList previous, FunctionArgList next) {}
+    public void midFunctionExpParamList(FunctionExp node, FunctionArgList previous, FunctionArgList next) {}
 
     public void postFunctionExpParamList(FunctionExp data) {}
 
@@ -2002,8 +1896,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preIterativeExp(IterativeExp data) {}
 
-    public void midIterativeExp(IterativeExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midIterativeExp(IterativeExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postIterativeExp(IterativeExp data) {}
 
@@ -2014,8 +1908,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preArrayTy(ArrayTy data) {}
 
-    public void midArrayTy(ArrayTy node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midArrayTy(ArrayTy node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postArrayTy(ArrayTy data) {}
 
@@ -2026,8 +1919,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFunctionTy(FunctionTy data) {}
 
-    public void midFunctionTy(FunctionTy node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midFunctionTy(FunctionTy node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postFunctionTy(FunctionTy data) {}
 
@@ -2038,8 +1931,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preVarDec(VarDec data) {}
 
-    public void midVarDec(VarDec node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midVarDec(VarDec node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postVarDec(VarDec data) {}
 
@@ -2050,8 +1942,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preConditionItem(ConditionItem data) {}
 
-    public void midConditionItem(ConditionItem node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midConditionItem(ConditionItem node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postConditionItem(ConditionItem data) {}
 
@@ -2062,8 +1954,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preConditionItemThenclause(ConditionItem data) {}
 
-    public void midConditionItemThenclause(ConditionItem node,
-            Statement previous, Statement next) {}
+    public void midConditionItemThenclause(ConditionItem node, Statement previous, Statement next) {}
 
     public void postConditionItemThenclause(ConditionItem data) {}
 
@@ -2074,8 +1965,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preModuleParameterDec(ModuleParameterDec data) {}
 
-    public void midModuleParameterDec(ModuleParameterDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midModuleParameterDec(ModuleParameterDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postModuleParameterDec(ModuleParameterDec data) {}
 
@@ -2086,8 +1977,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preConceptModuleDec(ConceptModuleDec data) {}
 
-    public void midConceptModuleDec(ConceptModuleDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midConceptModuleDec(ConceptModuleDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postConceptModuleDec(ConceptModuleDec data) {}
 
@@ -2098,8 +1989,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preConceptModuleDecDecs(ConceptModuleDec data) {}
 
-    public void midConceptModuleDecDecs(ConceptModuleDec node, Dec previous,
-            Dec next) {}
+    public void midConceptModuleDecDecs(ConceptModuleDec node, Dec previous, Dec next) {}
 
     public void postConceptModuleDecDecs(ConceptModuleDec data) {}
 
@@ -2110,8 +2000,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preConceptModuleDecConstraints(ConceptModuleDec data) {}
 
-    public void midConceptModuleDecConstraints(ConceptModuleDec node,
-            Exp previous, Exp next) {}
+    public void midConceptModuleDecConstraints(ConceptModuleDec node, Exp previous, Exp next) {}
 
     public void postConceptModuleDecConstraints(ConceptModuleDec data) {}
 
@@ -2122,40 +2011,34 @@ public abstract class TreeWalkerVisitor {
 
     public void prePerformanceOperationDec(PerformanceOperationDec data) {}
 
-    public void midPerformanceOperationDec(PerformanceOperationDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midPerformanceOperationDec(PerformanceOperationDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postPerformanceOperationDec(PerformanceOperationDec data) {}
 
     // PerformanceOperationDecParameters
-    public boolean walkPerformanceOperationDecParameters(
-            PerformanceOperationDec data) {
+    public boolean walkPerformanceOperationDecParameters(PerformanceOperationDec data) {
         return false;
     }
 
-    public void prePerformanceOperationDecParameters(
-            PerformanceOperationDec data) {}
+    public void prePerformanceOperationDecParameters(PerformanceOperationDec data) {}
 
-    public void midPerformanceOperationDecParameters(
-            PerformanceOperationDec node, ParameterVarDec previous,
+    public void midPerformanceOperationDecParameters(PerformanceOperationDec node, ParameterVarDec previous,
             ParameterVarDec next) {}
 
-    public void postPerformanceOperationDecParameters(
-            PerformanceOperationDec data) {}
+    public void postPerformanceOperationDecParameters(PerformanceOperationDec data) {}
 
     // PerformanceOperationDecStateVars
-    public boolean walkPerformanceOperationDecStateVars(
-            PerformanceOperationDec data) {
+    public boolean walkPerformanceOperationDecStateVars(PerformanceOperationDec data) {
         return false;
     }
 
     public void prePerformanceOperationDecStateVars(PerformanceOperationDec data) {}
 
-    public void midPerformanceOperationDecStateVars(
-            PerformanceOperationDec node, AffectsItem previous, AffectsItem next) {}
+    public void midPerformanceOperationDecStateVars(PerformanceOperationDec node, AffectsItem previous,
+            AffectsItem next) {}
 
-    public void postPerformanceOperationDecStateVars(
-            PerformanceOperationDec data) {}
+    public void postPerformanceOperationDecStateVars(PerformanceOperationDec data) {}
 
     // FunctionArgList
     public boolean walkFunctionArgList(FunctionArgList data) {
@@ -2164,8 +2047,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFunctionArgList(FunctionArgList data) {}
 
-    public void midFunctionArgList(FunctionArgList node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midFunctionArgList(FunctionArgList node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postFunctionArgList(FunctionArgList data) {}
 
@@ -2176,8 +2059,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFunctionArgListArguments(FunctionArgList data) {}
 
-    public void midFunctionArgListArguments(FunctionArgList node, Exp previous,
-            Exp next) {}
+    public void midFunctionArgListArguments(FunctionArgList node, Exp previous, Exp next) {}
 
     public void postFunctionArgListArguments(FunctionArgList data) {}
 
@@ -2188,8 +2070,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preJustificationExp(JustificationExp data) {}
 
-    public void midJustificationExp(JustificationExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midJustificationExp(JustificationExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postJustificationExp(JustificationExp data) {}
 
@@ -2200,8 +2082,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preQuantExp(QuantExp data) {}
 
-    public void midQuantExp(QuantExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midQuantExp(QuantExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postQuantExp(QuantExp data) {}
 
@@ -2212,8 +2093,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preQuantExpVars(QuantExp data) {}
 
-    public void midQuantExpVars(QuantExp node, MathVarDec previous,
-            MathVarDec next) {}
+    public void midQuantExpVars(QuantExp node, MathVarDec previous, MathVarDec next) {}
 
     public void postQuantExpVars(QuantExp data) {}
 
@@ -2224,8 +2104,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preAltItemExp(AltItemExp data) {}
 
-    public void midAltItemExp(AltItemExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midAltItemExp(AltItemExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postAltItemExp(AltItemExp data) {}
 
@@ -2236,8 +2116,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preEnhancementModuleDec(EnhancementModuleDec data) {}
 
-    public void midEnhancementModuleDec(EnhancementModuleDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midEnhancementModuleDec(EnhancementModuleDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postEnhancementModuleDec(EnhancementModuleDec data) {}
 
@@ -2248,8 +2128,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preEnhancementModuleDecDecs(EnhancementModuleDec data) {}
 
-    public void midEnhancementModuleDecDecs(EnhancementModuleDec node,
-            Dec previous, Dec next) {}
+    public void midEnhancementModuleDecDecs(EnhancementModuleDec node, Dec previous, Dec next) {}
 
     public void postEnhancementModuleDecDecs(EnhancementModuleDec data) {}
 
@@ -2260,8 +2139,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preTypeDec(TypeDec data) {}
 
-    public void midTypeDec(TypeDec node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midTypeDec(TypeDec node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postTypeDec(TypeDec data) {}
 
@@ -2272,8 +2150,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preSuppositionDeductionExp(SuppositionDeductionExp data) {}
 
-    public void midSuppositionDeductionExp(SuppositionDeductionExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midSuppositionDeductionExp(SuppositionDeductionExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postSuppositionDeductionExp(SuppositionDeductionExp data) {}
 
@@ -2284,8 +2162,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preSuppositionDeductionExpBody(SuppositionDeductionExp data) {}
 
-    public void midSuppositionDeductionExpBody(SuppositionDeductionExp node,
-            Exp previous, Exp next) {}
+    public void midSuppositionDeductionExpBody(SuppositionDeductionExp node, Exp previous, Exp next) {}
 
     public void postSuppositionDeductionExpBody(SuppositionDeductionExp data) {}
 
@@ -2296,8 +2173,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preTy(Ty data) {}
 
-    public void midTy(Ty node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midTy(Ty node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postTy(Ty data) {}
 
@@ -2308,8 +2184,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProofDefinitionExp(ProofDefinitionExp data) {}
 
-    public void midProofDefinitionExp(ProofDefinitionExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProofDefinitionExp(ProofDefinitionExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProofDefinitionExp(ProofDefinitionExp data) {}
 
@@ -2320,8 +2196,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preNameTy(NameTy data) {}
 
-    public void midNameTy(NameTy node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midNameTy(NameTy node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postNameTy(NameTy data) {}
 
@@ -2332,8 +2207,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preDefinitionBody(DefinitionBody data) {}
 
-    public void midDefinitionBody(DefinitionBody node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midDefinitionBody(DefinitionBody node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postDefinitionBody(DefinitionBody data) {}
 
@@ -2344,8 +2219,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramDoubleExp(ProgramDoubleExp data) {}
 
-    public void midProgramDoubleExp(ProgramDoubleExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProgramDoubleExp(ProgramDoubleExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProgramDoubleExp(ProgramDoubleExp data) {}
 
@@ -2356,8 +2231,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preProofDec(ProofDec data) {}
 
-    public void midProofDec(ProofDec node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midProofDec(ProofDec node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postProofDec(ProofDec data) {}
 
@@ -2401,8 +2275,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFieldExp(FieldExp data) {}
 
-    public void midFieldExp(FieldExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midFieldExp(FieldExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postFieldExp(FieldExp data) {}
 
@@ -2413,8 +2286,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preUnaryMinusExp(UnaryMinusExp data) {}
 
-    public void midUnaryMinusExp(UnaryMinusExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midUnaryMinusExp(UnaryMinusExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postUnaryMinusExp(UnaryMinusExp data) {}
 
@@ -2425,8 +2298,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preCartProdTy(CartProdTy data) {}
 
-    public void midCartProdTy(CartProdTy node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midCartProdTy(CartProdTy node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postCartProdTy(CartProdTy data) {}
 
@@ -2437,8 +2310,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preCartProdTyFields(CartProdTy data) {}
 
-    public void midCartProdTyFields(CartProdTy node, MathVarDec previous,
-            MathVarDec next) {}
+    public void midCartProdTyFields(CartProdTy node, MathVarDec previous, MathVarDec next) {}
 
     public void postCartProdTyFields(CartProdTy data) {}
 
@@ -2449,8 +2321,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preVariableNameExp(VariableNameExp data) {}
 
-    public void midVariableNameExp(VariableNameExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midVariableNameExp(VariableNameExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postVariableNameExp(VariableNameExp data) {}
 
@@ -2461,8 +2333,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preRepresentationDec(RepresentationDec data) {}
 
-    public void midRepresentationDec(RepresentationDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midRepresentationDec(RepresentationDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postRepresentationDec(RepresentationDec data) {}
 
@@ -2473,8 +2345,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preAffectsItem(AffectsItem data) {}
 
-    public void midAffectsItem(AffectsItem node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midAffectsItem(AffectsItem node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postAffectsItem(AffectsItem data) {}
 
@@ -2485,8 +2357,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preSetExp(SetExp data) {}
 
-    public void midSetExp(SetExp node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midSetExp(SetExp node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postSetExp(SetExp data) {}
 
@@ -2508,8 +2379,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preBooleanTy(BooleanTy data) {}
 
-    public void midBooleanTy(BooleanTy node, ResolveConceptualElement previous,
-            ResolveConceptualElement next) {}
+    public void midBooleanTy(BooleanTy node, ResolveConceptualElement previous, ResolveConceptualElement next) {}
 
     public void postBooleanTy(BooleanTy data) {}
 
@@ -2520,8 +2390,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preEnhancementItem(EnhancementItem data) {}
 
-    public void midEnhancementItem(EnhancementItem node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midEnhancementItem(EnhancementItem node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postEnhancementItem(EnhancementItem data) {}
 
@@ -2532,8 +2402,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preEnhancementItemParams(EnhancementItem data) {}
 
-    public void midEnhancementItemParams(EnhancementItem node,
-            ModuleArgumentItem previous, ModuleArgumentItem next) {}
+    public void midEnhancementItemParams(EnhancementItem node, ModuleArgumentItem previous,
+            ModuleArgumentItem next) {}
 
     public void postEnhancementItemParams(EnhancementItem data) {}
 
@@ -2544,8 +2414,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preMathAssertionDec(MathAssertionDec data) {}
 
-    public void midMathAssertionDec(MathAssertionDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midMathAssertionDec(MathAssertionDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postMathAssertionDec(MathAssertionDec data) {}
 
@@ -2556,8 +2426,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preModuleArgumentItem(ModuleArgumentItem data) {}
 
-    public void midModuleArgumentItem(ModuleArgumentItem node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midModuleArgumentItem(ModuleArgumentItem node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postModuleArgumentItem(ModuleArgumentItem data) {}
 
@@ -2568,8 +2438,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preVariableArrayExp(VariableArrayExp data) {}
 
-    public void midVariableArrayExp(VariableArrayExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midVariableArrayExp(VariableArrayExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postVariableArrayExp(VariableArrayExp data) {}
 
@@ -2580,8 +2450,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preIntegerExp(IntegerExp data) {}
 
-    public void midIntegerExp(IntegerExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midIntegerExp(IntegerExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postIntegerExp(IntegerExp data) {}
 
@@ -2592,8 +2462,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preProgramStringExp(ProgramStringExp data) {}
 
-    public void midProgramStringExp(ProgramStringExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midProgramStringExp(ProgramStringExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postProgramStringExp(ProgramStringExp data) {}
 
@@ -2604,8 +2474,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preMathTypeFormalDec(MathTypeFormalDec data) {}
 
-    public void midMathTypeFormalDec(MathTypeFormalDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midMathTypeFormalDec(MathTypeFormalDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postMathTypeFormalDec(MathTypeFormalDec data) {}
 
@@ -2616,8 +2486,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityDec(FacilityDec data) {}
 
-    public void midFacilityDec(FacilityDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midFacilityDec(FacilityDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postFacilityDec(FacilityDec data) {}
 
@@ -2628,8 +2498,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityDecConceptParams(FacilityDec data) {}
 
-    public void midFacilityDecConceptParams(FacilityDec node,
-            ModuleArgumentItem previous, ModuleArgumentItem next) {}
+    public void midFacilityDecConceptParams(FacilityDec node, ModuleArgumentItem previous,
+            ModuleArgumentItem next) {}
 
     public void postFacilityDecConceptParams(FacilityDec data) {}
 
@@ -2640,8 +2510,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityDecEnhancements(FacilityDec data) {}
 
-    public void midFacilityDecEnhancements(FacilityDec node,
-            EnhancementItem previous, EnhancementItem next) {}
+    public void midFacilityDecEnhancements(FacilityDec node, EnhancementItem previous, EnhancementItem next) {}
 
     public void postFacilityDecEnhancements(FacilityDec data) {}
 
@@ -2652,8 +2521,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityDecBodyParams(FacilityDec data) {}
 
-    public void midFacilityDecBodyParams(FacilityDec node,
-            ModuleArgumentItem previous, ModuleArgumentItem next) {}
+    public void midFacilityDecBodyParams(FacilityDec node, ModuleArgumentItem previous,
+            ModuleArgumentItem next) {}
 
     public void postFacilityDecBodyParams(FacilityDec data) {}
 
@@ -2664,8 +2533,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preFacilityDecEnhancementBodies(FacilityDec data) {}
 
-    public void midFacilityDecEnhancementBodies(FacilityDec node,
-            EnhancementBodyItem previous, EnhancementBodyItem next) {}
+    public void midFacilityDecEnhancementBodies(FacilityDec node, EnhancementBodyItem previous,
+            EnhancementBodyItem next) {}
 
     public void postFacilityDecEnhancementBodies(FacilityDec data) {}
 
@@ -2676,8 +2545,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preAuxCodeStmt(AuxCodeStmt data) {}
 
-    public void midAuxCodeStmt(AuxCodeStmt node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midAuxCodeStmt(AuxCodeStmt node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postAuxCodeStmt(AuxCodeStmt data) {}
 
@@ -2688,8 +2557,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preAuxCodeStmtStatements(AuxCodeStmt data) {}
 
-    public void midAuxCodeStmtStatements(AuxCodeStmt node, Statement previous,
-            Statement next) {}
+    public void midAuxCodeStmtStatements(AuxCodeStmt node, Statement previous, Statement next) {}
 
     public void postAuxCodeStmtStatements(AuxCodeStmt data) {}
 
@@ -2700,8 +2568,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preIterateStmt(IterateStmt data) {}
 
-    public void midIterateStmt(IterateStmt node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midIterateStmt(IterateStmt node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postIterateStmt(IterateStmt data) {}
 
@@ -2712,8 +2580,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preIterateStmtChanging(IterateStmt data) {}
 
-    public void midIterateStmtChanging(IterateStmt node, VariableExp previous,
-            VariableExp next) {}
+    public void midIterateStmtChanging(IterateStmt node, VariableExp previous, VariableExp next) {}
 
     public void postIterateStmtChanging(IterateStmt data) {}
 
@@ -2724,8 +2591,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preIterateStmtStatements(IterateStmt data) {}
 
-    public void midIterateStmtStatements(IterateStmt node, Statement previous,
-            Statement next) {}
+    public void midIterateStmtStatements(IterateStmt node, Statement previous, Statement next) {}
 
     public void postIterateStmtStatements(IterateStmt data) {}
 
@@ -2736,8 +2602,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preIterateExitStmt(IterateExitStmt data) {}
 
-    public void midIterateExitStmt(IterateExitStmt node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midIterateExitStmt(IterateExitStmt node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postIterateExitStmt(IterateExitStmt data) {}
 
@@ -2748,8 +2614,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preIterateExitStmtStatements(IterateExitStmt data) {}
 
-    public void midIterateExitStmtStatements(IterateExitStmt node,
-            Statement previous, Statement next) {}
+    public void midIterateExitStmtStatements(IterateExitStmt node, Statement previous, Statement next) {}
 
     public void postIterateExitStmtStatements(IterateExitStmt data) {}
 
@@ -2760,8 +2625,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preSuppositionExp(SuppositionExp data) {}
 
-    public void midSuppositionExp(SuppositionExp node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midSuppositionExp(SuppositionExp node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postSuppositionExp(SuppositionExp data) {}
 
@@ -2772,8 +2637,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preSuppositionExpVars(SuppositionExp data) {}
 
-    public void midSuppositionExpVars(SuppositionExp node, MathVarDec previous,
-            MathVarDec next) {}
+    public void midSuppositionExpVars(SuppositionExp node, MathVarDec previous, MathVarDec next) {}
 
     public void postSuppositionExpVars(SuppositionExp data) {}
 
@@ -2784,25 +2648,22 @@ public abstract class TreeWalkerVisitor {
 
     public void preConceptBodyModuleDec(ConceptBodyModuleDec data) {}
 
-    public void midConceptBodyModuleDec(ConceptBodyModuleDec node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midConceptBodyModuleDec(ConceptBodyModuleDec node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postConceptBodyModuleDec(ConceptBodyModuleDec data) {}
 
     // ConceptBodyModuleDecEnhancementNames
-    public boolean walkConceptBodyModuleDecEnhancementNames(
-            ConceptBodyModuleDec data) {
+    public boolean walkConceptBodyModuleDecEnhancementNames(ConceptBodyModuleDec data) {
         return false;
     }
 
-    public void preConceptBodyModuleDecEnhancementNames(
-            ConceptBodyModuleDec data) {}
+    public void preConceptBodyModuleDecEnhancementNames(ConceptBodyModuleDec data) {}
 
-    public void midConceptBodyModuleDecEnhancementNames(
-            ConceptBodyModuleDec node, PosSymbol previous, PosSymbol next) {}
+    public void midConceptBodyModuleDecEnhancementNames(ConceptBodyModuleDec node, PosSymbol previous,
+            PosSymbol next) {}
 
-    public void postConceptBodyModuleDecEnhancementNames(
-            ConceptBodyModuleDec data) {}
+    public void postConceptBodyModuleDecEnhancementNames(ConceptBodyModuleDec data) {}
 
     // ConceptBodyModuleDecConventions
     public boolean walkConceptBodyModuleDecConventions(ConceptBodyModuleDec data) {
@@ -2811,8 +2672,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preConceptBodyModuleDecConventions(ConceptBodyModuleDec data) {}
 
-    public void midConceptBodyModuleDecConventions(ConceptBodyModuleDec node,
-            Exp previous, Exp next) {}
+    public void midConceptBodyModuleDecConventions(ConceptBodyModuleDec node, Exp previous, Exp next) {}
 
     public void postConceptBodyModuleDecConventions(ConceptBodyModuleDec data) {}
 
@@ -2823,8 +2683,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preConceptBodyModuleDecCorrs(ConceptBodyModuleDec data) {}
 
-    public void midConceptBodyModuleDecCorrs(ConceptBodyModuleDec node,
-            Exp previous, Exp next) {}
+    public void midConceptBodyModuleDecCorrs(ConceptBodyModuleDec node, Exp previous, Exp next) {}
 
     public void postConceptBodyModuleDecCorrs(ConceptBodyModuleDec data) {}
 
@@ -2835,8 +2694,7 @@ public abstract class TreeWalkerVisitor {
 
     public void preConceptBodyModuleDecDecs(ConceptBodyModuleDec data) {}
 
-    public void midConceptBodyModuleDecDecs(ConceptBodyModuleDec node,
-            Dec previous, Dec next) {}
+    public void midConceptBodyModuleDecDecs(ConceptBodyModuleDec node, Dec previous, Dec next) {}
 
     public void postConceptBodyModuleDecDecs(ConceptBodyModuleDec data) {}
 
@@ -2847,8 +2705,8 @@ public abstract class TreeWalkerVisitor {
 
     public void preArbitraryExpTy(ArbitraryExpTy data) {}
 
-    public void midArbitraryExpTy(ArbitraryExpTy node,
-            ResolveConceptualElement previous, ResolveConceptualElement next) {}
+    public void midArbitraryExpTy(ArbitraryExpTy node, ResolveConceptualElement previous,
+            ResolveConceptualElement next) {}
 
     public void postArbitraryExpTy(ArbitraryExpTy data) {}
 

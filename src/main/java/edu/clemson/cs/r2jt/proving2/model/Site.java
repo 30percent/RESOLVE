@@ -30,22 +30,19 @@ public class Site {
         CONSEQUENTS {
 
             @Override
-            public Theorem getRootTheorem(PerVCProverModel m, int index)
-                    throws NoSolutionException {
+            public Theorem getRootTheorem(PerVCProverModel m, int index) throws NoSolutionException {
                 throw NoSolutionException.INSTANCE;
             }
         },
         THEOREM_LIBRARY {
 
             @Override
-            public Theorem getRootTheorem(PerVCProverModel m, int index)
-                    throws NoSolutionException {
+            public Theorem getRootTheorem(PerVCProverModel m, int index) throws NoSolutionException {
                 return m.getTheoremLibrary().get(index);
             }
         };
 
-        public abstract Theorem getRootTheorem(PerVCProverModel m, int index)
-                throws NoSolutionException;
+        public abstract Theorem getRootTheorem(PerVCProverModel m, int index) throws NoSolutionException;
     };
 
     public final Conjunct conjunct;
@@ -57,8 +54,7 @@ public class Site {
 
     private final PerVCProverModel mySource;
 
-    public Site(PerVCProverModel source, Conjunct c, Iterable<Integer> path,
-            PExp exp) {
+    public Site(PerVCProverModel source, Conjunct c, Iterable<Integer> path, PExp exp) {
         this(source, c, path, exp, new Site(source, c, c.getExpression()));
     }
 
@@ -66,8 +62,7 @@ public class Site {
         this(source, c, Collections.EMPTY_LIST, exp, null);
     }
 
-    private Site(PerVCProverModel source, Conjunct c, Iterable<Integer> path,
-            PExp exp, Site root) {
+    private Site(PerVCProverModel source, Conjunct c, Iterable<Integer> path, PExp exp, Site root) {
         this.conjunct = c;
         this.path = new ArrayBackedImmutableList(path);
         this.exp = exp;
@@ -114,8 +109,7 @@ public class Site {
 
         if (result) {
             Site oAsSite = (Site) o;
-            result =
-                    (conjunct == oAsSite.conjunct) && path.equals(oAsSite.path);
+            result = (conjunct == oAsSite.conjunct) && path.equals(oAsSite.path);
         }
 
         return result;

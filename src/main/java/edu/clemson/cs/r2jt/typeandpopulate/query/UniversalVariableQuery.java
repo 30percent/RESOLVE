@@ -13,9 +13,7 @@ import edu.clemson.cs.r2jt.typeandpopulate.searchers.MultimatchTableSearcher;
 import java.util.Iterator;
 import java.util.List;
 
-public class UniversalVariableQuery
-        implements
-            MultimatchSymbolQuery<MathSymbolEntry> {
+public class UniversalVariableQuery implements MultimatchSymbolQuery<MathSymbolEntry> {
 
     public static final MultimatchSymbolQuery<MathSymbolEntry> INSTANCE =
             (MultimatchSymbolQuery<MathSymbolEntry>) new UniversalVariableQuery();
@@ -24,15 +22,12 @@ public class UniversalVariableQuery
 
     private UniversalVariableQuery() {
         myBaseQuery =
-                new BaseSymbolQuery<MathSymbolEntry>(new UnqualifiedPath(
-                        ImportStrategy.IMPORT_NONE,
-                        FacilityStrategy.FACILITY_IGNORE, false),
-                        new UniversalVariableSearcher());
+                new BaseSymbolQuery<MathSymbolEntry>(new UnqualifiedPath(ImportStrategy.IMPORT_NONE,
+                        FacilityStrategy.FACILITY_IGNORE, false), new UniversalVariableSearcher());
     }
 
     @Override
-    public List<MathSymbolEntry> searchFromContext(Scope source,
-            ScopeRepository repo) {
+    public List<MathSymbolEntry> searchFromContext(Scope source, ScopeRepository repo) {
 
         List<MathSymbolEntry> result;
         try {
@@ -46,16 +41,12 @@ public class UniversalVariableQuery
         return result;
     }
 
-    private static class UniversalVariableSearcher
-            implements
-                MultimatchTableSearcher<MathSymbolEntry> {
+    private static class UniversalVariableSearcher implements MultimatchTableSearcher<MathSymbolEntry> {
 
         @Override
-        public boolean addMatches(SymbolTable entries,
-                List<MathSymbolEntry> matches, SearchContext l) {
+        public boolean addMatches(SymbolTable entries, List<MathSymbolEntry> matches, SearchContext l) {
 
-            Iterator<MathSymbolEntry> mathSymbols =
-                    entries.iterateByType(MathSymbolEntry.class);
+            Iterator<MathSymbolEntry> mathSymbols = entries.iterateByType(MathSymbolEntry.class);
 
             MathSymbolEntry curSymbol;
             while (mathSymbols.hasNext()) {

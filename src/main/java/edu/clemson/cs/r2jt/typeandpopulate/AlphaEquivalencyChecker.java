@@ -43,8 +43,7 @@ public class AlphaEquivalencyChecker extends SymmetricBoundVariableVisitor {
     }
 
     @Override
-    public boolean beginMTFunctionApplication(MTFunctionApplication t1,
-            MTFunctionApplication t2) {
+    public boolean beginMTFunctionApplication(MTFunctionApplication t1, MTFunctionApplication t2) {
 
         myResult = (t1.getName().equals(t2.getName()));
 
@@ -88,15 +87,13 @@ public class AlphaEquivalencyChecker extends SymmetricBoundVariableVisitor {
     }
 
     @Override
-    public boolean beginMTSetRestriction(MTSetRestriction t1,
-            MTSetRestriction t2) {
+    public boolean beginMTSetRestriction(MTSetRestriction t1, MTSetRestriction t2) {
 
         //TODO:
         //We really need a way to check the expression embedded in each set
         //restriction for alpha-equivalency.  We don't have one, so for the
         //moment, we throw an exception
-        throw new RuntimeException("Can't check set restrictions for "
-                + "alpha equivalency.");
+        throw new RuntimeException("Can't check set restrictions for " + "alpha equivalency.");
     }
 
     @Override

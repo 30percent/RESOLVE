@@ -9,8 +9,7 @@ public class SpecRealizationPairing {
         this(spec, null);
     }
 
-    public SpecRealizationPairing(ModuleParameterization spec,
-            ModuleParameterization realization) {
+    public SpecRealizationPairing(ModuleParameterization spec, ModuleParameterization realization) {
 
         if (spec == null) {
             throw new IllegalArgumentException("Null spec!");

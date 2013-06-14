@@ -82,8 +82,7 @@ public class SubtypeDec extends Dec {
     // Constructors
     // ===========================================================
 
-    public SubtypeDec(PosSymbol qualifier1, PosSymbol name1,
-            PosSymbol qualifier2, PosSymbol name2) {
+    public SubtypeDec(PosSymbol qualifier1, PosSymbol name1, PosSymbol qualifier2, PosSymbol name2) {
         this.qualifier1 = qualifier1;
         this.name1 = name1;
         this.qualifier2 = qualifier2;

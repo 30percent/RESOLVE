@@ -149,8 +149,7 @@ public class Flag {
      *                               
      * @throws DuplicateEntryException If a flag with this name already exists.
      */
-    public Flag(String section, String name, String description,
-            String[] parameterNames, Type t) {
+    public Flag(String section, String name, String description, String[] parameterNames, Type t) {
         this(section, name, description, parameterNames, null, false, t);
     }
 
@@ -183,11 +182,10 @@ public class Flag {
      *                               
      * @throws DuplicateEntryException If a flag with this name already exists.
      */
-    public Flag(String section, String name, String description,
-            String[] parameterNames, String[] defaultArguments, Type t) {
+    public Flag(String section, String name, String description, String[] parameterNames,
+            String[] defaultArguments, Type t) {
 
-        this(section, name, description, parameterNames, defaultArguments,
-                true, t);
+        this(section, name, description, parameterNames, defaultArguments, true, t);
     }
 
     /**
@@ -220,11 +218,10 @@ public class Flag {
      * 
      * @throws DuplicateEntryException If a flag with this name already exists.
      */
-    public Flag(String section, String name, String description,
-            String[] parameterNames, String[] defaultArguments) {
+    public Flag(String section, String name, String description, String[] parameterNames,
+            String[] defaultArguments) {
 
-        this(section, name, description, parameterNames, defaultArguments,
-                true, Type.NORMAL);
+        this(section, name, description, parameterNames, defaultArguments, true, Type.NORMAL);
     }
 
     /**
@@ -250,11 +247,9 @@ public class Flag {
      * 
      * @throws DuplicateEntryException If a flag with this name already exists.
      */
-    public Flag(String section, String name, String description,
-            String[] parameterNames) {
+    public Flag(String section, String name, String description, String[] parameterNames) {
 
-        this(section, name, description, parameterNames, null, false,
-                Type.NORMAL);
+        this(section, name, description, parameterNames, null, false, Type.NORMAL);
     }
 
     /**
@@ -276,13 +271,11 @@ public class Flag {
      * @throws DuplicateEntryException If a flag with this name already exists.
      */
     public Flag(String section, String name, String description) {
-        this(section, name, description, new String[0], null, false,
-                Type.NORMAL);
+        this(section, name, description, new String[0], null, false, Type.NORMAL);
     }
 
-    private Flag(String section, String name, String description,
-            String[] parameterNames, String[] defaultArguments,
-            boolean useDefaults, Type type) {
+    private Flag(String section, String name, String description, String[] parameterNames,
+            String[] defaultArguments, boolean useDefaults, Type type) {
 
         if (useDefaults) {
             if (parameterNames.length != defaultArguments.length) {
@@ -292,8 +285,7 @@ public class Flag {
 
             myDefaultArgumentMapping = new HashMap<String, String>();
             for (int i = 0; i < parameterNames.length; i++) {
-                myDefaultArgumentMapping.put(parameterNames[i],
-                        defaultArguments[i]);
+                myDefaultArgumentMapping.put(parameterNames[i], defaultArguments[i]);
             }
         }
         else {
@@ -386,16 +378,15 @@ public class Flag {
         return myName;
     }
 
-    int process(FlagManager m, String[] args, int startIndex)
-            throws FlagDependencyException {
+    int process(FlagManager m, String[] args, int startIndex) throws FlagDependencyException {
         Map<String, String> argumentMapping = new HashMap<String, String>();
 
         int argsLength = args.length;
 
         for (String argument : myParameterNames) {
             if (args[startIndex].startsWith("-") || startIndex > argsLength) {
-                throw new FlagDependencyException("The " + myName + " flag "
-                        + "requires " + myParameterNames.length + " arguments.");
+                throw new FlagDependencyException("The " + myName + " flag " + "requires "
+                        + myParameterNames.length + " arguments.");
             }
 
             argumentMapping.put(argument, args[startIndex]);

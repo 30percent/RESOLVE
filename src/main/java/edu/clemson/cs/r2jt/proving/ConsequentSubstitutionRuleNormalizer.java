@@ -17,9 +17,7 @@ import edu.clemson.cs.r2jt.proving.absyn.PExp;
  * this class can be put into <em>noisy mode</em>, in which it will print
  * a warning when it filters out a rule.</p>
  */
-public class ConsequentSubstitutionRuleNormalizer
-        extends
-            AbstractEqualityRuleNormalizer {
+public class ConsequentSubstitutionRuleNormalizer extends AbstractEqualityRuleNormalizer {
 
     public ConsequentSubstitutionRuleNormalizer(boolean noisy) {
         super(noisy);

@@ -30,8 +30,7 @@ public class VCCollector implements Iterable<VerificationCondition> {
      * 
      * <p>INVARIANT: <code>myFinalVCs != null</code></p>
      */
-    private final List<VerificationCondition> myFinalVCs =
-            new LinkedList<VerificationCondition>();
+    private final List<VerificationCondition> myFinalVCs = new LinkedList<VerificationCondition>();
 
     /**
      * <p>Constructs a new <code>VCCollector</code> which may be iterated over
@@ -63,8 +62,7 @@ public class VCCollector implements Iterable<VerificationCondition> {
      *                      embed the name of each VC from the Verifier with its
      *                      name for greater robustness.)
      */
-    private void addVCsInContext(final AssertiveCode batch,
-            final int sectionNumber) {
+    private void addVCsInContext(final AssertiveCode batch, final int sectionNumber) {
 
         List<InfixExp> vCs = batch.getFinalConfirm().split();
 
@@ -73,9 +71,7 @@ public class VCCollector implements Iterable<VerificationCondition> {
         //Iterate over the VCs in the batch
         VerificationCondition curVC;
         for (InfixExp vC : vCs) {
-            curVC =
-                    new VerificationCondition(vC.getLeft(), vC.getRight(),
-                            sectionNumber + "_" + vcIndex);
+            curVC = new VerificationCondition(vC.getLeft(), vC.getRight(), sectionNumber + "_" + vcIndex);
 
             myFinalVCs.add(curVC);
 

@@ -128,8 +128,7 @@ public class QualifierLocator {
         }
     }
 
-    public ModuleScope locateMathModule(PosSymbol qual)
-            throws SymbolSearchException {
+    public ModuleScope locateMathModule(PosSymbol qual) throws SymbolSearchException {
         ModuleScope mainscope = table.getModuleScope();
         ModuleScope module = locateModuleInStack(qual);
         if (module == null) {
@@ -145,8 +144,7 @@ public class QualifierLocator {
         return module;
     }
 
-    public ModuleScope locateProgramModule(PosSymbol qual)
-            throws SymbolSearchException {
+    public ModuleScope locateProgramModule(PosSymbol qual) throws SymbolSearchException {
         assert qual != null : "qual is null";
         ModuleScope mainscope = table.getModuleScope();
         ModuleScope module = locateModuleInStack(qual);
@@ -221,7 +219,6 @@ public class QualifierLocator {
     }
 
     private String cantFindMathModMessage(String qual) {
-        return "The qualifier " + qual + " does not correspond to any "
-                + "modules visible from this scope.";
+        return "The qualifier " + qual + " does not correspond to any " + "modules visible from this scope.";
     }
 }

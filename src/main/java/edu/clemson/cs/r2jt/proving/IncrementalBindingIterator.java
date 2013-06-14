@@ -60,8 +60,7 @@ public class IncrementalBindingIterator implements Iterator<Map<PExp, PExp>> {
 
     private Map<PExp, PExp> myCurrentIncrementalBindings;
 
-    public IncrementalBindingIterator(PExp pattern, Iterator<PExp> facts,
-            Map<PExp, PExp> assumedBindings) {
+    public IncrementalBindingIterator(PExp pattern, Iterator<PExp> facts, Map<PExp, PExp> assumedBindings) {
 
         myPattern = pattern.substitute(assumedBindings);
         myFacts = facts;
@@ -70,8 +69,7 @@ public class IncrementalBindingIterator implements Iterator<Map<PExp, PExp>> {
         setUpNext();
     }
 
-    public IncrementalBindingIterator(PExp pattern, Iterable<PExp> facts,
-            Map<PExp, PExp> assumedBindings) {
+    public IncrementalBindingIterator(PExp pattern, Iterable<PExp> facts, Map<PExp, PExp> assumedBindings) {
         this(pattern, facts.iterator(), assumedBindings);
     }
 

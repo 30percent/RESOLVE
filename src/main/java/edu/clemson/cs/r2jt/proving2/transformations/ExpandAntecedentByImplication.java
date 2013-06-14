@@ -66,16 +66,14 @@ import java.util.Set;
  */
 public class ExpandAntecedentByImplication implements Transformation {
 
-    private final BindResultToApplication BIND_RESULT_TO_APPLICATION =
-            new BindResultToApplication();
+    private final BindResultToApplication BIND_RESULT_TO_APPLICATION = new BindResultToApplication();
 
     private final List<PExp> myAntecedents;
     private final int myAntecedentsSize;
     private final PExp myConsequent;
     private final Theorem myTheorem;
 
-    public ExpandAntecedentByImplication(Theorem t, List<PExp> tAntecedents,
-            PExp tConsequent) {
+    public ExpandAntecedentByImplication(Theorem t, List<PExp> tAntecedents, PExp tConsequent) {
         myTheorem = t;
         myAntecedents = tAntecedents;
         myAntecedentsSize = myAntecedents.size();
@@ -84,8 +82,7 @@ public class ExpandAntecedentByImplication implements Transformation {
 
     @Override
     public String toString() {
-        return Utilities.conjunctListToString(myAntecedents) + " implies "
-                + myConsequent;
+        return Utilities.conjunctListToString(myAntecedents) + " implies " + myConsequent;
     }
 
     @Override
@@ -95,8 +92,7 @@ public class ExpandAntecedentByImplication implements Transformation {
             binders.add(new AtLeastOneLocalTheoremBinder(a, myAntecedentsSize));
         }
 
-        return new LazyMappingIterator(m.bind(binders),
-                BIND_RESULT_TO_APPLICATION);
+        return new LazyMappingIterator(m.bind(binders), BIND_RESULT_TO_APPLICATION);
     }
 
     @Override
@@ -116,8 +112,7 @@ public class ExpandAntecedentByImplication implements Transformation {
             antecedentFunctionCount += a.getFunctionApplications().size();
         }
 
-        int consequentFunctionCount =
-                myConsequent.getFunctionApplications().size();
+        int consequentFunctionCount = myConsequent.getFunctionApplications().size();
 
         return consequentFunctionCount - antecedentFunctionCount;
     }
@@ -163,20 +158,16 @@ public class ExpandAntecedentByImplication implements Transformation {
         return myTheorem.getAssertion() + " " + this.getClass().getName();
     }
 
-    public class BindResultToApplication
-            implements
-                Mapping<BindResult, Application> {
+    public class BindResultToApplication implements Mapping<BindResult, Application> {
 
         @Override
         public Application map(BindResult input) {
-            return new ExpandAntecedentByImplicationApplication(
-                    input.freeVariableBindings, input.bindSites.values());
+            return new ExpandAntecedentByImplicationApplication(input.freeVariableBindings, input.bindSites
+                    .values());
         }
     }
 
-    private class ExpandAntecedentByImplicationApplication
-            implements
-                Application {
+    private class ExpandAntecedentByImplicationApplication implements Application {
 
         private Map<PExp, PExp> myBindings;
         private Collection<Site> myBindSites;
@@ -184,8 +175,7 @@ public class ExpandAntecedentByImplication implements Transformation {
         private Set<Conjunct> myAddedTheorems = new HashSet<Conjunct>();
         private Set<Site> myAddedSites = new HashSet<Site>();
 
-        public ExpandAntecedentByImplicationApplication(
-                Map<PExp, PExp> bindings, Collection<Site> bindSites) {
+        public ExpandAntecedentByImplicationApplication(Map<PExp, PExp> bindings, Collection<Site> bindSites) {
             myBindings = bindings;
             myBindSites = bindSites;
 
@@ -201,19 +191,17 @@ public class ExpandAntecedentByImplication implements Transformation {
 
         @Override
         public void apply(PerVCProverModel m) {
-            List<PExp> newAntecedents =
-                    myConsequent.substitute(myBindings).splitIntoConjuncts();
+            List<PExp> newAntecedents = myConsequent.substitute(myBindings).splitIntoConjuncts();
 
             for (PExp a : newAntecedents) {
                 LocalTheorem t =
-                        m.addLocalTheorem(a, new TheoremApplication(
-                                ExpandAntecedentByImplication.this), false);
+                        m.addLocalTheorem(a, new TheoremApplication(ExpandAntecedentByImplication.this),
+                                false);
 
                 myAddedSites.add(new Site(m, t, a));
 
-                m.addProofStep(new IntroduceLocalTheoremStep(t,
-                        myBindSiteTheorems, ExpandAntecedentByImplication.this,
-                        this, myBindSites));
+                m.addProofStep(new IntroduceLocalTheoremStep(t, myBindSiteTheorems,
+                        ExpandAntecedentByImplication.this, this, myBindSites));
 
                 myAddedTheorems.add(t);
             }

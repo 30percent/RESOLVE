@@ -20,44 +20,37 @@ public class FacilityEntry extends SymbolTableEntry {
 
     private final SpecRealizationPairing myType;
 
-    private final List<ModuleParameterization> myEnhancements =
-            new LinkedList<ModuleParameterization>();
+    private final List<ModuleParameterization> myEnhancements = new LinkedList<ModuleParameterization>();
 
     private final ScopeRepository mySourceRepository;
 
     private Map<ModuleParameterization, ModuleParameterization> myEnhancementRealizations =
             new HashMap<ModuleParameterization, ModuleParameterization>();
 
-    public FacilityEntry(FacilityDec facility, ModuleIdentifier sourceModule,
-            ScopeRepository sourceRepository) {
+    public FacilityEntry(FacilityDec facility, ModuleIdentifier sourceModule, ScopeRepository sourceRepository) {
         super(facility.getName().getName(), facility, sourceModule);
 
         mySourceRepository = sourceRepository;
 
         ModuleParameterization spec =
-                new ModuleParameterization(new ModuleIdentifier(facility
-                        .getConceptName().getName()), facility
-                        .getConceptParams(), this, mySourceRepository);
+                new ModuleParameterization(new ModuleIdentifier(facility.getConceptName().getName()),
+                        facility.getConceptParams(), this, mySourceRepository);
 
         ModuleParameterization realization = null;
         if (facility.getBodyName() != null) {
             realization =
-                    new ModuleParameterization(new ModuleIdentifier(facility
-                            .getBodyName().getName()),
+                    new ModuleParameterization(new ModuleIdentifier(facility.getBodyName().getName()),
                             facility.getBodyParams(), this, mySourceRepository);
         }
 
         myType = new SpecRealizationPairing(spec, realization);
 
         //These are realized by the concept realization
-        for (EnhancementItem realizationEnhancement : facility
-                .getEnhancements()) {
+        for (EnhancementItem realizationEnhancement : facility.getEnhancements()) {
 
             spec =
-                    new ModuleParameterization(new ModuleIdentifier(
-                            realizationEnhancement.getName().getName()),
-                            realizationEnhancement.getParams(), this,
-                            mySourceRepository);
+                    new ModuleParameterization(new ModuleIdentifier(realizationEnhancement.getName()
+                            .getName()), realizationEnhancement.getParams(), this, mySourceRepository);
 
             myEnhancements.add(spec);
             myEnhancementRealizations.put(spec, realization);
@@ -67,14 +60,12 @@ public class FacilityEntry extends SymbolTableEntry {
         for (EnhancementBodyItem enhancement : facility.getEnhancementBodies()) {
 
             spec =
-                    new ModuleParameterization(new ModuleIdentifier(enhancement
-                            .getName().getName()), enhancement.getParams(),
-                            this, mySourceRepository);
+                    new ModuleParameterization(new ModuleIdentifier(enhancement.getName().getName()),
+                            enhancement.getParams(), this, mySourceRepository);
 
             realization =
-                    new ModuleParameterization(new ModuleIdentifier(enhancement
-                            .getBodyName().getName()), enhancement
-                            .getBodyParams(), this, mySourceRepository);
+                    new ModuleParameterization(new ModuleIdentifier(enhancement.getBodyName().getName()),
+                            enhancement.getBodyParams(), this, mySourceRepository);
 
             myEnhancements.add(spec);
             myEnhancementRealizations.put(spec, realization);
@@ -121,8 +112,7 @@ public class FacilityEntry extends SymbolTableEntry {
      * @param enhancement
      * @return
      */
-    public ModuleParameterization getEnhancementRealization(
-            ModuleParameterization enhancement) {
+    public ModuleParameterization getEnhancementRealization(ModuleParameterization enhancement) {
 
         return myEnhancementRealizations.get(enhancement);
     }
@@ -138,8 +128,7 @@ public class FacilityEntry extends SymbolTableEntry {
     }
 
     @Override
-    public FacilityEntry instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public FacilityEntry instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
         //TODO : This is probably wrong.  One of the parameters to a module

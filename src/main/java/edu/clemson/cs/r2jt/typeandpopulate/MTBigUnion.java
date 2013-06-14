@@ -31,16 +31,13 @@ public class MTBigUnion extends MTAbstract<MTBigUnion> {
 
     private final MTType myExpression;
 
-    private final Map<Integer, String> myComponentIndecis =
-            new HashMap<Integer, String>();
+    private final Map<Integer, String> myComponentIndecis = new HashMap<Integer, String>();
     private List<MTType> myComponents;
 
-    public MTBigUnion(TypeGraph g, Map<String, MTType> quantifiedVariables,
-            MTType expression) {
+    public MTBigUnion(TypeGraph g, Map<String, MTType> quantifiedVariables, MTType expression) {
         super(g);
 
-        myQuantifiedVariables =
-                new TreeMap<String, MTType>(quantifiedVariables);
+        myQuantifiedVariables = new TreeMap<String, MTType>(quantifiedVariables);
         myUniqueQuantifiedVariableCount = -1;
         myExpression = expression;
     }
@@ -130,18 +127,15 @@ public class MTBigUnion extends MTAbstract<MTBigUnion> {
     public List<MTType> getComponentTypes() {
         if (myComponents == null) {
             if (myQuantifiedVariables == null) {
-                myComponents =
-                        new ArrayList<MTType>(myUniqueQuantifiedVariableCount);
+                myComponents = new ArrayList<MTType>(myUniqueQuantifiedVariableCount);
 
                 for (int i = 0; i < myUniqueQuantifiedVariableCount; i++) {
                     myComponents.add(myTypeGraph.MTYPE);
                 }
             }
             else {
-                List<MTType> components =
-                        new ArrayList<MTType>(myQuantifiedVariables.size());
-                for (Map.Entry<String, MTType> entry : myQuantifiedVariables
-                        .entrySet()) {
+                List<MTType> components = new ArrayList<MTType>(myQuantifiedVariables.size());
+                for (Map.Entry<String, MTType> entry : myQuantifiedVariables.entrySet()) {
 
                     myComponentIndecis.put(components.size(), entry.getKey());
                     components.add(entry.getValue());
@@ -162,8 +156,7 @@ public class MTBigUnion extends MTAbstract<MTBigUnion> {
         MTType newExpression;
 
         if (index < myQuantifiedVariables.size()) {
-            newQuantifiedVariables =
-                    new HashMap<String, MTType>(myQuantifiedVariables);
+            newQuantifiedVariables = new HashMap<String, MTType>(myQuantifiedVariables);
 
             newQuantifiedVariables.put(myComponentIndecis.get(index), newType);
 
@@ -178,8 +171,7 @@ public class MTBigUnion extends MTAbstract<MTBigUnion> {
             throw new IndexOutOfBoundsException();
         }
 
-        return new MTBigUnion(getTypeGraph(), newQuantifiedVariables,
-                newExpression);
+        return new MTBigUnion(getTypeGraph(), newQuantifiedVariables, newExpression);
     }
 
     @Override

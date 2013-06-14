@@ -9,8 +9,7 @@ public class ShortFacilityEntry extends ModuleEntry {
 
     private final FacilityEntry myEnclosedFacility;
 
-    public ShortFacilityEntry(String name,
-            ResolveConceptualElement definingElement,
+    public ShortFacilityEntry(String name, ResolveConceptualElement definingElement,
             FacilityEntry enclosedFacility) {
         super(name, definingElement);
 
@@ -39,11 +38,9 @@ public class ShortFacilityEntry extends ModuleEntry {
     }
 
     @Override
-    public SymbolTableEntry instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public SymbolTableEntry instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
-        return new ShortFacilityEntry(getName(), getDefiningElement(),
-                myEnclosedFacility.instantiateGenerics(genericInstantiations,
-                        instantiatingFacility));
+        return new ShortFacilityEntry(getName(), getDefiningElement(), myEnclosedFacility
+                .instantiateGenerics(genericInstantiations, instantiatingFacility));
     }
 }

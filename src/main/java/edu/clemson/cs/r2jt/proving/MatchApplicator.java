@@ -227,8 +227,7 @@ public class MatchApplicator {
         int curIndex = 0;
         Exp replacement = null;
         boolean foundMatch = false;
-        while (curIndex < numSubExpressions && replacement == null
-                && !foundMatch) {
+        while (curIndex < numSubExpressions && replacement == null && !foundMatch) {
 
             curSubExpression = subExpressions.get(curIndex);
             if (myMatcher.couldReplace(curSubExpression)) {

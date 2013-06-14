@@ -11,9 +11,8 @@ public class ManualProver extends JFrame {
 
     private static final long serialVersionUID = 2320690572854510911L;
 
-    public ManualProver(final OldSymbolTable symbolTable,
-            final Collection<AssertiveCode> vCs, final int maxDepth)
-            throws ProverException {
+    public ManualProver(final OldSymbolTable symbolTable, final Collection<AssertiveCode> vCs,
+            final int maxDepth) throws ProverException {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);

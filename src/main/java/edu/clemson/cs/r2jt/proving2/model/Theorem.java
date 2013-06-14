@@ -24,8 +24,7 @@ import java.util.List;
  */
 public class Theorem implements Conjunct {
 
-    public static final Mapping<Theorem, PExp> UNWRAPPER =
-            new TheoremUnwrapper();
+    public static final Mapping<Theorem, PExp> UNWRAPPER = new TheoremUnwrapper();
 
     /**
      * <p>Guaranteed not to have a top-level and (otherwise this would be two
@@ -58,28 +57,19 @@ public class Theorem implements Conjunct {
                 PExp left = assertionAsPS.arguments.get(0);
                 PExp right = assertionAsPS.arguments.get(1);
 
-                result.add(new ExpandAntecedentByImplication(this, left
-                        .splitIntoConjuncts(), right));
-                result.add(new StrengthenConsequent(this, left
-                        .splitIntoConjuncts(), right.splitIntoConjuncts()));
+                result.add(new ExpandAntecedentByImplication(this, left.splitIntoConjuncts(), right));
+                result.add(new StrengthenConsequent(this, left.splitIntoConjuncts(), right
+                        .splitIntoConjuncts()));
             }
             else if (assertionAsPS.name.equals("=")) {
                 PExp left = assertionAsPS.arguments.get(0);
                 PExp right = assertionAsPS.arguments.get(1);
 
-                result
-                        .add(new ExpandAntecedentBySubstitution(this, left,
-                                right));
-                result
-                        .add(new ExpandAntecedentBySubstitution(this, right,
-                                left));
+                result.add(new ExpandAntecedentBySubstitution(this, left, right));
+                result.add(new ExpandAntecedentBySubstitution(this, right, left));
 
-                result
-                        .add(new SubstituteInPlaceInConsequent(this, left,
-                                right));
-                result
-                        .add(new SubstituteInPlaceInConsequent(this, right,
-                                left));
+                result.add(new SubstituteInPlaceInConsequent(this, left, right));
+                result.add(new SubstituteInPlaceInConsequent(this, right, left));
             }
         }
 

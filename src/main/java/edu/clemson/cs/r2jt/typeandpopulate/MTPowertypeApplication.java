@@ -53,9 +53,7 @@ public class MTPowertypeApplication extends MTFunctionApplication {
 
         switch (index) {
         case 0:
-            result =
-                    new MTFunctionApplication(getTypeGraph(),
-                            (MTFunction) newType, getArguments());
+            result = new MTFunctionApplication(getTypeGraph(), (MTFunction) newType, getArguments());
             break;
         case 1:
             result = new MTPowertypeApplication(getTypeGraph(), newType);

@@ -10,8 +10,7 @@ public class CategoricalDefinitionDec extends Dec {
 
     public CategoricalDefinitionDec() {};
 
-    public CategoricalDefinitionDec(List<DefinitionDec> definitions,
-            Exp relatedByExp) {
+    public CategoricalDefinitionDec(List<DefinitionDec> definitions, Exp relatedByExp) {
         this.definitions = definitions;
         this.relatedByExp = relatedByExp;
     }

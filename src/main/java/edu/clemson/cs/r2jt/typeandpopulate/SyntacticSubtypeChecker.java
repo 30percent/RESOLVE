@@ -127,8 +127,7 @@ public class SyntacticSubtypeChecker extends SymmetricBoundVariableVisitor {
     }
 
     @Override
-    public boolean beginMTFunctionApplication(MTFunctionApplication t1,
-            MTFunctionApplication t2) {
+    public boolean beginMTFunctionApplication(MTFunctionApplication t1, MTFunctionApplication t2) {
 
         if (!t1.getName().equals(t2.getName())) {
             throw MISMATCH;
@@ -149,8 +148,7 @@ public class SyntacticSubtypeChecker extends SymmetricBoundVariableVisitor {
 
         if (!t1.name.equals(t2.name)) {
 
-            if (getInnermostBinding2(((MTNamed) t2).name).equals(
-                    myTypeGraph.MTYPE)) {
+            if (getInnermostBinding2(((MTNamed) t2).name).equals(myTypeGraph.MTYPE)) {
                 bind(((MTNamed) t2).name, t1);
             }
             else {
@@ -176,8 +174,7 @@ public class SyntacticSubtypeChecker extends SymmetricBoundVariableVisitor {
                     throw MISMATCH;
                 }
 
-                if (!haveAxiomaticSubtypeRelationship(t1DeclaredType,
-                        t2DeclaredType)) {
+                if (!haveAxiomaticSubtypeRelationship(t1DeclaredType, t2DeclaredType)) {
                     //This is fine if the declared type of t1 is a syntactic subtype
                     //of the declared type of t2
                     visit(t1DeclaredType, t2DeclaredType);
@@ -190,16 +187,14 @@ public class SyntacticSubtypeChecker extends SymmetricBoundVariableVisitor {
 
     private void bind(String name, MTType type) {
         if (myBindings.containsKey(name)) {
-            throw new RuntimeException("Duplicate quantified variable name: "
-                    + name);
+            throw new RuntimeException("Duplicate quantified variable name: " + name);
         }
 
         myBindings.put(name, type);
     }
 
     @Override
-    public boolean beginMTSetRestriction(MTSetRestriction t1,
-            MTSetRestriction t2) {
+    public boolean beginMTSetRestriction(MTSetRestriction t1, MTSetRestriction t2) {
 
         //TODO:
         //For the moment, there's no obvious way to do this.  We'll just say no
@@ -226,16 +221,13 @@ public class SyntacticSubtypeChecker extends SymmetricBoundVariableVisitor {
             //This may be ok, since we can wrap any expression in a trivial
             //big union
             MTBigUnion t2AsMTBigUnion = (MTBigUnion) t2;
-            int quantifiedVariableCount =
-                    t2AsMTBigUnion.getQuantifiedVariables().size();
+            int quantifiedVariableCount = t2AsMTBigUnion.getQuantifiedVariables().size();
 
             t1 = new MTBigUnion(t1.getTypeGraph(), quantifiedVariableCount, t1);
 
             visit(t1, t2);
         }
-        else if (t2 instanceof MTNamed
-                && getInnermostBinding2(((MTNamed) t2).name).equals(
-                        myTypeGraph.MTYPE)) {
+        else if (t2 instanceof MTNamed && getInnermostBinding2(((MTNamed) t2).name).equals(myTypeGraph.MTYPE)) {
 
             bind(((MTNamed) t2).name, t1);
         }
@@ -250,14 +242,12 @@ public class SyntacticSubtypeChecker extends SymmetricBoundVariableVisitor {
         return true; //Keep searching siblings
     }
 
-    private boolean haveAxiomaticSubtypeRelationship(MTType subtype,
-            MTType supertype) {
+    private boolean haveAxiomaticSubtypeRelationship(MTType subtype, MTType supertype) {
 
         //Respectively, here:  EMPTY_SET is a subtype of everything, everything
         //is a subtype of MTYPE, and everything is a subtype of ENTITY.
 
-        return subtype.equals(myTypeGraph.EMPTY_SET)
-                || supertype.equals(myTypeGraph.MTYPE)
+        return subtype.equals(myTypeGraph.EMPTY_SET) || supertype.equals(myTypeGraph.MTYPE)
                 || supertype.equals(myTypeGraph.ENTITY);
     }
 }

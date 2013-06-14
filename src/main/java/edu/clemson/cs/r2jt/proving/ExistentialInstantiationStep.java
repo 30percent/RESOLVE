@@ -13,8 +13,7 @@ import edu.clemson.cs.r2jt.proving.absyn.PExp;
  */
 public class ExistentialInstantiationStep implements VCTransformer {
 
-    private static final Iterator<VC> DUMMY_ITERATOR =
-            DummyIterator.getInstance((Iterator<VC>) null);
+    private static final Iterator<VC> DUMMY_ITERATOR = DummyIterator.getInstance((Iterator<VC>) null);
     private final Iterable<PExp> myGlobalFacts;
 
     public ExistentialInstantiationStep(Iterable<PExp> globalFact) {
@@ -34,16 +33,10 @@ public class ExistentialInstantiationStep implements VCTransformer {
 
             if (e.containsExistential()) {
                 soFar =
-                        new ChainingIterator<VC>(
-                                soFar,
-                                new StaticAntecedentIterator(
-                                        original.getSourceName(),
-                                        originalAntecedent,
-                                        new SingleExistentialInstantiator(
-                                                e,
-                                                originalAntecedent,
-                                                originalConsequent
-                                                        .removed(consequentIndex))));
+                        new ChainingIterator<VC>(soFar, new StaticAntecedentIterator(
+                                original.getSourceName(), originalAntecedent,
+                                new SingleExistentialInstantiator(e, originalAntecedent, originalConsequent
+                                        .removed(consequentIndex))));
             }
 
             consequentIndex++;
@@ -69,13 +62,11 @@ public class ExistentialInstantiationStep implements VCTransformer {
         private final Iterator<PExp> myFactIterator;
         private Consequent myNextConsequent;
 
-        public SingleExistentialInstantiator(PExp existentialExpression,
-                Antecedent vcAntecedent, Consequent remainingConsequent) {
+        public SingleExistentialInstantiator(PExp existentialExpression, Antecedent vcAntecedent,
+                Consequent remainingConsequent) {
             myExistential = existentialExpression;
             myOriginal = remainingConsequent;
-            myFactIterator =
-                    new ChainingIterator<PExp>(vcAntecedent.iterator(),
-                            myGlobalFacts.iterator());
+            myFactIterator = new ChainingIterator<PExp>(vcAntecedent.iterator(), myGlobalFacts.iterator());
 
             setUpNext();
         }

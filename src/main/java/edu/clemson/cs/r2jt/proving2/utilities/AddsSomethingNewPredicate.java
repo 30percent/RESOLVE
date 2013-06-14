@@ -36,17 +36,14 @@ public class AddsSomethingNewPredicate implements Predicate<ProofStep> {
     private final PerVCProverModel myModel;
     private final Set<String> myVariableSymbols;
 
-    public AddsSomethingNewPredicate(PerVCProverModel model,
-            Set<String> variableSymbols) {
+    public AddsSomethingNewPredicate(PerVCProverModel model, Set<String> variableSymbols) {
         myModel = model;
         myVariableSymbols = variableSymbols;
     }
 
     @Override
     public boolean test(ProofStep t) {
-        boolean result =
-                (t instanceof IntroduceLocalTheoremStep)
-                        || (t instanceof GeneralStep);
+        boolean result = (t instanceof IntroduceLocalTheoremStep) || (t instanceof GeneralStep);
 
         if (result) {
             //Any development that doesn't tell us something about at least 
@@ -59,15 +56,13 @@ public class AddsSomethingNewPredicate implements Predicate<ProofStep> {
             for (Conjunct c : t.getAffectedConjuncts()) {
                 finalSymbolNames.addAll(c.getExpression().getSymbolNames());
 
-                somethingNew =
-                        somethingNew || appearsOnce(c.getExpression(), myModel);
+                somethingNew = somethingNew || appearsOnce(c.getExpression(), myModel);
             }
 
             result =
                     somethingNew
-                            && (!AutomatedProver.H_ONLY_DEVELOP_RELEVANT_TERMS || Utilities
-                                    .containsAny(finalSymbolNames,
-                                            myVariableSymbols));
+                            && (!AutomatedProver.H_ONLY_DEVELOP_RELEVANT_TERMS || Utilities.containsAny(
+                                    finalSymbolNames, myVariableSymbols));
 
             if (result) {
                 Transformation tTransformation = t.getTransformation();
@@ -82,8 +77,7 @@ public class AddsSomethingNewPredicate implements Predicate<ProofStep> {
                     Set<Conjunct> originalTheorems = t.getBoundConjuncts();
                     Set<String> originalSymbolNames = new HashSet<String>();
                     for (Conjunct ot : originalTheorems) {
-                        originalSymbolNames.addAll(ot.getExpression()
-                                .getSymbolNames());
+                        originalSymbolNames.addAll(ot.getExpression().getSymbolNames());
                     }
 
                     originalSymbolNames.removeAll(finalSymbolNames);
@@ -93,9 +87,7 @@ public class AddsSomethingNewPredicate implements Predicate<ProofStep> {
             }
         }
         else {
-            throw new RuntimeException(
-                    "Expecting a local theorem introduction?  Got: "
-                            + t.getClass());
+            throw new RuntimeException("Expecting a local theorem introduction?  Got: " + t.getClass());
         }
 
         return result;
@@ -105,8 +97,7 @@ public class AddsSomethingNewPredicate implements Predicate<ProofStep> {
         boolean found = false;
         boolean result = true;
 
-        Iterator<LocalTheorem> localTheorems =
-                m.getLocalTheoremList().iterator();
+        Iterator<LocalTheorem> localTheorems = m.getLocalTheoremList().iterator();
 
         PExp localTheorem;
         boolean equal;

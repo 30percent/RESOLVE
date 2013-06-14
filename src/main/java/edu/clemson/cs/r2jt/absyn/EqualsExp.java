@@ -111,8 +111,7 @@ public class EqualsExp extends AbstractFunctionExp {
         if (retval) {
             EqualsExp eAsEquals = (EqualsExp) e;
             retval =
-                    (operator == eAsEquals.operator)
-                            && (left.equivalent(eAsEquals.left))
+                    (operator == eAsEquals.operator) && (left.equivalent(eAsEquals.left))
                             && (right.equivalent(eAsEquals.right));
         }
 
@@ -205,8 +204,8 @@ public class EqualsExp extends AbstractFunctionExp {
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
         Exp retval =
-                new EqualsExp(location, substitute(left, substitutions),
-                        operator, substitute(right, substitutions));
+                new EqualsExp(location, substitute(left, substitutions), operator, substitute(right,
+                        substitutions));
 
         retval.setType(type);
 

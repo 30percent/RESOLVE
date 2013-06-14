@@ -145,15 +145,13 @@ public class TypeConverter {
             MTType newType = ty.getMathType();
 
             if (newType == null) {
-                throw new RuntimeException("" + ty + " does not have an "
-                        + "embedded mathematical type.");
+                throw new RuntimeException("" + ty + " does not have an " + "embedded mathematical type.");
             }
 
             t = new NewMathType(newType);
         }
         else {
-            throw new RuntimeException("Invalid type: " + ty + "("
-                    + ty.getClass() + ")");
+            throw new RuntimeException("Invalid type: " + ty + "(" + ty.getClass() + ")");
         }
         //System.out.println("New type introduced: " + t.asString());
         //System.out.flush();
@@ -161,15 +159,11 @@ public class TypeConverter {
     }
 
     public Type getArrayType(ArrayTy ty) {
-        PosSymbol intqual =
-                new PosSymbol(ty.getLocation(), Symbol
-                        .symbol("Std_Integer_Fac"));
-        PosSymbol intname =
-                new PosSymbol(ty.getLocation(), Symbol.symbol("Integer"));
+        PosSymbol intqual = new PosSymbol(ty.getLocation(), Symbol.symbol("Std_Integer_Fac"));
+        PosSymbol intname = new PosSymbol(ty.getLocation(), Symbol.symbol("Integer"));
         NameTy index = new NameTy(intqual, intname);
-        return new ArrayType(table.getModuleID(), createArrayName(ty
-                .getLocation()), ty.getLo(), ty.getHi(), getProgramType(index),
-                getProgramType(ty.getEntryType()));
+        return new ArrayType(table.getModuleID(), createArrayName(ty.getLocation()), ty.getLo(), ty.getHi(),
+                getProgramType(index), getProgramType(ty.getEntryType()));
     }
 
     public Type getProgramIndirectType(NameTy ty) {
@@ -183,12 +177,10 @@ public class TypeConverter {
         Iterator<VarDec> i = ty.getFields().iterator();
         while (i.hasNext()) {
             VarDec var = i.next();
-            FieldItem item =
-                    new FieldItem(var.getName(), getProgramType(var.getTy()));
+            FieldItem item = new FieldItem(var.getName(), getProgramType(var.getTy()));
             fields.add(item);
         }
-        return new RecordType(table.getModuleID(), createRecordName(ty
-                .getLocation()), fields);
+        return new RecordType(table.getModuleID(), createRecordName(ty.getLocation()), fields);
     }
 
     public Type getTupleType(CartProdTy ty) {
@@ -196,8 +188,7 @@ public class TypeConverter {
         Iterator<MathVarDec> i = ty.getFields().iterator();
         while (i.hasNext()) {
             MathVarDec var = i.next();
-            FieldItem item =
-                    new FieldItem(var.getName(), getMathType(var.getTy()));
+            FieldItem item = new FieldItem(var.getName(), getMathType(var.getTy()));
             fields.add(item);
         }
         return new TupleType(fields);
@@ -206,12 +197,11 @@ public class TypeConverter {
     public Type getConstructedType(ConstructedTy ty) {
         // For now, just convert powersets to sets of the same type
         if (ty.getName().getName().equalsIgnoreCase("powerset")) {
-            ty.setName(new PosSymbol(ty.getName().getLocation(), Symbol
-                    .symbol("Set")));
+            ty.setName(new PosSymbol(ty.getName().getLocation(), Symbol.symbol("Set")));
         }
         Binding binding = table.getCurrentBinding();
-        binding.addConstructedName(ty.getQualifier(), ty.getName(), ty
-                .getArgs() != null ? ty.getArgs().size() : 0);
+        binding.addConstructedName(ty.getQualifier(), ty.getName(), ty.getArgs() != null ? ty.getArgs()
+                .size() : 0);
         List<Type> args = new List<Type>();
         if (ty.getArgs() != null) {
             Iterator<Ty> i = ty.getArgs().iterator();
@@ -221,13 +211,11 @@ public class TypeConverter {
                 args.add(type);
             }
         }
-        return new ConstructedType(ty.getQualifier(), ty.getName(), args, table
-                .getCurrentBinding());
+        return new ConstructedType(ty.getQualifier(), ty.getName(), args, table.getCurrentBinding());
     }
 
     public Type getFunctionType(FunctionTy ty) {
-        return new FunctionType(getMathType(ty.getDomain()), getMathType(ty
-                .getRange()));
+        return new FunctionType(getMathType(ty.getDomain()), getMathType(ty.getRange()));
     }
 
     public Type getMathIndirectType(NameTy ty) {
@@ -280,8 +268,7 @@ public class TypeConverter {
 
     public Type getFunctionType(DefinitionDec dec) {
         assert dec.getParameters().size() > 0 : "function takes not parameters";
-        return new FunctionType(getTupleType(dec.getParameters()),
-                getMathType(dec.getReturnTy()));
+        return new FunctionType(getTupleType(dec.getParameters()), getMathType(dec.getReturnTy()));
     }
 
     public Type getTupleType(List<MathVarDec> decs) {
@@ -289,24 +276,20 @@ public class TypeConverter {
         Iterator<MathVarDec> i = decs.iterator();
         while (i.hasNext()) {
             MathVarDec dec = i.next();
-            FieldItem item =
-                    new FieldItem(dec.getName(), getMathType(dec.getTy()));
+            FieldItem item = new FieldItem(dec.getName(), getMathType(dec.getTy()));
             fields.add(item);
         }
         return new TupleType(fields);
     }
 
     public PosSymbol createArrayName(Location loc) {
-        Symbol sym =
-                Symbol.symbol("%Array(" + loc.getPos().getLine() + ","
-                        + loc.getPos().getColumn() + ")");
+        Symbol sym = Symbol.symbol("%Array(" + loc.getPos().getLine() + "," + loc.getPos().getColumn() + ")");
         return new PosSymbol(loc, sym);
     }
 
     public PosSymbol createRecordName(Location loc) {
         Symbol sym =
-                Symbol.symbol("%Record(" + loc.getPos().getLine() + ","
-                        + loc.getPos().getColumn() + ")");
+                Symbol.symbol("%Record(" + loc.getPos().getLine() + "," + loc.getPos().getColumn() + ")");
         return new PosSymbol(loc, sym);
     }
 

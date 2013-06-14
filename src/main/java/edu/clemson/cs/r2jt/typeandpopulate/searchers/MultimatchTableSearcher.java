@@ -10,9 +10,7 @@ import java.util.List;
  * its method will not throw a {@link DuplicateSymbolException 
  * DuplicateSymbolException}.</p>
  */
-public interface MultimatchTableSearcher<E extends SymbolTableEntry>
-        extends
-            TableSearcher<E> {
+public interface MultimatchTableSearcher<E extends SymbolTableEntry> extends TableSearcher<E> {
 
     /**
      * <p>Refines {@link TableSearcher#addMatches(SymbolTable, List) 
@@ -21,6 +19,5 @@ public interface MultimatchTableSearcher<E extends SymbolTableEntry>
      * behaves identically.</p>
      */
     @Override
-    public boolean addMatches(SymbolTable entries, List<E> matches,
-            SearchContext l);
+    public boolean addMatches(SymbolTable entries, List<E> matches, SearchContext l);
 }

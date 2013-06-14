@@ -19,8 +19,7 @@ public abstract class PTType {
 
     public abstract MTType toMath();
 
-    public abstract PTType instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public abstract PTType instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility);
 
     /**

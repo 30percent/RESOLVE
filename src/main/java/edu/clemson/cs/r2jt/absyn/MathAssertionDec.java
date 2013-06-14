@@ -109,8 +109,7 @@ public class MathAssertionDec extends Dec {
         mySubtype = TheoremSubtype.NONE;
     }
 
-    public MathAssertionDec(PosSymbol name, Exp assertion,
-            TheoremSubtype theoremSubtype) {
+    public MathAssertionDec(PosSymbol name, Exp assertion, TheoremSubtype theoremSubtype) {
         this.name = name;
         this.kind = THEOREM;
         this.assertion = assertion;

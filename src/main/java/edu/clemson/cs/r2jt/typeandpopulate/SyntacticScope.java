@@ -49,9 +49,8 @@ public abstract class SyntacticScope extends AbstractScope {
     protected final BaseSymbolTable myBindings;
     private final ScopeRepository mySource;
 
-    /*package private*/SyntacticScope(ScopeRepository source,
-            ResolveConceptualElement definingElement, Scope parent,
-            ModuleIdentifier enclosingModule, BaseSymbolTable bindings) {
+    /*package private*/SyntacticScope(ScopeRepository source, ResolveConceptualElement definingElement,
+            Scope parent, ModuleIdentifier enclosingModule, BaseSymbolTable bindings) {
 
         mySource = source;
         myDefiningElement = definingElement;
@@ -61,8 +60,7 @@ public abstract class SyntacticScope extends AbstractScope {
     }
 
     @Override
-    public <E extends SymbolTableEntry> List<E> query(
-            MultimatchSymbolQuery<E> query) {
+    public <E extends SymbolTableEntry> List<E> query(MultimatchSymbolQuery<E> query) {
 
         return query.searchFromContext(this, mySource);
     }
@@ -106,12 +104,9 @@ public abstract class SyntacticScope extends AbstractScope {
     }
 
     @Override
-    public <E extends SymbolTableEntry> boolean addMatches(
-            TableSearcher<E> searcher, List<E> matches,
-            Set<Scope> searchedScopes,
-            Map<String, PTType> genericInstantiations,
-            FacilityEntry instantiatingFacility, SearchContext l)
-            throws DuplicateSymbolException {
+    public <E extends SymbolTableEntry> boolean addMatches(TableSearcher<E> searcher, List<E> matches,
+            Set<Scope> searchedScopes, Map<String, PTType> genericInstantiations,
+            FacilityEntry instantiatingFacility, SearchContext l) throws DuplicateSymbolException {
 
         boolean finished = false;
 
@@ -122,18 +117,15 @@ public abstract class SyntacticScope extends AbstractScope {
 
             if (instantiatingFacility != null) {
                 symbolTableView =
-                        new InstantiatedSymbolTable(myBindings,
-                                genericInstantiations, instantiatingFacility);
+                        new InstantiatedSymbolTable(myBindings, genericInstantiations, instantiatingFacility);
             }
 
             finished = searcher.addMatches(symbolTableView, matches, l);
 
             if (!finished) {
                 finished =
-                        myParent
-                                .addMatches(searcher, matches, searchedScopes,
-                                        genericInstantiations,
-                                        instantiatingFacility, l);
+                        myParent.addMatches(searcher, matches, searchedScopes, genericInstantiations,
+                                instantiatingFacility, l);
             }
         }
 
@@ -142,8 +134,7 @@ public abstract class SyntacticScope extends AbstractScope {
 
     @Override
     public List<ProgramParameterEntry> getFormalParameterEntries() {
-        List<ProgramParameterEntry> result =
-                new LinkedList<ProgramParameterEntry>();
+        List<ProgramParameterEntry> result = new LinkedList<ProgramParameterEntry>();
 
         Iterator<ProgramParameterEntry> formalBindings =
                 myBindings.iterateByType(ProgramParameterEntry.class);

@@ -105,9 +105,8 @@ public class TypeResolutionException extends Exception {
         }
         else {
             retval =
-                    "TypeResolutionException: Could not return the type of:\n"
-                            + myExp.toString(5) + "\nAt:\n     "
-                            + myExp.getLocation();
+                    "TypeResolutionException: Could not return the type of:\n" + myExp.toString(5)
+                            + "\nAt:\n     " + myExp.getLocation();
         }
 
         return retval;

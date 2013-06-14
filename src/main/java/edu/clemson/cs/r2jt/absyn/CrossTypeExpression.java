@@ -28,8 +28,7 @@ public class CrossTypeExpression extends Exp {
     private final List<Exp> myFields = new LinkedList<Exp>();
     private final List<PosSymbol> myTags = new LinkedList<PosSymbol>();
 
-    private final Map<PosSymbol, Exp> myTagsToFields =
-            new HashMap<PosSymbol, Exp>();
+    private final Map<PosSymbol, Exp> myTagsToFields = new HashMap<PosSymbol, Exp>();
 
     private final Location myLocation;
 
@@ -130,14 +129,12 @@ public class CrossTypeExpression extends Exp {
 
     @Override
     public void setSubExpression(int index, Exp e) {
-        throw new UnsupportedOperationException("Cannot replace "
-                + "subexpression in a cross type.");
+        throw new UnsupportedOperationException("Cannot replace " + "subexpression in a cross type.");
     }
 
     @Override
     protected Exp substituteChildren(Map<Exp, Exp> substitutions) {
-        throw new UnsupportedOperationException("Cannot substitute in a "
-                + "cross type.");
+        throw new UnsupportedOperationException("Cannot substitute in a " + "cross type.");
     }
 
 }

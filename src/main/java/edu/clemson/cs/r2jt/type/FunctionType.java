@@ -96,8 +96,7 @@ public class FunctionType extends Type {
     }
 
     public Type instantiate(ScopeID sid, Binding binding) {
-        return new FunctionType(domain.instantiate(sid, binding), range
-                .instantiate(sid, binding));
+        return new FunctionType(domain.instantiate(sid, binding), range.instantiate(sid, binding));
     }
 
     public TypeName getProgramName() {

@@ -27,9 +27,8 @@ public class ExistentialInstantiationStep extends AbstractProofStep {
     private final List<PExp> myOriginalValues;
     private final int myExistentialConsequentIndex;
 
-    public ExistentialInstantiationStep(Transformation t, Application a,
-            Conjunct existentialConjunct, int existentialConjunctIndex,
-            List<PExp> originalValues, Collection<Site> boundSites) {
+    public ExistentialInstantiationStep(Transformation t, Application a, Conjunct existentialConjunct,
+            int existentialConjunctIndex, List<PExp> originalValues, Collection<Site> boundSites) {
         super(t, a, boundSites);
 
         myExistentialConsequent = existentialConjunct;

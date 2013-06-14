@@ -14,8 +14,7 @@ public class MTSetRestriction extends MTAbstract<MTSetRestriction> {
     private String mySetVar;
     private Exp myRestriction;
 
-    public MTSetRestriction(TypeGraph g, MTType baseType, String setVar,
-            Exp restriction) {
+    public MTSetRestriction(TypeGraph g, MTType baseType, String setVar, Exp restriction) {
         super(g);
         myBaseType = baseType;
         mySetVar = setVar;
@@ -34,8 +33,7 @@ public class MTSetRestriction extends MTAbstract<MTSetRestriction> {
 
     @Override
     public String toString() {
-        return "{" + mySetVar + " : " + myBaseType.toString() + " | "
-                + myRestriction.toString() + "}";
+        return "{" + mySetVar + " : " + myBaseType.toString() + " | " + myRestriction.toString() + "}";
     }
 
     @Override
@@ -67,8 +65,7 @@ public class MTSetRestriction extends MTAbstract<MTSetRestriction> {
 
     @Override
     public List<MTType> getComponentTypes() {
-        return Collections.unmodifiableList(Collections
-                .singletonList(myBaseType));
+        return Collections.unmodifiableList(Collections.singletonList(myBaseType));
     }
 
     @Override
@@ -77,8 +74,7 @@ public class MTSetRestriction extends MTAbstract<MTSetRestriction> {
             throw new IndexOutOfBoundsException();
         }
 
-        return new MTSetRestriction(getTypeGraph(), newType, mySetVar,
-                myRestriction);
+        return new MTSetRestriction(getTypeGraph(), newType, mySetVar, myRestriction);
     }
 
     @Override

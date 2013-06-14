@@ -25,8 +25,7 @@ public class ChainedMaps<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object arg0) {
-        return myFirst.containsKey(arg0) || mySecond.containsKey(arg0)
-                || myPersonalMap.containsKey(arg0);
+        return myFirst.containsKey(arg0) || mySecond.containsKey(arg0) || myPersonalMap.containsKey(arg0);
     }
 
     @Override
@@ -37,9 +36,8 @@ public class ChainedMaps<K, V> implements Map<K, V> {
 
     @Override
     public Set<java.util.Map.Entry<K, V>> entrySet() {
-        return new UnionedSets<Map.Entry<K, V>>(myPersonalMap.entrySet(),
-                new UnionedSets<Map.Entry<K, V>>(myFirst.entrySet(), mySecond
-                        .entrySet()));
+        return new UnionedSets<Map.Entry<K, V>>(myPersonalMap.entrySet(), new UnionedSets<Map.Entry<K, V>>(
+                myFirst.entrySet(), mySecond.entrySet()));
     }
 
     @Override
@@ -61,14 +59,13 @@ public class ChainedMaps<K, V> implements Map<K, V> {
 
     @Override
     public boolean isEmpty() {
-        return myPersonalMap.isEmpty() && myFirst.isEmpty()
-                && mySecond.isEmpty();
+        return myPersonalMap.isEmpty() && myFirst.isEmpty() && mySecond.isEmpty();
     }
 
     @Override
     public Set<K> keySet() {
-        return new UnionedSets<K>(myPersonalMap.keySet(), new UnionedSets<K>(
-                myFirst.keySet(), mySecond.keySet()));
+        return new UnionedSets<K>(myPersonalMap.keySet(), new UnionedSets<K>(myFirst.keySet(), mySecond
+                .keySet()));
     }
 
     @Override
@@ -105,8 +102,8 @@ public class ChainedMaps<K, V> implements Map<K, V> {
 
     @Override
     public Collection<V> values() {
-        return new ChainedCollections<V>(myPersonalMap.values(),
-                new ChainedCollections<V>(myFirst.values(), mySecond.values()));
+        return new ChainedCollections<V>(myPersonalMap.values(), new ChainedCollections<V>(myFirst.values(),
+                mySecond.values()));
     }
 
 }

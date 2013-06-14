@@ -10,15 +10,13 @@ import edu.clemson.cs.r2jt.type.TypeConverter;
 
 public class RepeatedArguments {
 
-    public boolean checkRepeatedArguments(CallStmt stmt,
-            AssertiveCode assertive, OperationDec opDec) {
+    public boolean checkRepeatedArguments(CallStmt stmt, AssertiveCode assertive, OperationDec opDec) {
         System.out.println("");
         System.out.println("");
         boolean toReturn = false;
         List<ProgramExp> arguments = stmt.getArguments();
         List<VariableExp> variableExpressions = new List<VariableExp>();
-        List<ProgramParamExp> programParamExpressions =
-                new List<ProgramParamExp>();
+        List<ProgramParamExp> programParamExpressions = new List<ProgramParamExp>();
         List<ParameterVarDec> test = opDec.getParameters();
 
         //This for loop helps me to see where things are in the OpDec so that I can figure out how to get
@@ -28,9 +26,7 @@ public class RepeatedArguments {
         for (int i = 0; i < test.size(); i++) {
             System.out.println(test.get(i).getName());
             System.out.println(test.get(i).getTy().asString(0, 0));
-            ConcType A =
-                    (ConcType) (converter.getConceptualType(
-                            test.get(i).getTy(), test.get(i).getName()));
+            ConcType A = (ConcType) (converter.getConceptualType(test.get(i).getTy(), test.get(i).getName()));
             System.out.println(" ");
         }
         //Check to see what types of arguments there are...
@@ -42,8 +38,7 @@ public class RepeatedArguments {
             else {
                 if (arguments.get(count) instanceof ProgramParamExp) {
                     //System.out.println("ProgramParamExp");
-                    programParamExpressions.add((ProgramParamExp) (arguments
-                            .get(count)));
+                    programParamExpressions.add((ProgramParamExp) (arguments.get(count)));
                 }
                 else {
                     System.out.println("other...do something about it!");
@@ -69,10 +64,8 @@ public class RepeatedArguments {
                 //System.out.println("array expressions could match");
             }
         }
-        if (programParamExpressions.size() > 0
-                && variableExpressions.size() > 0) {
-            if (this.differentVariableTypeExactCheck(programParamExpressions,
-                    variableExpressions)) {
+        if (programParamExpressions.size() > 0 && variableExpressions.size() > 0) {
+            if (this.differentVariableTypeExactCheck(programParamExpressions, variableExpressions)) {
                 //System.out.println("could have A, A[i]");
             }
         }
@@ -80,15 +73,13 @@ public class RepeatedArguments {
         return toReturn;
     }
 
-    private boolean differentVariableTypeExactCheck(
-            List<ProgramParamExp> programParamExpressions,
+    private boolean differentVariableTypeExactCheck(List<ProgramParamExp> programParamExpressions,
             List<VariableExp> variableExpressions) {
         for (int a = 0; a < variableExpressions.size(); a++) {
             for (int b = 0; b < programParamExpressions.size(); b++) {
                 //System.out.println("." + variableExpressions.get(a).toString()+".");
                 //System.out.println("." + programParamExpressions.get(b).getName().toString()+".");
-                if (differentTypeCompare1(programParamExpressions.get(b),
-                        variableExpressions.get(a))) {
+                if (differentTypeCompare1(programParamExpressions.get(b), variableExpressions.get(a))) {
                     //System.out.println("it is possible that it is a,a(i)");
                     return true;
                 }
@@ -98,8 +89,7 @@ public class RepeatedArguments {
         return false;
     }
 
-    private boolean differentTypeCompare1(ProgramParamExp programParamExp,
-            VariableExp variableExp) {
+    private boolean differentTypeCompare1(ProgramParamExp programParamExp, VariableExp variableExp) {
         String paramExp = programParamExp.getName().toString();
         String varName = variableExp.toString();
 
@@ -110,14 +100,12 @@ public class RepeatedArguments {
         return false;
     }
 
-    private boolean exactDuplicateCheck2(
-            List<ProgramParamExp> variableExpressions) {
+    private boolean exactDuplicateCheck2(List<ProgramParamExp> variableExpressions) {
         for (int a = 0; a < variableExpressions.size() - 1; a++) {
             for (int b = 1; b < variableExpressions.size(); b++) {
                 //System.out.println("." +variableExpressions.get(a).toString()+".");
                 //System.out.println("."+variableExpressions.get(b).toString()+".");
-                if (paramCompare(variableExpressions.get(a),
-                        variableExpressions.get(b)) == true) {
+                if (paramCompare(variableExpressions.get(a), variableExpressions.get(b)) == true) {
                     //System.out.println("Yes, I am herererererer");
                     return true;
                 }
@@ -127,19 +115,16 @@ public class RepeatedArguments {
         return false;
     }
 
-    private boolean exactDuplicateCheck1(List<VariableExp> variableExpressions,
-            OperationDec opDec) {
+    private boolean exactDuplicateCheck1(List<VariableExp> variableExpressions, OperationDec opDec) {
         for (int a = 0; a < variableExpressions.size() - 1; a++) {
             for (int b = 1; b < variableExpressions.size(); b++) {
                 //System.out.println("." +variableExpressions.get(a).toString()+".");
                 //System.out.println("."+variableExpressions.get(b).toString()+".");
-                if (variableCompare(variableExpressions.get(a),
-                        variableExpressions.get(b)) == true) {
+                if (variableCompare(variableExpressions.get(a), variableExpressions.get(b)) == true) {
                     //here will make the ?P, ?Q and do the swaps
 
                     //call new function
-                    applySwaps(variableExpressions.get(a), a,
-                            variableExpressions.get(b), b, opDec);
+                    applySwaps(variableExpressions.get(a), a, variableExpressions.get(b), b, opDec);
 
                     System.out.println("Yes, they are equal");
                     return true;
@@ -150,8 +135,8 @@ public class RepeatedArguments {
         return false;
     }
 
-    private void applySwaps(VariableExp variableExp, int a,
-            VariableExp variableExp2, int b, OperationDec opDec) {
+    private void applySwaps(VariableExp variableExp, int a, VariableExp variableExp2, int b,
+            OperationDec opDec) {
         Exp exp;
         ConcType emily;
         //ConcType A = (ConcType)(converter.getConceptualType(test.get(i).getTy(), test.get(i).getName()));
@@ -188,8 +173,7 @@ public class RepeatedArguments {
 
     }
 
-    private boolean variableCompare(VariableExp variableExp,
-            VariableExp variableExp2) {
+    private boolean variableCompare(VariableExp variableExp, VariableExp variableExp2) {
         List<Exp> subExp1 = variableExp.getSubExpressions();
         List<Exp> subExp2 = variableExp2.getSubExpressions();
         String varName1 = variableExp2.toString();

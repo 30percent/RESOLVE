@@ -8,8 +8,7 @@ public class AntecedentDevelopmentIterator implements Iterator<Antecedent> {
 
     private final Iterator<Antecedent> myDevelopments;
 
-    public AntecedentDevelopmentIterator(Antecedent original,
-            Iterator<Antecedent> d) {
+    public AntecedentDevelopmentIterator(Antecedent original, Iterator<Antecedent> d) {
 
         myOriginal = original;
         myDevelopments = d;

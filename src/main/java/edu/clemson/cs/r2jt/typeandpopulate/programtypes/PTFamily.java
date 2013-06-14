@@ -27,16 +27,13 @@ public class PTFamily extends PTType {
     private final PExp myFinalizationRequires;
     private final PExp myFinalizationEnsures;
 
-    public PTFamily(MTType model, String familyName, String exemplarName,
-            Exp constraint, Exp initializationRequires,
-            Exp initializationEnsures, Exp finalizationRequires,
+    public PTFamily(MTType model, String familyName, String exemplarName, Exp constraint,
+            Exp initializationRequires, Exp initializationEnsures, Exp finalizationRequires,
             Exp finalizationEnsures) {
-        this(model, familyName, exemplarName, normalize(model.getTypeGraph(),
-                constraint), normalize(model.getTypeGraph(),
-                initializationRequires), normalize(model.getTypeGraph(),
-                initializationEnsures), normalize(model.getTypeGraph(),
-                finalizationRequires), normalize(model.getTypeGraph(),
-                finalizationEnsures));
+        this(model, familyName, exemplarName, normalize(model.getTypeGraph(), constraint), normalize(model
+                .getTypeGraph(), initializationRequires), normalize(model.getTypeGraph(),
+                initializationEnsures), normalize(model.getTypeGraph(), finalizationRequires), normalize(
+                model.getTypeGraph(), finalizationEnsures));
     }
 
     private static PExp normalize(TypeGraph g, Exp original) {
@@ -49,9 +46,8 @@ public class PTFamily extends PTType {
         return PExp.buildPExp(original);
     }
 
-    public PTFamily(MTType model, String familyName, String exemplarName,
-            PExp constraint, PExp initializationRequires,
-            PExp initializationEnsures, PExp finalizationRequires,
+    public PTFamily(MTType model, String familyName, String exemplarName, PExp constraint,
+            PExp initializationRequires, PExp initializationEnsures, PExp finalizationRequires,
             PExp finalizationEnsures) {
         super(model.getTypeGraph());
 
@@ -99,41 +95,29 @@ public class PTFamily extends PTType {
     }
 
     @Override
-    public PTType instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public PTType instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
-        Map<String, MTType> stringToMathType =
-                SymbolTableEntry.buildMathTypeGenerics(genericInstantiations);
+        Map<String, MTType> stringToMathType = SymbolTableEntry.buildMathTypeGenerics(genericInstantiations);
 
         @SuppressWarnings("unchecked")
         Map<MTType, MTType> mathTypeToMathType =
-                (Map<MTType, MTType>) (Map<?, MTType>) MTNamed.toMTNamedMap(
-                        getTypeGraph(), stringToMathType);
+                (Map<MTType, MTType>) (Map<?, MTType>) MTNamed.toMTNamedMap(getTypeGraph(), stringToMathType);
 
-        MTType newModel =
-                myModel.getCopyWithVariablesSubstituted(stringToMathType);
+        MTType newModel = myModel.getCopyWithVariablesSubstituted(stringToMathType);
 
-        PExp newConstraint =
-                myConstraint.withTypesSubstituted(mathTypeToMathType);
+        PExp newConstraint = myConstraint.withTypesSubstituted(mathTypeToMathType);
 
-        PExp newInitializationRequires =
-                myInitializationRequires
-                        .withTypesSubstituted(mathTypeToMathType);
+        PExp newInitializationRequires = myInitializationRequires.withTypesSubstituted(mathTypeToMathType);
 
-        PExp newInitializationEnsures =
-                myInitializationEnsures
-                        .withTypesSubstituted(mathTypeToMathType);
+        PExp newInitializationEnsures = myInitializationEnsures.withTypesSubstituted(mathTypeToMathType);
 
-        PExp newFinalizationRequires =
-                myFinalizationRequires.withTypesSubstituted(mathTypeToMathType);
+        PExp newFinalizationRequires = myFinalizationRequires.withTypesSubstituted(mathTypeToMathType);
 
-        PExp newFinalizationEnsures =
-                myFinalizationEnsures.withTypesSubstituted(mathTypeToMathType);
+        PExp newFinalizationEnsures = myFinalizationEnsures.withTypesSubstituted(mathTypeToMathType);
 
-        return new PTFamily(newModel, myName, myExemplarName, newConstraint,
-                newInitializationRequires, newInitializationEnsures,
-                newFinalizationRequires, newFinalizationEnsures);
+        return new PTFamily(newModel, myName, myExemplarName, newConstraint, newInitializationRequires,
+                newInitializationEnsures, newFinalizationRequires, newFinalizationEnsures);
     }
 
     @Override
@@ -144,19 +128,13 @@ public class PTFamily extends PTType {
             PTFamily oAsPTFamily = (PTFamily) o;
 
             result =
-                    (myModel.equals(oAsPTFamily.myModel))
-                            && (myName.equals(oAsPTFamily.myName))
-                            && (myExemplarName
-                                    .equals(oAsPTFamily.myExemplarName))
+                    (myModel.equals(oAsPTFamily.myModel)) && (myName.equals(oAsPTFamily.myName))
+                            && (myExemplarName.equals(oAsPTFamily.myExemplarName))
                             && (myConstraint.equals(oAsPTFamily.myConstraint))
-                            && (myInitializationRequires
-                                    .equals(oAsPTFamily.myInitializationRequires))
-                            && (myInitializationEnsures
-                                    .equals(oAsPTFamily.myInitializationEnsures))
-                            && (myFinalizationRequires
-                                    .equals(oAsPTFamily.myFinalizationRequires))
-                            && (myFinalizationEnsures
-                                    .equals(oAsPTFamily.myFinalizationEnsures));
+                            && (myInitializationRequires.equals(oAsPTFamily.myInitializationRequires))
+                            && (myInitializationEnsures.equals(oAsPTFamily.myInitializationEnsures))
+                            && (myFinalizationRequires.equals(oAsPTFamily.myFinalizationRequires))
+                            && (myFinalizationEnsures.equals(oAsPTFamily.myFinalizationEnsures));
         }
 
         return result;

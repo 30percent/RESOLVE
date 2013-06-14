@@ -25,8 +25,7 @@ public abstract class AbstractProofStep implements ProofStep {
 
     private Set<Conjunct> myBoundConjuncts;
 
-    public AbstractProofStep(Transformation t, Application a,
-            Collection<Site> boundSites) {
+    public AbstractProofStep(Transformation t, Application a, Collection<Site> boundSites) {
         myTransformation = t;
         myApplication = a;
         myBoundSites = boundSites;

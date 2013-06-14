@@ -29,15 +29,13 @@ import java.util.Set;
  */
 public class SubstituteInPlaceInConsequent implements Transformation {
 
-    private final BindResultToApplication BIND_RESULT_TO_APPLICATION =
-            new BindResultToApplication();
+    private final BindResultToApplication BIND_RESULT_TO_APPLICATION = new BindResultToApplication();
 
     private PExp myMatchPattern;
     private PExp myTransformationTemplate;
     private final Theorem myTheorem;
 
-    public SubstituteInPlaceInConsequent(Theorem t, PExp tMatchPattern,
-            PExp tTransformationTemplate) {
+    public SubstituteInPlaceInConsequent(Theorem t, PExp tMatchPattern, PExp tTransformationTemplate) {
 
         myTheorem = t;
         myMatchPattern = tMatchPattern;
@@ -47,12 +45,9 @@ public class SubstituteInPlaceInConsequent implements Transformation {
     @Override
     public Iterator<Application> getApplications(PerVCProverModel m) {
         Iterator<PerVCProverModel.BindResult> bindResults =
-                m.bind(Collections
-                        .singleton((Binder) new InductiveConsequentBinder(
-                                myMatchPattern)));
+                m.bind(Collections.singleton((Binder) new InductiveConsequentBinder(myMatchPattern)));
 
-        return new LazyMappingIterator<BindResult, Application>(bindResults,
-                BIND_RESULT_TO_APPLICATION);
+        return new LazyMappingIterator<BindResult, Application>(bindResults, BIND_RESULT_TO_APPLICATION);
     }
 
     @Override
@@ -73,9 +68,7 @@ public class SubstituteInPlaceInConsequent implements Transformation {
 
     @Override
     public boolean introducesQuantifiedVariables() {
-        Set<PSymbol> introduced =
-                new HashSet<PSymbol>(myTransformationTemplate
-                        .getQuantifiedVariables());
+        Set<PSymbol> introduced = new HashSet<PSymbol>(myTransformationTemplate.getQuantifiedVariables());
 
         introduced.removeAll(myMatchPattern.getQuantifiedVariables());
 
@@ -110,29 +103,24 @@ public class SubstituteInPlaceInConsequent implements Transformation {
         return myTheorem.getAssertion() + " " + this.getClass().getName();
     }
 
-    private class BindResultToApplication
-            implements
-                Mapping<BindResult, Application> {
+    private class BindResultToApplication implements Mapping<BindResult, Application> {
 
         @Override
         public Application map(BindResult input) {
-            return new SubstituteInPlaceInConsequentApplication(input.bindSites
-                    .values().iterator().next(), input.freeVariableBindings);
+            return new SubstituteInPlaceInConsequentApplication(input.bindSites.values().iterator().next(),
+                    input.freeVariableBindings);
         }
 
     }
 
-    private class SubstituteInPlaceInConsequentApplication
-            implements
-                Application {
+    private class SubstituteInPlaceInConsequentApplication implements Application {
 
         private final Site myBindSite;
         private Site myFinalSite;
 
         private final Map<PExp, PExp> myBindings;
 
-        public SubstituteInPlaceInConsequentApplication(Site bindSite,
-                Map<PExp, PExp> bindings) {
+        public SubstituteInPlaceInConsequentApplication(Site bindSite, Map<PExp, PExp> bindings) {
             myBindSite = bindSite;
             myBindings = bindings;
         }
@@ -147,13 +135,10 @@ public class SubstituteInPlaceInConsequent implements Transformation {
             PExp transformed = myTransformationTemplate.substitute(myBindings);
             m.alterSite(myBindSite, transformed);
 
-            myFinalSite =
-                    new Site(m, myBindSite.conjunct, myBindSite.path,
-                            transformed);
+            myFinalSite = new Site(m, myBindSite.conjunct, myBindSite.path, transformed);
 
             m.addProofStep(new ModifyConsequentStep(myBindSite, myFinalSite,
-                    SubstituteInPlaceInConsequent.this, this, Collections
-                            .singleton(myBindSite)));
+                    SubstituteInPlaceInConsequent.this, this, Collections.singleton(myBindSite)));
         }
 
         @Override

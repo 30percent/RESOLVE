@@ -25,11 +25,9 @@ import java.util.LinkedList;
  */
 public class Minimizer implements Automator {
 
-    private static final ApplyAll DUMMY_APPLIER =
-            new ApplyAll(new NoOpLabel(null, "Dummy"));
+    private static final ApplyAll DUMMY_APPLIER = new ApplyAll(new NoOpLabel(null, "Dummy"));
 
-    private Collection<Transformation> myReducingTranformations =
-            new LinkedList<Transformation>();
+    private Collection<Transformation> myReducingTranformations = new LinkedList<Transformation>();
 
     private Iterator<Transformation> myCurrentRound;
     private ApplyAll myCurrentApplier;
@@ -38,10 +36,8 @@ public class Minimizer implements Automator {
     public Minimizer(ImmutableList<Theorem> theoremLibrary) {
         for (Theorem theorem : theoremLibrary) {
             for (Transformation t : theorem.getTransformations()) {
-                if (t.getEquivalence().equals(Equivalence.EQUIVALENT)
-                        && !t.introducesQuantifiedVariables()
-                        && !t.couldAffectAntecedent()
-                        && t.functionApplicationCountDelta() < 0) {
+                if (t.getEquivalence().equals(Equivalence.EQUIVALENT) && !t.introducesQuantifiedVariables()
+                        && !t.couldAffectAntecedent() && t.functionApplicationCountDelta() < 0) {
                     myReducingTranformations.add(t);
                 }
             }
@@ -53,9 +49,7 @@ public class Minimizer implements Automator {
 
     @Override
     public void step(Deque<Automator> stack, PerVCProverModel model) {
-        myProductiveRoundFlag =
-                myProductiveRoundFlag
-                        || (myCurrentApplier.getApplicationCount() > 0);
+        myProductiveRoundFlag = myProductiveRoundFlag || (myCurrentApplier.getApplicationCount() > 0);
 
         if (myCurrentRound.hasNext()) {
             myCurrentApplier = new ApplyAll(myCurrentRound.next());

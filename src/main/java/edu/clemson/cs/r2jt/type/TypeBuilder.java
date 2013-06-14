@@ -65,8 +65,7 @@ public class TypeBuilder {
     // Constructors
     // ===========================================================
 
-    public TypeBuilder(OldSymbolTable table,
-            CompileEnvironment instanceEnvironment) {
+    public TypeBuilder(OldSymbolTable table, CompileEnvironment instanceEnvironment) {
         myInstanceEnvironment = instanceEnvironment;
         this.table = table;
         this.err = instanceEnvironment.getErrorHandler();
@@ -105,9 +104,7 @@ public class TypeBuilder {
             return Char;
         if (var.equals("Str") && Str != null)
             return Str;
-        ModuleID tid =
-                ModuleID.createTheoryID(new PosSymbol(null, Symbol
-                        .symbol(theory)));
+        ModuleID tid = ModuleID.createTheoryID(new PosSymbol(null, Symbol.symbol(theory)));
         if (myInstanceEnvironment.contains(tid)) {
             // Make sure XXX_Theory has math type "X"
             PosSymbol ps = new PosSymbol(null, Symbol.symbol(var));
@@ -130,8 +127,7 @@ public class TypeBuilder {
                 }
                 else {
                     if (!quiet) {
-                        err.error(loc, "Module " + theory
-                                + " does not contain math type " + var + ".");
+                        err.error(loc, "Module " + theory + " does not contain math type " + var + ".");
                     }
                     return null;
                 }
@@ -151,8 +147,7 @@ public class TypeBuilder {
             }
             else {
                 if (!quiet) {
-                    err.error(loc, "Module " + theory
-                            + " does not contain math type " + var + ".");
+                    err.error(loc, "Module " + theory + " does not contain math type " + var + ".");
                 }
                 return null;
             }

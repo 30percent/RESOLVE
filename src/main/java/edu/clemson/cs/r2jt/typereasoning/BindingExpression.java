@@ -38,14 +38,12 @@ public class BindingExpression {
         return result;
     }
 
-    private MTType getTypeUnderBinding(MTType original,
-            Map<String, MTType> typeBindings) {
+    private MTType getTypeUnderBinding(MTType original, Map<String, MTType> typeBindings) {
 
         return original.getCopyWithVariablesSubstituted(typeBindings);
     }
 
-    private void bindTo(Exp expr1, Exp expr2, Map<String, MTType> typeBindings,
-            Map<String, Exp> accumulator)
+    private void bindTo(Exp expr1, Exp expr2, Map<String, MTType> typeBindings, Map<String, Exp> accumulator)
             throws TypeMismatchException,
                 BindingException {
 
@@ -56,10 +54,8 @@ public class BindingExpression {
 
         //Either type might actually be a named type that's already been mapped,
         //so perform the substitution if necessary
-        MTType expr1Type =
-                getTypeUnderBinding(expr1.getMathType(), typeBindings);
-        MTType expr2Type =
-                getTypeUnderBinding(expr2.getMathType(), typeBindings);
+        MTType expr1Type = getTypeUnderBinding(expr1.getMathType(), typeBindings);
+        MTType expr2Type = getTypeUnderBinding(expr2.getMathType(), typeBindings);
 
         if (!myTypeGraph.isSubtype(expr2Type, expr1Type)) {
             throw TypeMismatchException.INSTANCE;
@@ -71,8 +67,7 @@ public class BindingExpression {
 
             if (e1AsVarExp.getQuantification() == VarExp.FORALL) {
                 if (accumulator.containsKey(e1Name)) {
-                    bindTo(accumulator.get(e1Name), expr2, typeBindings,
-                            accumulator);
+                    bindTo(accumulator.get(e1Name), expr2, typeBindings, accumulator);
                 }
                 else {
                     accumulator.put(e1Name, expr2);
@@ -91,8 +86,7 @@ public class BindingExpression {
                 }
             }
         }
-        else if (expr1 instanceof AbstractFunctionExp
-                && expr2 instanceof AbstractFunctionExp) {
+        else if (expr1 instanceof AbstractFunctionExp && expr2 instanceof AbstractFunctionExp) {
 
             AbstractFunctionExp funExpr1 = (AbstractFunctionExp) expr1;
             String fun1Name = funExpr1.getOperatorAsString();
@@ -101,9 +95,7 @@ public class BindingExpression {
 
             if (funExpr1.getQuantification() == VarExp.FORALL) {
                 if (accumulator.containsKey(fun1Name)) {
-                    fun1Name =
-                            ((AbstractFunctionExp) accumulator.get(fun1Name))
-                                    .getOperatorAsString();
+                    fun1Name = ((AbstractFunctionExp) accumulator.get(fun1Name)).getOperatorAsString();
 
                     if (!fun1Name.equals(funExpr2.getOperatorAsString())) {
                         throw new BindingException(expr1, expr2);
@@ -138,8 +130,7 @@ public class BindingExpression {
             //There must be the same number of parameters, otherwise the 
             //original typecheck would have failed
             while (fun1Args.hasNext()) {
-                bindTo(fun1Args.next(), fun2Args.next(), typeBindings,
-                        accumulator);
+                bindTo(fun1Args.next(), fun2Args.next(), typeBindings, accumulator);
             }
         }
         else if (expr1 instanceof TupleExp) {
@@ -153,16 +144,13 @@ public class BindingExpression {
             //We checked earlier that it's a subtype.  So, if it's universally
             //quantified--we're done here.
             if (!expr1AsTupleExp.isUniversallyQuantified()) {
-                Iterator<Exp> tuple1Fields =
-                        ((TupleExp) expr1).getFields().iterator();
-                Iterator<Exp> tuple2Fields =
-                        ((TupleExp) expr2).getFields().iterator();
+                Iterator<Exp> tuple1Fields = ((TupleExp) expr1).getFields().iterator();
+                Iterator<Exp> tuple2Fields = ((TupleExp) expr2).getFields().iterator();
 
                 //There must be the same number of fields, otherwise the above
                 //typecheck would have failed
                 while (tuple1Fields.hasNext()) {
-                    bindTo(tuple1Fields.next(), tuple2Fields.next(),
-                            typeBindings, accumulator);
+                    bindTo(tuple1Fields.next(), tuple2Fields.next(), typeBindings, accumulator);
                 }
             }
         }
@@ -174,8 +162,7 @@ public class BindingExpression {
             //the original type check would have kicked us out if those didn't
             //match
 
-            bindTo(expr1AsLambdaExp.getBody(), expr2AsLambdaExp.getBody(),
-                    typeBindings, accumulator);
+            bindTo(expr1AsLambdaExp.getBody(), expr2AsLambdaExp.getBody(), typeBindings, accumulator);
 
         }
         else {

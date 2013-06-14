@@ -13,8 +13,7 @@ import edu.clemson.cs.r2jt.utilities.Mapping;
  */
 public class ProductiveStepChooser implements TransformationChooser {
 
-    private static final ProductiveFilterMapping PRODUCTIVE_FILTER =
-            new ProductiveFilterMapping();
+    private static final ProductiveFilterMapping PRODUCTIVE_FILTER = new ProductiveFilterMapping();
 
     private final TransformationChooser myBaseChooser;
 
@@ -29,12 +28,11 @@ public class ProductiveStepChooser implements TransformationChooser {
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d) {
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d) {
 
-        return new LazyMappingIterator<ProofPathSuggestion, ProofPathSuggestion>(
-                myBaseChooser.suggestTransformations(vc, curLength, metrics, d),
-                PRODUCTIVE_FILTER);
+        return new LazyMappingIterator<ProofPathSuggestion, ProofPathSuggestion>(myBaseChooser
+                .suggestTransformations(vc, curLength, metrics, d), PRODUCTIVE_FILTER);
     }
 
     @Override
@@ -42,15 +40,13 @@ public class ProductiveStepChooser implements TransformationChooser {
         return "ProductiveStep(Steps from " + myBaseChooser + ")";
     }
 
-    private static class ProductiveFilterMapping
-            implements
-                Mapping<ProofPathSuggestion, ProofPathSuggestion> {
+    private static class ProductiveFilterMapping implements Mapping<ProofPathSuggestion, ProofPathSuggestion> {
 
         @Override
         public ProofPathSuggestion map(ProofPathSuggestion i) {
 
-            return new ProofPathSuggestion(new ProductiveStepsOnlyStep(i.step),
-                    i.data, i.pathNote, i.debugNote);
+            return new ProofPathSuggestion(new ProductiveStepsOnlyStep(i.step), i.data, i.pathNote,
+                    i.debugNote);
         }
     }
 }

@@ -146,8 +146,7 @@ public class LambdaExp extends Exp {
     // ===========================================================
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new LambdaExp(location, new List<MathVarDec>(parameters),
-                substitute(body, substitutions));
+        return new LambdaExp(location, new List<MathVarDec>(parameters), substitute(body, substitutions));
     }
 
     /** Accepts a ResolveConceptualVisitor. */
@@ -188,12 +187,9 @@ public class LambdaExp extends Exp {
             result = (parameters.size() == eAsLambdaExp.parameters.size());
 
             Iterator<MathVarDec> parameterIterator = parameters.iterator();
-            Iterator<MathVarDec> eParameterIterator =
-                    eAsLambdaExp.parameters.iterator();
+            Iterator<MathVarDec> eParameterIterator = eAsLambdaExp.parameters.iterator();
             while (parameterIterator.hasNext() && result) {
-                result =
-                        parameterIterator.next().equals(
-                                eParameterIterator.next());
+                result = parameterIterator.next().equals(eParameterIterator.next());
             }
         }
 
@@ -236,13 +232,10 @@ public class LambdaExp extends Exp {
         boolean result = (parameters.size() == e2AsLambdaExp.parameters.size());
 
         Iterator<MathVarDec> parameterIter = parameters.iterator();
-        Iterator<MathVarDec> e2ParameterIter =
-                e2AsLambdaExp.parameters.iterator();
+        Iterator<MathVarDec> e2ParameterIter = e2AsLambdaExp.parameters.iterator();
 
         while (result && parameterIter.hasNext()) {
-            result =
-                    parameterIter.next().getName().equals(
-                            e2ParameterIter.next().getName());
+            result = parameterIter.next().getName().equals(e2ParameterIter.next().getName());
         }
 
         return result;
@@ -265,8 +258,7 @@ public class LambdaExp extends Exp {
                 while (parameterIter.hasNext()) {
                     param = parameterIter.next();
 
-                    if (((VarExp) old).getName().toString().equals(
-                            param.getName().toString())) {
+                    if (((VarExp) old).getName().toString().equals(param.getName().toString())) {
 
                         param.setName(((VarExp) replace).getName());
                     }

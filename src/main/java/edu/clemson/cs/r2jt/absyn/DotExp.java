@@ -139,9 +139,7 @@ public class DotExp extends Exp {
             newSegments.add(substitute(e, substitutions));
         }
 
-        retval =
-                new DotExp(location, newSegments, substitute(semanticExp,
-                        substitutions));
+        retval = new DotExp(location, newSegments, substitute(semanticExp, substitutions));
         retval.setType(type);
 
         return retval;
@@ -238,10 +236,7 @@ public class DotExp extends Exp {
                     retval = thisSegments.next().equivalent(eSegments.next());
                 }
 
-                retval =
-                        retval
-                                && !(thisSegments.hasNext() || eSegments
-                                        .hasNext());
+                retval = retval && !(thisSegments.hasNext() || eSegments.hasNext());
             }
         }
 
@@ -369,17 +364,14 @@ public class DotExp extends Exp {
                 Exp name = it.next();
 
                 if (old instanceof VarExp && name instanceof VarExp) {
-                    if (((VarExp) old).getName().toString().equals(
-                            ((VarExp) name).getName().toString())
+                    if (((VarExp) old).getName().toString().equals(((VarExp) name).getName().toString())
                             && (replacement instanceof DotExp)) {
                         segments.remove(0);
-                        segments
-                                .addAll(0, ((DotExp) replacement).getSegments());
+                        segments.addAll(0, ((DotExp) replacement).getSegments());
 
                         return this;
                     }
-                    else if (((VarExp) old).getName().toString().equals(
-                            ((VarExp) name).getName().toString()) /*&& (replacement instanceof VarExp)*/) {
+                    else if (((VarExp) old).getName().toString().equals(((VarExp) name).getName().toString()) /*&& (replacement instanceof VarExp)*/) {
                         segments.remove(0);
                         segments.add(0, (Exp) (Exp.clone(replacement)));
 
@@ -391,8 +383,7 @@ public class DotExp extends Exp {
                         name = Exp.replace(name, old, replacement);
                         if (name != null) {
                             segments.remove(0);
-                            segments.addAll(0, ((DotExp) replacement)
-                                    .getSegments());
+                            segments.addAll(0, ((DotExp) replacement).getSegments());
                             return this;
                         }
                     }
@@ -446,8 +437,7 @@ public class DotExp extends Exp {
         }
         else {
             for (int count = 0; count < old.getSegments().size(); count++) {
-                if (!old.getSegments().get(count).equals(
-                        current.getSegments().get(count))) {
+                if (!old.getSegments().get(count).equals(current.getSegments().get(count))) {
                     return false;
                 }
             }
@@ -486,8 +476,7 @@ public class DotExp extends Exp {
                 Exp oldExp = old.getSegments().get(count);
                 Exp curExp = current.getSegments().get(0);
 
-                if (old.getSegments().get(count).equals(
-                        current.getSegments().get(0))) {
+                if (old.getSegments().get(count).equals(current.getSegments().get(0))) {
                     current.segments.remove(0);
                 }
                 else if (curExp instanceof FunctionExp
@@ -497,13 +486,11 @@ public class DotExp extends Exp {
                     // This matches.
                     if (newExp instanceof DotExp) {
                         newSegments.remove(count);
-                        ((FunctionExp) curExp).setName(((VarExp) oldExp)
-                                .getName());
+                        ((FunctionExp) curExp).setName(((VarExp) oldExp).getName());
                     }
                     else if (newExp instanceof VarExp) {
                         current.segments.remove(0);
-                        ((FunctionExp) curExp).setName(((VarExp) newExp)
-                                .getName());
+                        ((FunctionExp) curExp).setName(((VarExp) newExp).getName());
                         newExp = curExp;
                     }
 

@@ -97,9 +97,8 @@ public class FinalItem extends ResolveConceptualElement {
 
     public FinalItem() {};
 
-    public FinalItem(Location location, List<AffectsItem> stateVars,
-            Exp requires, Exp ensures, List<FacilityDec> facilities,
-            List<VarDec> variables, List<AuxVarDec> aux_variables,
+    public FinalItem(Location location, List<AffectsItem> stateVars, Exp requires, Exp ensures,
+            List<FacilityDec> facilities, List<VarDec> variables, List<AuxVarDec> aux_variables,
             List<Statement> statements) {
         this.location = location;
         this.stateVars = stateVars;

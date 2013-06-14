@@ -88,9 +88,8 @@ public class DefinitionDec extends Dec implements ModuleParameter {
 
     public DefinitionDec() {};
 
-    public DefinitionDec(boolean implicit, PosSymbol name,
-            List<MathVarDec> parameters, Ty returnTy, Exp base, Exp hypothesis,
-            Exp definition) {
+    public DefinitionDec(boolean implicit, PosSymbol name, List<MathVarDec> parameters, Ty returnTy,
+            Exp base, Exp hypothesis, Exp definition) {
         this.implicit = implicit;
         this.name = name;
         this.parameters = parameters;

@@ -17,8 +17,7 @@ public class ColsASTAdaptor extends CommonTreeAdaptor {
     	return (old==null)? null : ((ColsAST)old).dupNode();
     }*/
     @Override
-    public Object errorNode(TokenStream input, Token start, Token stop,
-            RecognitionException e) {
+    public Object errorNode(TokenStream input, Token start, Token stop, RecognitionException e) {
         return new ColsASTErrorNode(input, start, stop, e);
 
     }

@@ -20,15 +20,12 @@ public class SimpleFitnessFunction implements FitnessFunction<EqualsExp> {
         List<String> ruleFunctions = getFunctionsIn(rule);
 
         int nonOverlaps =
-                Math.max(inAButNotB(vcFunctions, ruleFunctions), inAButNotB(
-                        ruleFunctions, vcFunctions));
+                Math.max(inAButNotB(vcFunctions, ruleFunctions), inAButNotB(ruleFunctions, vcFunctions));
 
         double simplificationFactor =
-                functionCount(rule.getLeft())
-                        / (double) (functionCount(rule.getRight()) + 1);
+                functionCount(rule.getLeft()) / (double) (functionCount(rule.getRight()) + 1);
 
-        return Math.min(1 * Math.pow(0.9, nonOverlaps) * simplificationFactor
-                * 0.9, 1.0);
+        return Math.min(1 * Math.pow(0.9, nonOverlaps) * simplificationFactor * 0.9, 1.0);
     }
 
     private int inAButNotB(List<String> a, List<String> b) {
@@ -98,8 +95,8 @@ public class SimpleFitnessFunction implements FitnessFunction<EqualsExp> {
             retval += functionCount(subexpression);
         }
 
-        if (e instanceof FunctionExp || e instanceof InfixExp
-                || e instanceof OutfixExp || e instanceof PrefixExp) {
+        if (e instanceof FunctionExp || e instanceof InfixExp || e instanceof OutfixExp
+                || e instanceof PrefixExp) {
 
             retval += 1;
         }

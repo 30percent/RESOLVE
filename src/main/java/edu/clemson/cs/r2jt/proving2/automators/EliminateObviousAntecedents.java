@@ -35,8 +35,7 @@ public class EliminateObviousAntecedents implements Automator {
             stack.pop();
         }
         else {
-            new RemoveAntecedent(model, toRemove).getApplications(model).next()
-                    .apply(model);
+            new RemoveAntecedent(model, toRemove).getApplications(model).next().apply(model);
         }
     }
 }

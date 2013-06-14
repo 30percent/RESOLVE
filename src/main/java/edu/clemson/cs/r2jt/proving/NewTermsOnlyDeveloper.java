@@ -27,8 +27,7 @@ public class NewTermsOnlyDeveloper implements AntecedentDeveloper {
 
         GoodVCPredicate p = new GoodVCPredicate(source);
 
-        return new PredicateIterator<Antecedent>(myBaseDeveloper
-                .transform(source), p);
+        return new PredicateIterator<Antecedent>(myBaseDeveloper.transform(source), p);
     }
 
     /**
@@ -41,8 +40,7 @@ public class NewTermsOnlyDeveloper implements AntecedentDeveloper {
 
         public GoodVCPredicate(Antecedent original) {
             myOriginalVCSymbols = original.getSymbolNames();
-            myOriginalApplicationCount =
-                    original.getFunctionApplications().size();
+            myOriginalApplicationCount = original.getFunctionApplications().size();
         }
 
         @Override

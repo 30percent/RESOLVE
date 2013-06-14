@@ -93,8 +93,8 @@ public class ProofDec extends Dec {
 
     public ProofDec() {};
 
-    public ProofDec(int kind, PosSymbol name, List<Exp> statements,
-            List<Exp> baseCase, List<Exp> inductiveCase) {
+    public ProofDec(int kind, PosSymbol name, List<Exp> statements, List<Exp> baseCase,
+            List<Exp> inductiveCase) {
         this.kind = kind;
         this.name = name;
         this.statements = statements;

@@ -20,9 +20,8 @@ public class ChainedCollections<T> extends AbstractCollection<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new ChainingIterator<T>(
-                myPersonalCollection.iterator(),
-                new ChainingIterator<T>(myFirst.iterator(), mySecond.iterator()));
+        return new ChainingIterator<T>(myPersonalCollection.iterator(), new ChainingIterator<T>(myFirst
+                .iterator(), mySecond.iterator()));
     }
 
     @Override

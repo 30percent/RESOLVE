@@ -89,8 +89,7 @@ public class ArrayType extends Type {
     // Constructors
     // ===========================================================
 
-    public ArrayType(ModuleID id, PosSymbol name, ProgramExp lo, ProgramExp hi,
-            Type index, Type entry) {
+    public ArrayType(ModuleID id, PosSymbol name, ProgramExp lo, ProgramExp hi, Type index, Type entry) {
         this.id = id;
         this.name = name;
         this.lo = lo;
@@ -136,8 +135,8 @@ public class ArrayType extends Type {
     // ===========================================================
 
     public Type instantiate(ScopeID sid, Binding binding) {
-        return new ArrayType(id, name, lo, hi, index.instantiate(sid, binding),
-                entry.instantiate(sid, binding));
+        return new ArrayType(id, name, lo, hi, index.instantiate(sid, binding), entry.instantiate(sid,
+                binding));
     }
 
     public TypeName getProgramName() {

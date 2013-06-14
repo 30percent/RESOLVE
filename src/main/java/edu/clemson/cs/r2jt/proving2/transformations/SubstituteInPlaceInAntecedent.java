@@ -34,8 +34,7 @@ import java.util.Set;
  */
 public class SubstituteInPlaceInAntecedent implements Transformation {
 
-    private final BindResultToApplication BIND_RESULT_TO_APPLICATION =
-            new BindResultToApplication();
+    private final BindResultToApplication BIND_RESULT_TO_APPLICATION = new BindResultToApplication();
 
     private PExp myMatchPattern;
     private List<PExp> myMatchPatternConjuncts;
@@ -45,8 +44,7 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
     private List<PExp> myTransformationTemplateConjuncts;
     private final Theorem myTheorem;
 
-    public SubstituteInPlaceInAntecedent(Theorem t, PExp tMatchPattern,
-            PExp tTransformationTemplate) {
+    public SubstituteInPlaceInAntecedent(Theorem t, PExp tMatchPattern, PExp tTransformationTemplate) {
 
         myTheorem = t;
 
@@ -55,8 +53,7 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
         myMatchPatternConjunctsSize = myMatchPatternConjuncts.size();
 
         myTransformationTemplate = tTransformationTemplate;
-        myTransformationTemplateConjuncts =
-                tTransformationTemplate.splitIntoConjuncts();
+        myTransformationTemplateConjuncts = tTransformationTemplate.splitIntoConjuncts();
     }
 
     @Override
@@ -64,13 +61,9 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
         Iterator<Application> result;
 
         Iterator<BindResult> bindResults =
-                m.bind(Collections
-                        .singleton((Binder) new InductiveAntecedentBinder(
-                                myMatchPattern)));
+                m.bind(Collections.singleton((Binder) new InductiveAntecedentBinder(myMatchPattern)));
 
-        result =
-                new LazyMappingIterator<BindResult, Application>(bindResults,
-                        BIND_RESULT_TO_APPLICATION);
+        result = new LazyMappingIterator<BindResult, Application>(bindResults, BIND_RESULT_TO_APPLICATION);
 
         //We might also have to account for the situation where the conjuncts of
         //the match span multiple theorems
@@ -79,17 +72,14 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
 
             Binder binder;
             for (PExp matchConjunct : myMatchPatternConjuncts) {
-                binder =
-                        new AtLeastOneLocalTheoremBinder(matchConjunct,
-                                myMatchPatternConjunctsSize);
+                binder = new AtLeastOneLocalTheoremBinder(matchConjunct, myMatchPatternConjunctsSize);
 
                 binders.add(binder);
             }
 
             result =
-                    new ChainingIterator(result,
-                            new LazyMappingIterator<BindResult, Application>(m
-                                    .bind(binders), BIND_RESULT_TO_APPLICATION));
+                    new ChainingIterator(result, new LazyMappingIterator<BindResult, Application>(m
+                            .bind(binders), BIND_RESULT_TO_APPLICATION));
         }
 
         return result;
@@ -113,8 +103,7 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
 
     @Override
     public boolean introducesQuantifiedVariables() {
-        Set<PSymbol> introduced =
-                myTransformationTemplate.getQuantifiedVariables();
+        Set<PSymbol> introduced = myTransformationTemplate.getQuantifiedVariables();
 
         introduced.removeAll(myMatchPattern.getFunctionApplications());
 
@@ -141,9 +130,7 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
         return myTheorem.getAssertion() + " " + this.getClass().getName();
     }
 
-    private class BindResultToApplication
-            implements
-                Mapping<PerVCProverModel.BindResult, Application> {
+    private class BindResultToApplication implements Mapping<PerVCProverModel.BindResult, Application> {
 
         @Override
         public Application map(PerVCProverModel.BindResult input) {
@@ -158,8 +145,7 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
                 int curBindIndex;
                 for (Site s : input.bindSites.values()) {
                     if (s.conjunct.editable()) {
-                        curBindIndex =
-                                s.getModel().getConjunctIndex(s.conjunct);
+                        curBindIndex = s.getModel().getConjunctIndex(s.conjunct);
                         if (curBindIndex > maxBindIndex) {
                             maxBindIndex = curBindIndex;
                         }
@@ -171,8 +157,7 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
 
                 //Add the new, transformed conjuncts
                 for (PExp newTheorem : myTransformationTemplateConjuncts) {
-                    newTheorems.add(newTheorem
-                            .substitute(input.freeVariableBindings));
+                    newTheorems.add(newTheorem.substitute(input.freeVariableBindings));
                     newIndecis.add((Integer) maxBindIndex);
                     maxBindIndex++;
                 }
@@ -180,15 +165,11 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
             else {
                 Site bindSite = input.bindSites.values().iterator().next();
 
-                PExp transformed =
-                        myTransformationTemplate
-                                .substitute(input.freeVariableBindings);
+                PExp transformed = myTransformationTemplate.substitute(input.freeVariableBindings);
                 PExp topLevelTransformed =
-                        bindSite.root.exp.withSiteAltered(bindSite
-                                .pathIterator(), transformed);
+                        bindSite.root.exp.withSiteAltered(bindSite.pathIterator(), transformed);
 
-                List<PExp> topLevelConjuncts =
-                        topLevelTransformed.splitIntoConjuncts();
+                List<PExp> topLevelConjuncts = topLevelTransformed.splitIntoConjuncts();
 
                 if (topLevelConjuncts.size() == 1) {
                     //Change the value in place
@@ -199,9 +180,7 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
                     newValues.put(bindSite.conjunct, null);
 
                     //Add the new ones
-                    int index =
-                            bindSite.getModel().getConjunctIndex(
-                                    bindSite.conjunct);
+                    int index = bindSite.getModel().getConjunctIndex(bindSite.conjunct);
                     for (PExp c : topLevelConjuncts) {
                         newTheorems.add(c);
                         newIndecis.add(index);
@@ -210,8 +189,7 @@ public class SubstituteInPlaceInAntecedent implements Transformation {
                 }
             }
 
-            return new GeneralApplication(input.bindSites.values(), newValues,
-                    newTheorems, newIndecis,
+            return new GeneralApplication(input.bindSites.values(), newValues, newTheorems, newIndecis,
                     SubstituteInPlaceInAntecedent.this, myTheorem);
         }
     }

@@ -268,8 +268,7 @@ public class AltItemExp extends Exp {
 
         if (assignment != null) {
             if (result.assignment == null) {
-                throw new IllegalArgumentException(
-                        "Cannot have null assignment.");
+                throw new IllegalArgumentException("Cannot have null assignment.");
             }
 
             Exp oldAssignment = assignment;

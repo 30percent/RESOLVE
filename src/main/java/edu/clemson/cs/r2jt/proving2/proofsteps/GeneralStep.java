@@ -29,11 +29,9 @@ public class GeneralStep extends AbstractProofStep {
 
     private Set<Conjunct> myIntroducedConjuncts;
 
-    public GeneralStep(List<Conjunct> removedConjuncts,
-            List<Integer> removedConjunctsIndecis,
-            Map<Conjunct, PExp> originalValues,
-            Set<Conjunct> introducedConjuncts, Transformation t, Application a,
-            Collection<Site> boundSites) {
+    public GeneralStep(List<Conjunct> removedConjuncts, List<Integer> removedConjunctsIndecis,
+            Map<Conjunct, PExp> originalValues, Set<Conjunct> introducedConjuncts, Transformation t,
+            Application a, Collection<Site> boundSites) {
         super(t, a, boundSites);
 
         myRemovedConjuncts = removedConjuncts;
@@ -52,17 +50,14 @@ public class GeneralStep extends AbstractProofStep {
     public void undo(PerVCProverModel m) {
         //Reintroduce removed conjuncts
         Iterator<Conjunct> removedConjunctIter = myRemovedConjuncts.iterator();
-        Iterator<Integer> removedConjunctIndexIter =
-                myRemovedConjunctsIndecis.iterator();
+        Iterator<Integer> removedConjunctIndexIter = myRemovedConjunctsIndecis.iterator();
 
         while (removedConjunctIter.hasNext()) {
-            m.insertConjunct(removedConjunctIter.next(),
-                    removedConjunctIndexIter.next());
+            m.insertConjunct(removedConjunctIter.next(), removedConjunctIndexIter.next());
         }
 
         //Restore original values
-        for (Map.Entry<Conjunct, PExp> originalValue : myOriginalValues
-                .entrySet()) {
+        for (Map.Entry<Conjunct, PExp> originalValue : myOriginalValues.entrySet()) {
             m.alterConjunct(originalValue.getKey(), originalValue.getValue());
         }
 

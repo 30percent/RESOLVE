@@ -87,8 +87,7 @@ public class SuppositionExp extends LineNumberedExp {
         super(null);
     }
 
-    public SuppositionExp(Location location, PosSymbol lineNum, Exp exp,
-            List<MathVarDec> vars) {
+    public SuppositionExp(Location location, PosSymbol lineNum, Exp exp, List<MathVarDec> vars) {
         super(lineNum);
         this.location = location;
         this.exp = exp;
@@ -96,8 +95,7 @@ public class SuppositionExp extends LineNumberedExp {
     }
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new SuppositionExp(location, this.getLineNum(), substitute(exp,
-                substitutions), vars);
+        return new SuppositionExp(location, this.getLineNum(), substitute(exp, substitutions), vars);
     }
 
     // ===========================================================

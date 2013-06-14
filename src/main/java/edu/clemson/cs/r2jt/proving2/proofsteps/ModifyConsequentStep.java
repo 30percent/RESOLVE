@@ -20,8 +20,8 @@ public class ModifyConsequentStep extends AbstractProofStep {
     private final Site myOriginalSite;
     private final Site myFinalSite;
 
-    public ModifyConsequentStep(Site originalSite, Site finalSite,
-            Transformation t, Application a, Collection<Site> boundSites) {
+    public ModifyConsequentStep(Site originalSite, Site finalSite, Transformation t, Application a,
+            Collection<Site> boundSites) {
         super(t, a, boundSites);
 
         myOriginalSite = originalSite;

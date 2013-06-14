@@ -86,8 +86,8 @@ public class IfStmt extends Statement {
 
     public IfStmt() {};
 
-    public IfStmt(ProgramExp test, List<Statement> thenclause,
-            List<ConditionItem> elseifpairs, List<Statement> elseclause) {
+    public IfStmt(ProgramExp test, List<Statement> thenclause, List<ConditionItem> elseifpairs,
+            List<Statement> elseclause) {
         this.test = test;
         this.thenclause = thenclause;
         this.elseifpairs = elseifpairs;

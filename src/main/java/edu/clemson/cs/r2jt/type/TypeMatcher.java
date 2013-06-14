@@ -166,8 +166,7 @@ public class TypeMatcher {
     private boolean formalTypeMathMatches(FormalType type1, Type t2) {
         if (t2 instanceof FormalType) {
             FormalType type2 = (FormalType) t2;
-            return (type1.getModuleID().equals(type2.getModuleID()) && type1
-                    .getSymbol() == type2.getSymbol());
+            return (type1.getModuleID().equals(type2.getModuleID()) && type1.getSymbol() == type2.getSymbol());
         }
         else {
             return false;
@@ -180,8 +179,7 @@ public class TypeMatcher {
             if (type1.paramCount() != 0 || type2.paramCount() != 0) {
                 return false;
             }
-            return (type1.getModuleID().equals(type2.getModuleID()) && type1
-                    .getSymbol() == type2.getSymbol());
+            return (type1.getModuleID().equals(type2.getModuleID()) && type1.getSymbol() == type2.getSymbol());
         }
         else {
             return false;
@@ -191,8 +189,7 @@ public class TypeMatcher {
     private boolean constructedTypeMathMatches(ConstructedType type1, Type t2) {
         if (t2 instanceof ConstructedType) {
             ConstructedType type2 = (ConstructedType) t2;
-            if (type1.getQualifier().getSymbol() != type2.getQualifier()
-                    .getSymbol()) {
+            if (type1.getQualifier().getSymbol() != type2.getQualifier().getSymbol()) {
                 return false;
             }
             if (type1.getName().getSymbol() != type2.getName().getSymbol()) {
@@ -250,8 +247,8 @@ public class TypeMatcher {
     private boolean functionTypeMathMatches(FunctionType type1, Type t2) {
         if (t2 instanceof FunctionType) {
             FunctionType type2 = (FunctionType) t2;
-            return (mathMatches(type1.getDomain(), type2.getDomain()) && mathMatches(
-                    type1.getRange(), type2.getRange()));
+            return (mathMatches(type1.getDomain(), type2.getDomain()) && mathMatches(type1.getRange(), type2
+                    .getRange()));
         }
         else {
             return false;

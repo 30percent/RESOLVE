@@ -22,21 +22,17 @@ import java.util.Set;
  *
  * @author hamptos
  */
-public class ReplaceSymmetricEqualityWithTrueInConsequent
-        implements
-            Transformation {
+public class ReplaceSymmetricEqualityWithTrueInConsequent implements Transformation {
 
     public static final ReplaceSymmetricEqualityWithTrueInConsequent INSTANCE =
             new ReplaceSymmetricEqualityWithTrueInConsequent();
 
-    private final SiteToApplication SITE_TO_APPLICATION =
-            new SiteToApplication();
+    private final SiteToApplication SITE_TO_APPLICATION = new SiteToApplication();
 
     @Override
     public Iterator<Application> getApplications(PerVCProverModel m) {
-        return new LazyMappingIterator<Site, Application>(
-                new SymmetricEqualityIterator(m
-                        .topLevelConsequentSiteIterator()), SITE_TO_APPLICATION);
+        return new LazyMappingIterator<Site, Application>(new SymmetricEqualityIterator(m
+                .topLevelConsequentSiteIterator()), SITE_TO_APPLICATION);
     }
 
     @Override
@@ -88,14 +84,11 @@ public class ReplaceSymmetricEqualityWithTrueInConsequent
 
         @Override
         public Application map(Site input) {
-            return new ReplaceSymmetricEqualityWithTrueInConsequentApplication(
-                    input);
+            return new ReplaceSymmetricEqualityWithTrueInConsequentApplication(input);
         }
     }
 
-    private class ReplaceSymmetricEqualityWithTrueInConsequentApplication
-            implements
-                Application {
+    private class ReplaceSymmetricEqualityWithTrueInConsequentApplication implements Application {
 
         private final Site mySite;
         private Site myFinalSite;
@@ -108,12 +101,10 @@ public class ReplaceSymmetricEqualityWithTrueInConsequent
         public void apply(PerVCProverModel m) {
             m.alterSite(mySite, m.getTrue());
 
-            myFinalSite =
-                    new Site(m, mySite.conjunct, mySite.path, m.getTrue());
+            myFinalSite = new Site(m, mySite.conjunct, mySite.path, m.getTrue());
 
             m.addProofStep(new ModifyConsequentStep(mySite, myFinalSite,
-                    ReplaceSymmetricEqualityWithTrueInConsequent.this, this,
-                    Collections.singleton(mySite)));
+                    ReplaceSymmetricEqualityWithTrueInConsequent.this, this, Collections.singleton(mySite)));
         }
 
         @Override

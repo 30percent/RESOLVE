@@ -17,6 +17,5 @@ public interface SymbolTable extends Iterable<SymbolTableEntry> {
 
     public <T extends SymbolTableEntry> Iterator<T> iterateByType(Class<T> type);
 
-    public <T extends SymbolTableEntry> Iterator<T> iterateByType(
-            Collection<Class<T>> types);
+    public <T extends SymbolTableEntry> Iterator<T> iterateByType(Collection<Class<T>> types);
 }

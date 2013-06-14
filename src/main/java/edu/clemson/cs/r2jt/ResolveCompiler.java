@@ -24,11 +24,9 @@ public class ResolveCompiler {
     private static final String FLAG_DESC_ERRORS_ON_STD_OUT =
             "Change the output to be more web-friendly for the Web Interface.";
 
-    private static final String FLAG_DESC_NO_DEBUG =
-            "Remove debugging statements from the compiler output.";
+    private static final String FLAG_DESC_NO_DEBUG = "Remove debugging statements from the compiler output.";
 
-    private static final String FLAG_DESC_XML_OUT =
-            "Changes the compiler output files to XML";
+    private static final String FLAG_DESC_XML_OUT = "Changes the compiler output files to XML";
 
     private static final String FLAG_DESC_EXPORT_AST =
             "exports the AST for the target file as a .dot file that can be viewed in Graphviz";
@@ -38,38 +36,33 @@ public class ResolveCompiler {
      * some of the output to be more user-friendly for the web.</p>
      */
     public static final Flag FLAG_WEB =
-            new Flag(FLAG_SECTION_NAME, "webinterface", FLAG_DESC_WEB,
-                    Flag.Type.HIDDEN);
+            new Flag(FLAG_SECTION_NAME, "webinterface", FLAG_DESC_WEB, Flag.Type.HIDDEN);
 
     /**
      * <p>Tells the compiler to send error messages to std_out instead
      * of std_err.</p>
      */
     public static final Flag FLAG_ERRORS_ON_STD_OUT =
-            new Flag(FLAG_SECTION_NAME, "errorsOnStdOut",
-                    FLAG_DESC_ERRORS_ON_STD_OUT, Flag.Type.HIDDEN);
+            new Flag(FLAG_SECTION_NAME, "errorsOnStdOut", FLAG_DESC_ERRORS_ON_STD_OUT, Flag.Type.HIDDEN);
 
     /**
      * <p>Tells the compiler to remove debugging messages from the compiler
      * output.</p>
      */
-    public static final Flag FLAG_NO_DEBUG =
-            new Flag(FLAG_SECTION_NAME, "nodebug", FLAG_DESC_NO_DEBUG);
+    public static final Flag FLAG_NO_DEBUG = new Flag(FLAG_SECTION_NAME, "nodebug", FLAG_DESC_NO_DEBUG);
 
     /**
      * <p>Tells the compiler to remove debugging messages from the compiler
      * output.</p>
      */
-    public static final Flag FLAG_XML_OUT =
-            new Flag(FLAG_SECTION_NAME, "XMLout", FLAG_DESC_XML_OUT);
+    public static final Flag FLAG_XML_OUT = new Flag(FLAG_SECTION_NAME, "XMLout", FLAG_DESC_XML_OUT);
 
     /**
      * <p>The main web interface flag.  Tells the compiler to modify
      * some of the output to be more user-friendly for the web.</p>
      */
     public static final Flag FLAG_EXPORT_AST =
-            new Flag(FLAG_SECTION_NAME, "exportAST", FLAG_DESC_EXPORT_AST,
-                    Flag.Type.HIDDEN);
+            new Flag(FLAG_SECTION_NAME, "exportAST", FLAG_DESC_EXPORT_AST, Flag.Type.HIDDEN);
 
     //private String myTargetSource = null;
     //private String myTargetFileName = null;
@@ -77,8 +70,8 @@ public class ResolveCompiler {
     private CompileReport myCompileReport;
     private MetaFile myInputFile;
 
-    public ResolveCompiler(String[] args, MetaFile inputFile,
-            String customFacilityName, HashMap<String, MetaFile> userFileMap) {
+    public ResolveCompiler(String[] args, MetaFile inputFile, String customFacilityName,
+            HashMap<String, MetaFile> userFileMap) {
         myCompileReport = new CompileReport();
         myCompileReport.setFacilityName(customFacilityName);
         myInputFile = inputFile;
@@ -88,8 +81,7 @@ public class ResolveCompiler {
         //Main.main(args);
     }
 
-    public ResolveCompiler(String[] args, MetaFile inputFile,
-            HashMap<String, MetaFile> userFileMap) {
+    public ResolveCompiler(String[] args, MetaFile inputFile, HashMap<String, MetaFile> userFileMap) {
         myCompileReport = new CompileReport();
         myCompileReport.setFacilityName(inputFile.getMyFileName());
         //myTargetFileName = fileArray[0];
@@ -121,8 +113,7 @@ public class ResolveCompiler {
         //Main.main(args);
     }
 
-    public void createMeta(String fileName, String assocConcept, String pkg,
-            String fileSource, String modKind) {
+    public void createMeta(String fileName, String assocConcept, String pkg, String fileSource, String modKind) {
         //String fileName, String assocConcept, String pkg, String fileSource, ModuleKind kind
         ModuleKind kind = null;
         if (modKind.equals("CONCEPT"))
@@ -138,8 +129,7 @@ public class ResolveCompiler {
         else
             kind = ModuleKind.UNDEFINED;
 
-        myInputFile =
-                new MetaFile(fileName, assocConcept, pkg, fileSource, kind);
+        myInputFile = new MetaFile(fileName, assocConcept, pkg, fileSource, kind);
         String key = pkg + "." + fileName;
         myUserFileMap.put(key, myInputFile);
     }
@@ -149,8 +139,7 @@ public class ResolveCompiler {
     }
 
     public void compile(String[] args, ProverListener listener) {
-        Main.runMain(args, myCompileReport, myInputFile, myUserFileMap,
-                listener);
+        Main.runMain(args, myCompileReport, myInputFile, myUserFileMap, listener);
     }
 
     /*public void wsCompile(String[] args, WebSocketWriter writer){

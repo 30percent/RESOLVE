@@ -37,8 +37,7 @@ public class UnionedSets<T> extends AbstractSet<T> {
 
     @Override
     public boolean contains(Object arg0) {
-        return myPersonalSet.contains(arg0) || mySubset1.contains(arg0)
-                || mySubset2.contains(arg0);
+        return myPersonalSet.contains(arg0) || mySubset1.contains(arg0) || mySubset2.contains(arg0);
     }
 
     @Override
@@ -54,14 +53,13 @@ public class UnionedSets<T> extends AbstractSet<T> {
 
     @Override
     public boolean isEmpty() {
-        return myPersonalSet.isEmpty() && mySubset1.isEmpty()
-                && mySubset2.isEmpty();
+        return myPersonalSet.isEmpty() && mySubset1.isEmpty() && mySubset2.isEmpty();
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new ChainingIterator<T>(new ChainingIterator<T>(myPersonalSet
-                .iterator(), mySubset1.iterator()), mySubset2.iterator());
+        return new ChainingIterator<T>(
+                new ChainingIterator<T>(myPersonalSet.iterator(), mySubset1.iterator()), mySubset2.iterator());
     }
 
     @Override
@@ -93,13 +91,11 @@ public class UnionedSets<T> extends AbstractSet<T> {
         Object[] subset1 = mySubset1.toArray();
         Object[] subset2 = mySubset2.toArray();
 
-        Object[] result =
-                new Object[personal.length + subset1.length + subset2.length];
+        Object[] result = new Object[personal.length + subset1.length + subset2.length];
 
         System.arraycopy(personal, 0, result, 0, personal.length);
         System.arraycopy(subset1, 0, result, personal.length, subset1.length);
-        System.arraycopy(subset2, 0, result, personal.length + subset1.length,
-                subset2.length);
+        System.arraycopy(subset2, 0, result, personal.length + subset1.length, subset2.length);
 
         return result;
     }
@@ -121,8 +117,7 @@ public class UnionedSets<T> extends AbstractSet<T> {
 
         System.arraycopy(personal, 0, result, 0, personal.length);
         System.arraycopy(subset1, 0, result, personal.length, subset1.length);
-        System.arraycopy(subset2, 0, result, personal.length + subset1.length,
-                subset2.length);
+        System.arraycopy(subset2, 0, result, personal.length + subset1.length, subset2.length);
 
         return result;
     }

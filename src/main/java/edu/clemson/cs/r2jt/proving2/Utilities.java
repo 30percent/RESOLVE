@@ -74,19 +74,15 @@ public class Utilities {
             newConsequents.add(PExp.buildPExp(c));
         }
 
-        VC retval =
-                new VC(vc.getName(), new Antecedent(newAntecedents),
-                        new Consequent(newConsequents));
+        VC retval = new VC(vc.getName(), new Antecedent(newAntecedents), new Consequent(newConsequents));
 
         return retval;
     }
 
-    public static void buildExpMapFromPosSymbolMap(
-            Map<PosSymbol, Exp> original, Map<Exp, Exp> newMap) {
+    public static void buildExpMapFromPosSymbolMap(Map<PosSymbol, Exp> original, Map<Exp, Exp> newMap) {
         Set<Map.Entry<PosSymbol, Exp>> entrySet = original.entrySet();
         for (Map.Entry<PosSymbol, Exp> binding : entrySet) {
-            newMap.put(new VarExp(null, null, binding.getKey()), binding
-                    .getValue());
+            newMap.put(new VarExp(null, null, binding.getKey()), binding.getValue());
         }
     }
 
@@ -157,8 +153,7 @@ public class Utilities {
      *                   replacements based on our binding.
      * @param accumulator A list to hold the result of our matching.
      */
-    public static void satisfy(Iterable<Exp> assumptions,
-            List<Exp> antecedents, int curAntecedentIndex,
+    public static void satisfy(Iterable<Exp> assumptions, List<Exp> antecedents, int curAntecedentIndex,
             Map<Exp, Exp> bindings, List<Exp> consequent, List<Exp> accumulator) {
 
         if (curAntecedentIndex >= antecedents.size()) {
@@ -178,14 +173,12 @@ public class Utilities {
             Type afterType = antecedent.getType();
 
             if (beforeType != null && afterType == null) {
-                throw new UnsupportedOperationException("Substitution failed "
-                        + "to set Type for "
+                throw new UnsupportedOperationException("Substitution failed " + "to set Type for "
                         + antecedents.get(curAntecedentIndex).getClass() + ". "
                         + "Be certain it's copy() and substituteChildren() "
-                        + "methods set a type on the returned value. \n\n"
-                        + "Before: " + antecedents.get(curAntecedentIndex)
-                        + "  (" + beforeType + ")\nAfter: " + antecedent
-                        + "  (" + afterType + ")");
+                        + "methods set a type on the returned value. \n\n" + "Before: "
+                        + antecedents.get(curAntecedentIndex) + "  (" + beforeType + ")\nAfter: "
+                        + antecedent + "  (" + afterType + ")");
             }
 
             while (assumptionsIter.hasNext()) {
@@ -196,8 +189,8 @@ public class Utilities {
                 if (subBinding != null) {
                     Map<Exp, Exp> workingBindings = shallowCopyMap(bindings);
                     buildExpMapFromPosSymbolMap(subBinding, workingBindings);
-                    satisfy(assumptions, antecedents, curAntecedentIndex + 1,
-                            workingBindings, consequent, accumulator);
+                    satisfy(assumptions, antecedents, curAntecedentIndex + 1, workingBindings, consequent,
+                            accumulator);
                 }
             }
         }
@@ -269,9 +262,7 @@ public class Utilities {
             EqualsExp expressionAsEquals = (EqualsExp) expression;
 
             if (expressionAsEquals.getOperator() == EqualsExp.EQUAL) {
-                retval =
-                        expressionAsEquals.getLeft().equivalent(
-                                expressionAsEquals.getRight());
+                retval = expressionAsEquals.getLeft().equivalent(expressionAsEquals.getRight());
             }
         }
 
@@ -287,8 +278,7 @@ public class Utilities {
      *         the boolean value "true".
      */
     public static boolean isLiteralTrue(Exp e) {
-        return (e instanceof VarExp && ((VarExp) e).getName().getName()
-                .equalsIgnoreCase("true"));
+        return (e instanceof VarExp && ((VarExp) e).getName().getName().equalsIgnoreCase("true"));
     }
 
     /**
@@ -346,15 +336,12 @@ public class Utilities {
         //We need typing information to do our job, however the Analyzer doesn't
         //work consistently.  Fail well if we can't do our job.
         if (pattern.getType() == null || e.getType() == null) {
-            if (!(e instanceof InfixExp || e instanceof BetweenExp
-                    || e instanceof PrefixExp || e instanceof EqualsExp || e instanceof DotExp)) {
+            if (!(e instanceof InfixExp || e instanceof BetweenExp || e instanceof PrefixExp
+                    || e instanceof EqualsExp || e instanceof DotExp)) {
                 //if (!(e instanceof InfixExp || e instanceof BetweenExp)) {
-                throw new UnsupportedOperationException(
-                        "Pattern or expression has null type.\n\n"
-                                + "Pattern: " + pattern + "  ("
-                                + pattern.getType() + ") " + pattern.getClass()
-                                + "\nExpression: " + e + "  (" + e.getType()
-                                + ") " + e.getClass());
+                throw new UnsupportedOperationException("Pattern or expression has null type.\n\n"
+                        + "Pattern: " + pattern + "  (" + pattern.getType() + ") " + pattern.getClass()
+                        + "\nExpression: " + e + "  (" + e.getType() + ") " + e.getClass());
             }
         }
 
@@ -372,23 +359,20 @@ public class Utilities {
                 }
 
                 if (retval == null && myBindDebugFlag) {
-                    System.out.println("Prover.Utilities.bind() reports: "
-                            + "Cannot bind " + patternVar + " with " + e
-                            + " because:");
+                    System.out.println("Prover.Utilities.bind() reports: " + "Cannot bind " + patternVar
+                            + " with " + e + " because:");
 
                     if (pattern.getType() == null || e.getType() == null) {
                         if (pattern.getType() == null) {
-                            System.out.println("\t" + patternVar
-                                    + "'s type is null.");
+                            System.out.println("\t" + patternVar + "'s type is null.");
                         }
                         if (e.getType() == null) {
                             System.out.println("\t" + e + "'s type is null.");
                         }
                     }
-                    else if (!e.getMathType()
-                            .isSubtypeOf(pattern.getMathType())) {
-                        System.out.println("\tType " + pattern.getType()
-                                + " does not match type " + e.getType() + ".");
+                    else if (!e.getMathType().isSubtypeOf(pattern.getMathType())) {
+                        System.out.println("\tType " + pattern.getType() + " does not match type "
+                                + e.getType() + ".");
                     }
                 }
             }
@@ -426,19 +410,16 @@ public class Utilities {
                 FunctionExp eFunction = (FunctionExp) e;
 
                 if (patternFunction.getQuantification() == QuantExp.FORALL) {
-                    if (pattern.getType() != null
-                            && e.getType() != null
-                            && e.getMathType().isSubtypeOf(
-                                    pattern.getMathType())) {
+                    if (pattern.getType() != null && e.getType() != null
+                            && e.getMathType().isSubtypeOf(pattern.getMathType())) {
 
                         retval = bindSubExpressions(pattern, e);
 
                         if (retval != null) {
 
                             VarExp functionName =
-                                    new VarExp(eFunction.getLocation(),
-                                            eFunction.getQualifier(), eFunction
-                                                    .getName());
+                                    new VarExp(eFunction.getLocation(), eFunction.getQualifier(), eFunction
+                                            .getName());
                             functionName.setType(eFunction.getType());
 
                             retval.put(patternFunction.getName(), functionName);
@@ -446,8 +427,7 @@ public class Utilities {
                     }
                 }
                 else {
-                    if (Exp.posSymbolEquivalent(patternFunction.getName(),
-                            eFunction.getName())) {
+                    if (Exp.posSymbolEquivalent(patternFunction.getName(), eFunction.getName())) {
 
                         retval = bindSubExpressions(pattern, e);
                     }
@@ -461,8 +441,7 @@ public class Utilities {
 
                 InfixExp eInfix = (InfixExp) e;
 
-                if (Exp.posSymbolEquivalent(patternInfix.getOpName(), eInfix
-                        .getOpName())) {
+                if (Exp.posSymbolEquivalent(patternInfix.getOpName(), eInfix.getOpName())) {
 
                     retval = bindSubExpressions(pattern, e);
                 }
@@ -485,8 +464,7 @@ public class Utilities {
             if (e instanceof PrefixExp) {
                 PrefixExp ePrefix = (PrefixExp) e;
 
-                if (Exp.posSymbolEquivalent(patternPrefix.getSymbol(), ePrefix
-                        .getSymbol())) {
+                if (Exp.posSymbolEquivalent(patternPrefix.getSymbol(), ePrefix.getSymbol())) {
 
                     retval = bindSubExpressions(pattern, e);
                 }
@@ -498,8 +476,7 @@ public class Utilities {
             if (e instanceof EqualsExp) {
                 EqualsExp eAsEqualsExp = (EqualsExp) e;
 
-                if (eAsEqualsExp.getOperator() == patternAsEqualsExp
-                        .getOperator()) {
+                if (eAsEqualsExp.getOperator() == patternAsEqualsExp.getOperator()) {
 
                     retval = bindSubExpressions(pattern, e);
                 }
@@ -522,9 +499,8 @@ public class Utilities {
         else {
 
             if (!genericBindWarningPrinted) {
-                System.out.println("WARNING: Binding generic class "
-                        + pattern.getClass() + " by subexpressions only in "
-                        + "proving.Utilities.bind.");
+                System.out.println("WARNING: Binding generic class " + pattern.getClass()
+                        + " by subexpressions only in " + "proving.Utilities.bind.");
                 genericBindWarningPrinted = true;
             }
 
@@ -573,15 +549,12 @@ public class Utilities {
         //We need typing information to do our job, however the Analyzer doesn't
         //work consistently.  Fail well if we can't do our job.
         if (pattern.getType() == null || e.getType() == null) {
-            if (!(e instanceof InfixExp || e instanceof BetweenExp
-                    || e instanceof PrefixExp || e instanceof EqualsExp || e instanceof EqualsExp)) {
+            if (!(e instanceof InfixExp || e instanceof BetweenExp || e instanceof PrefixExp
+                    || e instanceof EqualsExp || e instanceof EqualsExp)) {
                 //if (!(e instanceof InfixExp || e instanceof BetweenExp)) {
-                throw new UnsupportedOperationException(
-                        "Pattern or expression has null type.\n\n"
-                                + "Pattern: " + pattern + "  ("
-                                + pattern.getType() + ") " + pattern.getClass()
-                                + "\nExpression: " + e + "  (" + e.getType()
-                                + ") " + e.getClass());
+                throw new UnsupportedOperationException("Pattern or expression has null type.\n\n"
+                        + "Pattern: " + pattern + "  (" + pattern.getType() + ") " + pattern.getClass()
+                        + "\nExpression: " + e + "  (" + e.getType() + ") " + e.getClass());
             }
         }
 
@@ -599,23 +572,20 @@ public class Utilities {
                 }
 
                 if (retval == null && myBindDebugFlag) {
-                    System.out.println("Prover.Utilities.bind() reports: "
-                            + "Cannot bind " + patternVar + " with " + e
-                            + " because:");
+                    System.out.println("Prover.Utilities.bind() reports: " + "Cannot bind " + patternVar
+                            + " with " + e + " because:");
 
                     if (pattern.getType() == null || e.getType() == null) {
                         if (pattern.getType() == null) {
-                            System.out.println("\t" + patternVar
-                                    + "'s type is null.");
+                            System.out.println("\t" + patternVar + "'s type is null.");
                         }
                         if (e.getType() == null) {
                             System.out.println("\t" + e + "'s type is null.");
                         }
                     }
-                    else if (!e.getMathType()
-                            .isSubtypeOf(pattern.getMathType())) {
-                        System.out.println("\tType " + pattern.getType()
-                                + " does not match type " + e.getType() + ".");
+                    else if (!e.getMathType().isSubtypeOf(pattern.getMathType())) {
+                        System.out.println("\tType " + pattern.getType() + " does not match type "
+                                + e.getType() + ".");
                     }
                 }
             }
@@ -653,19 +623,16 @@ public class Utilities {
                 FunctionExp eFunction = (FunctionExp) e;
 
                 if (patternFunction.getQuantification() == QuantExp.FORALL) {
-                    if (pattern.getType() != null
-                            && e.getType() != null
-                            && e.getMathType().isSubtypeOf(
-                                    pattern.getMathType())) {
+                    if (pattern.getType() != null && e.getType() != null
+                            && e.getMathType().isSubtypeOf(pattern.getMathType())) {
 
                         retval = newBindSubExpressions(pattern, e);
 
                         if (retval != null) {
 
                             VarExp functionName =
-                                    new VarExp(eFunction.getLocation(),
-                                            eFunction.getQualifier(), eFunction
-                                                    .getName());
+                                    new VarExp(eFunction.getLocation(), eFunction.getQualifier(), eFunction
+                                            .getName());
                             functionName.setType(eFunction.getType());
 
                             retval.put(patternFunction, functionName);
@@ -673,8 +640,7 @@ public class Utilities {
                     }
                 }
                 else {
-                    if (Exp.posSymbolEquivalent(patternFunction.getName(),
-                            eFunction.getName())) {
+                    if (Exp.posSymbolEquivalent(patternFunction.getName(), eFunction.getName())) {
 
                         retval = newBindSubExpressions(pattern, e);
                     }
@@ -688,8 +654,7 @@ public class Utilities {
 
                 InfixExp eInfix = (InfixExp) e;
 
-                if (Exp.posSymbolEquivalent(patternInfix.getOpName(), eInfix
-                        .getOpName())) {
+                if (Exp.posSymbolEquivalent(patternInfix.getOpName(), eInfix.getOpName())) {
 
                     retval = newBindSubExpressions(pattern, e);
                 }
@@ -713,8 +678,7 @@ public class Utilities {
             if (e instanceof PrefixExp) {
                 PrefixExp ePrefix = (PrefixExp) e;
 
-                if (Exp.posSymbolEquivalent(patternPrefix.getSymbol(), ePrefix
-                        .getSymbol())) {
+                if (Exp.posSymbolEquivalent(patternPrefix.getSymbol(), ePrefix.getSymbol())) {
 
                     retval = newBindSubExpressions(pattern, e);
                 }
@@ -726,8 +690,7 @@ public class Utilities {
             if (e instanceof EqualsExp) {
                 EqualsExp eAsEqualsExp = (EqualsExp) e;
 
-                if (eAsEqualsExp.getOperator() == patternAsEqualsExp
-                        .getOperator()) {
+                if (eAsEqualsExp.getOperator() == patternAsEqualsExp.getOperator()) {
 
                     retval = newBindSubExpressions(pattern, e);
                 }
@@ -752,9 +715,8 @@ public class Utilities {
         else {
 
             if (!genericBindWarningPrinted) {
-                System.out.println("WARNING: Binding generic class "
-                        + pattern.getClass() + " by subexpressions only in "
-                        + "proving.Utilities.bind.");
+                System.out.println("WARNING: Binding generic class " + pattern.getClass()
+                        + " by subexpressions only in " + "proving.Utilities.bind.");
                 genericBindWarningPrinted = true;
             }
 
@@ -770,14 +732,11 @@ public class Utilities {
     private static Map<PosSymbol, Exp> bindSubExpressions(Exp pattern, Exp e) {
         Map<PosSymbol, Exp> retval = new HashMap<PosSymbol, Exp>();
 
-        Iterator<Exp> patternSubExpressions =
-                pattern.getSubExpressions().iterator();
+        Iterator<Exp> patternSubExpressions = pattern.getSubExpressions().iterator();
         Iterator<Exp> eSubExpressions = e.getSubExpressions().iterator();
         Map<PosSymbol, Exp> subBinding;
-        while (retval != null && eSubExpressions.hasNext()
-                && patternSubExpressions.hasNext()) {
-            subBinding =
-                    bind(patternSubExpressions.next(), eSubExpressions.next());
+        while (retval != null && eSubExpressions.hasNext() && patternSubExpressions.hasNext()) {
+            subBinding = bind(patternSubExpressions.next(), eSubExpressions.next());
 
             if (subBinding == null) {
                 retval = null;
@@ -804,15 +763,11 @@ public class Utilities {
     private static Map<Exp, Exp> newBindSubExpressions(Exp pattern, Exp e) {
         Map<Exp, Exp> retval = new HashMap<Exp, Exp>();
 
-        Iterator<Exp> patternSubExpressions =
-                pattern.getSubExpressions().iterator();
+        Iterator<Exp> patternSubExpressions = pattern.getSubExpressions().iterator();
         Iterator<Exp> eSubExpressions = e.getSubExpressions().iterator();
         Map<Exp, Exp> subBinding;
-        while (retval != null && eSubExpressions.hasNext()
-                && patternSubExpressions.hasNext()) {
-            subBinding =
-                    newBind(patternSubExpressions.next(), eSubExpressions
-                            .next());
+        while (retval != null && eSubExpressions.hasNext() && patternSubExpressions.hasNext()) {
+            subBinding = newBind(patternSubExpressions.next(), eSubExpressions.next());
 
             if (subBinding == null) {
                 retval = null;
@@ -829,8 +784,7 @@ public class Utilities {
         return retval;
     }
 
-    private static Map<PosSymbol, Exp> unifyMaps(Map<PosSymbol, Exp> m1,
-            Map<PosSymbol, Exp> m2) {
+    private static Map<PosSymbol, Exp> unifyMaps(Map<PosSymbol, Exp> m1, Map<PosSymbol, Exp> m2) {
         Set<Map.Entry<PosSymbol, Exp>> entrySet = m2.entrySet();
         Iterator<Map.Entry<PosSymbol, Exp>> entryIter = entrySet.iterator();
 
@@ -942,8 +896,7 @@ public class Utilities {
      *    <code>for all</code> expression with a "where" clause.
      */
     public static Exp applyQuantification(Exp e) {
-        Map<String, Integer> quantifiedVariables =
-                new HashMap<String, Integer>();
+        Map<String, Integer> quantifiedVariables = new HashMap<String, Integer>();
 
         return applyQuantification(e, quantifiedVariables);
     }
@@ -971,8 +924,7 @@ public class Utilities {
      *          
      * @return The root of the new expression. 
      */
-    private static Exp applyQuantification(Exp e,
-            Map<String, Integer> quantifiedVariables) {
+    private static Exp applyQuantification(Exp e, Map<String, Integer> quantifiedVariables) {
 
         Exp retval;
 
@@ -986,21 +938,15 @@ public class Utilities {
                 switch (eAsQuantifier.getOperator()) {
                 case QuantExp.FORALL:
                     eAsQuantifier =
-                            new QuantExp(eAsQuantifier.getLocation(),
-                                    eAsQuantifier.getOperator(), eAsQuantifier
-                                            .getVars(), null, Exp
-                                            .buildImplication(eAsQuantifier
-                                                    .getWhere(), eAsQuantifier
-                                                    .getBody()));
+                            new QuantExp(eAsQuantifier.getLocation(), eAsQuantifier.getOperator(),
+                                    eAsQuantifier.getVars(), null, Exp.buildImplication(eAsQuantifier
+                                            .getWhere(), eAsQuantifier.getBody()));
                     break;
                 case QuantExp.EXISTS:
                     eAsQuantifier =
-                            new QuantExp(eAsQuantifier.getLocation(),
-                                    eAsQuantifier.getOperator(), eAsQuantifier
-                                            .getVars(), null, Exp
-                                            .buildConjunction(eAsQuantifier
-                                                    .getWhere(), eAsQuantifier
-                                                    .getBody()));
+                            new QuantExp(eAsQuantifier.getLocation(), eAsQuantifier.getOperator(),
+                                    eAsQuantifier.getVars(), null, Exp.buildConjunction(eAsQuantifier
+                                            .getWhere(), eAsQuantifier.getBody()));
                     break;
                 default:
                     throw new RuntimeException("Don't know how to normalize "
@@ -1011,13 +957,10 @@ public class Utilities {
             List<MathVarDec> variableNames = eAsQuantifier.getVars();
 
             for (MathVarDec v : variableNames) {
-                quantifiedVariables.put(v.getName().getName(), eAsQuantifier
-                        .getOperator());
+                quantifiedVariables.put(v.getName().getName(), eAsQuantifier.getOperator());
             }
 
-            retval =
-                    applyQuantification(eAsQuantifier.getBody(),
-                            quantifiedVariables);
+            retval = applyQuantification(eAsQuantifier.getBody(), quantifiedVariables);
 
             for (MathVarDec v : variableNames) {
                 quantifiedVariables.remove((v.getName().getName()));
@@ -1037,8 +980,7 @@ public class Utilities {
                     FunctionExp eAsFunctionExp = (FunctionExp) e;
                     String functionName = eAsFunctionExp.getName().getName();
                     if (quantifiedVariables.containsKey(functionName)) {
-                        eAsFunctionExp.setQuantification(quantifiedVariables
-                                .get(functionName));
+                        eAsFunctionExp.setQuantification(quantifiedVariables.get(functionName));
                     }
                 }
 
@@ -1048,8 +990,7 @@ public class Utilities {
                 for (int curIndex = 0; curIndex < numSubExpressions; curIndex++) {
 
                     curSubExpression = subExpressions.get(curIndex);
-                    e.setSubExpression(curIndex, applyQuantification(
-                            curSubExpression, quantifiedVariables));
+                    e.setSubExpression(curIndex, applyQuantification(curSubExpression, quantifiedVariables));
                 }
             }
 
@@ -1072,8 +1013,8 @@ public class Utilities {
         return variables;
     }
 
-    public static java.util.List<String> getQuantifiedVariables(
-            Iterable<Exp> es, java.util.List<String> variables) {
+    public static java.util.List<String> getQuantifiedVariables(Iterable<Exp> es,
+            java.util.List<String> variables) {
 
         for (Exp e : es) {
             getQuantifiedVariables(e, variables);
@@ -1082,8 +1023,7 @@ public class Utilities {
         return variables;
     }
 
-    public static void getQuantifiedVariables(Exp e,
-            java.util.List<String> accumulator) {
+    public static void getQuantifiedVariables(Exp e, java.util.List<String> accumulator) {
 
         if (e instanceof VarExp) {
             VarExp eAsVarExp = (VarExp) e;

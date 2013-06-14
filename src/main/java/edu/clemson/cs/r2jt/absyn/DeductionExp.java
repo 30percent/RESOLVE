@@ -127,8 +127,7 @@ public class DeductionExp extends LineNumberedExp {
     // ===========================================================
 
     public Exp substituteChildren(java.util.Map<Exp, Exp> substitutions) {
-        return new DeductionExp(location, this.getLineNum(), substitute(exp,
-                substitutions));
+        return new DeductionExp(location, this.getLineNum(), substitute(exp, substitutions));
     }
 
     /** Accepts a ResolveConceptualVisitor. */

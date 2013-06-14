@@ -30,8 +30,7 @@ public class PTRecord extends PTType {
         Element[] elements = new Element[types.size()];
         int index = 0;
         for (Map.Entry<String, PTType> field : types.entrySet()) {
-            elements[index] =
-                    new Element(field.getKey(), field.getValue().toMath());
+            elements[index] = new Element(field.getKey(), field.getValue().toMath());
             index++;
         }
         myMathTypeAlterEgo = new MTCartesian(g, elements);
@@ -47,14 +46,13 @@ public class PTRecord extends PTType {
     }
 
     @Override
-    public PTType instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public PTType instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
 
         Map<String, PTType> newFields = new HashMap<String, PTType>();
         for (Map.Entry<String, PTType> type : myFields.entrySet()) {
-            newFields.put(type.getKey(), type.getValue().instantiateGenerics(
-                    genericInstantiations, instantiatingFacility));
+            newFields.put(type.getKey(), type.getValue().instantiateGenerics(genericInstantiations,
+                    instantiatingFacility));
         }
 
         return new PTRecord(getTypeGraph(), newFields);

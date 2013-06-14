@@ -16,8 +16,7 @@ import java.util.WeakHashMap;
  */
 public class PTBoolean extends PTType {
 
-    private static WeakHashMap<TypeGraph, PTBoolean> instances =
-            new WeakHashMap<TypeGraph, PTBoolean>();
+    private static WeakHashMap<TypeGraph, PTBoolean> instances = new WeakHashMap<TypeGraph, PTBoolean>();
 
     public static PTBoolean getInstance(TypeGraph g) {
         PTBoolean result = instances.get(g);
@@ -40,8 +39,7 @@ public class PTBoolean extends PTType {
     }
 
     @Override
-    public PTType instantiateGenerics(
-            Map<String, PTType> genericInstantiations,
+    public PTType instantiateGenerics(Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
         return this;
     }

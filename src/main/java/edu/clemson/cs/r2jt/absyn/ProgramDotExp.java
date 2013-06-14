@@ -85,8 +85,7 @@ public class ProgramDotExp extends ProgramExp {
 
     public ProgramDotExp() {};
 
-    public ProgramDotExp(Location location, List<ProgramExp> segments,
-            ProgramExp semanticExp) {
+    public ProgramDotExp(Location location, List<ProgramExp> segments, ProgramExp semanticExp) {
         this.location = location;
         this.segments = segments;
         this.semanticExp = semanticExp;
@@ -98,8 +97,7 @@ public class ProgramDotExp extends ProgramExp {
             newSegments.add((ProgramExp) substitute(e, substitutions));
         }
 
-        return new ProgramDotExp(location, newSegments,
-                (ProgramExp) substitute(semanticExp, substitutions));
+        return new ProgramDotExp(location, newSegments, (ProgramExp) substitute(semanticExp, substitutions));
     }
 
     // ===========================================================
@@ -265,8 +263,7 @@ public class ProgramDotExp extends ProgramExp {
             if (it.hasNext()) {
                 Exp name = it.next();
                 if (old instanceof VarExp && name instanceof VarExp) {
-                    if (((VarExp) old).getName().toString().equals(
-                            ((VarExp) name).getName().toString())) {
+                    if (((VarExp) old).getName().toString().equals(((VarExp) name).getName().toString())) {
                         segments.remove(0);
                         segments.add(0, (ProgramExp) (Exp.clone(replacement)));
 

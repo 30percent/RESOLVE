@@ -20,15 +20,13 @@ public class ReplacementSuggester {
 
     private boolean myDoneFlag;
 
-    public ReplacementSuggester(ImmutableConjuncts conjuncts,
-            NewMatchReplace matcher) {
+    public ReplacementSuggester(ImmutableConjuncts conjuncts, NewMatchReplace matcher) {
 
         myOriginalConjuncts = conjuncts.iterator();
         myDoneFlag = !myOriginalConjuncts.hasNext();
 
         if (!myDoneFlag) {
-            myCurConjunctNavigator =
-                    new PExpNavigator(myOriginalConjuncts.next());
+            myCurConjunctNavigator = new PExpNavigator(myOriginalConjuncts.next());
         }
 
         myMatcher = matcher;
@@ -49,8 +47,7 @@ public class ReplacementSuggester {
 
             retval = nextMatchInNavigator(myCurConjunctNavigator);
             while (retval == null && myOriginalConjuncts.hasNext()) {
-                myCurConjunctNavigator =
-                        new PExpNavigator(myOriginalConjuncts.next());
+                myCurConjunctNavigator = new PExpNavigator(myOriginalConjuncts.next());
                 myCurConjunctIndex++;
 
                 retval = nextMatchInNavigator(myCurConjunctNavigator);

@@ -13,8 +13,7 @@ import edu.clemson.cs.r2jt.absyn.VarExp;
 
 public class TheoremToVCsConverter implements Iterable<VerificationCondition> {
 
-    private List<VerificationCondition> myVCs =
-            new LinkedList<VerificationCondition>();
+    private List<VerificationCondition> myVCs = new LinkedList<VerificationCondition>();
 
     public TheoremToVCsConverter(MathModuleDec m) {
         List<Dec> declarations = m.getDecs();
@@ -28,8 +27,7 @@ public class TheoremToVCsConverter implements Iterable<VerificationCondition> {
                     assertion = Utilities.applyQuantification(assertion);
 
                     VerificationCondition finalVC =
-                            asVerificationCondition(dAsMathAssertionDec
-                                    .getName().getName(), assertion);
+                            asVerificationCondition(dAsMathAssertionDec.getName().getName(), assertion);
 
                     myVCs.add(finalVC);
                 }
@@ -37,13 +35,11 @@ public class TheoremToVCsConverter implements Iterable<VerificationCondition> {
         }
     }
 
-    private static VerificationCondition asVerificationCondition(String name,
-            Exp e) {
+    private static VerificationCondition asVerificationCondition(String name, Exp e) {
 
         Exp antecedent, consequent;
 
-        if (e instanceof InfixExp
-                && ((InfixExp) e).getOpName().getName().equals("implies")) {
+        if (e instanceof InfixExp && ((InfixExp) e).getOpName().getName().equals("implies")) {
 
             InfixExp eAsInfixExp = (InfixExp) e;
             antecedent = eAsInfixExp.getLeft();

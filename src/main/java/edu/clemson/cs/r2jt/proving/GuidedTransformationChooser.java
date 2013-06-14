@@ -9,14 +9,11 @@ public class GuidedTransformationChooser extends AbstractTransformationChooser {
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> doSuggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData d,
-            Iterable<VCTransformer> localTheorems) {
+    public Iterator<ProofPathSuggestion> doSuggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData d, Iterable<VCTransformer> localTheorems) {
 
-        return new GuidedListSelectIterator<ProofPathSuggestion>("Choose rule",
-                vc.toString(),
-                new LazyMappingIterator<VCTransformer, ProofPathSuggestion>(
-                        getTransformerLibrary().iterator(),
-                        new StaticProofDataSuggestionMapping(d)));
+        return new GuidedListSelectIterator<ProofPathSuggestion>("Choose rule", vc.toString(),
+                new LazyMappingIterator<VCTransformer, ProofPathSuggestion>(getTransformerLibrary()
+                        .iterator(), new StaticProofDataSuggestionMapping(d)));
     }
 }

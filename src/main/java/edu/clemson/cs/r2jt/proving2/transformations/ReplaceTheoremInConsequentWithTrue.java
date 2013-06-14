@@ -28,8 +28,7 @@ import java.util.Set;
  */
 public class ReplaceTheoremInConsequentWithTrue implements Transformation {
 
-    private final BindResultToApplication BIND_RESULT_TO_APPLICATION =
-            new BindResultToApplication();
+    private final BindResultToApplication BIND_RESULT_TO_APPLICATION = new BindResultToApplication();
 
     private final Theorem myTheorem;
     private final PExp myTheoremAssertion;
@@ -44,8 +43,7 @@ public class ReplaceTheoremInConsequentWithTrue implements Transformation {
         Set<Binder> binders = new HashSet<Binder>();
         binders.add(new InductiveConsequentBinder(myTheoremAssertion));
 
-        return new LazyMappingIterator<BindResult, Application>(
-                m.bind(binders), BIND_RESULT_TO_APPLICATION);
+        return new LazyMappingIterator<BindResult, Application>(m.bind(binders), BIND_RESULT_TO_APPLICATION);
     }
 
     @Override
@@ -88,26 +86,20 @@ public class ReplaceTheoremInConsequentWithTrue implements Transformation {
         return myTheorem.getAssertion() + " " + this.getClass().getName();
     }
 
-    private class BindResultToApplication
-            implements
-                Mapping<BindResult, Application> {
+    private class BindResultToApplication implements Mapping<BindResult, Application> {
 
         @Override
         public Application map(BindResult input) {
-            return new ReplaceTheoremInConsequentWithTrueApplication(
-                    input.bindSites.values());
+            return new ReplaceTheoremInConsequentWithTrueApplication(input.bindSites.values());
         }
     }
 
-    private class ReplaceTheoremInConsequentWithTrueApplication
-            implements
-                Application {
+    private class ReplaceTheoremInConsequentWithTrueApplication implements Application {
 
         private final Site myBindSite;
         private Site myFinalSite;
 
-        public ReplaceTheoremInConsequentWithTrueApplication(
-                Collection<Site> bindSites) {
+        public ReplaceTheoremInConsequentWithTrueApplication(Collection<Site> bindSites) {
             myBindSite = bindSites.iterator().next();
         }
 
@@ -120,13 +112,10 @@ public class ReplaceTheoremInConsequentWithTrue implements Transformation {
         public void apply(PerVCProverModel m) {
             m.alterSite(myBindSite, m.getTrue());
 
-            myFinalSite =
-                    new Site(m, myBindSite.conjunct, myBindSite.path, m
-                            .getTrue());
+            myFinalSite = new Site(m, myBindSite.conjunct, myBindSite.path, m.getTrue());
 
             m.addProofStep(new ModifyConsequentStep(myBindSite, myFinalSite,
-                    ReplaceTheoremInConsequentWithTrue.this, this, Collections
-                            .singleton(myBindSite)));
+                    ReplaceTheoremInConsequentWithTrue.this, this, Collections.singleton(myBindSite)));
         }
 
         @Override

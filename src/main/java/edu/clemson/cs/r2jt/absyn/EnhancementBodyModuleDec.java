@@ -105,10 +105,9 @@ public class EnhancementBodyModuleDec extends AbstractParameterizedModuleDec {
     public EnhancementBodyModuleDec() {};
 
     public EnhancementBodyModuleDec(PosSymbol name, PosSymbol profileName,
-            List<ModuleParameterDec> parameters, PosSymbol enhancementName,
-            PosSymbol conceptName, List<EnhancementBodyItem> enhancementBodies,
-            List<UsesItem> usesItems, Exp requires, List<Exp> conventions,
-            List<Exp> corrs, InitItem facilityInit, FinalItem facilityFinal,
+            List<ModuleParameterDec> parameters, PosSymbol enhancementName, PosSymbol conceptName,
+            List<EnhancementBodyItem> enhancementBodies, List<UsesItem> usesItems, Exp requires,
+            List<Exp> conventions, List<Exp> corrs, InitItem facilityInit, FinalItem facilityFinal,
             List<Dec> decs) {
         this.name = name;
         this.profileName = profileName;
@@ -300,9 +299,7 @@ public class EnhancementBodyModuleDec extends AbstractParameterizedModuleDec {
         }
 
         if (enhancementBodies != null) {
-            sb
-                    .append(enhancementBodies.asString(indent + increment,
-                            increment));
+            sb.append(enhancementBodies.asString(indent + increment, increment));
         }
 
         if (usesItems != null) {

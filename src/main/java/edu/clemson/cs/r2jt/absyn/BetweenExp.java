@@ -264,8 +264,7 @@ public class BetweenExp extends Exp {
 
         if (retval) {
             BetweenExp eAsBetweenExp = (BetweenExp) e;
-            Iterator<Exp> eSubexpressions =
-                    eAsBetweenExp.getSubExpressions().iterator();
+            Iterator<Exp> eSubexpressions = eAsBetweenExp.getSubExpressions().iterator();
             Iterator<Exp> mySubexpressions;
             Exp curExp;
             while (retval && eSubexpressions.hasNext()) {
@@ -286,14 +285,12 @@ public class BetweenExp extends Exp {
             return null;
         }
         else {
-            lessExps =
-                    replaceVariableInExpListWithExp(this.lessExps, old, replace);
+            lessExps = replaceVariableInExpListWithExp(this.lessExps, old, replace);
             return this;
         }
     }
 
-    private List<Exp> replaceVariableInExpListWithExp(List<Exp> list, Exp old,
-            Exp replacement) {
+    private List<Exp> replaceVariableInExpListWithExp(List<Exp> list, Exp old, Exp replacement) {
         // 	AssertiveCode assertion = new AssertiveCode();
         Iterator<Exp> i = list.iterator();
         while (i.hasNext()) {

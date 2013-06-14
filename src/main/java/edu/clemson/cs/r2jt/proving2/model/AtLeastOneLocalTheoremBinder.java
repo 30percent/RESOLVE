@@ -20,8 +20,7 @@ public class AtLeastOneLocalTheoremBinder extends AbstractBinder {
     }
 
     @Override
-    public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m,
-            List<Site> boundSitesSoFar) {
+    public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m, List<Site> boundSitesSoFar) {
         Iterator<Site> result = m.topLevelAntecedentSiteIterator();
 
         boolean includeGlobal = true;
@@ -31,15 +30,12 @@ public class AtLeastOneLocalTheoremBinder extends AbstractBinder {
             includeGlobal = false;
             Iterator<Site> boundSitesSoFarIter = boundSitesSoFar.iterator();
             while (!includeGlobal && boundSitesSoFarIter.hasNext()) {
-                includeGlobal =
-                        (boundSitesSoFarIter.next().conjunct instanceof LocalTheorem);
+                includeGlobal = (boundSitesSoFarIter.next().conjunct instanceof LocalTheorem);
             }
         }
 
         if (includeGlobal) {
-            result =
-                    new ChainingIterator<Site>(result, m
-                            .topLevelGlobalTheoremsIterator());
+            result = new ChainingIterator<Site>(result, m.topLevelGlobalTheoremsIterator());
         }
 
         return result;

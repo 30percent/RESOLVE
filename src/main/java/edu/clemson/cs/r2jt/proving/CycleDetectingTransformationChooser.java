@@ -8,12 +8,9 @@ import java.util.Iterator;
  * existing chooser to detect and backtrack on cycles, otherwise simply 
  * deferring to the existing chooser.</p>
  */
-public class CycleDetectingTransformationChooser
-        implements
-            TransformationChooser {
+public class CycleDetectingTransformationChooser implements TransformationChooser {
 
-    private static final Iterator<ProofPathSuggestion> TYPE_SAFE_ITERATOR =
-            null;
+    private static final Iterator<ProofPathSuggestion> TYPE_SAFE_ITERATOR = null;
 
     private final TransformationChooser mySourceChooser;
 
@@ -27,8 +24,8 @@ public class CycleDetectingTransformationChooser
     }
 
     @Override
-    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc,
-            int curLength, Metrics metrics, ProofData proofData) {
+    public Iterator<ProofPathSuggestion> suggestTransformations(VC vc, int curLength, Metrics metrics,
+            ProofData proofData) {
 
         Iterator<ProofPathSuggestion> retval;
 
@@ -40,13 +37,10 @@ public class CycleDetectingTransformationChooser
 
         if (cycle) {
             retval = DummyIterator.getInstance(TYPE_SAFE_ITERATOR);
-            metrics.numTimesBacktracked =
-                    metrics.numTimesBacktracked.add(BigInteger.ONE);
+            metrics.numTimesBacktracked = metrics.numTimesBacktracked.add(BigInteger.ONE);
         }
         else {
-            retval =
-                    mySourceChooser.suggestTransformations(vc, curLength,
-                            metrics, proofData);
+            retval = mySourceChooser.suggestTransformations(vc, curLength, metrics, proofData);
         }
 
         return retval;

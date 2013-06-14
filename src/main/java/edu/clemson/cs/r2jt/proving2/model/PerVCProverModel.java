@@ -49,8 +49,7 @@ import javax.swing.event.ChangeListener;
  */
 public final class PerVCProverModel {
 
-    private static final BindingException BINDING_EXCEPTION =
-            new BindingException();
+    private static final BindingException BINDING_EXCEPTION = new BindingException();
 
     public static enum ChangeEventMode {
         ALWAYS {
@@ -96,8 +95,7 @@ public final class PerVCProverModel {
      * theorems that embed that PExp, making this a representation of a 
      * multiset.  As an invariant, no entry will map to 0 or less.</p>
      */
-    private final Map<PExp, Integer> myLocalTheoremsSet =
-            new HashMap<PExp, Integer>();
+    private final Map<PExp, Integer> myLocalTheoremsSet = new HashMap<PExp, Integer>();
     private final Set<PExp> myLocalTheoremSetForReturning;
 
     /**
@@ -109,8 +107,7 @@ public final class PerVCProverModel {
      * <p>Each <code>LocalTheorem</code> in the list is guaranteed to be a 
      * unique object.</p>
      */
-    private final List<LocalTheorem> myLocalTheoremsList =
-            new UnsafeIteratorLinkedList<LocalTheorem>();
+    private final List<LocalTheorem> myLocalTheoremsList = new UnsafeIteratorLinkedList<LocalTheorem>();
 
     /**
      * <p>A list of expressions remaining to be established as true.  Each of 
@@ -118,8 +115,7 @@ public final class PerVCProverModel {
      * the conjuncts would have been broken up into separate entries in this 
      * list.) Once we empty this list, the proof is complete.</p>
      */
-    private final SimpleArrayList<Consequent> myConsequents =
-            new SimpleArrayList<Consequent>();
+    private final SimpleArrayList<Consequent> myConsequents = new SimpleArrayList<Consequent>();
 
     private int myLocalTheoremsHash;
     private int myConsequentsHash;
@@ -131,10 +127,8 @@ public final class PerVCProverModel {
      * applying these steps in order, would bring the fresh model into the exact
      * same state that this one is currently in.</p>
      */
-    private final LinkedList<ProofStep> myProofSoFar =
-            new LinkedList<ProofStep>();
-    private final List<ProofStep> myUnmodifiableProofSoFar =
-            Collections.unmodifiableList(myProofSoFar);
+    private final LinkedList<ProofStep> myProofSoFar = new LinkedList<ProofStep>();
+    private final List<ProofStep> myUnmodifiableProofSoFar = Collections.unmodifiableList(myProofSoFar);
 
     /**
      * <p>A link to the global theorem library.</p>
@@ -146,8 +140,7 @@ public final class PerVCProverModel {
      * the behavior of change listening is modified by 
      * <code>myChangeEventMode</code>.</p>
      */
-    private List<ChangeListener> myChangeListeners =
-            new LinkedList<ChangeListener>();
+    private List<ChangeListener> myChangeListeners = new LinkedList<ChangeListener>();
 
     /**
      * <p>In order to not slow down the proving process by synchronizing this
@@ -167,8 +160,7 @@ public final class PerVCProverModel {
 
     private ChangeEventMode myChangeEventMode = ChangeEventMode.INTERMITTENT;
 
-    public PerVCProverModel(TypeGraph g, String proofFor,
-            List<PExp> antecedents, List<PExp> consequents,
+    public PerVCProverModel(TypeGraph g, String proofFor, List<PExp> antecedents, List<PExp> consequents,
             ImmutableList<Theorem> theoremLibrary) {
 
         myTheoremName = proofFor;
@@ -187,10 +179,9 @@ public final class PerVCProverModel {
         myTypeGraph = g;
     }
 
-    public PerVCProverModel(TypeGraph g, String proofFor, VC vc,
-            ImmutableList<Theorem> theoremLibrary) {
-        this(g, proofFor, listFromIterable(vc.getAntecedent()),
-                listFromIterable(vc.getConsequent()), theoremLibrary);
+    public PerVCProverModel(TypeGraph g, String proofFor, VC vc, ImmutableList<Theorem> theoremLibrary) {
+        this(g, proofFor, listFromIterable(vc.getAntecedent()), listFromIterable(vc.getConsequent()),
+                theoremLibrary);
     }
 
     public String getTheoremName() {
@@ -281,11 +272,9 @@ public final class PerVCProverModel {
 
             @Override
             public void run() {
-                System.out
-                        .println("PerVCProverModel - Alerting Change Listeners");
+                System.out.println("PerVCProverModel - Alerting Change Listeners");
                 alertChangeListeners();
-                System.out
-                        .println("PerVCProverModel - Done Alerting Change Listeners");
+                System.out.println("PerVCProverModel - Done Alerting Change Listeners");
             }
         });
     }
@@ -360,9 +349,8 @@ public final class PerVCProverModel {
             System.out.println(this);
             System.out.println("\n\nToward affected sites:\n" + affectedSites);
 
-            throw new IllegalArgumentException("Couldn't mimic step: " + step
-                    + " (" + step.getClass() + ", " + transformation.getClass()
-                    + ")");
+            throw new IllegalArgumentException("Couldn't mimic step: " + step + " (" + step.getClass() + ", "
+                    + transformation.getClass() + ")");
         }
     }
 
@@ -374,8 +362,7 @@ public final class PerVCProverModel {
         while (stepMimicked && affectedSitesIter.hasNext()) {
             affectedSite = affectedSitesIter.next();
             if (affectedSite.conjunct instanceof LocalTheorem) {
-                stepMimicked =
-                        myLocalTheoremsSet.containsKey(affectedSite.root.exp);
+                stepMimicked = myLocalTheoremsSet.containsKey(affectedSite.root.exp);
             }
             else if (affectedSite.conjunct instanceof Consequent) {
                 PExp value = affectedSite.root.exp;
@@ -536,8 +523,7 @@ public final class PerVCProverModel {
             result = removeConsequent((Consequent) c);
         }
         else {
-            throw new IllegalArgumentException(
-                    "Cannot remove conjunct of type " + c.getClass().getName());
+            throw new IllegalArgumentException("Cannot remove conjunct of type " + c.getClass().getName());
         }
 
         return result;
@@ -551,8 +537,7 @@ public final class PerVCProverModel {
             insertConsequent((Consequent) c, index);
         }
         else {
-            throw new IllegalArgumentException(
-                    "Cannot insert conjunct of type " + c.getClass().getName());
+            throw new IllegalArgumentException("Cannot insert conjunct of type " + c.getClass().getName());
         }
     }
 
@@ -588,19 +573,16 @@ public final class PerVCProverModel {
         PExp result = s.root.exp;
 
         if (s.getModel() != this) {
-            throw new IllegalArgumentException(
-                    "Site does not belong to this model.");
+            throw new IllegalArgumentException("Site does not belong to this model.");
         }
 
         if (newValue == null) {
-            throw new IllegalArgumentException(
-                    "Can't change value to a null PExp.");
+            throw new IllegalArgumentException("Can't change value to a null PExp.");
         }
 
         int index = removeConjunct(s.conjunct);
 
-        PExp newRootExp =
-                s.root.exp.withSiteAltered(s.pathIterator(), newValue);
+        PExp newRootExp = s.root.exp.withSiteAltered(s.pathIterator(), newValue);
 
         s.conjunct.setExpression(newRootExp);
 
@@ -613,8 +595,7 @@ public final class PerVCProverModel {
         PExp result = c.getExpression();
 
         if (newValue == null) {
-            throw new IllegalArgumentException(
-                    "Can't change value to a null PExp.");
+            throw new IllegalArgumentException("Can't change value to a null PExp.");
         }
 
         int index = removeConjunct(c);
@@ -642,11 +623,9 @@ public final class PerVCProverModel {
      * @param tryingToProveThis
      * @return 
      */
-    public LocalTheorem addLocalTheorem(PExp assertion, Justification j,
-            boolean tryingToProveThis, int index) {
+    public LocalTheorem addLocalTheorem(PExp assertion, Justification j, boolean tryingToProveThis, int index) {
 
-        LocalTheorem theorem =
-                new LocalTheorem(assertion, j, tryingToProveThis);
+        LocalTheorem theorem = new LocalTheorem(assertion, j, tryingToProveThis);
 
         insertLocalTheorem(theorem, index);
 
@@ -670,10 +649,8 @@ public final class PerVCProverModel {
         modelChanged(false);
     }
 
-    public LocalTheorem addLocalTheorem(PExp assertion, Justification j,
-            boolean tryingToProveThis) {
-        return addLocalTheorem(assertion, j, tryingToProveThis,
-                myLocalTheoremsList.size());
+    public LocalTheorem addLocalTheorem(PExp assertion, Justification j, boolean tryingToProveThis) {
+        return addLocalTheorem(assertion, j, tryingToProveThis, myLocalTheoremsList.size());
     }
 
     public LocalTheorem removeLocalTheorem(int index) {
@@ -726,8 +703,7 @@ public final class PerVCProverModel {
         return b.toString();
     }
 
-    public void processStringRepresentation(ProverModelVisitor visitor,
-            Appendable a) {
+    public void processStringRepresentation(ProverModelVisitor visitor, Appendable a) {
 
         try {
             boolean first = true;
@@ -767,28 +743,23 @@ public final class PerVCProverModel {
     }
 
     public Iterator<Site> topLevelAntecedentSiteIterator() {
-        return new LazyMappingIterator(myLocalTheoremsList.iterator(),
-                CONJUNCT_TO_SITE);
+        return new LazyMappingIterator(myLocalTheoremsList.iterator(), CONJUNCT_TO_SITE);
     }
 
     public Iterator<Site> topLevelConsequentSiteIterator() {
-        return new LazyMappingIterator(myConsequents.iterator(),
-                CONJUNCT_TO_SITE);
+        return new LazyMappingIterator(myConsequents.iterator(), CONJUNCT_TO_SITE);
     }
 
     public Iterator<Site> topLevelAntecedentAndConsequentSiteIterator() {
-        return new ChainingIterator<Site>(topLevelAntecedentSiteIterator(),
-                topLevelConsequentSiteIterator());
+        return new ChainingIterator<Site>(topLevelAntecedentSiteIterator(), topLevelConsequentSiteIterator());
     }
 
     public Iterator<Site> topLevelGlobalTheoremsIterator() {
-        return new LazyMappingIterator(myTheoremLibrary.iterator(),
-                CONJUNCT_TO_SITE);
+        return new LazyMappingIterator(myTheoremLibrary.iterator(), CONJUNCT_TO_SITE);
     }
 
     public Iterator<Site> topLevelAntecedentAndGlobalTheoremSiteIterator() {
-        return new ChainingIterator<Site>(topLevelAntecedentSiteIterator(),
-                topLevelGlobalTheoremsIterator());
+        return new ChainingIterator<Site>(topLevelAntecedentSiteIterator(), topLevelGlobalTheoremsIterator());
     }
 
     public Iterator<BindResult> bind(Set<Binder> binders) {
@@ -814,19 +785,17 @@ public final class PerVCProverModel {
 
         private final Map<PExp, PExp> myAssumedBindings;
 
-        private final Map<PExp, PExp> myInductiveBindingsScratch =
-                new HashMap<PExp, PExp>();
+        private final Map<PExp, PExp> myInductiveBindingsScratch = new HashMap<PExp, PExp>();
 
-        public BinderSatisfyingIterator(Set<Binder> binders,
-                Map<PExp, PExp> assumedBindings) {
+        public BinderSatisfyingIterator(Set<Binder> binders, Map<PExp, PExp> assumedBindings) {
             myAssumedBindings = assumedBindings;
             myCurFirstSiteBindings = new HashMap<PExp, PExp>();
 
             if (!binders.isEmpty()) {
                 myFirstBinder = binders.iterator().next();
                 myFirstBinderSites =
-                        myFirstBinder.getInterestingSiteVisitor(
-                                PerVCProverModel.this, Collections.EMPTY_LIST);
+                        myFirstBinder
+                                .getInterestingSiteVisitor(PerVCProverModel.this, Collections.EMPTY_LIST);
                 myOtherBinders.addAll(binders);
                 myOtherBinders.remove(myFirstBinder);
                 myOtherBindings = DummyIterator.getInstance(myOtherBindings);
@@ -836,9 +805,7 @@ public final class PerVCProverModel {
             else {
                 myFirstBinder = null;
                 myFirstBinderSites = null;
-                myNextReturn =
-                        new BindResult(new HashMap<Binder, Site>(),
-                                new HashMap<PExp, PExp>());
+                myNextReturn = new BindResult(new HashMap<Binder, Site>(), new HashMap<PExp, PExp>());
             }
         }
 
@@ -869,16 +836,14 @@ public final class PerVCProverModel {
                 myNextReturn = null;
             }
             else {
-                while (myFirstBinderSites.hasNext()
-                        && !myOtherBindings.hasNext()) {
+                while (myFirstBinderSites.hasNext() && !myOtherBindings.hasNext()) {
 
                     myCurFirstSite = myFirstBinderSites.next();
 
                     try {
                         myCurFirstSiteBindings.clear();
 
-                        myFirstBinder.considerSite(myCurFirstSite,
-                                myAssumedBindings, myCurFirstSiteBindings);
+                        myFirstBinder.considerSite(myCurFirstSite, myAssumedBindings, myCurFirstSiteBindings);
 
                         //This prevents a binder from binding to a global 
                         //theorem that contains quantified variables.  So we'd
@@ -886,19 +851,16 @@ public final class PerVCProverModel {
                         //but we shouldn't be incorporating a theorem like
                         //For all i : Z, i - 1 < i into our bindings.
                         if (myCurFirstSite.conjunct.libraryTheorem()
-                                && !myCurFirstSite.exp.getQuantifiedVariables()
-                                        .isEmpty()) {
+                                && !myCurFirstSite.exp.getQuantifiedVariables().isEmpty()) {
                             throw new BindingException();
                         }
 
                         myInductiveBindingsScratch.clear();
                         myInductiveBindingsScratch.putAll(myAssumedBindings);
-                        myInductiveBindingsScratch
-                                .putAll(myCurFirstSiteBindings);
+                        myInductiveBindingsScratch.putAll(myCurFirstSiteBindings);
 
                         myOtherBindings =
-                                new BinderSatisfyingIterator(myOtherBinders,
-                                        myInductiveBindingsScratch);
+                                new BinderSatisfyingIterator(myOtherBinders, myInductiveBindingsScratch);
                     }
                     catch (BindingException be) {
                         //Can't bind the current site.  No worries--just keep
@@ -911,8 +873,7 @@ public final class PerVCProverModel {
                 if (myOtherBindings.hasNext()) {
                     myNextReturn = myOtherBindings.next();
                     myNextReturn.bindSites.put(myFirstBinder, myCurFirstSite);
-                    myNextReturn.freeVariableBindings
-                            .putAll(myCurFirstSiteBindings);
+                    myNextReturn.freeVariableBindings.putAll(myCurFirstSiteBindings);
                 }
                 else {
                     myNextReturn = null;
@@ -926,8 +887,7 @@ public final class PerVCProverModel {
         public Map<Binder, Site> bindSites;
         public Map<PExp, PExp> freeVariableBindings;
 
-        public BindResult(Map<Binder, Site> bindSites,
-                Map<PExp, PExp> freeVariableBindings) {
+        public BindResult(Map<Binder, Site> bindSites, Map<PExp, PExp> freeVariableBindings) {
             this.bindSites = bindSites;
             this.freeVariableBindings = freeVariableBindings;
         }
@@ -945,8 +905,7 @@ public final class PerVCProverModel {
          * .
          * @return An iterator over interesting sites.
          */
-        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m,
-                List<Site> boundSitesSoFar);
+        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m, List<Site> boundSitesSoFar);
 
         /**
          * <p>Attempts to bind to the given site, which was returned from an
@@ -965,11 +924,10 @@ public final class PerVCProverModel {
          * 
          * @throws BindingException If the site is rejected.
          */
-        public Map<PExp, PExp> considerSite(Site s,
-                Map<PExp, PExp> assumedBindings) throws BindingException;
+        public Map<PExp, PExp> considerSite(Site s, Map<PExp, PExp> assumedBindings) throws BindingException;
 
-        public void considerSite(Site s, Map<PExp, PExp> assumedBindings,
-                Map<PExp, PExp> accumulator) throws BindingException;
+        public void considerSite(Site s, Map<PExp, PExp> assumedBindings, Map<PExp, PExp> accumulator)
+                throws BindingException;
     }
 
     public static class TopLevelAntecedentBinder extends AbstractBinder {
@@ -979,8 +937,7 @@ public final class PerVCProverModel {
         }
 
         @Override
-        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m,
-                List<Site> boundSitesSoFar) {
+        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m, List<Site> boundSitesSoFar) {
             return m.topLevelAntecedentSiteIterator();
         }
     }
@@ -992,8 +949,7 @@ public final class PerVCProverModel {
         }
 
         @Override
-        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m,
-                List<Site> boundSitesSoFar) {
+        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m, List<Site> boundSitesSoFar) {
             return m.topLevelConsequentSiteIterator();
         }
     }
@@ -1005,10 +961,8 @@ public final class PerVCProverModel {
         }
 
         @Override
-        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m,
-                List<Site> boundSitesSoFar) {
-            return new InductiveSiteIteratorIterator(m
-                    .topLevelAntecedentSiteIterator());
+        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m, List<Site> boundSitesSoFar) {
+            return new InductiveSiteIteratorIterator(m.topLevelAntecedentSiteIterator());
         }
     }
 
@@ -1019,24 +973,19 @@ public final class PerVCProverModel {
         }
 
         @Override
-        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m,
-                List<Site> boundSitesSoFar) {
-            return new InductiveSiteIteratorIterator(m
-                    .topLevelConsequentSiteIterator());
+        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m, List<Site> boundSitesSoFar) {
+            return new InductiveSiteIteratorIterator(m.topLevelConsequentSiteIterator());
         }
     }
 
-    public static class TopLevelAntecedentAndConsequentBinder
-            extends
-                AbstractBinder {
+    public static class TopLevelAntecedentAndConsequentBinder extends AbstractBinder {
 
         public TopLevelAntecedentAndConsequentBinder(PExp pattern) {
             super(pattern);
         }
 
         @Override
-        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m,
-                List<Site> boundSitesSoFar) {
+        public Iterator<Site> getInterestingSiteVisitor(PerVCProverModel m, List<Site> boundSitesSoFar) {
             return m.topLevelAntecedentAndConsequentSiteIterator();
         }
     }
@@ -1050,8 +999,7 @@ public final class PerVCProverModel {
         }
 
         @Override
-        public Map<PExp, PExp> considerSite(Site s,
-                Map<PExp, PExp> assumedBindings) throws BindingException {
+        public Map<PExp, PExp> considerSite(Site s, Map<PExp, PExp> assumedBindings) throws BindingException {
             Map<PExp, PExp> result = new HashMap<PExp, PExp>();
 
             considerSite(s, assumedBindings, result);
@@ -1060,15 +1008,14 @@ public final class PerVCProverModel {
         }
 
         @Override
-        public void considerSite(Site s, Map<PExp, PExp> assumedBindings,
-                Map<PExp, PExp> accumulator) throws BindingException {
+        public void considerSite(Site s, Map<PExp, PExp> assumedBindings, Map<PExp, PExp> accumulator)
+                throws BindingException {
             PExp substituted = myPattern.substitute(assumedBindings);
 
             //This is a simple optimization that prevents us from traversing the
             //expression if there's no way we could match
             if ((substituted instanceof PSymbol && ((PSymbol) substituted).quantification != Quantification.NONE)
-                    || s.exp.getSymbolNames().contains(
-                            substituted.getTopLevelOperation())) {
+                    || s.exp.getSymbolNames().contains(substituted.getTopLevelOperation())) {
                 substituted.bindTo(s.exp, accumulator);
             }
             else {
@@ -1081,16 +1028,14 @@ public final class PerVCProverModel {
 
         @Override
         public Site map(Conjunct input) {
-            return new Site(PerVCProverModel.this, input,
-                    Collections.EMPTY_LIST, input.getExpression());
+            return new Site(PerVCProverModel.this, input, Collections.EMPTY_LIST, input.getExpression());
         }
 
     }
 
     private static class ConjunctComparator implements Comparator<Conjunct> {
 
-        public static final ConjunctComparator INSTANCE =
-                new ConjunctComparator();
+        public static final ConjunctComparator INSTANCE = new ConjunctComparator();
 
         private ConjunctComparator() {
 

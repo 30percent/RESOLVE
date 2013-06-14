@@ -18,8 +18,7 @@ public class InstantiatedSymbolTable implements SymbolTable {
     private final Map<String, PTType> myGenericInstantiations;
     private final FacilityEntry myInstantiatingFacility;
 
-    public InstantiatedSymbolTable(SymbolTable base,
-            Map<String, PTType> genericInstantiations,
+    public InstantiatedSymbolTable(SymbolTable base, Map<String, PTType> genericInstantiations,
             FacilityEntry instantiatingFacility) {
         myBaseTable = base;
         myGenericInstantiations = genericInstantiations;
@@ -28,8 +27,8 @@ public class InstantiatedSymbolTable implements SymbolTable {
 
     @Override
     public Iterator<SymbolTableEntry> iterator() {
-        return new LazyMappingIterator<SymbolTableEntry, SymbolTableEntry>(
-                myBaseTable.iterator(), INSTANTIATOR);
+        return new LazyMappingIterator<SymbolTableEntry, SymbolTableEntry>(myBaseTable.iterator(),
+                INSTANTIATOR);
     }
 
     @Override
@@ -55,27 +54,21 @@ public class InstantiatedSymbolTable implements SymbolTable {
     @SuppressWarnings("unchecked")
     @Override
     public <T extends SymbolTableEntry> Iterator<T> iterateByType(Class<T> type) {
-        return new LazyMappingIterator<T, T>(myBaseTable.iterateByType(type),
-                (Mapping<T, T>) INSTANTIATOR);
+        return new LazyMappingIterator<T, T>(myBaseTable.iterateByType(type), (Mapping<T, T>) INSTANTIATOR);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends SymbolTableEntry> Iterator<T> iterateByType(
-            Collection<Class<T>> types) {
-        return new LazyMappingIterator<T, T>(myBaseTable.iterateByType(types),
-                (Mapping<T, T>) INSTANTIATOR);
+    public <T extends SymbolTableEntry> Iterator<T> iterateByType(Collection<Class<T>> types) {
+        return new LazyMappingIterator<T, T>(myBaseTable.iterateByType(types), (Mapping<T, T>) INSTANTIATOR);
     }
 
-    private class GenericInstantiatingMapping<T extends SymbolTableEntry>
-            implements
-                Mapping<T, T> {
+    private class GenericInstantiatingMapping<T extends SymbolTableEntry> implements Mapping<T, T> {
 
         @SuppressWarnings("unchecked")
         @Override
         public T map(T input) {
-            return (T) input.instantiateGenerics(myGenericInstantiations,
-                    myInstantiatingFacility);
+            return (T) input.instantiateGenerics(myGenericInstantiations, myInstantiatingFacility);
         }
     }
 }

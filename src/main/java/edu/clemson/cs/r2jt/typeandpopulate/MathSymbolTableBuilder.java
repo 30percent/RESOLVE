@@ -25,8 +25,7 @@ public class MathSymbolTableBuilder extends ScopeRepository {
 
     private static final Scope DUMMY_RESOLVER = new DummyIdentifierResolver();
 
-    private final Deque<ScopeBuilder> myLexicalScopeStack =
-            new LinkedList<ScopeBuilder>();
+    private final Deque<ScopeBuilder> myLexicalScopeStack = new LinkedList<ScopeBuilder>();
 
     private final Map<ResolveConceptualElement, ScopeBuilder> myScopes =
             new HashMap<ResolveConceptualElement, ScopeBuilder>();
@@ -48,8 +47,7 @@ public class MathSymbolTableBuilder extends ScopeRepository {
 
         //The only things in global scope are built-in things
         ScopeBuilder globalScope =
-                new ScopeBuilder(this, myTypeGraph, null, DUMMY_RESOLVER,
-                        ModuleIdentifier.GLOBAL);
+                new ScopeBuilder(this, myTypeGraph, null, DUMMY_RESOLVER, ModuleIdentifier.GLOBAL);
 
         HardCoded.addBuiltInSymbols(myTypeGraph, globalScope);
 
@@ -84,8 +82,7 @@ public class MathSymbolTableBuilder extends ScopeRepository {
     public ModuleScopeBuilder startModuleScope(ModuleDec definingElement) {
 
         if (definingElement == null) {
-            throw new IllegalArgumentException("definingElement may not be "
-                    + "null.");
+            throw new IllegalArgumentException("definingElement may not be " + "null.");
         }
 
         if (myCurModuleScope != null) {
@@ -94,9 +91,7 @@ public class MathSymbolTableBuilder extends ScopeRepository {
 
         ScopeBuilder parent = myLexicalScopeStack.peek();
 
-        ModuleScopeBuilder s =
-                new ModuleScopeBuilder(myTypeGraph, definingElement, parent,
-                        this);
+        ModuleScopeBuilder s = new ModuleScopeBuilder(myTypeGraph, definingElement, parent, this);
 
         myCurModuleScope = s;
 
@@ -131,8 +126,7 @@ public class MathSymbolTableBuilder extends ScopeRepository {
      *             the named module.
      */
     @Override
-    public ModuleScopeBuilder getModuleScope(ModuleIdentifier module)
-            throws NoSuchSymbolException {
+    public ModuleScopeBuilder getModuleScope(ModuleIdentifier module) throws NoSuchSymbolException {
 
         if (!myModuleScopes.containsKey(module)) {
             throw new NoSuchSymbolException("" + module);
@@ -166,8 +160,7 @@ public class MathSymbolTableBuilder extends ScopeRepository {
     public ScopeBuilder startScope(ResolveConceptualElement definingElement) {
 
         if (definingElement == null) {
-            throw new IllegalArgumentException("definingElement may not be "
-                    + "null.");
+            throw new IllegalArgumentException("definingElement may not be " + "null.");
         }
 
         checkModuleScopeOpen();
@@ -175,8 +168,8 @@ public class MathSymbolTableBuilder extends ScopeRepository {
         ScopeBuilder parent = myLexicalScopeStack.peek();
 
         ScopeBuilder s =
-                new ScopeBuilder(this, myTypeGraph, definingElement, parent,
-                        myCurModuleScope.getModuleIdentifier());
+                new ScopeBuilder(this, myTypeGraph, definingElement, parent, myCurModuleScope
+                        .getModuleIdentifier());
 
         addScope(s, parent);
 
@@ -243,8 +236,7 @@ public class MathSymbolTableBuilder extends ScopeRepository {
             throw new IllegalStateException("There are open scopes.");
         }
 
-        return new MathSymbolTable(myTypeGraph, myScopes, myLexicalScopeStack
-                .peek());
+        return new MathSymbolTable(myTypeGraph, myScopes, myLexicalScopeStack.peek());
     }
 
     private void checkModuleScopeOpen() {

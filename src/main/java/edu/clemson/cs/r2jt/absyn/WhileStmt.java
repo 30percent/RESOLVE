@@ -96,9 +96,8 @@ public class WhileStmt extends Statement {
 
     public WhileStmt() {};
 
-    public WhileStmt(Location location, ProgramExp test,
-            List<VariableExp> changing, Exp maintaining, Exp decreasing,
-            Exp elapsed_time, List<Statement> statements) {
+    public WhileStmt(Location location, ProgramExp test, List<VariableExp> changing, Exp maintaining,
+            Exp decreasing, Exp elapsed_time, List<Statement> statements) {
         this.location = location;
         this.test = test;
         this.changing = changing;

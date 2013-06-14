@@ -55,9 +55,7 @@ public class RParserSuper extends Parser {
 
     protected void checkOtherwiseItem(Tree ast) {
         if (otherwise) {
-            String msg =
-                    "Cannot add an alternative after "
-                            + "an \"otherwise\" clause.";
+            String msg = "Cannot add an alternative after " + "an \"otherwise\" clause.";
             err.error(getPos(ast), msg);
         }
     }
@@ -78,12 +76,10 @@ public class RParserSuper extends Parser {
 
     protected void checkIteratedIdent(Tree ast) {
         if (!ast.getText().equals("Sum") && !ast.getText().equals("Product")
-                && !ast.getText().equals("Concatenation")
-                && !ast.getText().equals("Intersection")
+                && !ast.getText().equals("Concatenation") && !ast.getText().equals("Intersection")
                 && !ast.getText().equals("Union")) {
             String msg =
-                    "Expecting iteration identifier "
-                            + "(Sum, Product, Concatenation, Intersection, Union),"
+                    "Expecting iteration identifier " + "(Sum, Product, Concatenation, Intersection, Union),"
                             + "but found " + ast.getText();
             err.error(getPos(ast), msg);
         }
@@ -113,17 +109,13 @@ public class RParserSuper extends Parser {
     }
 
     public String getErrorMessage(RecognitionException e, String[] tokenNames) {
-        java.util.List stack =
-                (java.util.List) getRuleInvocationStack(e, this.getClass()
-                        .getName());
+        java.util.List stack = (java.util.List) getRuleInvocationStack(e, this.getClass().getName());
         String msg = null;
         if (e instanceof NoViableAltException) {
             NoViableAltException nvae = (NoViableAltException) e;
             msg =
-                    " no viable alt; token=" + e.token + " (decision="
-                            + nvae.decisionNumber + " state "
-                            + nvae.stateNumber + ")" + " input " + nvae.input
-                            + ")" + " decision=<<"
+                    " no viable alt; token=" + e.token + " (decision=" + nvae.decisionNumber + " state "
+                            + nvae.stateNumber + ")" + " input " + nvae.input + ")" + " decision=<<"
                             + nvae.grammarDecisionDescription + ">>";
         }
         if (e instanceof MismatchedTokenException) {
@@ -165,9 +157,7 @@ public class RParserSuper extends Parser {
 
     protected void matchModuleIdent(Tree id2, Tree id1) {
         if (!id1.getText().equals(id2.getText())) {
-            String msg =
-                    "End name " + id2.getText()
-                            + " does not match module name " + id1.getText();
+            String msg = "End name " + id2.getText() + " does not match module name " + id1.getText();
             err.error(getPos(id2), msg);
         }
     }
@@ -182,18 +172,14 @@ public class RParserSuper extends Parser {
 
     protected void matchOperationIdent(Tree id2, Tree id1) {
         if (!id1.getText().equals(id2.getText())) {
-            String msg =
-                    "End name " + id2.getText()
-                            + " does not match operation name " + id1.getText();
+            String msg = "End name " + id2.getText() + " does not match operation name " + id1.getText();
             err.error(getPos(id2), msg);
         }
     }
 
     protected void matchMathItemIdent(Tree id2, Tree id1) {
         if (!id1.getText().equals(id2.getText())) {
-            String msg =
-                    "End name " + id2.getText() + " does not match proof name "
-                            + id1.getText();
+            String msg = "End name " + id2.getText() + " does not match proof name " + id1.getText();
             err.error(getPos(id2), msg);
         }
     }

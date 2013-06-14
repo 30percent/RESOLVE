@@ -17,16 +17,13 @@ import java.util.Set;
  *
  * @author hamptos
  */
-public class MainProofFitnessFunction
-        implements
-            FitnessFunction<Transformation> {
+public class MainProofFitnessFunction implements FitnessFunction<Transformation> {
 
     private Set<String> myConsequentVariableNames = new HashSet<String>();
 
     public MainProofFitnessFunction(PerVCProverModel model) {
         for (Conjunct c : model.getConsequentList()) {
-            myConsequentVariableNames
-                    .addAll(c.getExpression().getSymbolNames());
+            myConsequentVariableNames.addAll(c.getExpression().getSymbolNames());
         }
     }
 
@@ -35,14 +32,11 @@ public class MainProofFitnessFunction
         double result = 0;
 
         if (t.couldAffectAntecedent()
-                || (!(t instanceof StrengthenConsequent) && t
-                        .introducesQuantifiedVariables())) {
+                || (!(t instanceof StrengthenConsequent) && t.introducesQuantifiedVariables())) {
             result = -1;
         }
-        else if (AutomatedProver.H_DETECT_IDENTITY_EXPANSION
-                && t instanceof SubstituteInPlaceInConsequent) {
-            SubstituteInPlaceInConsequent tAsSIPIC =
-                    (SubstituteInPlaceInConsequent) t;
+        else if (AutomatedProver.H_DETECT_IDENTITY_EXPANSION && t instanceof SubstituteInPlaceInConsequent) {
+            SubstituteInPlaceInConsequent tAsSIPIC = (SubstituteInPlaceInConsequent) t;
 
             PExp pattern = tAsSIPIC.getPattern();
             PExp replacement = tAsSIPIC.getReplacement();
@@ -55,16 +49,12 @@ public class MainProofFitnessFunction
         }
 
         if (result == 0 && AutomatedProver.H_BEST_FIRST_CONSEQUENT_EXPLORATION) {
-            Set<String> introduced =
-                    new HashSet<String>(t.getReplacementSymbolNames());
+            Set<String> introduced = new HashSet<String>(t.getReplacementSymbolNames());
             introduced.removeAll(myConsequentVariableNames);
 
-            double simplificationFactor =
-                    unitAtan(t.functionApplicationCountDelta() * -1);
+            double simplificationFactor = unitAtan(t.functionApplicationCountDelta() * -1);
 
-            result =
-                    Math.min(Math.pow(0.5, introduced.size())
-                            * simplificationFactor, 1.0);
+            result = Math.min(Math.pow(0.5, introduced.size()) * simplificationFactor, 1.0);
         }
 
         return result;

@@ -24,8 +24,7 @@ public interface VCProver {
      *                              or <code>metrics</code> is 
      *                              <code>null</code>.
      */
-    public void prove(final VerificationCondition vC,
-            final ProverListener progressListener,
+    public void prove(final VerificationCondition vC, final ProverListener progressListener,
             ActionCanceller actionCanceller, long timeoutAt)
             throws VCInconsistentException,
                 VCProvedException,

@@ -2,9 +2,7 @@ package edu.clemson.cs.r2jt.proving;
 
 import edu.clemson.cs.r2jt.utilities.Mapping;
 
-public class StaticProofDataSuggestionMapping
-        implements
-            Mapping<VCTransformer, ProofPathSuggestion> {
+public class StaticProofDataSuggestionMapping implements Mapping<VCTransformer, ProofPathSuggestion> {
 
     private final ProofData myData;
 
