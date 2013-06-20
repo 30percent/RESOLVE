@@ -1376,8 +1376,7 @@ public class Populator extends TreeWalkerVisitor {
             }
             else {
                 if (i.getEvalExp() == null) {
-                    i
-                            .setMathType(es.get(0).toProgramVariableEntry(i.getLocation()).getProgramType()
+                    i.setMathType(es.get(0).toProgramVariableEntry(i.getLocation()).getProgramType()
                                     .toMath());
                 }
                 else {

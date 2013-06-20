@@ -42,8 +42,6 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     public static final Flag FLAG_PRETTY_C_TRANSLATE =
             new Flag(FLAG_SECTION_NAME, "prettyCTranslate", FLAG_DESC_TRANSLATE);
 
-    //Global stmt buf
-    StringBuffer stmtBuf;
 
     /*
      * End of Variable Declaration
@@ -55,7 +53,6 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
         this.table = table;
         targetFileName = dec.getName().getFile().getName();
         cInfo = new PrettyCTranslationInfo(dec.getName().getFile().getName());
-        stmtBuf = new StringBuffer();
         isMath = false;
     }
 
@@ -178,7 +175,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
 
         if (!name.getName().startsWith("_")) {
             NameTy ty = (NameTy) dec.getTy();
-            String stTy = ty.getName().getName();
+            String stTy = ((NameTy)dec.getTy()).getQualifier().getName();
             String newTy, init;
             if (stTy.equals("Integer")) {
                 newTy = "int";
@@ -207,7 +204,6 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
 
     @Override
     public void preFuncAssignStmt(FuncAssignStmt stmt) {
-        stmtBuf = new StringBuffer();
     }
 
     @Override

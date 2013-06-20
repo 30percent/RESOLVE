@@ -36,6 +36,7 @@ public class PrettyCTranslationInfo {
         String functionName;
         String returnName;
         List<String> params;
+        boolean hasBody;
 
         List<String> varInit;
         List<String> stmts;
@@ -97,6 +98,9 @@ public class PrettyCTranslationInfo {
         currentFunc = newFunc;
     }
 
+    public void endFunction(){
+        currentFunc = null;
+    }
     public void appendToStmt(String append) {
         currentFunc.allStmt.append(append);
     }
