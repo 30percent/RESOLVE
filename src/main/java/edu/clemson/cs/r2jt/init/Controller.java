@@ -169,9 +169,10 @@ public class Controller {
      * Glossary:
      * 
      * Target File - A file that appears on the command line of the compiler.
-     * Import File - A file that is imported by a module being compiled. New
-     * Target File - A target file that has not been seen by the compilation
-     * environment. New Import File - An import file that has not been seem by
+     * Import File - A file that is imported by a module being compiled. 
+     * New Target File - A target file that has not been seen by the compilation
+     * environment.
+     * New Import File - An import file that has not been seen by
      * the compilation environment.
      */
 
