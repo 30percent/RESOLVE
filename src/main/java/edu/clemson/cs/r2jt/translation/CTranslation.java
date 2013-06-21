@@ -39,8 +39,7 @@ public class CTranslation extends TreeWalkerStackVisitor {
     private static final String FLAG_SECTION_NAME = "Full C Translation";
 
     private static final String FLAG_DESC_TRANSLATE =
-            "Translates into " + "a \"Full\" C version of the "
-                    + "RESOLVE File.";
+            "Translates into " + "a \"Full\" C version of the " + "RESOLVE File.";
     public static final Flag FLAG_C_TRANSLATE =
             new Flag(FLAG_SECTION_NAME, "ctranslate", FLAG_DESC_TRANSLATE);
 
@@ -56,14 +55,13 @@ public class CTranslation extends TreeWalkerStackVisitor {
         isMath = false;
         QueryFake();
     }
-    
-    private void QueryFake(){
-        
-        
+
+    private void QueryFake() {
+
     }
 
     /* Visitor Methods */
-    
+
     @Override
     /**
      * Facility Operations.
@@ -80,23 +78,23 @@ public class CTranslation extends TreeWalkerStackVisitor {
             cInfo.addFunction(dec.getName().getName(), "void ");
         }
     }
-    
+
     @Override
-    public void postFacilityOperationDec(FacilityOperationDec dec){
+    public void postFacilityOperationDec(FacilityOperationDec dec) {
         cInfo.endFunction();
     }
-    
+
     @Override
     public void preVarDec(VarDec dec) {
         PosSymbol name = dec.getName();
-        if(dec.getTy() instanceof NameTy){
+        if (dec.getTy() instanceof NameTy) {
             NameTy ty = (NameTy) dec.getTy();
             String stTy = ty.getName().getName();
             String newTy, init;
         }
-        
+
     }
-    
+
     @Override
     public void preParameterVarDec(ParameterVarDec dec) {
         StringBuilder parmSet = new StringBuilder();
@@ -106,7 +104,7 @@ public class CTranslation extends TreeWalkerStackVisitor {
         else {
             System.out.println("How did you reach here?");
         }
-       // parmSet.append(" ").append(cInfo.stringFromSym(dec.getName(), null));
+        // parmSet.append(" ").append(cInfo.stringFromSym(dec.getName(), null));
         //cInfo.addParamToFunc(parmSet.toString());
         //myScope.queryForOne(new NameQuery());
     }

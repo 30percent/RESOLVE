@@ -29,12 +29,12 @@ public class CTranslationBookkeeper {
         funcList.add(newFunc);
         currentFunc = newFunc;
     }
-    
+
     public void appendToStmt(String append) {
         currentFunc.allStmts.append(append);
     }
-    
-    public void endFunction(){
+
+    public void endFunction() {
         currentFunc = null;
     }
 }

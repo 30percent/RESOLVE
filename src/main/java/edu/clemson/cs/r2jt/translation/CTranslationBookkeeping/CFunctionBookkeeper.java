@@ -12,6 +12,7 @@ import java.util.List;
  * @author Mark T
  */
 public class CFunctionBookkeeper {
+
     String returnType;
     String functionName;
     String returnName;
@@ -19,11 +20,11 @@ public class CFunctionBookkeeper {
 
     List<String> varInit;
     StringBuffer allStmts;
-    
+
     // Boolean location checks
     boolean inParamList = false;
-    
-    public CFunctionBookkeeper(String newName, String newReturnTy){
+
+    public CFunctionBookkeeper(String newName, String newReturnTy) {
 
         returnType = "void ";
         returnName = newName;
