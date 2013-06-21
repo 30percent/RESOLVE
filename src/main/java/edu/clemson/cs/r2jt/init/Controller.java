@@ -1211,8 +1211,7 @@ public class Controller {
 
             String key = "";
 
-            if (kind == ModuleKind.CONCEPT_BODY
-                    || kind == ModuleKind.ENHANCEMENT
+            if (kind == ModuleKind.CONCEPT_BODY || kind == ModuleKind.ENHANCEMENT
                     || kind == ModuleKind.ENHANCEMENT_BODY) {
                 key += mid.getConceptName().getName() + ".";
             }
@@ -1222,8 +1221,7 @@ public class Controller {
             key += mid.getName().getName();
 
             if (myInstanceEnvironment.isUserFile(key)) {
-                MetaFile importFile =
-                        myInstanceEnvironment.getUserFileFromMap(key);
+                MetaFile importFile = myInstanceEnvironment.getUserFileFromMap(key);
                 compileNewImportSource(key, importFile, symbolTable);
             }
             else {

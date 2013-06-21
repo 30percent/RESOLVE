@@ -98,9 +98,10 @@ public class PrettyCTranslationInfo {
         currentFunc = newFunc;
     }
 
-    public void endFunction(){
+    public void endFunction() {
         currentFunc = null;
     }
+
     public void appendToStmt(String append) {
         currentFunc.allStmt.append(append);
     }

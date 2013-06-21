@@ -42,7 +42,6 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     public static final Flag FLAG_PRETTY_C_TRANSLATE =
             new Flag(FLAG_SECTION_NAME, "prettyCTranslate", FLAG_DESC_TRANSLATE);
 
-
     /*
      * End of Variable Declaration
      */
@@ -175,7 +174,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
 
         if (!name.getName().startsWith("_")) {
             NameTy ty = (NameTy) dec.getTy();
-            String stTy = ((NameTy)dec.getTy()).getQualifier().getName();
+            String stTy = ((NameTy) dec.getTy()).getQualifier().getName();
             String newTy, init;
             if (stTy.equals("Integer")) {
                 newTy = "int";
@@ -203,8 +202,7 @@ public class PrettyCTranslation extends TreeWalkerStackVisitor {
     }
 
     @Override
-    public void preFuncAssignStmt(FuncAssignStmt stmt) {
-    }
+    public void preFuncAssignStmt(FuncAssignStmt stmt) {}
 
     @Override
     public void midFuncAssignStmt(FuncAssignStmt stmt, ResolveConceptualElement prevChild,
