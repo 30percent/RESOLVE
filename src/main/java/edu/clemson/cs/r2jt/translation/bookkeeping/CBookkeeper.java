@@ -4,6 +4,8 @@
  */
 package edu.clemson.cs.r2jt.translation.bookkeeping;
 
+import java.util.Iterator;
+
 /**
  *
  * @author
@@ -54,8 +56,25 @@ public class CBookkeeper extends AbstractBookkeeper {
 
     @Override
     public String output() {
+        StringBuilder output = new StringBuilder();
+        output.append("/*").append("Name: ").append(conceptName).append("*/\n");
+
+        output.append(stdimports());
+        for (int i = 0; i < facilityList.size(); i++) {
+            output.append(facilityList.get(i).getString());
+        }
+        output.append("\n");
+        for (int i = 0; i < functionList.size(); i++) {
+            output.append(functionList.get(i).getString());
+        }
+        output.append("\n").append("/*").append(conceptName).append("*/");
+
         return "empty";
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    }
+
+    private String stdimports() {
+        return "#include Resolve.h \n#include Std_Integer_Realiz.h";
     }
 }
 
@@ -67,9 +86,16 @@ class CFacilityDeclBook extends FacilityDeclBook {
 
     @Override
     String getString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder retString = new StringBuilder();
+        retString.append("typedef struct ").append(myName).append("{");
+        retString.append(myConcept).append("* core;");
+        for (FacilityDeclEnhance a : enhanceList) {
+            retString.append(a.myName).append("_for_").append(myConcept);
+            retString.append("* ").append(a.myName);
+        }
+        retString.append("} ").append(myName).append(";");
+        return retString.toString();
     }
-
 }
 
 class CFunctionBook extends FunctionBook {
@@ -80,6 +106,14 @@ class CFunctionBook extends FunctionBook {
 
     @Override
     String getString() {
+        StringBuilder retString = new StringBuilder();
+        retString.append(myReturnType).append(" ").append(myName);
+        retString.append("(");
+        Iterator a = parameterList.iterator();
+        /*while(){
+            retString.append(a).append(", ");
+        }
+        this.*/
         return "GETSTRINGFORFUNCTIONBOOK";
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

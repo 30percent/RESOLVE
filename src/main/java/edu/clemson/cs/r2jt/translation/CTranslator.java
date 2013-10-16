@@ -67,11 +67,10 @@ public class CTranslator extends AbstractTranslator {
         myBookkeeper.fxnAddParam("r_type_ptr " + varName);
     }
 
+    //Consider putting this in Bookkeeper
     @Override
     public void postProcedureDecParameters(ProcedureDec dec) {
-        int i = 0;
         ResolveConceptualElement a;
-        String b;
         a = getAncestorMatchingClass(dec, ModuleDec.class);
         ModuleDec myMod = (ModuleDec) a;
         myBookkeeper.fxnAddParam(", " + getConceptName(myMod) + " _thisFac");
@@ -97,6 +96,7 @@ public class CTranslator extends AbstractTranslator {
                         "Std_Character_Fac->CreateCharFromConstant('"
                                 + item.getEvalExp().toString() + "')";
             }
+
             if (myBookkeeper.facEnhanceIsOpen()) {
                 myBookkeeper.facAddEnhanceParam(param);
             }

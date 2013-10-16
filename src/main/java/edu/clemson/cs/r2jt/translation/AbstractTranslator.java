@@ -125,6 +125,22 @@ public abstract class AbstractTranslator extends TreeWalkerStackVisitor {
 
     /* End Visit Statements */
 
+    /* Visit Expressions */
+
+    @Override
+    public void preVariableNameExp(VariableNameExp exp) {
+        String name = "";
+        if (exp.getQualifier() != null) {
+            name =
+                    exp.getQualifier() + qualifyingSymbol
+                            + exp.getName().getName();
+        }
+        else {
+            name = exp.getName().getName();
+        }
+        myBookkeeper.fxnAppendTo(name);
+    }
+
     /* Visit Declarations */
 
     //For Facilities
@@ -269,6 +285,7 @@ public abstract class AbstractTranslator extends TreeWalkerStackVisitor {
             //   String code = Formatter.formatCode(myBookkeeper.output());
             //   System.out.println(code);
             // System.out.println(myBookkeeper.output());
+            System.out.println(myBookkeeper.output());
         }
         else {
             outputToReport(myBookkeeper.output().toString());

@@ -213,6 +213,10 @@ abstract class FacilityDeclBook {
             myRealiz = realiz;
             parameterList = new ArrayList();
         }
+
+        String getString() {
+            return "Incomplete";
+        }
     }
 
     abstract String getString();

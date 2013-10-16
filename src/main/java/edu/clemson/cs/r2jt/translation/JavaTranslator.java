@@ -28,8 +28,8 @@ public class JavaTranslator extends AbstractTranslator {
             new Flag(FLAG_SECTION_NAME, "javaTranslateClean",
                     FLAG_DESC_TRANSLATE_CLEAN);
 
-    public JavaTranslator(CompileEnvironment env, ModuleScope scope, ModuleDec dec, 
-            ErrorHandler err) {
+    public JavaTranslator(CompileEnvironment env, ModuleScope scope,
+            ModuleDec dec, ErrorHandler err) {
 
         super(env, scope, dec, err);
         qualifyingSymbol = ".";
