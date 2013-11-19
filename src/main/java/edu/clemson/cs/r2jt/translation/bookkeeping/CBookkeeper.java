@@ -69,7 +69,7 @@ public class CBookkeeper extends AbstractBookkeeper {
         }
         output.append("\n").append("/*").append(conceptName).append("*/");
 
-        return "empty";
+        return output.toString();
 
     }
 
