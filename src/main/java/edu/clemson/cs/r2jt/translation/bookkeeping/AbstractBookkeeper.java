@@ -1,5 +1,9 @@
 package edu.clemson.cs.r2jt.translation.bookkeeping;
 
+import edu.clemson.cs.r2jt.translation.bookkeeping.Books.AbstractBook;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -33,6 +37,10 @@ public abstract class AbstractBookkeeper implements Bookkeeper {
     List<String> myConstructors;
     List<String> myImportList;
 
+    AbstractBook currentBook;
+    List<AbstractBook> myBookList;
+    List<String> myInstanceVariables;
+
     public AbstractBookkeeper(String moduleName, Boolean isRealiz) {
         myModuleName = moduleName;
         isRealization = isRealiz;
@@ -40,6 +48,7 @@ public abstract class AbstractBookkeeper implements Bookkeeper {
         myImportList = new ArrayList();
         myFunctionList = new ArrayList();
         myFacilityList = new ArrayList();
+        myBookList = new ArrayList();
         myConstructors = new LinkedList<String>();
     }
 
@@ -56,6 +65,46 @@ public abstract class AbstractBookkeeper implements Bookkeeper {
     // -----------------------------------------------------------
     //   FacilityBook methods
     // -----------------------------------------------------------
+
+    public void addBook(Class<AbstractBook> cls, List<String> paramList){
+        try{
+            Constructor con = cls.getConstructor(List.class);
+            if(currentBook == null){
+                currentBook = (AbstractBook) con.newInstance(paramList);
+                myBookList.add(currentBook);
+            } else{
+                currentBook.addBook((AbstractBook) con.newInstance(paramList));
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (InstantiationException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
+    public void addVariableDeclaration(String param){
+        if(currentBook != null)  currentBook.addElement(param, "vardec");
+        else myInstanceVariables.add(param);
+
+
+    }
+
+    public void addParameter(String param){
+        currentBook.addElement(param, "parameter");
+    }
+
+    public void appendTo(String param){
+        if(currentBook != null)  currentBook.addElement(param, "append");
+    }
+
+    public void closeBook(){
+        currentBook = null;
+    }
+
 
     @Override
     public void facAddParameter(String parameter) {
